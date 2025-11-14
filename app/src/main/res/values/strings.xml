@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SMS Classifier</string>
+    
+    <!-- Screens -->
+    <string name="inbox_title">Messages</string>
+    <string name="detail_title">Message Details</string>
+    <string name="settings_title">Settings</string>
+    
+    <!-- Filters -->
+    <string name="filter_all">All</string>
+    <string name="filter_otp">OTP</string>
+    <string name="filter_phishing">Phishing</string>
+    <string name="filter_needs_review">Needs Review</string>
+    
+    <!-- Badges -->
+    <string name="badge_safe">Safe</string>
+    <string name="badge_suspicious">Suspicious</string>
+    <string name="badge_phishing">Phishing</string>
+    <string name="badge_otp">OTP</string>
+    
+    <!-- Settings -->
+    <string name="settings_inference_mode">Inference Mode</string>
+    <string name="settings_on_device">On-Device</string>
+    <string name="settings_server">Server</string>
+    <string name="settings_privacy">Privacy Options</string>
+    <string name="settings_export_labels">Export Labels</string>
+    
+    <!-- Actions -->
+    <string name="action_report_wrong">Report as Wrong</string>
+    <string name="action_share">Share</string>
+    <string name="action_search">Search</string>
+    
+    <!-- Messages -->
+    <string name="no_messages">No messages</string>
+    <string name="loading">Loading…</string>
+    <string name="error_loading">Error loading messages</string>
+    <string name="sms_permission_required">SMS permission is required</string>
+</resources>
+

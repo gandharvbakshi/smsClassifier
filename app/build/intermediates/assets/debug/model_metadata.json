@@ -1,0 +1,64 @@
+{
+  "models": {
+    "phishing": {
+      "type": "binary",
+      "classes": [
+        0,
+        1
+      ],
+      "class_names": [
+        "not_phishing",
+        "phishing"
+      ]
+    },
+    "is_otp": {
+      "type": "binary",
+      "classes": [
+        0,
+        1
+      ],
+      "class_names": [
+        "not_otp",
+        "is_otp"
+      ]
+    },
+    "otp_intent": {
+      "type": "multiclass",
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "class_names": [
+        "APP_ACCOUNT_CHANGE_OTP",
+        "APP_LOGIN_OTP",
+        "BANK_OR_CARD_TXN_OTP",
+        "DELIVERY_OR_SERVICE_OTP",
+        "FINANCIAL_LOGIN_OTP",
+        "GENERIC_APP_ACTION_OTP",
+        "KYC_OR_ESIGN_OTP",
+        "NOT_OTP",
+        "UPI_TXN_OR_PIN_OTP"
+      ]
+    }
+  },
+  "features": {
+    "tfidf_vocab_size": 71392,
+    "heuristic_features": 23,
+    "total_features": 71415
+  },
+  "preprocessing": {
+    "normalize_text": true,
+    "lowercase": true,
+    "ngram_range": [
+      1,
+      2
+    ]
+  }
+}

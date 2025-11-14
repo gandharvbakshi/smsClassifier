@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude database from backup -->
+    <exclude domain="database" path="sms_classifier.db" />
+</full-backup-content>
+

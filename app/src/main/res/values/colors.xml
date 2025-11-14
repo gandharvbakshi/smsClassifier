@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="safe_green">#4CAF50</color>
+    <color name="suspicious_amber">#FF9800</color>
+    <color name="phishing_red">#F44336</color>
+    <color name="otp_blue">#2196F3</color>
+</resources>
+
