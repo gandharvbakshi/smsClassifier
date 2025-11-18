@@ -199,25 +199,6 @@ public final class MessageDao_Impl implements MessageDao {
   }
 
   @Override
-  public Object insertAll(final List<MessageEntity> messages,
-      final Continuation<? super Unit> $completion) {
-    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
-      @Override
-      @NonNull
-      public Unit call() throws Exception {
-        __db.beginTransaction();
-        try {
-          __insertionAdapterOfMessageEntity.insert(messages);
-          __db.setTransactionSuccessful();
-          return Unit.INSTANCE;
-        } finally {
-          __db.endTransaction();
-        }
-      }
-    }, $completion);
-  }
-
-  @Override
   public Object update(final MessageEntity message, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
@@ -654,6 +635,98 @@ public final class MessageDao_Impl implements MessageDao {
   }
 
   @Override
+  public PagingSource<Integer, MessageEntity> getGeneralPaged() {
+    final String _sql = "SELECT * FROM messages WHERE (isOtp IS NULL OR isOtp = 0) AND (isPhishing IS NULL OR isPhishing = 0) ORDER BY ts DESC";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return new LimitOffsetPagingSource<MessageEntity>(_statement, __db, "messages") {
+      @Override
+      @NonNull
+      protected List<MessageEntity> convertRows(@NonNull final Cursor cursor) {
+        final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(cursor, "id");
+        final int _cursorIndexOfSender = CursorUtil.getColumnIndexOrThrow(cursor, "sender");
+        final int _cursorIndexOfBody = CursorUtil.getColumnIndexOrThrow(cursor, "body");
+        final int _cursorIndexOfTs = CursorUtil.getColumnIndexOrThrow(cursor, "ts");
+        final int _cursorIndexOfLanguage = CursorUtil.getColumnIndexOrThrow(cursor, "language");
+        final int _cursorIndexOfFeaturesJson = CursorUtil.getColumnIndexOrThrow(cursor, "featuresJson");
+        final int _cursorIndexOfIsOtp = CursorUtil.getColumnIndexOrThrow(cursor, "isOtp");
+        final int _cursorIndexOfOtpIntent = CursorUtil.getColumnIndexOrThrow(cursor, "otpIntent");
+        final int _cursorIndexOfIsPhishing = CursorUtil.getColumnIndexOrThrow(cursor, "isPhishing");
+        final int _cursorIndexOfPhishScore = CursorUtil.getColumnIndexOrThrow(cursor, "phishScore");
+        final int _cursorIndexOfReasonsJson = CursorUtil.getColumnIndexOrThrow(cursor, "reasonsJson");
+        final int _cursorIndexOfReviewed = CursorUtil.getColumnIndexOrThrow(cursor, "reviewed");
+        final int _cursorIndexOfVersion = CursorUtil.getColumnIndexOrThrow(cursor, "version");
+        final List<MessageEntity> _result = new ArrayList<MessageEntity>(cursor.getCount());
+        while (cursor.moveToNext()) {
+          final MessageEntity _item;
+          final long _tmpId;
+          _tmpId = cursor.getLong(_cursorIndexOfId);
+          final String _tmpSender;
+          _tmpSender = cursor.getString(_cursorIndexOfSender);
+          final String _tmpBody;
+          _tmpBody = cursor.getString(_cursorIndexOfBody);
+          final long _tmpTs;
+          _tmpTs = cursor.getLong(_cursorIndexOfTs);
+          final String _tmpLanguage;
+          if (cursor.isNull(_cursorIndexOfLanguage)) {
+            _tmpLanguage = null;
+          } else {
+            _tmpLanguage = cursor.getString(_cursorIndexOfLanguage);
+          }
+          final String _tmpFeaturesJson;
+          if (cursor.isNull(_cursorIndexOfFeaturesJson)) {
+            _tmpFeaturesJson = null;
+          } else {
+            _tmpFeaturesJson = cursor.getString(_cursorIndexOfFeaturesJson);
+          }
+          final Boolean _tmpIsOtp;
+          final Integer _tmp;
+          if (cursor.isNull(_cursorIndexOfIsOtp)) {
+            _tmp = null;
+          } else {
+            _tmp = cursor.getInt(_cursorIndexOfIsOtp);
+          }
+          _tmpIsOtp = _tmp == null ? null : _tmp != 0;
+          final String _tmpOtpIntent;
+          if (cursor.isNull(_cursorIndexOfOtpIntent)) {
+            _tmpOtpIntent = null;
+          } else {
+            _tmpOtpIntent = cursor.getString(_cursorIndexOfOtpIntent);
+          }
+          final Boolean _tmpIsPhishing;
+          final Integer _tmp_1;
+          if (cursor.isNull(_cursorIndexOfIsPhishing)) {
+            _tmp_1 = null;
+          } else {
+            _tmp_1 = cursor.getInt(_cursorIndexOfIsPhishing);
+          }
+          _tmpIsPhishing = _tmp_1 == null ? null : _tmp_1 != 0;
+          final Float _tmpPhishScore;
+          if (cursor.isNull(_cursorIndexOfPhishScore)) {
+            _tmpPhishScore = null;
+          } else {
+            _tmpPhishScore = cursor.getFloat(_cursorIndexOfPhishScore);
+          }
+          final String _tmpReasonsJson;
+          if (cursor.isNull(_cursorIndexOfReasonsJson)) {
+            _tmpReasonsJson = null;
+          } else {
+            _tmpReasonsJson = cursor.getString(_cursorIndexOfReasonsJson);
+          }
+          final boolean _tmpReviewed;
+          final int _tmp_2;
+          _tmp_2 = cursor.getInt(_cursorIndexOfReviewed);
+          _tmpReviewed = _tmp_2 != 0;
+          final int _tmpVersion;
+          _tmpVersion = cursor.getInt(_cursorIndexOfVersion);
+          _item = new MessageEntity(_tmpId,_tmpSender,_tmpBody,_tmpTs,_tmpLanguage,_tmpFeaturesJson,_tmpIsOtp,_tmpOtpIntent,_tmpIsPhishing,_tmpPhishScore,_tmpReasonsJson,_tmpReviewed,_tmpVersion);
+          _result.add(_item);
+        }
+        return _result;
+      }
+    };
+  }
+
+  @Override
   public PagingSource<Integer, MessageEntity> searchPaged(final String query) {
     final String _sql = "SELECT * FROM messages WHERE body LIKE ? OR sender LIKE ? ORDER BY ts DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
@@ -747,6 +820,108 @@ public final class MessageDao_Impl implements MessageDao {
         return _result;
       }
     };
+  }
+
+  @Override
+  public Flow<MessageEntity> getLatestMessage() {
+    final String _sql = "SELECT * FROM messages ORDER BY ts DESC LIMIT 1";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return CoroutinesRoom.createFlow(__db, false, new String[] {"messages"}, new Callable<MessageEntity>() {
+      @Override
+      @Nullable
+      public MessageEntity call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfSender = CursorUtil.getColumnIndexOrThrow(_cursor, "sender");
+          final int _cursorIndexOfBody = CursorUtil.getColumnIndexOrThrow(_cursor, "body");
+          final int _cursorIndexOfTs = CursorUtil.getColumnIndexOrThrow(_cursor, "ts");
+          final int _cursorIndexOfLanguage = CursorUtil.getColumnIndexOrThrow(_cursor, "language");
+          final int _cursorIndexOfFeaturesJson = CursorUtil.getColumnIndexOrThrow(_cursor, "featuresJson");
+          final int _cursorIndexOfIsOtp = CursorUtil.getColumnIndexOrThrow(_cursor, "isOtp");
+          final int _cursorIndexOfOtpIntent = CursorUtil.getColumnIndexOrThrow(_cursor, "otpIntent");
+          final int _cursorIndexOfIsPhishing = CursorUtil.getColumnIndexOrThrow(_cursor, "isPhishing");
+          final int _cursorIndexOfPhishScore = CursorUtil.getColumnIndexOrThrow(_cursor, "phishScore");
+          final int _cursorIndexOfReasonsJson = CursorUtil.getColumnIndexOrThrow(_cursor, "reasonsJson");
+          final int _cursorIndexOfReviewed = CursorUtil.getColumnIndexOrThrow(_cursor, "reviewed");
+          final int _cursorIndexOfVersion = CursorUtil.getColumnIndexOrThrow(_cursor, "version");
+          final MessageEntity _result;
+          if (_cursor.moveToFirst()) {
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final String _tmpSender;
+            _tmpSender = _cursor.getString(_cursorIndexOfSender);
+            final String _tmpBody;
+            _tmpBody = _cursor.getString(_cursorIndexOfBody);
+            final long _tmpTs;
+            _tmpTs = _cursor.getLong(_cursorIndexOfTs);
+            final String _tmpLanguage;
+            if (_cursor.isNull(_cursorIndexOfLanguage)) {
+              _tmpLanguage = null;
+            } else {
+              _tmpLanguage = _cursor.getString(_cursorIndexOfLanguage);
+            }
+            final String _tmpFeaturesJson;
+            if (_cursor.isNull(_cursorIndexOfFeaturesJson)) {
+              _tmpFeaturesJson = null;
+            } else {
+              _tmpFeaturesJson = _cursor.getString(_cursorIndexOfFeaturesJson);
+            }
+            final Boolean _tmpIsOtp;
+            final Integer _tmp;
+            if (_cursor.isNull(_cursorIndexOfIsOtp)) {
+              _tmp = null;
+            } else {
+              _tmp = _cursor.getInt(_cursorIndexOfIsOtp);
+            }
+            _tmpIsOtp = _tmp == null ? null : _tmp != 0;
+            final String _tmpOtpIntent;
+            if (_cursor.isNull(_cursorIndexOfOtpIntent)) {
+              _tmpOtpIntent = null;
+            } else {
+              _tmpOtpIntent = _cursor.getString(_cursorIndexOfOtpIntent);
+            }
+            final Boolean _tmpIsPhishing;
+            final Integer _tmp_1;
+            if (_cursor.isNull(_cursorIndexOfIsPhishing)) {
+              _tmp_1 = null;
+            } else {
+              _tmp_1 = _cursor.getInt(_cursorIndexOfIsPhishing);
+            }
+            _tmpIsPhishing = _tmp_1 == null ? null : _tmp_1 != 0;
+            final Float _tmpPhishScore;
+            if (_cursor.isNull(_cursorIndexOfPhishScore)) {
+              _tmpPhishScore = null;
+            } else {
+              _tmpPhishScore = _cursor.getFloat(_cursorIndexOfPhishScore);
+            }
+            final String _tmpReasonsJson;
+            if (_cursor.isNull(_cursorIndexOfReasonsJson)) {
+              _tmpReasonsJson = null;
+            } else {
+              _tmpReasonsJson = _cursor.getString(_cursorIndexOfReasonsJson);
+            }
+            final boolean _tmpReviewed;
+            final int _tmp_2;
+            _tmp_2 = _cursor.getInt(_cursorIndexOfReviewed);
+            _tmpReviewed = _tmp_2 != 0;
+            final int _tmpVersion;
+            _tmpVersion = _cursor.getInt(_cursorIndexOfVersion);
+            _result = new MessageEntity(_tmpId,_tmpSender,_tmpBody,_tmpTs,_tmpLanguage,_tmpFeaturesJson,_tmpIsOtp,_tmpOtpIntent,_tmpIsPhishing,_tmpPhishScore,_tmpReasonsJson,_tmpReviewed,_tmpVersion);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
   }
 
   @Override
@@ -946,6 +1121,37 @@ public final class MessageDao_Impl implements MessageDao {
   @Override
   public Flow<Integer> getNeedsReviewCount() {
     final String _sql = "SELECT COUNT(*) FROM messages WHERE reviewed = 0 AND (isPhishing IS NULL OR phishScore IS NULL)";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return CoroutinesRoom.createFlow(__db, false, new String[] {"messages"}, new Callable<Integer>() {
+      @Override
+      @NonNull
+      public Integer call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final Integer _result;
+          if (_cursor.moveToFirst()) {
+            final int _tmp;
+            _tmp = _cursor.getInt(0);
+            _result = _tmp;
+          } else {
+            _result = 0;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
+  }
+
+  @Override
+  public Flow<Integer> getGeneralCount() {
+    final String _sql = "SELECT COUNT(*) FROM messages WHERE (isOtp IS NULL OR isOtp = 0) AND (isPhishing IS NULL OR isPhishing = 0)";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     return CoroutinesRoom.createFlow(__db, false, new String[] {"messages"}, new Callable<Integer>() {
       @Override

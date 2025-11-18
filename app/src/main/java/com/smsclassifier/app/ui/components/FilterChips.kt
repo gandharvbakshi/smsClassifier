@@ -16,7 +16,8 @@ fun FilterChips(
     selectedFilter: FilterType,
     onFilterSelected: (FilterType) -> Unit,
     counts: Map<FilterType, Int>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    filterOrder: List<FilterType> = FilterType.values().toList()
 ) {
     Row(
         modifier = modifier
@@ -24,7 +25,7 @@ fun FilterChips(
             .padding(horizontal = 8.dp, vertical = 4.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        FilterType.values().forEach { filter ->
+        filterOrder.forEach { filter ->
             val isSelected = selectedFilter == filter
             Surface(
                 modifier = Modifier

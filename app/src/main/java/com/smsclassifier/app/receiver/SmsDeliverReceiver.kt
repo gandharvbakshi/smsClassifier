@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 
 class SmsDeliverReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        Log.d(TAG, "SmsDeliverReceiver triggered with action=${intent.action}")
         if (Telephony.Sms.Intents.SMS_DELIVER_ACTION != intent.action) return
 
         val pendingResult = goAsync()
@@ -31,9 +32,9 @@ class SmsDeliverReceiver : BroadcastReceiver() {
                 val sender = messages.firstOrNull()?.displayOriginatingAddress ?: "UNKNOWN"
                 val timestamp = messages.firstOrNull()?.timestampMillis ?: System.currentTimeMillis()
                 val body = messages.joinToString(separator = "") { it.displayMessageBody ?: "" }
+                Log.d(TAG, "Received SMS from $sender length=${body.length}")
 
                 val messageEntity = MessageEntity(
-                    id = 0,
                     sender = sender,
                     body = body,
                     ts = timestamp,
@@ -49,7 +50,8 @@ class SmsDeliverReceiver : BroadcastReceiver() {
                 )
 
                 val database = AppDatabase.getDatabase(context.applicationContext)
-                database.messageDao().insert(messageEntity)
+                val newId = database.messageDao().insert(messageEntity)
+                Log.d(TAG, "Inserted message $newId and enqueuing worker")
                 ClassificationWorker.enqueue(context.applicationContext)
             } catch (t: Throwable) {
                 Log.e(TAG, "Failed to handle incoming SMS", t)

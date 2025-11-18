@@ -3,7 +3,6 @@ package com.smsclassifier.app.ui.viewmodel
 import android.app.Activity
 import android.app.role.RoleManager
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.Intent
 import android.os.Build
 import android.provider.Telephony
@@ -17,29 +16,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 
-enum class InferenceMode {
-    ON_DEVICE, SERVER
-}
-
 class SettingsViewModel(
     private val context: Context,
-    private val database: AppDatabase,
-    private val prefs: SharedPreferences
+    private val database: AppDatabase
 ) : ViewModel() {
-    private val _inferenceMode = MutableStateFlow(
-        InferenceMode.valueOf(
-            prefs.getString("inference_mode", InferenceMode.ON_DEVICE.name) ?: InferenceMode.ON_DEVICE.name
-        )
-    )
-    val inferenceMode: StateFlow<InferenceMode> = _inferenceMode.asStateFlow()
-
     private val _isDefaultSmsApp = MutableStateFlow(checkIsDefaultSms())
     val isDefaultSmsApp: StateFlow<Boolean> = _isDefaultSmsApp.asStateFlow()
-
-    fun setInferenceMode(mode: InferenceMode) {
-        _inferenceMode.value = mode
-        prefs.edit().putString("inference_mode", mode.name).apply()
-    }
 
     fun refreshDefaultSmsStatus() {
         _isDefaultSmsApp.value = checkIsDefaultSms()

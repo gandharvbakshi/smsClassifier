@@ -9,8 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.data.MessageEntity
-import com.smsclassifier.app.ui.badges.BadgeType
 import com.smsclassifier.app.ui.badges.ClassificationBadge
+import com.smsclassifier.app.ui.badges.SensitivityBadge
+import com.smsclassifier.app.util.ClassificationUtils
 
 @Composable
 fun MessageItem(
@@ -61,9 +62,9 @@ fun MessageItem(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Badge based on classification
-                val badgeType = determineBadgeType(message)
-                ClassificationBadge(type = badgeType)
+                ClassificationBadge(type = ClassificationUtils.riskBadgeType(message))
+                val sensitivityType = ClassificationUtils.sensitivityType(message)
+                SensitivityBadge(type = sensitivityType)
                 
                 if (message.isOtp == true && message.otpIntent != null) {
                     Text(
@@ -74,17 +75,6 @@ fun MessageItem(
                 }
             }
         }
-    }
-}
-
-private fun determineBadgeType(message: MessageEntity): BadgeType {
-    val phishScore = message.phishScore ?: 0f
-    
-    return when {
-        message.isPhishing == true || phishScore >= 0.6f -> BadgeType.PHISHING
-        phishScore in 0.3f..0.6f -> BadgeType.SUSPICIOUS
-        message.isOtp == true && phishScore < 0.3f -> BadgeType.SAFE
-        else -> BadgeType.SAFE
     }
 }
 

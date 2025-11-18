@@ -8,13 +8,16 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.smsclassifier.app.data.MessageEntity
-import com.smsclassifier.app.ui.badges.BadgeType
 import com.smsclassifier.app.ui.badges.ClassificationBadge
+import com.smsclassifier.app.ui.badges.SensitivityBadge
 import com.smsclassifier.app.ui.components.ReasonChips
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
+import com.smsclassifier.app.util.ClassificationUtils
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonPrimitive
@@ -33,7 +36,12 @@ fun DetailScreen(
         viewModel.loadMessage(messageId)
     }
 
+    val snackbarHostState = remember { SnackbarHostState() }
+    val clipboardManager = LocalClipboardManager.current
+    val coroutineScope = rememberCoroutineScope()
+
     Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
                 title = { Text("Message Details") },
@@ -91,12 +99,8 @@ fun DetailScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
                 ) {
-                    val badgeType = determineBadgeType(msg)
-                    ClassificationBadge(type = badgeType)
-                    
-                    if (msg.isOtp == true) {
-                        ClassificationBadge(type = BadgeType.OTP)
-                    }
+                    ClassificationBadge(type = ClassificationUtils.riskBadgeType(msg))
+                    SensitivityBadge(type = ClassificationUtils.sensitivityType(msg))
                 }
                 
                 // OTP Intent
@@ -106,6 +110,21 @@ fun DetailScreen(
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium
                     )
+                }
+
+                val otpCode = remember(msg.body) { ClassificationUtils.extractOtpCode(msg.body) }
+                if (otpCode != null) {
+                    FilledTonalButton(
+                        onClick = {
+                            clipboardManager.setText(AnnotatedString(otpCode))
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar("OTP copied to clipboard")
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Copy OTP ($otpCode)")
+                    }
                 }
                 
                 // Phishing score
@@ -145,16 +164,6 @@ fun DetailScreen(
                 CircularProgressIndicator()
             }
         }
-    }
-}
-
-private fun determineBadgeType(message: MessageEntity): BadgeType {
-    val phishScore = message.phishScore ?: 0f
-    return when {
-        message.isPhishing == true || phishScore >= 0.6f -> BadgeType.PHISHING
-        phishScore in 0.3f..0.6f -> BadgeType.SUSPICIOUS
-        message.isOtp == true && phishScore < 0.3f -> BadgeType.SAFE
-        else -> BadgeType.SAFE
     }
 }
 

@@ -150,9 +150,8 @@ class SettingsViewModelFactory(
 ) : ViewModelProvider.Factory {
     override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
-            val prefs = context.getSharedPreferences("sms_classifier_prefs", android.content.Context.MODE_PRIVATE)
             @Suppress("UNCHECKED_CAST")
-            return SettingsViewModel(context, database, prefs) as T
+            return SettingsViewModel(context, database) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

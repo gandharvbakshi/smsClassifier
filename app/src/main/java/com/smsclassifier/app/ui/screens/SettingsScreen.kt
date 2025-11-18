@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.smsclassifier.app.ui.viewmodel.InferenceMode
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
 
 @Composable
@@ -20,7 +19,6 @@ fun SettingsScreen(
     viewModel: SettingsViewModel,
     modifier: Modifier = Modifier
 ) {
-    val inferenceMode by viewModel.inferenceMode.collectAsState()
     val isDefaultSms by viewModel.isDefaultSmsApp.collectAsState()
     val context = LocalContext.current
     val activity = remember(context) { context.findActivity() }
@@ -54,20 +52,14 @@ fun SettingsScreen(
                     text = "Inference Mode",
                     style = MaterialTheme.typography.titleMedium
                 )
-                
-                InferenceMode.values().forEach { mode ->
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(mode.name)
-                        RadioButton(
-                            selected = inferenceMode == mode,
-                            onClick = { viewModel.setInferenceMode(mode) }
-                        )
-                    }
-                }
+                Text(
+                    text = "Server (fixed)",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Text(
+                    text = "All SMS are classified through the backend ensemble.",
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
         }
 

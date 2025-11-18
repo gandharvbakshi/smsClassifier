@@ -4,20 +4,16 @@ import android.content.Context
 import android.util.Log
 import ai.onnxruntime.OnnxTensor
 import ai.onnxruntime.OnnxValue
-import ai.onnxruntime.OrtEnvironment
 import ai.onnxruntime.OrtSession
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileOutputStream
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
-import java.nio.FloatBuffer
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.sequences.asSequence
 
 class OnDeviceClassifier(private val context: Context) : Classifier {
-    private var ortEnv: OrtEnvironment? = null
     private var phishingSession: OrtSession? = null
     private var isotpSession: OrtSession? = null
     private var intentSession: OrtSession? = null
@@ -31,8 +27,6 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
     private fun loadModels() {
         val startTime = System.currentTimeMillis()
         try {
-            ortEnv = OrtEnvironment.getEnvironment()
-            
             // Load models from assets
             phishingSession = loadModel("model_phishing.onnx")
             isotpSession = loadModel("model_isotp.onnx")
@@ -47,16 +41,22 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
 
     private fun loadModel(assetName: String): OrtSession? {
         return try {
-            val inputStream = context.assets.open(assetName)
-            val tempFile = File(context.cacheDir, assetName)
-            FileOutputStream(tempFile).use { output ->
-                inputStream.copyTo(output)
+            SESSION_CACHE[assetName] ?: synchronized(SESSION_CACHE) {
+                SESSION_CACHE[assetName]?.let { return it }
+
+                val tempFile = File(context.cacheDir, assetName)
+                context.assets.open(assetName).use { input ->
+                    FileOutputStream(tempFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+
+                val session = ORT_ENVIRONMENT.createSession(tempFile.absolutePath, SESSION_OPTIONS)
+                session.inputNames.forEach { Log.d("OnDeviceClassifier", "$assetName input: $it") }
+                session.outputNames.forEach { Log.d("OnDeviceClassifier", "$assetName output: $it") }
+                SESSION_CACHE[assetName] = session
+                session
             }
-            val session = ortEnv?.createSession(tempFile.absolutePath)
-            // Log input/output names for debugging
-            session?.inputNames?.forEach { Log.d("OnDeviceClassifier", "$assetName input: $it") }
-            session?.outputNames?.forEach { Log.d("OnDeviceClassifier", "$assetName output: $it") }
-            session
         } catch (e: Exception) {
             Log.e("OnDeviceClassifier", "Failed to load $assetName", e)
             null
@@ -79,17 +79,16 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
             }
             
             val reasons = mutableListOf<String>()
-            val shape = longArrayOf(1, combinedFeatures.size.toLong())
-            
             // Predict phishing
             val phishingScores = phishingSession?.let { session ->
                 val inputName = session.inputNames.firstOrNull() ?: return@let floatArrayOf(0f, 0f)
-                createInputTensor(combinedFeatures, shape).use { tensor ->
+                createInputTensor(combinedFeatures).use { tensor ->
                     session.run(mapOf(inputName to tensor)).use { result ->
                         result.firstValue().asFloatArray(floatArrayOf(0f, 0f))
                     }
                 }
             } ?: floatArrayOf(0f, 0f)
+            Log.d("OnDeviceClassifier", "phishingScores=${phishingScores.joinToString()}")
             val isPhishing = phishingScores.size > 1 && phishingScores[1] > 0.5f
             val phishScore = if (phishingScores.size > 1) phishingScores[1] else 0f
             
@@ -100,25 +99,31 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
             // Predict is_otp
             val isotpScores = isotpSession?.let { session ->
                 val inputName = session.inputNames.firstOrNull() ?: return@let floatArrayOf(0f, 0f)
-                createInputTensor(combinedFeatures, shape).use { tensor ->
+                createInputTensor(combinedFeatures).use { tensor ->
                     session.run(mapOf(inputName to tensor)).use { result ->
                         result.firstValue().asFloatArray(floatArrayOf(0f, 0f))
                     }
                 }
             } ?: floatArrayOf(0f, 0f)
-            val isOtp = isotpScores.size > 1 && isotpScores[1] > 0.5f
+            Log.d("OnDeviceClassifier", "isOtpScores=${isotpScores.joinToString()}")
+            var isOtp = isotpScores.size > 1 && isotpScores[1] > OTP_THRESHOLD
+            if (!isOtp && HEURISTIC_OTP_REGEX.containsMatchIn(input.text.lowercase()) && CODE_REGEX.containsMatchIn(input.text)) {
+                isOtp = true
+                reasons.add("OTP keywords detected heuristically")
+            }
             
             // Predict intent (only if OTP)
             var otpIntent: String? = null
             if (isOtp) {
                 val intentScores = intentSession?.let { session ->
                     val inputName = session.inputNames.firstOrNull() ?: return@let FloatArray(9)
-                    createInputTensor(combinedFeatures, shape).use { tensor ->
+                    createInputTensor(combinedFeatures).use { tensor ->
                         session.run(mapOf(inputName to tensor)).use { result ->
                             result.firstValue().asFloatArray(FloatArray(9))
                         }
                     }
                 } ?: FloatArray(9)
+                Log.d("OnDeviceClassifier", "intentScores=${intentScores.joinToString()}")
                 val maxIndex = intentScores.indices.maxByOrNull { intentScores[it] } ?: 0
                 
                 // Map index to intent (you'll need to load this from metadata)
@@ -169,8 +174,28 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
         return phishingSession != null && isotpSession != null && intentSession != null
     }
 
-    private fun createInputTensor(features: FloatArray, shape: LongArray): OnnxTensor =
-        OnnxTensor.createTensor(ortEnv!!, features.copyOf(), shape)
+    private fun createInputTensor(features: FloatArray): OnnxTensor =
+        OnnxTensor.createTensor(ORT_ENVIRONMENT, arrayOf(features.copyOf()))
+
+    companion object {
+        private val ORT_ENVIRONMENT by lazy {
+            ai.onnxruntime.OrtEnvironment.getEnvironment()
+        }
+
+        private val SESSION_OPTIONS by lazy {
+            OrtSession.SessionOptions().apply {
+                setIntraOpNumThreads(1)
+                setInterOpNumThreads(1)
+                setExecutionMode(OrtSession.SessionOptions.ExecutionMode.SEQUENTIAL)
+            }
+        }
+
+        private val SESSION_CACHE = ConcurrentHashMap<String, OrtSession>()
+
+        private const val OTP_THRESHOLD = 0.5f
+        private val HEURISTIC_OTP_REGEX = Regex("(otp|verification code|password code|your code|security code)")
+        private val CODE_REGEX = Regex("\\b\\d{4,8}\\b")
+    }
 }
 
 private fun OrtSession.Result.firstValue(): OnnxValue? {

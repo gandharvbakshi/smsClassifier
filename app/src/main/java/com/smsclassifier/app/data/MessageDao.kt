@@ -18,8 +18,14 @@ interface MessageDao {
     @Query("SELECT * FROM messages WHERE reviewed = 0 AND (isPhishing IS NULL OR phishScore IS NULL) ORDER BY ts DESC")
     fun getNeedsReviewPaged(): PagingSource<Int, MessageEntity>
 
+    @Query("SELECT * FROM messages WHERE (isOtp IS NULL OR isOtp = 0) AND (isPhishing IS NULL OR isPhishing = 0) ORDER BY ts DESC")
+    fun getGeneralPaged(): PagingSource<Int, MessageEntity>
+
     @Query("SELECT * FROM messages WHERE body LIKE :query OR sender LIKE :query ORDER BY ts DESC")
     fun searchPaged(query: String): PagingSource<Int, MessageEntity>
+
+    @Query("SELECT * FROM messages ORDER BY ts DESC LIMIT 1")
+    fun getLatestMessage(): Flow<MessageEntity?>
 
     @Query("SELECT * FROM messages WHERE id = :id")
     suspend fun getById(id: Long): MessageEntity?
@@ -36,6 +42,9 @@ interface MessageDao {
     @Query("SELECT COUNT(*) FROM messages WHERE reviewed = 0 AND (isPhishing IS NULL OR phishScore IS NULL)")
     fun getNeedsReviewCount(): Flow<Int>
 
+    @Query("SELECT COUNT(*) FROM messages WHERE (isOtp IS NULL OR isOtp = 0) AND (isPhishing IS NULL OR isPhishing = 0)")
+    fun getGeneralCount(): Flow<Int>
+
     @Query("SELECT * FROM messages WHERE isOtp IS NULL OR isPhishing IS NULL ORDER BY ts DESC LIMIT :limit")
     suspend fun getUnclassified(limit: Int): List<MessageEntity>
 
@@ -44,9 +53,6 @@ interface MessageDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(message: MessageEntity): Long
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(messages: List<MessageEntity>)
 
     @Update
     suspend fun update(message: MessageEntity)

@@ -89,5 +89,5 @@ Enable in `BuildConfig`:
 1. Test with real SMS messages
 2. Export feedback labels for retraining
 3. Tune model thresholds in `OnDeviceClassifier`
-4. Add server endpoint URL in `ServerClassifier`
+4. Update `SERVER_API_BASE_URL` in `app/build.gradle.kts` if your server runs somewhere other than the emulator loopback (`http://10.0.2.2:8001/api`)
 

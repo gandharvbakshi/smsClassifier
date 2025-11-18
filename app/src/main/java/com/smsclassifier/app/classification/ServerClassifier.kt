@@ -1,6 +1,7 @@
 package com.smsclassifier.app.classification
 
 import android.util.Log
+import com.smsclassifier.app.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
@@ -29,7 +30,7 @@ data class ServerResponse(
 )
 
 class ServerClassifier(
-    private val baseUrl: String = "https://your-server.com/api",
+    private val baseUrl: String = BuildConfig.SERVER_API_BASE_URL,
     private val timeoutSeconds: Int = 2
 ) : Classifier {
     private val client = OkHttpClient.Builder()
@@ -44,14 +45,10 @@ class ServerClassifier(
     override suspend fun predict(input: MessageFeatures): Prediction = withContext(Dispatchers.IO) {
         val startTime = System.currentTimeMillis()
         
-        // Hash PII before sending
-        val hashedText = hashPII(input.text)
-        val hashedSender = input.sender?.let { hashPII(it) }
-        
         val requestBody = Json.encodeToString(
             ServerRequest(
-                text = hashedText,
-                sender = hashedSender,
+                text = input.text,
+                sender = input.sender,
                 features = input.heuristicFeatures?.let { features ->
                     features.mapIndexed { index, value -> "feature_$index" to value }.toMap()
                 }
@@ -109,14 +106,6 @@ class ServerClassifier(
             reasons = listOf("Server error: ${lastException?.message}"),
             inferenceTimeMs = inferenceTime
         )
-    }
-
-    private fun hashPII(text: String): String {
-        // Simple hash - in production, use proper hashing (SHA-256)
-        // For now, just mask phone numbers and card numbers
-        return text
-            .replace(Regex("\\b\\d{10,12}\\b"), "PHONE_XXX")
-            .replace(Regex("\\b\\d{4}[\\s-]?\\d{4}[\\s-]?\\d{4}[\\s-]?\\d{4}\\b"), "CARD_XXXX")
     }
 
     override fun isAvailable(): Boolean {

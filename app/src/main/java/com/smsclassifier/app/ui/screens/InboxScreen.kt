@@ -35,6 +35,7 @@ fun InboxScreen(
     val otpCount by viewModel.otpCount.collectAsState(initial = 0)
     val phishingCount by viewModel.phishingCount.collectAsState(initial = 0)
     val needsReviewCount by viewModel.needsReviewCount.collectAsState(initial = 0)
+    val generalCount by viewModel.generalCount.collectAsState(initial = 0)
 
     Column(modifier = modifier.fillMaxSize()) {
         // Search bar
@@ -49,12 +50,20 @@ fun InboxScreen(
             selectedFilter = filter,
             onFilterSelected = viewModel::setFilter,
             counts = mapOf(
-                FilterType.ALL to totalCount,
                 FilterType.OTP to otpCount,
                 FilterType.PHISHING to phishingCount,
-                FilterType.NEEDS_REVIEW to needsReviewCount
+                FilterType.NEEDS_REVIEW to needsReviewCount,
+                FilterType.GENERAL to generalCount,
+                FilterType.ALL to totalCount
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            filterOrder = listOf(
+                FilterType.OTP,
+                FilterType.PHISHING,
+                FilterType.NEEDS_REVIEW,
+                FilterType.GENERAL,
+                FilterType.ALL
+            )
         )
         
         // Messages list

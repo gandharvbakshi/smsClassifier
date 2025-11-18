@@ -11,11 +11,9 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.smsclassifier.app.classification.Classifier
 import com.smsclassifier.app.classification.FeatureExtractor
-import com.smsclassifier.app.classification.OnDeviceClassifier
 import com.smsclassifier.app.classification.ServerClassifier
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.MessageEntity
-import com.smsclassifier.app.ui.viewmodel.InferenceMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -27,22 +25,7 @@ class ClassificationWorker(
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             val database = AppDatabase.getDatabase(applicationContext)
-            val prefs = applicationContext.getSharedPreferences("sms_classifier_prefs", Context.MODE_PRIVATE)
-            val inferenceMode = InferenceMode.valueOf(
-                prefs.getString("inference_mode", InferenceMode.ON_DEVICE.name) ?: InferenceMode.ON_DEVICE.name
-            )
-
-            val classifier: Classifier = when (inferenceMode) {
-                InferenceMode.ON_DEVICE -> {
-                    OnDeviceClassifier(applicationContext).also {
-                        if (!it.isAvailable()) {
-                            Log.e("ClassificationWorker", "On-device classifier not available")
-                            return@withContext Result.retry()
-                        }
-                    }
-                }
-                InferenceMode.SERVER -> ServerClassifier()
-            }
+            val classifier: Classifier = ServerClassifier()
 
             val featureExtractor = FeatureExtractor(applicationContext)
             val unclassifiedMessages = database.messageDao().getUnclassified(limit = 10)
@@ -58,6 +41,10 @@ class ClassificationWorker(
                 try {
                     val features = featureExtractor.extractFeatures(message.body, message.sender)
                     val prediction = classifier.predict(features)
+                    Log.d(
+                        "ClassificationWorker",
+                        "Message ${message.id} otp=${prediction.isOtp} phishing=${prediction.isPhishing} intent=${prediction.otpIntent}"
+                    )
 
                     val updatedMessage = message.copy(
                         isOtp = prediction.isOtp,
@@ -85,7 +72,7 @@ class ClassificationWorker(
 
         fun enqueue(context: Context) {
             val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
                 .setRequiresBatteryNotLow(true)
                 .build()
 
