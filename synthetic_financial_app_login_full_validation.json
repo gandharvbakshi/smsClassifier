@@ -1,0 +1,14 @@
+{
+  "total_rows": 850,
+  "intent_counts": {
+    "FINANCIAL_LOGIN_OTP": 450,
+    "APP_LOGIN_OTP": 400
+  },
+  "issues": [],
+  "warnings": [
+    "FINANCIAL_LOGIN_OTP: Only 450/800 samples (expected at least 720)",
+    "APP_LOGIN_OTP: Only 400/800 samples (expected at least 720)",
+    "Only 255/400 APP_LOGIN_OTP messages contain app keywords"
+  ],
+  "stats": {
+    "internal_duplicates": 

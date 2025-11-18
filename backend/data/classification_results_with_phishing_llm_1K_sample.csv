@@ -1,0 +1,1233 @@
+﻿original_index,sms_text,predicted_is_otp,predicted_otp_intent,classification_status,batch_number,is_phishing
+12115,"You have successfully modified your subscription. 
+
+Please note the subscription prices are subject to change as per market rates. 
+Don't forget to hang a bag at the door to receive your deliveries.
+
+Thank you, 
+Team bbdaily",False,NOT_OTP,auto_not_otp,18,False
+57937,Your registration is almost complete. Enter this code to begin riding: 2646,True,DELIVERY_OR_SERVICE_OTP,success,10,True
+23372,"INR7.71 debited on Credit Card XX2827 on 27-Oct-19.Info:GOOGLE CLOUD.Avbl Lmt:INR85,990.45.Call 18002662 for dispute or SMS BLOCK 2004 to 8473147485",False,NOT_OTP,auto_not_otp,21,True
+36521,Get your copy of policy related documents in just a few minutes using the CHI customer app. To download the mobile app click https://carehi.in//t/R5NRVr Team CHI,False,NOT_OTP,auto_not_otp,47,True
+56623,Still I'm getting very busy to your mobile .....,False,NOT_OTP,auto_not_otp,7,False
+57795,Biggest challenge for all CAT17 aspirants is now ON. Have you registered for IMS CAT Challenge? Registration closing on 16 Nov. Click goo.gl/ef6J6C to register!,False,NOT_OTP,auto_not_otp,9,True
+9606,"[Waitlist Confirmed] Session: HRX Workout Time Slot: 04-Aug-2024, 6:00AM Center: Cult Basavanagudi Booking ID: BSGDIKYZ6FO0 Be sure to arrive 5 mins early to mark your attendance - Team cult.fit",False,NOT_OTP,auto_not_otp,13,False
+36131,AMAZONUPI ppXHmhMq(DmVu9(C@3_os|](LIms?PM3txS(P 07065888830,False,NOT_OTP,auto_not_otp,46,True
+55855,"Your plan for Jio no.3880385084 will expire on 17-08-2017. To avoid STOPPAGE of services, recharge IMMEDIATELY with Rs.313 plan today and enjoy 1GB high speed data/day and unlimited calling benefits for 3 months. Click http://jio.com/r/DYpXLgSC to recharge.",False,NOT_OTP,auto_not_otp,5,True
+47089,08000839402 1000 available bluetooth call2optout double free latest mins mobileupd8 motorola nokia orange phones sony sonyericsson tariffs txts,False,NOT_OTP,auto_not_otp,68,True
+48841,কেমন লাগছে তোমাকে? আমি খুব ভালো আছি।,False,NOT_OTP,auto_not_otp,71,False
+33193,"Supr Delivery OTP: 448838
+
+Your bulk order will be delivered HK 47-DYR-1409, between 7:00 AM and 11:00 AM by our Supr Delivery Agent. For the secure delivery of your order, an OTP [One Time Password] has been created for you. Please share this OTP with the delivery agent after you have received and verified all the items in your order.",True,DELIVERY_OR_SERVICE_OTP,success,40,True
+56872,😕😕😕,False,NOT_OTP,auto_not_otp,7,False
+3169,224850 is the OTP for INR 132.55 transaction on Swiggy Limi using ICICI Bank Credit Card XX0708. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,success,3,False
+15469,ICICI Bank Acct XXX751 debited for INR 553.50 on 26-Oct-21 & SIMPLI NAMDHARIS credited.UPI:129940535199.Call 18002662 for dispute or SMS BLOCK 696 to 8752848782.,False,NOT_OTP,auto_not_otp,5,False
+24241,"Dear Customer, INR 372.82 is debited on ICICI Bank Credit Card XX7451 on 19-Jun-21. Info: AMAZON STANDING. Available Limit: INR 15,219.57. Call on 18002662 for dispute or SMS BLOCK 7007 to 8183159102.",False,NOT_OTP,auto_not_otp,22,False
+66687,Home so we can always chat,False,NOT_OTP,auto_not_otp,27,False
+35545,"Hi! We have received & are processing your request for service Callertune Selection. Just sit back & relax, you will receive a confirmation within 2 hours.",False,NOT_OTP,auto_not_otp,45,False
+18196,"INR 9,256.55 spent on ICICI Bank Card XX3466 on 18-Mar-23 at FENNY S INDIA. Avl Lmt: INR 8,48,482.67. To dispute,call 18002662/SMS BLOCK 7007 to 5042998516",False,NOT_OTP,auto_not_otp,10,True
+62673,No,False,NOT_OTP,auto_not_otp,19,False
+49688,"বাড়ির ডেকোর আইটেমে ২০% ছাড়। স্টক সীমিত, দেরি করবেন না।",False,NOT_OTP,auto_not_otp,73,False
+30101,Congratulations! You won INR 8 cashback. We will deposit it into your credit card XXX-7319 in the next 7 days.,False,NOT_OTP,auto_not_otp,34,True
+16467,807560 is OTP for txn of INR 054.62 at Swiggy on ICICI Bank Credit Card XX0394. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,7,False
+38907,don expect just,False,NOT_OTP,auto_not_otp,52,False
+13137,"Dear Customer, INR 151.64 is debited on ICICI Bank Credit Card XX6103 on 29-Jun-21. Info: Payu Payments. Available Limit: INR 46,602.85. Call on 18002662 for dispute or SMS BLOCK 7007 to 6163688113.",False,NOT_OTP,auto_not_otp,20,False
+57362,1)BC14=STD calls@30p/min for 30days.2)BC 9=All calls@30p/min for 90 days.Extra benefit 4 hrs me.Offer 3 Dino tak.,False,NOT_OTP,auto_not_otp,8,True
+6800,"INR 404.95 spent on ICICI Bank Card XX5464 on 23-May-24 at IND*Amazon.in -. Avl Lmt: INR 9,95,554.59. To dispute,call 18002662/SMS BLOCK 7007 to 9098275434",False,NOT_OTP,auto_not_otp,7,False
+48372,শুভ লক্ষ্মী পূজা!,False,NOT_OTP,auto_not_otp,70,False
+58484,"Use code DAY99 b/w 6am - 6pm and pay just Rs 09 for the first 10 km. Also, pay with Ola Money and get ride vouchers of Rs 28. on 2 rides.",False,NOT_OTP,success,11,False
+21850,ICICI Bank Acct XX235 debited for Rs 930.45 on 05-Oct-22; THEOBROMA Jayan credited. UPI:227855385874. Call 18002662 for dispute. SMS BLOCK 696 to 6673029720.,False,NOT_OTP,auto_not_otp,17,False
+14718,"INR 485.77 spent on ICICI Bank Card XX8989 on 06-Jun-23 at DAILYDEL SOLUTI. Avl Lmt: INR 0,11,788.43. To dispute,call 18002662/SMS BLOCK 7007 to 3188092455",False,NOT_OTP,auto_not_otp,3,False
+18371,"INR 865.76 spent on ICICI Bank Card XX3935 on 15-Aug-23 at SWIGGY. Avl Lmt: INR 1,54,189.05. To dispute,call 18002662/SMS BLOCK 7007 to 0224639177",False,NOT_OTP,auto_not_otp,11,False
+5286,"INR 9,451.39 spent using ICICI Bank Card XX1392 on 03-Nov-24 on GOOGLE WORKSPAC. Avl Limit: INR 10,61,422.65. If not you, call 1800 2662/SMS BLOCK 2004 to 4185702247.",False,NOT_OTP,auto_not_otp,4,False
+45403,09061221066 28 awarded camera days delivery digital fromm landline sipix,False,NOT_OTP,auto_not_otp,65,True
+32292,Your order #116320492765 was delivered well before time! Keep ordering from Swiggy to experience our lightning fast delivery.,False,NOT_OTP,auto_not_otp,38,False
+2774,Hello! Your Postpaid Products related request dated 21-May-2025 06:45:43 PM with reference number FGXGPJEXDD1747833339405 is registered.,False,NOT_OTP,success,3,False
+12119,"Low Balance Alert!
+Your bbdaily wallet balance is sufficient enough only for Next 2 subscription deliveries.
+Recharge now:
+https://bit.ly/bbdrech",False,NOT_OTP,auto_not_otp,18,True
+44397,100 80062 ans correct draw entered gift no1 receipt registered subscriber ur voucher whats,False,NOT_OTP,auto_not_otp,63,True
+11382,Hello!! Customer your AXlS.CARD USER POINT 9500 EXP today. Please receive your amount IN CASH tz.gorwdzz.online at real estate M/S Abdul Jabbar & CO,False,NOT_OTP,auto_not_otp,17,True
+59899,No,False,NOT_OTP,auto_not_otp,14,False
+31843,"Greetings, Your SIP of 11/03/2020 for Rs.2578.40 under Folio 79919061891 in Mirae Asset Large Cap Fund has been processed for NAV of 47.468.subject to realisation.Mirae Asset MF",False,NOT_OTP,auto_not_otp,37,False
+15055,"INR 715.29 spent on ICICI Bank Card XX5699 on 24-Sep-23 at SWIGGY. Avl Lmt: INR 3,74,074.75. To dispute,call 18002662/SMS BLOCK 7007 to 9816919533",False,NOT_OTP,auto_not_otp,4,False
+57850,"Your CAT Prep BRM - Part II is delivered with signature on 27-02-2017. For any queries call 022-66680005 (extn:216,221) or write to ims@imsindia.com",False,NOT_OTP,auto_not_otp,9,False
+44472,apply bloomberg center com credits future http message pin wait www,False,NOT_OTP,auto_not_otp,63,True
+4240,856763 is OTP for txn of INR 614.73 at Swiggy on ICICI Bank Credit Card XX7125. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,2,False
+36576,Alert: You've spent INR 417.08 on your AMEX card **91009 at STREET FOOD BY PUNJAB GRILL on 30/08/2019 at 08:18PM IST. Please call 18004190691 if this was not made by you.,False,NOT_OTP,auto_not_otp,47,False
+59834,No,False,NOT_OTP,auto_not_otp,13,False
+57913,OTP to add beneficiary A/c 36XXXXXX574 is:60338145. Do not share it with anyone,True,BANK_OR_CARD_TXN_OTP,success,10,False
+17182,"Your slice card transaction of Rs. 283 on swiggy was successful. You have earned 590 monies and your updated credit balance is Rs. 1,32,689 - slice",False,NOT_OTP,auto_not_otp,8,False
+59475,No,False,NOT_OTP,auto_not_otp,13,False
+46583,800 87121 apply cash collect comp cup entry euro2004 fa final free pobox question rate receive std text tkts txt ve win wkly won,False,NOT_OTP,auto_not_otp,67,True
+67506,Yup i thk cine is better cos no need 2 go down 2 plaza mah.,False,NOT_OTP,auto_not_otp,29,False
+2798,"IMPORTANT: Your Vi bill date has changed to 9th  of every month, with payment due on 19th  of the month. You would have received a pro-rata bill on 09-10-2025 for the period 20-09-2025 to 08-10-2025 (19days). and will receive a full month bill from November onwards. For further assistance visit Vi App https://vi.app.link/PoBP",False,NOT_OTP,success,4,True
+52824,वसा कम करें (8 इंच) उपयोग करें*वाइब्रेशन बेल्ट(रु.999) सौना स्लिम बेल्ट(रु.650) एनसीआर(रु.50 अधिक)+डिलीवरी के लिए निःशुल्क योको फ़ोन 7159022038/7639528570,False,NOT_OTP,auto_not_otp,79,True
+38660,12 900 claim code customer hours network prize reward selected valid valued winner,False,NOT_OTP,success,51,True
+49325,শুভ রাত্রি!,False,NOT_OTP,auto_not_otp,72,False
+48751,শাকিব আল হাসানের সই করা ব্যাট জিততে আজই আইপিএলে বাজি ধরুন। এখনই ক্লিক করুন: xini.eu/00Qe,False,NOT_OTP,auto_not_otp,71,True
+54974,Say hello to Vodafone in Maharashtra. BEST ROAMING OFFERS are here! Dial *121*121# to know more.,False,NOT_OTP,auto_not_otp,4,False
+53664,मैं बस इसे गूगल करूंगा...,False,NOT_OTP,auto_not_otp,1,False
+20560,DO NOT SHARE: Your Google Pay OTP is 376427. Message ID: f6f01vO3FNp,True,UPI_TXN_OR_PIN_OTP,success,15,False
+59325,No,False,NOT_OTP,auto_not_otp,12,False
+51556,"सच्ची खुशी देने वाले काम करें, संतोष प्राप्त होगा।",False,NOT_OTP,auto_not_otp,77,False
+49539,ক্যাসিনোতে বেট করুন এবং একটি ফ্রি হোটেল বুকিং জিতুন! শুরু করুন: super1000.info/docs,False,NOT_OTP,auto_not_otp,73,True
+11454,Your Licious order is out for delivery!. Track your order here https://track.licious.in/e8f2bb8 -Licious,False,NOT_OTP,auto_not_otp,17,True
+53074,मत चूको!! जेपी प्रांसट्स 'केंसिंग्टन बुलेवार्ड' अपार्टमेंट सेक्टर 131 नोएडा1बीआर=16.2एल2बीआर=21.2एल3बीआर=37.3एल4बीआर=54.6एलग्रेट होम्स - कुछ इकाइयां शेष हैं एसएमएस एचडी 5667 पर,False,NOT_OTP,auto_not_otp,80,True
+54043,अबे कनिष्क....कहा हैं तू???,False,NOT_OTP,auto_not_otp,2,False
+16660,"Your a/c no. XX6558 is debited for INR 54,587.20 PO  20-LBY-6192 and a/c XX7869 credited (IMPS Ref no  227322089019.). Call 18002586465 if not done by you - StanChart",False,NOT_OTP,auto_not_otp,7,False
+4105,"Rs 11,503.35 spent on ICICI Bank Card XX1543 on 27-Mar-25 at Raz*Openhouse T. Avl Lmt: Rs 0,56,016.72. To dispute, call 18002662/SMS BLOCK 7007 to 0832250782. To convert this txn to EMI give a missed call on 9048542013. Know more about EMI conversion at icici.co/DUvfZI0QFMW",False,NOT_OTP,auto_not_otp,2,True
+8746,"Welcome to ICICI Bank FASTag. Please note that if there is any other Bank's FASTag on VRN BP34SX5658, it will be closed by the respective Bank.",False,NOT_OTP,auto_not_otp,11,False
+34629,"Hi Gandharv, thanks for your purchase of Rs. 959.15 from Chai Point! We'll notify you when it ships. View order (#5397): https://shop.chaipoint.com/41577480342/orders/794d69e1ab5a0bc04e75fd0b5c728ee7/authenticate?key=b3e5df741fe4c2d0c76c3c5c648eaf58
+
+
+Text STOP to unsubscribe.",False,NOT_OTP,auto_not_otp,43,True
+52190,मैंने खुद को एक खाने के लिए मजबूर किया। हालाँकि मेरे अंदर असली भूख नहीं है। ये बहुत बुरा है. मार्क चिंता हो रही है। जब भी मैं पिज्जा से मना करता हूं तो उसे पता चल जाता है कि मैं बीमार हूं। लोल,False,NOT_OTP,auto_not_otp,78,False
+25533,"INR 112.35 spent on ICICI Bank Card XX3809 on 20-Dec-22 at INDIGO. Avl Lmt: INR 7,64,315.33. To dispute,call 18002662/SMS BLOCK 7007 to 3612440862",False,NOT_OTP,auto_not_otp,25,False
+31159,Revise Payment: Your payment for Apple 12W USB Power Adapter... has failed. To avoid order cancellation revise payment within 4 hours: https://amzn.in/d/aPrPIR5,False,NOT_OTP,auto_not_otp,36,True
+34573,Congratulations! You won INR 2 cashback. We will deposit it into your credit card -X8245 in the next 7 days.,False,NOT_OTP,auto_not_otp,43,True
+63752,No,False,NOT_OTP,auto_not_otp,21,False
+61622,No,False,NOT_OTP,auto_not_otp,17,False
+5351,"Out for Delivery: Prepaid Card - ETC FASTag for ICICI Bank Account XX1434 is out for delivery today through Blue Dart Courier, AWB 33970463170.",False,NOT_OTP,auto_not_otp,5,False
+39646,don number,False,NOT_OTP,auto_not_otp,53,False
+25143,"INR 618.96 spent on ICICI Bank Card XX9243 on 13-Aug-22 at BUNDL TECHNOLOG. Avl Lmt: INR 5,78,705.51. To dispute,call 18002662/SMS BLOCK 7007 to 6180372346",False,NOT_OTP,auto_not_otp,24,False
+38260,"For your last transaction in XXXX156, Statement can be viewed on --> https://cams.co.in/3VxPLWcwXak. Password is PAN /PIN CODE/ FOLIO NO -IDFCMF",False,NOT_OTP,success,50,True
+15610,"Dear Customer, INR 0,075.78 is debited on ICICI Bank Credit Card XX2922 on 29-Dec-21. Info: RAZ*DIVERSE RET. Available Limit: INR 09,101.77. Call on 18002662 for dispute or SMS BLOCK 7007 to 9436886404.",False,NOT_OTP,auto_not_otp,5,False
+21606,Total Amount of INR 27540.91 and Minimum Amount of INR 8562 is due by 04-Jan-22 on your ICICI Bank Credit Card XX9337. Pls ignore if already paid.,False,NOT_OTP,auto_not_otp,17,False
+51266,इस समय तुम्हारा पसंदीदा गाना कौन सा है? मुझे कुछ नया संगीत चाहिए!,False,NOT_OTP,auto_not_otp,76,False
+1371,Rs.287 paid at DevanahalliTollPlaza for TN23FA0272 on 30-09-2025 13:21:27 with ICICI Bank FASTag. Bal Rs.0192. Call 18002100104 for dispute,False,NOT_OTP,success,1,False
+67873,Usually the person is unconscious that's in children but in adults they may just behave abnormally. I.ll call you now,False,NOT_OTP,auto_not_otp,29,False
+64047,yes,False,NOT_OTP,auto_not_otp,22,False
+13327,ICICI Bank Acct XXX180 debited for INR 3809.64 on 04-Oct-21 & CRED credited.UPI:127718411411.Call 18002662 for dispute or SMS BLOCK 696 to 5055234722.,False,NOT_OTP,auto_not_otp,20,False
+14138,"INR 918.35 spent on ICICI Bank Card XX6483 on 07-Oct-22 at DAILYDEL SOLUTI. Avl Lmt: INR 1,72,521.30. To dispute,call 18002662/SMS BLOCK 7007 to 5836203669",False,NOT_OTP,auto_not_otp,2,False
+60636,No,False,NOT_OTP,auto_not_otp,15,False
+33382,"Thank you. As there are no symptoms today Please isolate yourself at home. We’ll call tomorrow.  If emergency, call 02067326084 Stepone for  Government of Goa
+
+धन्यवाद। क्योंकि आज कोई लक्षण नहीं हैं कृपया घर पर ही खुद को आइसोलेट करें। हम कल फोन करेंगे। आपात स्थिति में, 02067326084 पर कॉल करें I गोवा सरकार के लिए स्टेप वॉन
+- StepOne",False,NOT_OTP,auto_not_otp,41,False
+15172,"INR321.34 debited on Credit Card XX8382 on 15-Feb-21.Info:Netflix  PGSI .Avbl Lmt:INR21,608.70.Call 18002662 for dispute or SMS BLOCK 7007 to 2151834543",False,NOT_OTP,auto_not_otp,4,False
+35020,Payment of Rs.445.98 on NetMeds is successful. Updated balance: Rs.0.27. View txn details / report fraud: https://amazonpay.amazon.in/jr/your-account/orders/P04-6556190-9122094,False,NOT_OTP,auto_not_otp,44,True
+3267,964552 is OTP for Aadhaar (XX2030) (valid for 10 mins) at Dir of Income Tax. Use Aadhaaar Lock/Unlock service to secure Aadhaar Auth. visit uidai.gov.in -UIDAI,True,KYC_OR_ESIGN_OTP,success,3,True
+68321,"RB-ఇంటిగ్రేటెడ్ అంబుడ్స్‌మన్ పథకం కింద https://cms.rbi.org.in లో ఏదైనా బ్యాంక్, NBFC లేదా చెల్లింపు వ్యవస్థలో పాల్గొనే వారిపై మీ ఫిర్యాదులను నమోదు చేయండి. మరిన్ని వివరాల కోసం 14440కి కాల్ చేయండి -RBI",False,NOT_OTP,auto_not_otp,30,True
+6102,ICICI Bank Acct XX320 debited for Rs 796.11 on 28-Nov-23; MC DONALDS credited. UPI:369872750485. Call 18002662 for dispute. SMS BLOCK 696 to 3768873419.,False,NOT_OTP,auto_not_otp,6,False
+54991,Say hello to Vodafone in AP and Telangana. BEST ROAMING OFFERS are here! Dial *121*121# to know more.,False,NOT_OTP,auto_not_otp,4,False
+22645,"Dear Customer, Payment of INR 91 has been received towards your ICICI Bank Credit Card XX1534 on 01-JUL-20 through UPI. Thank you.",False,NOT_OTP,auto_not_otp,19,False
+57951,"WhatsApp code 757-701.
+
+You can also tap on this link to verify your phone: v.whatsapp.com/757701",True,APP_LOGIN_OTP,success,10,True
+55739,మీ జియో నంబరు 9680087821 లో ఉన్నరోజువారీ హై స్పీడ్ ఇంటర్నెట్ కోటా ను 50% 1 GB 10-Oct-17 14:34 Hrs వరకు వినియోగించుకున్నారు. మీ బ్యాలన్స్ మరియు ఉపయోగించిన వివారాలు తెలుసుకోడానికి ఈ లింక్  http://tiny.jio.com/TrackBalance ను క్లిక్ చేయండి,False,NOT_OTP,auto_not_otp,5,True
+53070,तुम्हारे साथ बैठकर चाय पीने का मन कर रहा है।,False,NOT_OTP,auto_not_otp,80,False
+9274,"Your Licious order rfi24q818ifx is out for delivery! 
+Track here https://track.licious.in/9b7aa4c 
+
+Our Delivery Heroes are doing their best to deliver your deliciously fresh meats at the earliest. 
+-Licious",False,NOT_OTP,auto_not_otp,12,True
+72030,ಒಂದು ಒಂದು ಸಾಲುಗಳು ಕೂಡ ಜೀವನದ ಸತ್ಯವನ್ನು ತಿಳಿಸುವಂತ ಪದಗಳ ಜೋಡಣೆಯ ಸಾಲುಗಳು 🙏🏻 ಮನಃಪರಿವರ್ತನೆಯ ಸಾಲುಗಳು 😑❤️evargren song ❤️,False,NOT_OTP,auto_not_otp,38,False
+28538,"Avbl Bal in your A/C. No.XXXXXXXXXXX0055 on EOD 15-JUL-2020 is USD 0.00, Tot. avbl bal (including linked deposits and Limit) is USD 0.00.",False,NOT_OTP,auto_not_otp,31,False
+9299,"Dear Customer,
+
+Greetings from YES BANK. This is an important communication pursuant to RBI guidelines in relation to your account(s) with YES BANK. For details, click: http://yesbnk.in/jXPk7I .",False,NOT_OTP,auto_not_otp,12,True
+7871,004386 is OTP for txn of INR 747.55 at AMAZON on ICICI Bank Credit Card XX8380. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,10,False
+52356,कोई ऐसी जानकारी आए तो प्लीज शेयर करें भाई,False,NOT_OTP,auto_not_otp,78,False
+54767,Hi Sai! Thank you for registering with Moviepass on Justickets. Your OTP is 941811.,True,GENERIC_APP_ACTION_OTP,success,3,False
+41732,abiola bring bye great india just light lucky project smile trip,False,NOT_OTP,auto_not_otp,57,False
+5564,"INR 9,222.70 spent using ICICI Bank Card XX2260 on 28-Feb-25 on IRCTC Eticketin. Avl Limit: INR 4,02,066.49. If not you, call 1800 2662/SMS BLOCK 7007 to 2154234336.",False,NOT_OTP,auto_not_otp,5,False
+6415,"INR 857.16 spent on ICICI Bank Card XX3034 on 13-Dec-23 at SBARRO HSR. Avl Lmt: INR 3,48,308.32. To dispute,call 18002662/SMS BLOCK 7007 to 0910356460",False,NOT_OTP,auto_not_otp,7,False
+12420,"Dear 5677329917,  Your One Time Password to access Wi-Fi is 53307. Do not share with anyone. - Adopt NetTech",True,GENERIC_APP_ACTION_OTP,success,19,False
+70834,വേറെ ലെവൽ 🔥,False,NOT_OTP,auto_not_otp,35,False
+49155,"বিপিএলে বাজি ধরুন এবং ৫০,০০০ টাকা ক্যাশব্যাক জিতুন। যোগ দিন: promusic.co/components/interbank.com/",False,NOT_OTP,auto_not_otp,72,True
+42311,gt home lt minutes reach ur,False,NOT_OTP,auto_not_otp,58,False
+11118,"SIP of Rs.3,275.63 in NIMF Small Cap Fnd,Folio-477244261103 is processed with NAV 84.8301 & 11.788 units on 11/10/2021.T&C at https://bit.ly/2PErr6g . NIMF",False,NOT_OTP,auto_not_otp,16,True
+66281,Special Offer Only For You! Recharge Today! Rs.771=Unlimited calls+84GB 56Days. Rs.699=Unlimited Calls+122GB,False,NOT_OTP,auto_not_otp,26,False
+50777,मैं यहाँ हूँ।,False,NOT_OTP,auto_not_otp,75,False
+32134,"Dear Customer, 
+
+Your Supr Daily subscription for Nandini Shubham [pkt] [500 ml] has only 7 deliveries remaining. Kindly recharge at your earliest convenience. 
+
+Have a Supr day ahead!
+
+-Supr Daily",False,NOT_OTP,auto_not_otp,38,False
+52795,भाई ऐसा हो गया क्या?,False,NOT_OTP,auto_not_otp,79,False
+7044,"INR 314.11 spent using ICICI Bank Card XX7611 on 26-Nov-24 on SWIGGY FOOD. Avl Limit: INR 5,81,535.89. If not you, call 1800 2662/SMS BLOCK 7007 to 7592321598.",False,NOT_OTP,auto_not_otp,8,False
+45287,150p 25 best changed choose club com content credits days free mobile po ringtone send service stop txt uk ur wk,False,NOT_OTP,auto_not_otp,64,True
+67093,For my family happiness..,False,NOT_OTP,auto_not_otp,28,False
+1973,"Dear Customer,Greetings from bbdaily. Due to unforeseen operational challenges, your order delivery will be delayed. Our team will try their best to deliver within 2 hours. Apologies for the inconvenience caused. Thank you for your patience!",ERROR,ERROR,failed,2,False
+29248,"ORDER CONFIRMED!
+Hi Gandharv,
+ Your order 15001360 is confirmed and will be delivered by 27/02/2023.Your order will be shipped in 24-48 hours.You can track your order here: https://www.decathlon.in/myaccount?tab=order-returns.
+Thank you,
+Decathlon Sports India",False,NOT_OTP,auto_not_otp,32,True
+27774,"Your a/c no. XX8728 is debited for INR 354,184.44 VN  32-IMA-7127 and a/c XX5257 credited (IMPS Ref no  217914131001.). Call 18002586465 if not done by you - StanChart",False,NOT_OTP,auto_not_otp,29,False
+61149,No,False,NOT_OTP,auto_not_otp,16,False
+64285,No,False,NOT_OTP,auto_not_otp,22,False
+10858,"INR 390.69 spent on ICICI Bank Card XX0444 on 15-Nov-23 at NETFLIX. Avl Lmt: INR 8,19,952.58. To dispute,call 18002662/SMS BLOCK 7007 to 9886032191",False,NOT_OTP,auto_not_otp,16,False
+52199,मेरे पास 46 वोडाफोन मिनट बचे हैं। अगर आपको लगता है कि आप रिचार्ज करा सकते हैं तो मुझे बताएं। अन्यथा यदि आप चाहते हैं कि मैं रिचार्ज कराऊं तो मुझे सूचित करें।,False,NOT_OTP,auto_not_otp,78,False
+13466,ICICI Bank Acct XX488 debited for Rs 4718.00 on 06-Dec-21; T VINAY credited. UPI:134079168331. Call 18002662 for dispute. SMS BLOCK 696 to 0697511488.,False,NOT_OTP,auto_not_otp,1,False
+9263,Your Google Pay registration has started. Don't share Debit card details/OTP/Expiry date with anyone to avoid financial loss. Not you? Report to your bank.Axis Bank,False,NOT_OTP,success,12,False
+71874,ಆ ಮಗುವಿಗೆ ಬಮದು ಚಾಕೊಲೇಟ್ ಕೊಟ್ಟರೆ ನಿಮ್ಮ ಪ್ಪನ ಗಂಟು ಗಂಟು ಹೊಗ್ತ ಇತ್ತ ಥೂ ನಿಮ್ಮ,False,NOT_OTP,auto_not_otp,37,True
+65696,சிறப்பாக விளக்கவுரை நன்றே,False,NOT_OTP,auto_not_otp,25,False
+39083,does fucking minutes question respond usually yes,False,NOT_OTP,auto_not_otp,52,False
+20663,"Dear Customer, acct XXX411 is credited with Rs.0044.00 on 10-Sep-19 from rath.swagat@okhdfcbank. UPI Ref no 925313492756",False,NOT_OTP,auto_not_otp,15,False
+4345,152751 is OTP for txn of INR 531.85 at AMAZON on ICICI Bank Credit Card XX0034. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,2,False
+52096,आपकी गाड़ी का बीमा समाप्त हो गया है। तुरंत रिन्यू करें: https://carinsurance.info/v9JL87NK -CarPolicy।,False,NOT_OTP,auto_not_otp,78,True
+39333,log wat,False,NOT_OTP,auto_not_otp,52,False
+14740,"INR 445.78 spent on ICICI Bank Card XX1005 on 14-Jun-23 at TRUFFLES. Avl Lmt: INR 8,17,394.74. To dispute,call 18002662/SMS BLOCK 7007 to 0158689117",False,NOT_OTP,auto_not_otp,3,False
+30053,"Dear Renu
+
+As per DGCA guidelines, web check-in is mandatory for all passengers. As you are flying soon, please complete the web check-in for your upcoming Vistara Airlines flight UK-612 from Srinagar To Delhi at the earliest. 
+
+To web check-in on MakeMyTrip, click https://applinks.makemytrip.com/rqvu1oXD5nb | Team MakeMyTrip",False,NOT_OTP,auto_not_otp,34,True
+27183,"Dear AJNXXXXX1A,Your traded value for 11-APR-23 CM Rs 196.26 Check your registered email. For details contact broker -National Stock Exchange.",False,NOT_OTP,auto_not_otp,28,False
+52504,आपका प्लान आपके 5G फोन पर सही मायने में असीमित 5G डेटा नहीं दे रहा है।,False,NOT_OTP,auto_not_otp,79,True
+67753,"Good evening Sir, Al Salam Wahleykkum.sharing a happy news.By the grace of God, i got an offer from Tayseer,TISSCO and i joined.Hope you are fine.Inshah Allah,meet you sometime.Rakhesh,visitor from India.",False,NOT_OTP,auto_not_otp,29,False
+71101,മനോഹരഗാനം.. 👌👌💕😍,False,NOT_OTP,auto_not_otp,36,False
+37613,"100% CASHBACK
+upto Rs.318 on your today's order
+coupon: REPUBLIC2020
+@ www.FreshToHome.com
+
+Cashback:
+*will be credited in 24hrs
+*expiry 31/01/2020
+*T&C applies",False,NOT_OTP,auto_not_otp,49,True
+45162,black cool crazy dont download info lonely mob new ready tones weekly weeks,False,NOT_OTP,auto_not_otp,64,True
+31626,Wakefit Orthopaedic Memory Foam Mattress confirmed with dimensions 76x64x6 inch. It should be delivered to you by 07-06-2022. Manage your order at https://www.wakefit.co/my-orders,False,NOT_OTP,auto_not_otp,37,True
+56322,"Hi akash, Rs.7253 wallet bal expires in Next 8 Hours! Activate your wallet & Shop Eyeglasses & Sunglasses @Coolwinks. Shop Now: https://goo.gl/YaeDHT",False,NOT_OTP,auto_not_otp,6,True
+48992,আজ তোমার পাশে থাকতে পারি না। আমি আপনার পাশে রয়েছি।,False,NOT_OTP,auto_not_otp,72,False
+30205,Congratulations! You won INR 74 cashback. We will deposit it into your credit card XXX-3128 in the next 7 days.,False,NOT_OTP,auto_not_otp,34,True
+3572,"International Roaming Tips from Vi to make your travel experience better:
+1) Keep call divert/voice mails inactive
+2) To save high costs on IR, view packs https://vi.app.link/virKN1
+3) Should you need any assistance related to network while on roaming, you can connect with our experts on our 24X7 live chat via WhatsApp +919654297000",False,NOT_OTP,auto_not_otp,1,True
+59934,No,False,NOT_OTP,auto_not_otp,14,False
+52553,तुम्हारे साथ बिताया समय बहुत अच्छा था।,False,NOT_OTP,auto_not_otp,79,False
+46140,18 20 bedroom hi live love old sex text work years,False,NOT_OTP,auto_not_otp,66,True
+15038,"INR 900.85 spent on ICICI Bank Card XX9207 on 20-Sep-23 at TW Coffee  Kora. Avl Lmt: INR 5,12,704.76. To dispute,call 18002662/SMS BLOCK 7007 to 0464876406",False,NOT_OTP,auto_not_otp,4,False
+62129,No,False,NOT_OTP,auto_not_otp,18,False
+66217,Link and time will be send to u once received. All should attend. Evidence needed for attendance,False,NOT_OTP,auto_not_otp,26,True
+41056,evening ok pick tuesday,False,NOT_OTP,auto_not_otp,56,False
+26668,"Dear Customer, ICICI Bank Account XX146 is debited with INR 5,562.49 on 03-Jul-21. Info: BIL*ONL*00015. The Available Balance is INR 9,03,659.12. Call 18002662 for dispute or SMS BLOCK 696 to 3842312326",False,NOT_OTP,auto_not_otp,27,False
+6539,"Dear Customer, we have successfully processed the payment of INR 120.35 for Google Workspace, as per the Standing Instruction WwSPtComOg, on 03/08/2024 for your ICICI Bank Credit Card 6165. To manage your Standing Instructions, visit www.icicibank.com >Cards >Credit Cards>Standing Instructions and Recurring Charges>Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,7,False
+14548,"INR 223.51 spent on ICICI Bank Card XX9302 on 02-Mar-23 at FOOD DISTRICT. Avl Lmt: INR 1,25,787.14. To dispute,call 18002662/SMS BLOCK 7007 to 6012677687",False,NOT_OTP,auto_not_otp,3,False
+17327,"Gandharv, your eatfit.in order has been delivered. Enjoy and stay healthy!",False,NOT_OTP,auto_not_otp,8,False
+30988,"Hi, Eatfit is sending a package to you with Dunzo. Partner Mohammed Ashraf (2934462060) shall reach your location within 18 minutes. Track your order here: https://tinyurl.com/4xxnwaf7 Thank you.",False,NOT_OTP,auto_not_otp,36,True
+32872,"Hello sir, this arpitha from xllent cooperate services",False,NOT_OTP,auto_not_otp,40,False
+25898,"IndiGo: Dear 6E customer, Your IndiGo PNR is AFWKUY - 6E 702, 06Aug,BLR(T1)-IDR 0825-1010 hrs.  Please ensure to check the following before reaching the airport, mandatory online check-in https://bit.ly/3jYdsCf, quarantine guidelines, E-pass and/or any other regulations of the city/state you are travelling to https://bit.ly/2ZHzql8 before commencing your journey. Surface disinfectant aerosol sprays are prohibited, click https://bit.ly/2Qf2nTu for detailed list. Power banks / portable mobile chargers, are allowed ONLY in Hand-Baggage and NOT in Checked-in Baggage. If any of these items are detected in X ray, your checked in baggage will NOT be loaded on the flight and maybe subject to further search. To check flt status, click here http://I9f.in/VC4zdIL32l or download mobile app. For Passenger Charter- click https://bit.ly/3yNaJCS",False,NOT_OTP,auto_not_otp,26,False
+65819,"25.10.2021.
+இன்றும் இந்த பாடலை கேட்கிறேன். 
+பாடல் வரிகள் என்ன பொருத்தம் எனக்கு.... ",False,NOT_OTP,auto_not_otp,25,False
+42285,big gt hrs lt,False,NOT_OTP,auto_not_otp,58,False
+64862,yes,False,NOT_OTP,auto_not_otp,23,False
+3439,"Dear Guest, 
+527091 is the OTP to update the frequent flyer information against your PNR. This is valid for 5 minutes. Please do not share it for security reasons.
+-Air India",True,DELIVERY_OR_SERVICE_OTP,success,1,False
+43598,1000 2000 cash claim freefone gift great guaranteed live news operator speak,False,NOT_OTP,auto_not_otp,61,True
+65203,NET-JRF தேர்ச்சி பெற்றவர்கள் பல்கலைக்கழக மானியக் குழுவால் UGC) வழங்கப்படும் உதவித்தொகை மற்றும் பிற வசதிகளையும் பெறலாம்.,False,NOT_OTP,auto_not_otp,24,False
+1194,ICICI Bank Acct XX118 debited for Rs 9313.30 on 12-Oct-25; Kydz Adda Banas credited. UPI:565182310095. Call 18002662 for dispute. SMS BLOCK 696 to 4252312037.,False,NOT_OTP,success,1,False
+9466,"ICICIdirect: 914166 is the OTP for your transaction in Nippon India Small Cap Fund - , valid for 10 minutes. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.",True,BANK_OR_CARD_TXN_OTP,success,13,False
+57461,Your OTP for mobile banking is 029199. (Ref.ID-2279533853). Dated on 28-12-2017 04:52:23 PM ,True,FINANCIAL_LOGIN_OTP,success,9,False
+12548,"An Amazon driver needs help with your order. Reply STOP to stop receiving texts from Amazon drivers.
+
+parcel delivered to security",False,NOT_OTP,auto_not_otp,19,False
+65404,வணக்கம் .விடுதலை நாள் வாழ்த்துக்கள்.கரீபிய கடலோர நாட்டிலிருந்து.🙏,False,NOT_OTP,auto_not_otp,25,False
+51769,"आषाढ़ शुक्ला चतुर्थी, मध्याह्न 12 बजकर 44 मिनट तक, उसके बाद पंचमी तिथि",False,NOT_OTP,auto_not_otp,77,False
+69979,ഒരുപക്ഷെ നമ്മുടെ തലയിണകൾക്ക്മാത്രമേ അറിയൂ നാം മറ്റുല്ലോർക്കുമുന്നിൽ മറച്ചു പിടിച്ച ചിലനൊമ്പരങ്ങളുടെ കണക്കുകള്..,False,NOT_OTP,auto_not_otp,34,False
+32119,"Dear Customer, 
+
+Your Supr Daily subscription for Nandini Shubham [pkt] [500 ml] has only 1 deliveries remaining. Kindly recharge at your earliest convenience. 
+
+Have a Supr day ahead!
+
+-Supr Daily",False,NOT_OTP,auto_not_otp,38,False
+24622,"Dear Customer, refund of INR 311 from PAYU PAYMENTS PVT LTD  10 has been credited to your ICICI Bank Credit Card XX3075 on 21-DEC-21 and will be adjusted in the coming statement. For details, please call our Customer Care.",False,NOT_OTP,auto_not_otp,23,False
+15072,"INR 0,935.42 spent on ICICI Bank Card XX1548 on 01-Oct-23 at YUKI PAN ASIAN . Avl Lmt: INR 6,45,976.47. To dispute,call 18002662/SMS BLOCK 7007 to 1686662148",False,NOT_OTP,auto_not_otp,4,False
+10316,"Dear Customer, your statement for AMEX Card **********91009 has been generated. Min payment Rs.331.40/total payment Rs.6,306.94 is due by 06/10/22.",False,NOT_OTP,auto_not_otp,14,False
+42206,50 activate calls charge cost min month net network pobox84 standard upto ur,False,NOT_OTP,auto_not_otp,58,True
+13643,"INR 109.49 spent on ICICI Bank Card XX4742 on 10-Apr-22 at BUNDL TECHNOLOG. Avl Lmt: INR 8,42,573.44. To dispute,call 18002662/SMS BLOCK 7007 to 4633939202",False,NOT_OTP,auto_not_otp,1,False
+56461,"Your A/C XXXXX739176 Credited INR 0,02,597.75 on 12/01/18 -Deposit by transfer from Mr. PYLA CHINNAYYA . A/C Bal INR 9,41,542.68",False,NOT_OTP,auto_not_otp,7,False
+52103,सभी मोबाइल एक्सेसरीज पर 30% की छूट। ऑफर केवल इस महीने के अंत तक वैध है। वेबसाइट पर जाएं और कूपन ‘SAVE30’ का उपयोग करें।,False,NOT_OTP,auto_not_otp,78,True
+11378,"ICICI SECURITIES at EOD 30/03/2024 reported your Fund bal Rs 9.778 & Securities bal 0. This excludes your Bank, DP and PMS bal with the broker-BSE",False,NOT_OTP,auto_not_otp,17,False
+26651,NEFT Transaction with reference number 14638094 for Rs. 92370.50 has been credited to the beneficiary account on 06-01-2021 at 13:51:50,False,NOT_OTP,auto_not_otp,27,False
+58767,"Get around town at Rs.46 for 4 km with Ola Auto, your most pocket-friendly ride for short distances! No code required. #AutoAnteOlaAuto! Book now bit.ly/C_SMS",False,NOT_OTP,success,11,False
+50373,ঘরে বসে অনলাইন ইনকাম করুন! কোন প্রশিক্ষণ প্রয়োজন নেই। বিস্তারিত জানতে কল করুন: +৯১ 1193305840,False,NOT_OTP,auto_not_otp,74,True
+66812,Cool. So how come you havent been wined and dined before?,False,NOT_OTP,auto_not_otp,27,False
+1653,"SGD 2.50 spent on your Card 4620XXXXXXXX5208 on 2025-05-25. Your SGD wallet debited by 2.50 Available Bal is SGD 592.13. Final Fx rates may apply.Warm Regards, YES BANK.",False,NOT_OTP,success,2,False
+41185,11 come glad goes ll plenty time went work,False,NOT_OTP,auto_not_otp,56,False
+41631,ard going liao lor mean picking send sleeping smth tot wif yup,False,NOT_OTP,auto_not_otp,57,False
+62586,No,False,NOT_OTP,auto_not_otp,19,False
+63341,No,False,NOT_OTP,auto_not_otp,20,False
+5979,Your order #118131639339 was delivered before time in 34 minutes! Keep ordering from Swiggy to experience our timely delivery.,False,NOT_OTP,auto_not_otp,6,False
+66926,hanks lotsly!,False,NOT_OTP,auto_not_otp,28,False
+25768,"Hi Gandharv, your Eat.fit order # 4542740470 is confirmed for delivery on 4th May, 12:15-13:00. Explore eat.live for healthy recipes https://dl.cure.fit/SrYT",False,NOT_OTP,auto_not_otp,25,True
+47715,contacted dating entered fancy know land landline line phone service,False,NOT_OTP,auto_not_otp,69,True
+30310,"Dear Investor, Payment of Rs. 0615.96 towards your SIP in Axis Flexi Cap Fund - Regular Growth has been received and 77.959 units at NAV 19.24 are allotted in Folio XXXXXXXXX8773. Axis MF",False,NOT_OTP,auto_not_otp,34,False
+67672,"Not really dude, have no friends i'm afraid :(",False,NOT_OTP,auto_not_otp,29,False
+8479,"INR 329.74 spent on ICICI Bank Card XX6597 on 30-Dec-23 at BUNDL TECHNOLOG. Avl Lmt: INR 1,30,049.19. To dispute,call 18002662/SMS BLOCK 7007 to 2290896368",False,NOT_OTP,auto_not_otp,11,False
+62298,No,False,NOT_OTP,auto_not_otp,18,False
+49954,ক্যাসিনোতে বেট করুন এবং একটি ফ্রি গাড়ি জিতুন! যোগ দিন: super1000.info/docs,False,NOT_OTP,auto_not_otp,74,True
+19705,"It's still January! Don't let your New Year Resolution slip away!
+
+Flat 30% Off. Sitewide.
+Use WHOLESALE30
+
+Shop Now bit.ly/shop-twt
+
+The Whole Truth",False,NOT_OTP,auto_not_otp,13,True
+42011,attend phone,False,NOT_OTP,auto_not_otp,58,False
+1892,Amazon Delivery Associate(+918061914444 PIN 5453) has picked up your Amazon Fresh order 402-9346072-3280349. Order will be delivered by 8:00 PM. Track https://amzn.in/d/2pVG8Xh,False,NOT_OTP,success,2,True
+42514,50 glad god msgs ntwk number oh std text ve,False,NOT_OTP,auto_not_otp,59,True
+13975,"Dear Customer, your payment of Rs 9491.99 for Google Workspace, as per Standing Instruction VnvqQOHJZT, is due by 03/08/2022 and will be debited through your ICICI Bank Credit Card 1486. To cancel this debit or your Standing Instruction, please visit www.icicibank.com-Cards-Credit Cards-Standing Instruction & Recurring Charges-Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,2,True
+47402,08000930705 150 750 anytime camcorder contact delivery free handset mins new offer phone reply text tomorrow tried unlimited video,False,NOT_OTP,auto_not_otp,69,True
+52974,"आपके बैंक खाता में ₹37,899 का फ्री क्रेडिट लिमिट बढ़ाया गया है! इस लिमिट का लाभ उठाने के लिए कृपया तुरंत यहां क्लिक करें और अपनी जानकारी अपडेट करें। जल्दी करें, यह ऑफर सीमित समय के लिए है।",False,NOT_OTP,auto_not_otp,80,True
+53543,"मेहनत ही सफलता का सबसे बड़ा कारण है, इसे छोड़ें नहीं।",False,NOT_OTP,auto_not_otp,1,False
+31306,Arriving today: Johnson's Baby Wipes Pack of 4 (80 wet wipes per pack ) will be delivered by AmzAgent(+918061914444 PIN 4108). Track: https://amzn.in/d/2e2TpDb,False,NOT_OTP,auto_not_otp,36,True
+51390,आपका आधार अपडेट पेंडिंग है। अभी सुधार करें: https://aadharfix.net/mKL98JN7 -FixNow।,False,NOT_OTP,auto_not_otp,77,True
+62149,yes,False,NOT_OTP,auto_not_otp,18,False
+43898,day eat haven life meds pizza sitting,False,NOT_OTP,auto_not_otp,62,False
+61224,No,False,NOT_OTP,auto_not_otp,16,False
+70664,"വർഷം 7 കഴിന്നല്ലും ഇടയ്ക്ടക് ഇവിടെ വന്നു പോകും,, നിവിൻ bro & സായിപല്ലവി 🔥🔥🔥",False,NOT_OTP,auto_not_otp,35,False
+19788,Enjoy delicious Popeyes food! Your order no is 52. Click https://ps.jublfood.net/pedi/9620083224798187.Png for your e-invoice.,False,NOT_OTP,auto_not_otp,13,True
+40332,ah okay wait,False,NOT_OTP,auto_not_otp,54,False
+51218,"अभी खरीदें, बाद में भुगतान करें! अभी खरीदें और बाद में भुगतान करें! सीमित समय के लिए।",False,NOT_OTP,auto_not_otp,76,True
+3577,"Hello, your unused daily pack balance 491,569.710 MB adjusted with RO Pack and new RO balance is 436782.86 MB. Happy to browse on RO pack on Week Ends",False,NOT_OTP,auto_not_otp,1,False
+22014,"INR 616.08 spent on ICICI Bank Card XX8906 on 19-Jan-22 at Amazon.in - Gro. Avl Lmt: INR 05,282.58. To dispute,call 18002662/SMS BLOCK 7007 to 4457003063",False,NOT_OTP,auto_not_otp,18,True
+45508,new,False,NOT_OTP,auto_not_otp,65,True
+24301,"Dear Customer, INR 2,694.24 is debited on ICICI Bank Credit Card XX6639 on 12-Jul-21. Info: Amazon. Available Limit: INR 97,974.01. Call on 18002662 for dispute or SMS BLOCK 7007 to 1427384329.",False,NOT_OTP,auto_not_otp,22,False
+14672,"Dear Customer, your ICICI Bank Account XXX114 has been credited with Rs 709.42 on 26-May-23 as reversal of transaction with UPI: 351262729680.",False,NOT_OTP,auto_not_otp,3,False
+66490,I HAVE A DATE ON SUNDAY WITH WILL!!,False,NOT_OTP,auto_not_otp,27,False
+60683,No,False,NOT_OTP,auto_not_otp,15,False
+34290,"Your slice card transaction of Rs.810 is successful. Your updated credit balance is Rs.168,798 - slice",False,NOT_OTP,auto_not_otp,42,False
+11681,"INR 330.75 spent on ICICI Bank Card XX4419 on 14-Feb-24 at THEOBROMA FOODS. Avl Lmt: INR 8,72,970.29. To dispute,call 18002662/SMS BLOCK 7007 to 5006637681",False,NOT_OTP,auto_not_otp,17,False
+34445,Congratulations! You won INR 41 cashback. We will deposit it into your credit card XXX-7673 in the next 7 days.,False,NOT_OTP,auto_not_otp,43,True
+34557,Congratulations! You won INR 5 cashback. We will deposit it into your credit card XXX-1226 in the next 7 days.,False,NOT_OTP,auto_not_otp,43,True
+43438,eat thk tonight wat,False,NOT_OTP,auto_not_otp,61,False
+20672,"Dear Customer, you recently transacted at a Non-ICICI Bank ATM. You could also use ICICI Bank ATMs for all your future transactions.",False,NOT_OTP,auto_not_otp,15,False
+15702,"INR 3,651.49 spent on ICICI Bank Card XX6438 on 28-Apr-22 at SWIGGY DASH. Avl Lmt: INR 92,640.72. To dispute,call 18002662/SMS BLOCK 2004 to 2917533060",False,NOT_OTP,auto_not_otp,5,False
+15772,ICICI Bank Acct XX681 debited for Rs 310.53 on 04-Sep-22; SWAD SADAN KITC credited. UPI:224761716887. Call 18002662 for dispute. SMS BLOCK 696 to 3841560729.,False,NOT_OTP,auto_not_otp,5,False
+2769,"""Do YOU KNOW?
+
+Hi! You can now instantly download your Vi bill copy on Vi App at https://vi.app.link/PoBP""",False,NOT_OTP,success,3,True
+36256,"Dear Customer, there is an NEFT credit of INR 99,641.10 in your account 455xxxx7526 on 01/01/2021.Available Balance:INR 157,580.29 -StanChart",False,NOT_OTP,auto_not_otp,46,False
+55694,"You have used 90% of your daily 1 GB high speed internet quota on your Jio Number 3766471827 as of 23-Nov-17 19:14 Hrs. After consumption of 1 GB data, Internet speed will be reduced in case you do not have any active data plan. To continue enjoying 4G speed, recharge now. Click http://tiny.jio.com/BuyAddOn",False,NOT_OTP,auto_not_otp,5,True
+37086,"Hello! Our new virtual assistant VIC is now on WhatsApp, bringing you a wide range of services. For any billing or payment related information, click https://wa.me/919654297000?text=Hi & say Hi to get your answers!",False,NOT_OTP,auto_not_otp,48,True
+64244,No,False,NOT_OTP,auto_not_otp,22,False
+41892,da latest ok project sent ve version,False,NOT_OTP,auto_not_otp,58,False
+33611,Your Audio Making/Editing internship is now live on Internshala.,False,NOT_OTP,auto_not_otp,41,False
+62984,No,False,NOT_OTP,auto_not_otp,20,False
+12286,"Dear 4102016481,  Your One Time Password to access Wi-Fi is 35745. Do not share with anyone. - Adopt NetTech",True,GENERIC_APP_ACTION_OTP,success,18,False
+55909,"మీ జియో నంబరు 7060613771 పై  తేది 03-Sep-17 00:39 Hrs నాటికి మీకు అoదుబాటు లో ఉన్న1 GB హై స్పీడ్ ఇంటర్నెట్ కోటా ను పూర్తిగా వినియోగిoచారు. మీ జియో నoబరు పై ఇతర ప్యాకు లు లేనట్లయితే మీ ఇoటర్నెట్ స్పీడ్ 128Kbps కు  తగ్గిoచబడుతుoది. మీ  ఇంటర్నెట్ స్పీడ్ తిరిగి ఈ అర్ధరాత్రి 2:00AM కు పునరుద్దరిoచబడుతుoది. 
+4G స్పీడ్ డేటా ను ఆనoదoతో కొనసాగిoచడానికి, రీఛార్జి చేయoడి. 
+రీఛార్జి చేయుటకుhttps://www.jio.com/browse_plans?id=19 లిoకు ను క్లిక్  చేయoడి.",False,NOT_OTP,auto_not_otp,6,True
+29194,"Beware of fake calls impersonating as Care Health Insurance employee asking you to share KYC, password or OTP. Report this scam @ -18001024800 or raise the concern on https://crehealthins.in/t/19sVmq Team Care Health",False,NOT_OTP,success,32,False
+29063,"Dear Gandharv, Thank you for choosing Akasa Air. Your PNR is FDDIRE for QP 1354 from COK to BLR LQ 67 XEG 0213. For a seamless airport experience, please web check-in at https://bit.ly/3yViMQB. Please note that power banks, lithium batteries, portable mobile chargers and laptops are ALLOWED ONLY in hand baggage and CANNOT be carried in checked in baggage. If any of these items are detected during screening, your checked in baggage will NOT be loaded on the flight and may be subject to further search. We look forward to welcoming you on board and enjoy the Akasa experience.",False,NOT_OTP,auto_not_otp,32,False
+23157,"Your Licious order va7tj4d9uheq is confirmed! You will receive your order on 21 March between 7 PM to 9 PM. 
+
+-Licious: For the love of meat",False,NOT_OTP,auto_not_otp,20,False
+7180,"Dear Customer, your payment of INR 321.36 for Google Workspace to be debited from your ICICI Bank Credit Card 6423, as per Standing Instructions WwSPtComOg, is due by 03/03/2025. To cancel this debit or your Standing Instructions, visit www.icicibank.com >Cards>Credit Cards>Standing Instructions and Recurring Charges>Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,8,True
+16497,"Greetings, Your SIP of 11/11/2021 for Rs.504.86 under Folio 77738672066 in Mirae Asset Large Cap Fund has been processed for NAV of 81.196.subject to realisation.Mirae Asset MF",False,NOT_OTP,auto_not_otp,7,False
+70861,ഇങ്ങള് വല്ലാത്ത സംഭവം തന്നെയാണ് എന്റെ സുഷിൻ ശ്യാം അണ്ണാ.. 🔥🔥🔥🔥,False,NOT_OTP,auto_not_otp,35,False
+19502,Your The Healthy To.. from Troovy has been delivered by Shadowfax. Track lnk.shadowfax.in/ibzBeAqt,False,NOT_OTP,auto_not_otp,13,True
+12562,"Sorry, your payment for Disney+ Hotstar Premium Plan subscription was unsuccessful. Please try again. Visit - https://hotstar.onelink.me/rL9Z/31c78a82",False,NOT_OTP,auto_not_otp,19,True
+61044,No,False,NOT_OTP,auto_not_otp,16,False
+37479,Ok thank you please share,False,NOT_OTP,auto_not_otp,49,True
+55799,Amazing offers on Samsung A9 Pro Gold with convenient EMI option on credit card. Click http://jio.com/r/xZWdOjgK to know more.,False,NOT_OTP,auto_not_otp,5,True
+50103,জরুরি অবস্থা! আপনার ব্যাংক অ্যাকাউন্ট থেকে অননুমোদিত লেনদেন হয়েছে। এখানে ক্লিক করে সুরক্ষিত করুন: [face3b00kbank.com/SecureBD],False,NOT_OTP,auto_not_otp,74,True
+54053,"बैंक खाता नवीकरण की आवश्यकता । प्रिय ग्राहक, आपके बैंक खाते का नवीकरण आवश्यक है। कृपया समय पर इसे नवीकरण करें।",False,NOT_OTP,auto_not_otp,2,False
+64748,No,False,NOT_OTP,auto_not_otp,23,False
+200,"INR 3,314.86 spent using ICICI Bank Card XX1480 on 25-Jul-25 on URBANCLAP TECHN. Avl Limit: INR 0,99,986.71. If not you, call 1800 2662/SMS BLOCK 7007 to 3011771489.",False,NOT_OTP,success,1,False
+53736,आर/आर अनुशंसा करता है: लॉजिक्स ब्लॉसम ग्रीन्स। *2/3/4बीएचके अपार्टमेंट। *नोएडा एक्स-वे और एफएनजी पर सेक्टर 143। *18 महीने में कब्ज़ा।*डीपी पर बीएसपी@22.21एल शुरू। बुकिंग के लिए। सीएम को 53456 पर एसएमएस करें।,False,NOT_OTP,auto_not_otp,1,True
+12035,BSE Trade Confirmation Client Code 2560181166 - Broker 0103 - EQ  Value Rs 98777.85 - FNO Value Rs 7.61 - Currency Value Rs. 2.87 - Dated 26-09-2023,False,NOT_OTP,success,18,False
+31741,Your ticket SR10265776070204 is tentatively expected to be resolved by 04-Sep (DD/MM) between 07:30 to 09:00AM. Team ACT,False,NOT_OTP,auto_not_otp,37,False
+25487,"INR 718.36 spent on ICICI Bank Card XX6435 on 08-Dec-22 at AMAZON. Avl Lmt: INR 3,48,906.33. To dispute,call 18002662/SMS BLOCK 7007 to 7604042305",False,NOT_OTP,auto_not_otp,25,False
+44715,0800 1000 10am 2000 5000 7pm 9pm cash claim customer guaranteed prize representative service won yr,False,NOT_OTP,auto_not_otp,63,True
+55644,You have used 50% of your 1 GB daily high speed internet quota on your Jio Number 8706356481 as of 28-Jun-17 11:23 Hrs .,False,NOT_OTP,auto_not_otp,5,False
+72637,ತುರ್ತು! ನಿಮ್ಮ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಗೆ Å £ 2000 ಬಹುಮಾನದ ಖಾತರಿಯೊಂದಿಗೆ ನೀಡಲಾಗಿದೆ. ಲ್ಯಾಂಡ್ ಲೈನ್‌ನಿಂದ 09058094455 ಗೆ ಕರೆ ಮಾಡಿ. ಹಕ್ಕು 3030. ಮಾನ್ಯ 12 ಗಂಟೆ ಮಾತ್ರ,False,NOT_OTP,auto_not_otp,39,True
+65535,SRINIVASA FINANCE:தனி நபர் கடன் 1% வட்டி. BALA: 4731327744,False,NOT_OTP,auto_not_otp,25,True
+65160,என் வீட்டு பத்திரிகையை பிரபல படுத்திய polimer news க்கு கோடான கோடி நன்றி,False,NOT_OTP,auto_not_otp,24,False
+29579,"HARISH(8544581827) is waiting at your address to deliver order from shipyaari with AWB:1370622091061 Kindly come to receive it, Delivery confirmation Code- 627921. XpressBees",True,DELIVERY_OR_SERVICE_OTP,success,33,False
+52156,"मीटिंग बढ़िया रही, हम इसे बाद में डिस्कस करेंगे।",False,NOT_OTP,auto_not_otp,78,False
+71554,ವಿಷ್ಣುವರ್ಧನ್  ಸರ್ ನ ನೋಡಿ ತುಂಬಾ  ಖುಷಿ ಆಹಿತು  👏👏👏👌,False,NOT_OTP,auto_not_otp,37,False
+29159,"Click on https://www.ni-mf.in/L0SQth to view Statement of Account for recent txn,Folio-XXXXXXXXX153 (valid 10 days).More details,click at  https://bit.ly/3sZ6ktR .NIMF",False,NOT_OTP,auto_not_otp,32,True
+23102,"INR 656.37 spent on ICICI Bank Card XX3197 on 29-Apr-23 at DAILYDEL SOLUTI. Avl Lmt: INR 4,38,708.18. To dispute,call 18002662/SMS BLOCK 7007 to 9958332871",False,NOT_OTP,auto_not_otp,20,False
+1818,<#> 7229 is your JioHotstar verification code. Enjoy watching! /wAX/OsgZgE,True,DELIVERY_OR_SERVICE_OTP,success,2,True
+10821,"Dear Customer, your payment of INR 4399.45 for Google Cloud to be debited from your ICICI Bank Credit Card 9366, as per Standing Instructions Wieq6QVpgi, is due by 03/11/2023. To cancel this debit or your Standing Instructions, visit www.icicibank.com >Cards>Credit Cards>Standing Instructions and Recurring Charges>Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,15,True
+28467,"Avbl Bal in your A/C. No.XXXXXXXXXXX0055 on EOD 15-JAN-2020 is USD 0.00, Tot. avbl bal (including linked deposits and Limit) is USD 0.00.",False,NOT_OTP,auto_not_otp,31,False
+72675,ಥ್ಯಾಂಕ್ಸ್ 4 ಟುಡೆ ಸೆರ್ ಇದು ಚೆನ್ನಾಗಿತ್ತು 2 ಕ್ಯಾಚ್ ಅಪ್ ಆದರೆ ನಾವು ಹೆಚ್ಚು ಸಮಯವನ್ನು ಕಂಡುಕೊಳ್ಳುತ್ತೇವೆ ಹೆಚ್ಚಾಗಿ ಓಹ್ ಚೆನ್ನಾಗಿ ಕಾಳಜಿ ವಹಿಸಿ ಸಿ ಯು ಶೀಘ್ರದಲ್ಲೇ. ಸಿ,False,NOT_OTP,auto_not_otp,39,False
+40942,2nite babe doin hey love wot,False,NOT_OTP,auto_not_otp,56,False
+68863,ఇవన్నీ రేపు కొనాలి,False,NOT_OTP,auto_not_otp,31,True
+60576,yes,False,NOT_OTP,auto_not_otp,15,False
+61412,No,False,NOT_OTP,auto_not_otp,17,False
+17219,Your eatfit.in order for the day has been delivered at reception as per your instruction.,False,NOT_OTP,auto_not_otp,8,False
+54033,आईआईएम एल,False,NOT_OTP,auto_not_otp,2,False
+6757,"INR 8,426.31 spent using ICICI Bank Card XX6958 on 13-Mar-25 on OM SAIRAM FILLI. Avl Limit: INR 0,10,297.84. If not you, call 1800 2662/SMS BLOCK 7007 to 2245840523.",False,NOT_OTP,auto_not_otp,7,False
+42087,india means series win,False,NOT_OTP,auto_not_otp,58,False
+51674,आईआईटी अच्छा  था लेकिन गणित हमारा अच्छा नहीं बल्कि क्रूर था,False,NOT_OTP,auto_not_otp,77,False
+39850,al bother does fault goes hav moan thanx wrong xx,False,NOT_OTP,auto_not_otp,53,False
+5911,"Your Licious order has been delivered on time.Note: If your order has been dropped off at the security desk, please collect immediately & refrigerate to keep it fresh!
+-Licious",False,NOT_OTP,auto_not_otp,6,False
+11213,"Dear Ms Mahbubani, we are happy to confirm your booking under PNR - M2VYND, 23 Nov 24, from MAA(T1) to CCU, 6E6326 at 12:00 hrs. For any queries about your travel and destination, ask 6Eskai https://gi9.in/V56916 Get. Set. IndiGo.",False,NOT_OTP,auto_not_otp,16,True
+21230,"Dear Customer, INR 349.49 is debited on ICICI Bank Credit Card XX6617 on 18-Mar-21. Info: MILANO ICE CREA. Available Limit: INR 56,104.95. Call on 18002662 for dispute or SMS BLOCK 7007 to 8586713293.",False,NOT_OTP,auto_not_otp,16,False
+59283,No,False,NOT_OTP,auto_not_otp,12,False
+48746,"প্রিয় গ্রাহক আপনার কাছে পল্লি বিদ্যুৎ  জামালপুর শাখার পাওনা রয়েছে ৫০৩৮/- টাকা, জলদি পাওনা পরিষোধ না করলে বিদ্যুৎ লাইন বিচ্ছিন্ন করা হবে।",False,NOT_OTP,auto_not_otp,71,False
+51964,ठीक है... तुम्हारा तो वही जवाब है…,False,NOT_OTP,auto_not_otp,78,False
+52359,क्या तुमने अपने नए ऑफिस का अनुभव साझा किया?,False,NOT_OTP,auto_not_otp,78,False
+33463,You have received 5 new applications for your Graphic Design internship. See them here internshala.com/i/89 - Internshala,False,NOT_OTP,auto_not_otp,41,False
+61626,No,False,NOT_OTP,auto_not_otp,17,False
+14973,"ICICI Bank Acc XX150 debited Rs. 27,655.34 on 02-Sep-23 InfoBIL*000718255.Avl Bal Rs. 70,968.71.To dispute call 18002662 or SMS BLOCK 696 to 0780364615",False,NOT_OTP,auto_not_otp,4,False
+27629,Your eatfit.in order has just left our kitchen and will be delivered in 9 mins.,False,NOT_OTP,auto_not_otp,29,False
+2837,"ನಮಸ್ತೆ! ರೂ.506.22  ನಿಮ್ಮ ವಿ ಬಿಲ್ 30-12-2023  ನಲ್ಲಿ ಬಾಕಿ ಇದೆ. ವಿಳಂಬ ಪಾವತಿ ಶುಲ್ಕಗಳನ್ನು ತಪ್ಪಿಸಲು ದಯವಿಟ್ಟು ನಿಗದಿತ ದಿನಾಂಕದ ವೇಳೆಗೆ ಪಾವತಿಸಿ. ವಿ ಆಪ್ ಬಳಸಿ ಪಾವತಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ https://vi.app.link/vibp ಅಥವಾ ವಾಟ್ಸಪ್ ಮೂಲಕ ಸುರಕ್ಷಿತ ವಾಗಿ  ಪಾವತಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ, https://wa.me/message/CA3JPMW2AJ4IB1 ಈಗಾಗಲೇ ಪಾವತಿಸಿದರೆ ನಿರ್ಲಕ್ಷಿಸಿ.",False,NOT_OTP,success,4,True
+65292,"பல புயல்களை சந்திக்கும் கீதாரிகள், இன்றைய சட்ட புயலை சந்திக்க முடியவில்லை!",False,NOT_OTP,auto_not_otp,24,False
+63774,yes,False,NOT_OTP,auto_not_otp,21,False
+46496,1x150p 250 action cash chance custcare day dont jordan miss pic pics sexy st tv txt uk ur win wk www,False,NOT_OTP,auto_not_otp,67,True
+43136,,False,NOT_OTP,auto_not_otp,60,False
+56810,papam,False,NOT_OTP,auto_not_otp,7,False
+51321,आपने 1 करोड़ जीतने के लिए लॉटरी में भाग लिया है! अपनी जीत कन्फ़र्म करने के लिए यहाँ क्लिक करें: www.winlottery.com,False,NOT_OTP,auto_not_otp,76,True
+11146,"Dear Investor, as per SEBI guidelines, it is mandatory to update nominee or opt out of the nomination facility across all your MF folios by 31st March 2023. Please click https://bit.ly/3WIznQp to update details online or submit a written request at any of your nearest ISC. For more details, please click http://bit.ly/3JDXBIu. -Nippon India MF",False,NOT_OTP,auto_not_otp,16,True
+50610,सफलता पाने के लिए खुद को हर समय साबित करना जरूरी है।,False,NOT_OTP,auto_not_otp,75,False
+41413,know menu night noon sure,False,NOT_OTP,auto_not_otp,57,False
+341,"INR 0,300.43 spent using ICICI Bank Card XX8639 on 24-Aug-25 on Raz*AMINTIRI RE. Avl Limit: INR 3,34,998.98. If not you, call 1800 2662/SMS BLOCK 7007 to 4985161320.",False,NOT_OTP,success,1,False
+22692,"Dear Customer, INR 2,204.15 is debited on ICICI Bank Credit Card XX8689 on 27-Mar-21. Info: EPS FUEL SERVIC. Available Limit: INR 61,770.87. Call on 18002662 for dispute or SMS BLOCK 7007 to 3346367632.",False,NOT_OTP,auto_not_otp,19,False
+61458,yes,False,NOT_OTP,auto_not_otp,17,False
+13281,"Dear Customer, INR 7,119.00 is debited on ICICI Bank Credit Card XX1804 on 05-Sep-21. Info: IOCL MAHASHAKTI. Available Limit: INR 16,872.54. Call on 18002662 for dispute or SMS BLOCK 7007 to 8610957317.",False,NOT_OTP,auto_not_otp,20,False
+70844,കേട്ടിട്ടും കേട്ടിട്ടും മതിയാകുന്നില്ലലോ... 😍😍ഇപ്പോൾ തന്നെ ഒരു 20 ന് മുകളിൽ ആയി,False,NOT_OTP,auto_not_otp,35,False
+14517,"INR 422.78 spent on ICICI Bank Card XX5890 on 15-Feb-23 at EAT FIT JNC KOR. Avl Lmt: INR 9,70,601.66. To dispute,call 18002662/SMS BLOCK 7007 to 9118479504",False,NOT_OTP,auto_not_otp,3,False
+44136,12 30 easy going home hours max picking points project,False,NOT_OTP,auto_not_otp,62,False
+48605,"৳৩০ ক্যাশব্যাকে প্রো-লেভেল ডাটা ডিল-২২জিবি@৳১৬৭,৭দিন cutt.ly/7w9OKeZ2",False,NOT_OTP,auto_not_otp,71,False
+45435,500 86688 answer bonus com easy hmv info just play pounds questions real send special vouchers won www,False,NOT_OTP,auto_not_otp,65,True
+72353,ನಿಮ್ಮ ಪ್ರಯತ್ನಗಳಿಂದ ಸಾಧ್ಯವಾಗಬಹುದು ಅನಿಸಿದರೆ,False,NOT_OTP,auto_not_otp,38,False
+50447,আপনার পাওনা টাকা পরিশোধ না করলে সমস্যা হবে।,False,NOT_OTP,auto_not_otp,75,False
+48330,"তুমি একা নও, আমি আছি।",False,NOT_OTP,auto_not_otp,70,False
+50310,আজ তোমার স্কুলের কী কাজ হয়েছে?,False,NOT_OTP,auto_not_otp,74,False
+58417,"Rs. 363 credited to your Fynd Cash.*Expires in 3 Hours
+Get 15% SUPERCASH on Mobikwik
+Total Bal: Rs. 679
+https://go.fyndi.ng/fnd",False,NOT_OTP,auto_not_otp,11,True
+66834,"I'm an actor. When i work, i work in the evening and sleep late. Since i'm unemployed at the moment, i ALWAYS sleep late. When you're unemployed, every day is saturday.",False,NOT_OTP,auto_not_otp,27,False
+27085,"Dear Investor, Payment of Rs. 748.41 towards your SIP in Axis Mid Cap Fund - Regular Growth has been received and 14.013 units at NAV 71.36 are allotted in Folio XXXXXXXXX4693. Axis MF",False,NOT_OTP,auto_not_otp,28,False
+35465,"Namaste Archana Bakshi, Greetings from Apollo 24|7. Please find attached the complete Diagnostics Lab Test report weurl.co/ogyMks for your home collection order 247244560. Happy to help you in case of any queries. Have a good health!",False,NOT_OTP,auto_not_otp,45,True
+34460,"Payment of INR 47,876 was received for card number 4315-81XX-XXXX-7007 OW 28-YNM-9753 and you have earned 39,697 CRED coins. Payment will reflect in your credit card account in max 48 hours. 04DYWY4357 is your order id.",False,NOT_OTP,auto_not_otp,43,False
+36780,"Welcome to Jio. Your Jio Number 4045969972 has been successfully activated.
+Kindly follow the below steps for seamless experience on Jio Network :
+1. Insert new Jio sim in Sim slot 1 of your dual sim handset.
+2 . Go to Settings - Sim Cards & Mobile Networks and set Data preference to Sim 1 and also ensure that the network mode is 4G/LTE.
+3. Set ""Data Roaming"" as ""On/Always"" to experience seamless data experience across the country.
+To know 'How to Set up Jio Network' on mobile, click https://youtu.be/o18LboDi1ho
+If you are an eSIM user, use the QR code to download and install the eSIM profile on your device. You can also set eSIM profile manually by referring to the SMS sent to your number when eSIM request was given.
+Enjoy a host of entertainment apps ? JioTV with access to 650+ live TV channels, JioSaavn (5cr+ songs), JioCinema (10,000+ movies), JioNews and many more.
+Click https://www.jio.com/GetMyJio to begin NOW.
+To set your favourite song as your JioTune for FREE with JioSaavn, click https://jiosaavn.onelink.me/Id33/8e8c0889
+Dial 1991, to know your current balance, validity, plan details and for exciting recharge plans.",False,NOT_OTP,success,47,False
+58288,"A/c Bal:Rs.5.28
+1)ULTD-179/28D,399/84D
+2)9=Loc+STD@ 30p,90D
+3)31=31+1Night Min/70=70
+4)Rs84=1GB 2G/Rs59=1GB 3G
+5)Rs43=40/Rs72=90
+6)28=1GB2G/99=2GB 3G
+7)14=Loc+STD@ 25p,60D
+8)Free V2V 88 me,28D
+9)Low Balance
+10)Self Care
+Dial *121# to activate.",False,NOT_OTP,auto_not_otp,10,True
+64568,No,False,NOT_OTP,auto_not_otp,23,False
+5043,"BUNDL TECHNOLOGIES PVT LT refund of Rs 82 credited to ICICI Bank Credit Card XX1676 on 26-JUL-24. Revised total due Rs 20878, minimum due Rs 1524",False,NOT_OTP,auto_not_otp,4,False
+38031,"Hello GANDHARV S BAKSHI Please record video for DSC. 
+www.o59.com/1/1/?p=xbsq0kTA0nd@@@@@@LylbsLTxhg==",False,NOT_OTP,auto_not_otp,50,True
+558,"INR 356.16 spent using ICICI Bank Card XX5847 on 17-Oct-25 on URBAN COMPANY L. Avl Limit: INR 4,25,863.74. If not you, call 1800 2662/SMS BLOCK 7007 to 9290262689.",False,NOT_OTP,success,1,False
+1683,"Dear Customer,
+Thank you for choosing Licious. Your order vl60y3fkrvm2 will be delivered by 02:22 PM. -Licious",False,NOT_OTP,success,2,False
+51885,अपने सपनों के प्रति सच्ची लगन से आपको किसी भी डर को पार करना होता है।,False,NOT_OTP,auto_not_otp,77,False
+64598,No,False,NOT_OTP,auto_not_otp,23,False
+62178,No,False,NOT_OTP,auto_not_otp,18,False
+65108,‘ட்ரூ காலர்’ என்பது ஸ்பேம் அழைப்புகள் மற்றும் செய்திகளை அடையாளம் கண்டு தடுக்க சிறந்த ஆப் ஆகும்.,False,NOT_OTP,auto_not_otp,24,False
+40784,03 care com credit customer discount log opt reply stop voucher www,False,NOT_OTP,auto_not_otp,55,True
+20998,"INR872.02 debited on Credit Card XX0525 on 13-Nov-20.Info:NAMDHARI AGRO.Avbl Lmt:INR34,354.84.Call 18002662 for dispute or SMS BLOCK 7007 to 5521944237",False,NOT_OTP,auto_not_otp,16,False
+6824,"ICICI Bank Acc XX482 is debited with Rs. 212.52 on 25-Jun-24 VSI*YOUTUBE C. Available bal: Rs. 5,10,113.33. For dispute call 18002662 or SMS BLOCK 696 to 1353792945",False,NOT_OTP,auto_not_otp,7,False
+68366,మీకే ఎందుకు ఇంత మంచి ఆలోచనలు వస్తాయి ,False,NOT_OTP,auto_not_otp,30,False
+60343,yes,False,NOT_OTP,auto_not_otp,14,False
+30633,Our health crew tried reaching you to deliver your eatfit.in meal but was not able to get through to you. He is currently at your location. Please collect your order at the earliest.,False,NOT_OTP,auto_not_otp,35,False
+26872,"Dear Customer, Payment of INR 55007.97 has been received on your ICICI Bank Credit Card Account 4xxx7003 on 31-JAN-23.Thank you.",False,NOT_OTP,auto_not_otp,28,False
+14087,"INR 0,603.46 spent on ICICI Bank Card XX1856 on 03-Sep-22 at Amazon. Avl Lmt: INR 6,34,660.66. To dispute,call 18002662/SMS BLOCK 7007 to 8857464093",False,NOT_OTP,auto_not_otp,2,True
+6903,"INR 67,633.33 spent on ICICI Bank Card XX5142 on 11-Aug-24 at MAKEMYTRIP I PV. Avl Lmt: INR 40,80,466.13. To dispute,call 18002662/SMS BLOCK 7003 to 9346199199",False,NOT_OTP,auto_not_otp,8,False
+37609,"Hi Gandharv Bakshi, Your Onepass Booking for 7th March, 2020 (Saturday), 11.00 AM at Urhythmix has been confirmed. You  can manage your bookings via ‘VIEW BOOKINGS ‘ button present on the homescreen under your onepass. For any assistance or support you can contact your personal concierge at +917400062849",False,NOT_OTP,auto_not_otp,49,True
+63067,No,False,NOT_OTP,auto_not_otp,20,False
+9708,ARRIVING: Blue Dart will deliver your shipment TODAY.Track https://bluedart.com/?32683514216,False,NOT_OTP,auto_not_otp,13,True
+38509,"Thanks for your purchase at Decathlon (Rs 6140), your bill ID is 6378588460. Get a copy of your bill at Welcome Desk if needed.",False,NOT_OTP,auto_not_otp,51,False
+36043,"Dear Customer, Your reward points 21, will expire on 30th April 2021! Visit your nearest Namdhari Store to redeem it - Team Namdhari's",False,NOT_OTP,auto_not_otp,46,True
+42252,jay told,False,NOT_OTP,auto_not_otp,58,False
+20718,Acct XXX117 debited with INR4710.00 on 11-Nov-19 and indraprastha537@oksbi credited.Info:UPI-931507486927.Call 18002662 for dispute or SMS BLOCK 696 to 3126422121,False,NOT_OTP,auto_not_otp,15,True
+38758,aight cash hit ll,False,NOT_OTP,auto_not_otp,51,False
+2816,"Hi! Your May'22 bill for Vi Postpaid no. 9739XXXX25 has been sent to your registered email ID - gandharv.bakshi@gmail.com. Please pay your due amount, Rs 937.26 by the due date i.e. 04/06/2022, failing which the new payment due would be Rs 073.71, including late payment charges. To view and pay your bill now, click https://bit.ly/ViViewnPayBill. You can also reach us on WhatsApp for billing, payment & more - click https://wa.me/message/2ONATA3W73EIP1 & say Hi!",False,NOT_OTP,success,4,True
+8864,"Dear Customer, We have noticed that you have been missing out on receiving amazing offers on various products from Standard Chartered Bank, as you have registered not to receive any promotional offers from Standard Chartered Bank due to your phone preferences. SMS ""DND N"" to 6590268836 to start receiving the offer details via SMS and/or calls - StanChart",False,NOT_OTP,auto_not_otp,12,True
+61536,No,False,NOT_OTP,auto_not_otp,17,False
+50220,আমি কি তোমার কাছে কিছু বলতে পারি?,False,NOT_OTP,auto_not_otp,74,False
+52327,कृपया मुझे बताएं कि आप बैठक के लिए कब उपलब्ध होंगे।,False,NOT_OTP,auto_not_otp,78,False
+52493,किसी अन्य जानकारी की जरूरत हो तो कृपया बताएं।,False,NOT_OTP,auto_not_otp,79,False
+34351,Thank you for contacting Disney+Hotstar. Please click on the link below to check the update on your ticket - https://help.hotstar.com/public/tickets/d4a7e3970216b40451e65ab48f3133512d745663b367e8aa68cae288d7ddd572,False,NOT_OTP,auto_not_otp,42,True
+9335,"NO BLANKET,PILLOWS AND LINEN SHALL BE PROVIDED IN THE TRAIN,INCONVENIENCE IS REGRETTED.INDIAN RAILWAY",False,NOT_OTP,auto_not_otp,12,False
+44031,em eve hold online play set somebody using website,False,NOT_OTP,auto_not_otp,62,False
+12312,Great news! You've just earned 178 embers!  Your balance now stands at 271 embers. Ready to level up your next order? Redeem them now! - Brik Oven,False,NOT_OTP,auto_not_otp,18,False
+46130,09061221066 150ppm 16 28 awarded camera cs days delivery digital fromm landline sipix,False,NOT_OTP,auto_not_otp,66,True
+53349,"सबसे शानदार दिवाली सेल - कौशल में वृद्धि और सफलता की ओर आसमान छूना
+इस उत्सव के मौसम में, यह छोटा सा आश्चर्य हमारे समुदाय का हिस्सा बनने के लिए आपको धन्यवाद कहने का हमारा तरीका है। हम साइटव्यापी 14% छूट की पेशकश करके रोमांचित हैं।
+
+उपयोग: दिवाली14
+
+साइबर सुरक्षा उन्नत प्रमाणन 2024
+डेटा साइंस एडवांस्ड सर्टिफिकेशन 2024
+क्लाउड कंप्यूटिंग और DevOps 2024 में उन्नत प्रमाणन
+एसएपी पूर्ण ऑनलाइन प्रशिक्षण 2024
+ऑनलाइन प्रमाणपत्र
+आपका वन-स्टॉप लर्निंग समाधान
+www.tutorialspoint.com",False,NOT_OTP,auto_not_otp,80,True
+39283,thank,False,NOT_OTP,auto_not_otp,52,False
+21309,"Dear Customer, INR 844.88 is debited on ICICI Bank Credit Card XX0060 on 16-May-21. Info: SWIGGY. Available Limit: INR 24,792.28. Call on 18002662 for dispute or SMS BLOCK 7007 to 8129175312.",False,NOT_OTP,auto_not_otp,16,False
+16889,"To view the account statement for your latest transaction in Folio XXXX043, please click the link https://cams.co.in/1fI7IVfdtuh and enter PAN in capital or Folio - HDFCMF",False,NOT_OTP,auto_not_otp,8,True
+64741,No,False,NOT_OTP,auto_not_otp,23,False
+57489,Thank you for using your SBI Debit Card 459XX3295 for a purchase worth Rs88 on POS  000000000240754 at PayTM txn# 050917178359.,False,NOT_OTP,auto_not_otp,9,False
+5429,"INR 025.04 spent using ICICI Bank Card XX1739 on 31-Dec-24 on Swiggy. Avl Limit: INR 6,12,713.01. If not you, call 1800 2662/SMS BLOCK 7007 to 1733956793.",False,NOT_OTP,auto_not_otp,5,False
+45198,00 150 16 50 85023 chance claim cs details discount just m263uz member mobile offers pobox pobox84 savamob shop sub text today ur vouchers week weeks worth,False,NOT_OTP,auto_not_otp,64,True
+46019,12hrs 920ppm 2000 3030 awarded claim guaranteed land line mobile number prize urgent valid win,False,NOT_OTP,auto_not_otp,66,True
+32108,Your eatfit.in meal has just left our kitchen and will be delivered in 13 mins.,False,NOT_OTP,auto_not_otp,38,False
+61108,No,False,NOT_OTP,auto_not_otp,16,False
+24990,"INR 603.68 spent on ICICI Bank Card XX8763 on 08-Jul-22 at STERLINGS MAC. Avl Lmt: INR 3,13,955.71. To dispute,call 18002662/SMS BLOCK 7007 to 5328219457",False,NOT_OTP,auto_not_otp,24,False
+71572,ಇದು ನೆನ್ನೆ ಮೊನ್ನೆ ನಡೆದ ಆಗೆ ಇದೆ...❤️❤️❤️,False,NOT_OTP,auto_not_otp,37,False
+40896,,False,NOT_OTP,auto_not_otp,56,False
+32158,"Out for Delivery: Life-n-Lemon Ankle Soc...+1 more items with tracking ID SRTP3919837744 from Shiprocket, will be delivered today by an EKART Wish Master (call 08068960020, PIN 126). To know about safety measures taken to ensure a safe delivery of your order, click here: http://fkrt.it/niyrpeNNNN .",False,NOT_OTP,auto_not_otp,38,True
+52122,कल का दिन बहुत मजेदार था! चलो इसे फिर से दोहराते हैं।,False,NOT_OTP,auto_not_otp,78,False
+38546,Cool. Thanks Gandharv,False,NOT_OTP,auto_not_otp,51,False
+31745,Internet is down. I've raised a formal complaint also.,False,NOT_OTP,auto_not_otp,37,False
+61145,No,False,NOT_OTP,auto_not_otp,16,False
+35914,"Hi Gandharv, Please download your rent receipts from http://nobr.kr/sv/pLdts. Now Rent, Buy & Sell property without brokerage at NoBroker. Happy Tax Saving!",False,NOT_OTP,auto_not_otp,46,True
+21064,"INR762.40 debited on Credit Card XX0189 on 25-Dec-20.Info:SIMPLI NAMDHARI.Avbl Lmt:INR4,362.36.Call 18002662 for dispute or SMS BLOCK 7007 to 6131678890",False,NOT_OTP,auto_not_otp,16,False
+21072,"Dear Customer, ICICI Bank FASTag linked vehicle no. GK28NG6113 has been debited with Rs 40.73 on 29-12-2020 01:26:48 for toll charges with trip number 738303790 at Devanahalli Toll Plaza Plaza on 29-12-2020 01:23:22. Avl. bal. is Rs 146.26. Call 18002100104 in case of dispute.",False,NOT_OTP,auto_not_otp,16,False
+65255,கரும்பு மஞ்சளுடன் புது அரிசியில் பொங்கலிட்டு   உறவினர்கள் நண்பர்களுடன் பகிர்ந்து சந்தோஷமுடன்  கொண்டாட   இனிய பொங்கல் நல்வாழ்த்துக்கள்.,False,NOT_OTP,auto_not_otp,24,False
+69767,പുഞ്ചിരിയെക്കാൾ വിലയുണ്ട് കണ്ണുനീരിന് കാരണം പുഞ്ചിരി കാണുന്നവർക്കെല്ലാം നൽകാം.. .പക്ഷെ കണ്ണുനീർ സ്നേഹിക്കുന്നവർക്ക് മാത്രമേ നൽകാൻ കഴിയുകയുള,False,NOT_OTP,auto_not_otp,33,False
+64766,No,False,NOT_OTP,auto_not_otp,23,False
+44625,crazy free game hit link new themob,False,NOT_OTP,auto_not_otp,63,True
+21218,Acct XXX681 debited with INR46618.91 on 13-Mar-21 and credclub@icici credited.Info:UPI-107205308711.Call 18002662 for dispute or SMS BLOCK 696 to 8747991165,False,NOT_OTP,auto_not_otp,16,False
+22860,"Dear Customer, refund of INR 8712 from MAKEMYTRIP INDIA PVT LTD has been credited to your ICICI Bank Credit Card XX5822 on 09-DEC-22 and will be adjusted in the coming statement. For details, please call our Customer Care.",False,NOT_OTP,auto_not_otp,20,False
+37600,"Get discounts and cash back on monthly groceries at Our Shop at Bysani Skyway, operated by Royal Supermarket.
+Place your order and get same delivery.
+Call +91999980477319
+For details look up: http://tiny.cc/pbjqkz",False,NOT_OTP,auto_not_otp,49,True
+34933,"Refund of Rs.8,078.98 (Rs.00.70 cashback adjusted) will be credited for your NetMeds order in 5-7 days. www.amazon.in/cstxn",False,NOT_OTP,auto_not_otp,44,True
+52800,आपके क्रेडिट कार्ड में बोनस प्वाइंट्स पेंडिंग हैं। क्लेम करें: https://bonuspoints.top/nL9J87KM -CreditBonus।,False,NOT_OTP,auto_not_otp,79,True
+10745,"Dear NETHRAMANI V,
+
+This is regarding your flight booking, with booking ID NF7GEBPNAQ1DE2PM1637. To ensure that you have a safe journey, we have compiled a list of all the travel guidelines issued by your destination here: https://applinks.makemytrip.com/ZglRYuDineb
+
+Since COVID-related guidelines change rapidly, we request you to also keep track of the latest guidelines issued by the State Government for a hassle-free trip.
+
+We wish you a safe journey!
+Team MakeMyTrip",False,NOT_OTP,auto_not_otp,15,True
+28938,"Your 21-Sep-2022 e-bill for Jio Number 0176072704 has been sent to gandharv.bakshi@gmail.com.
+Bill Summary : 
+Bill period : 21-Aug-2022 HH 07-HCD-9449
+Total Amount payable : Rs. 418.57
+Payment due date: 05-OCT-2022
+To view your bill, click http://jio.com/my_bills",False,NOT_OTP,auto_not_otp,32,True
+45049,12hrs 081 claim contact draw guaranteed land line prize shows todays trying urgent valid won,False,NOT_OTP,auto_not_otp,64,True
+25251,ICICI Bank Acct XX809 debited for Rs 971.25 on 14-Sep-22; Frothy Tales Ho credited. UPI:225728396678. Call 18002662 for dispute. SMS BLOCK 696 to 4006978508.,False,NOT_OTP,auto_not_otp,24,False
+34462,Congratulations! You won INR 50 cashback. We will deposit it into your credit card XXX-0266 in the next 7 days.,False,NOT_OTP,auto_not_otp,43,True
+20449,Your eatfit.in order for the day has been delivered at reception as per your instruction.,False,NOT_OTP,auto_not_otp,15,False
+4675,694927 is OTP for txn of INR 589.82 at Swiggy Limi on ICICI Bank Credit Card XX4497. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,3,False
+70476,ഒരു ചിരി കൊണ്ടാണ് ഞാൻ നിന്നിലേക്ക്‌ ഇത്രയും അടുത്തത് എങ്കിൽ ഒരു വാകുകൊണ്ടാണ് ആ നീ എന്നെ ആരും അല്ലാതെ ആകിയത്,False,NOT_OTP,auto_not_otp,35,False
+57462,Your OTP is 410621.(Ref.ID-569961565244)Dated on 28/12/2017 16:25. DO NOT DISCLOSE THIS OTP TO ANYONE BY ANY MEANS. This is for UPI transaction use by you ONLY,True,UPI_TXN_OR_PIN_OTP,success,9,False
+14870,"INR 747.75 spent on ICICI Bank Card XX5453 on 08-Aug-23 at TW Coffee  12th. Avl Lmt: INR 1,93,794.12. To dispute,call 18002662/SMS BLOCK 7007 to 7040065984",False,NOT_OTP,auto_not_otp,4,False
+34301,You've chosen to pay your card bill of Rs 4313 in full. The total due for 5th September is Rs 4606. Repay on time to enjoy slice rewards. - slice,False,NOT_OTP,auto_not_otp,42,False
+39567,anybody ask carlos,False,NOT_OTP,auto_not_otp,53,False
+69254,ఓరి దేవుడా e song to Bujji పేరుతో తో ఉన్న ప్రతి లవర్ మనస్సు kadhilinchav దేవుడా రమణ లక్ష్మి ప్రసన్న(బుజ్జీ),False,NOT_OTP,auto_not_otp,32,False
+58488,"Your Non-KYC Oxigen Wallet limit has been increased to Rs.11,217 a month. Now Enjoy your wallet to the fullest. Download the App Now http://m.owsms.in/XTSEqkuk",False,NOT_OTP,auto_not_otp,11,True
+31793,"Hi Lavina Mahbubani, car insurance for your Honda JAZZ will expire on 4 days. Premium starts at just Rs. 3341. For instant renewal, please visit https://pbaz.in/146f4B1F62 or call us on 1800-419-7716. - Policybazaar Insurance Brokers. T&C. Ref.ID: 473424001",False,NOT_OTP,auto_not_otp,37,True
+10615,"Your bill dated 21-05-2024 for Jio Number 0663749559 is due for payment on 30-05-2024.
+To know your bill amount and to pay your bill through MyJio app, click https://www.jio.com/billpay
+Overdue charges will be applicable, in case of delay in payment. Kindly ignore, if already paid.
+For any clarification, you can call us at 199 from your Jio number.",False,NOT_OTP,auto_not_otp,15,False
+16684,"Dear Investor, Please download your account statement for the recent transactions under folio 22146595 from link http://sms.iciciprumf.com/VgWOMbp The link is valid for 6 days. To know the steps to open the statement, click here. http://sms.iciciprumf.com/Xwa2OEk - IPRUMF",False,NOT_OTP,auto_not_otp,7,True
+8941,14 Oct 10:35 Your One-Time Password (OTP) is 841791 for reset password. The OTP is valid for 4 mins. Please do not share this password with anyone - StanChart,True,FINANCIAL_LOGIN_OTP,success,12,False
+60365,No,False,NOT_OTP,auto_not_otp,14,False
+26598,"Dear Customer,
+Your order d3zzz21fmhgv was delivered successfully. Thank you for choosing Licious. Please rate your delivery experience here http://1kx.in/XaLyuu3KT9M -Licious",False,NOT_OTP,auto_not_otp,27,True
+54884,Welcome to Jio-Bihar & Jharkhand. Enjoy Free Incoming calls and Outgoing calls anywhere in India while roaming. 4G Data & SMS benefits will be as per your plan.,False,NOT_OTP,auto_not_otp,3,False
+30952,"Dear Lavina Mahbubani , Hemanth has picked up your sample. The report(s) will be available in your Health Locker in 2 day(s). - Team Tata Health",False,NOT_OTP,auto_not_otp,36,False
+67850,Got meh... When?,False,NOT_OTP,auto_not_otp,29,False
+9759,Refund of Rs 335.6 has been initiated for your Swiggy order 103613150706. Updated balance should reflect in 4-7 days. http://swig.gy/refunds,False,NOT_OTP,auto_not_otp,13,True
+9679,"We will deliver your shipment#38716703130 today. To ensure safety, signature won't be taken; Request support to our courier. Fraud Alert:- Kindly note we are reachable ONLY on 1860 233 1234 or write to us on  Customerservice@bluedart.com .Track us on https://bdtrck.page.link/jgHUp",False,NOT_OTP,auto_not_otp,13,True
+67708,Yo you guys ever figure out how much we need for alcohol? Jay and I are trying to figure out how much we can safely spend on weed,False,NOT_OTP,auto_not_otp,29,False
+65216,அருமையான பதிவு,False,NOT_OTP,auto_not_otp,24,False
+8091,"Your Licious order pveigeii27t0 is confirmed! You will receive your order in 90 minutes. 
+
+-Licious: For the love of meat",False,NOT_OTP,auto_not_otp,10,False
+53772,"आपकी कार बीमा नवीनीकरण की सूचना । प्रिय ग्राहक, आपकी कार बीमा पॉलिसी की समाप्ति आ रही है। कृपया समय पर नवीनीकरण कराएं।",False,NOT_OTP,auto_not_otp,1,False
+44921,1st cds chance end june king play reply return sept stop store super txts walk wanna win winner,False,NOT_OTP,auto_not_otp,64,True
+39019,code customer discount messages reply services stop uk www,False,NOT_OTP,success,52,True
+14892,"INR 886.82 spent on ICICI Bank Card XX3538 on 16-Aug-23 at TATA STARBUCKS. Avl Lmt: INR 4,15,756.40. To dispute,call 18002662/SMS BLOCK 7007 to 8446070104",False,NOT_OTP,auto_not_otp,4,False
+35630,Hi! Your Netmeds order 1571565393006687A has been shipped and will reach you soon! Track order: netm-s.com/CbVLhF Reach us at 6607061386 or cs@netmeds.com,False,NOT_OTP,auto_not_otp,45,True
+33040,Congratulations! You won INR 89 cashback. We will deposit it into your credit card XXX-8432 in the next 7 days.,False,NOT_OTP,auto_not_otp,40,True
+39540,,False,NOT_OTP,auto_not_otp,53,False
+52042,मैं अपने पिछली रात के सपने के बारे में पूरी तरह से भूल गया जिसमें तुम मेरे साथ छिपकर रह रहे थे और जब मेरी माँ को तुम्हारे यहाँ होने का पता चला!,False,NOT_OTP,auto_not_otp,78,False
+52106,"अभी ₹2477 का रिचार्ज करें और ₹411 का बोनस पाएं! अभी इस लिंक पर क्लिक करें और बोनस पाएं: [http://bonus-recharge-offer.in]। जल्दी करें, ऑफर सीमित है!",False,NOT_OTP,auto_not_otp,78,True
+34745,Cashback of Rs 115 added as Amazon Pay balance for NetMeds order. Updated balance: Rs 839. Details: www.amazon.in/cstxn,False,NOT_OTP,auto_not_otp,43,True
+6505,"Dear Customer, your payment of INR 449.01 for Google Cloud to be debited from your ICICI Bank Credit Card 9986, as per Standing Instructions Wy87McuTZo, is due by 10/06/2024. To cancel this debit or your Standing Instructions, visit www.icicibank.com >Cards>Credit Cards>Standing Instructions and Recurring Charges>Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,7,True
+26426,"ನಮಸ್ತೆ! ವಾಣಿಜ್ಯ ಸಂದೇಶಗಳನ್ನು ಪಡೆಯುವುದನ್ನು ನಿಲ್ಲಿಸಲು, ನೀವು Vi App https://bit.ly/3JAw87j ಮೂಲಕ ನಿಮ್ಮ Vi ಸಂಖ್ಯೆಯಲ್ಲಿ DO NOT DISTURB ಅನ್ನು ಆಕ್ಟೀವೇಟ್ ಮಾಡಬಹುದು",False,NOT_OTP,auto_not_otp,27,True
+66644,Great escape. I fancy the bridge but needs her lager. See you tomo,False,NOT_OTP,auto_not_otp,27,False
+3854,ICICI Bank Acct XX950 debited for Rs 4056.59 on 30-Apr-25; American Expres credited. UPI:548627760541. Call 18002662 for dispute. SMS BLOCK 696 to 1903999665.,False,NOT_OTP,auto_not_otp,2,False
+20590,"Dear Customer, Refund of INR 74 from IOCL 0.75% CASHLESS IN has been credited to your Credit Card XX3398 on 18-JUN-19. For details, please call our Customer Care.",False,NOT_OTP,auto_not_otp,15,False
+15735,Rs.428 paid at Devanahalli Toll Plaza for RJ34PV7443 on 05-08-2022 13:03:05 with ICICI Bank FASTag. Bal Rs.246. Call 18002100104 for dispute,False,NOT_OTP,auto_not_otp,5,False
+51748,बदलाव का पहला कदम खुद से शुरू होता है। खुद को बेहतर बनाने की कोशिश करें।,False,NOT_OTP,auto_not_otp,77,False
+43392,birthday day happy returns wish,False,NOT_OTP,auto_not_otp,61,False
+15976,"Dear Customer, refund of INR 358.27 from RAZ*Licious has been credited to your ICICI Bank Credit Card XX5305 on 24-MAR-23 and will be adjusted in the coming statement. For details, please call our Customer Care.",False,NOT_OTP,auto_not_otp,6,False
+14274,"Dear Customer, your payment of Rs 656.37 for Youtube, as per Standing Instruction VkiVm1jJlQ, is due by 18/11/2022 and will be debited through your ICICI Bank Credit Card 8706. To cancel this debit or your Standing Instruction, please visit www.icicibank.com-Cards-Credit Cards-Standing Instruction & Recurring Charges-Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,2,True
+3596,"ನಿಮ್ಮ Jio ಸಂಖ್ಯೆ 0280852316 ಗೆ 139.0 ರೂಪಾಯಿ ರಿಚಾರ್ಜ್ ಯಶಸ್ವಿಯಗಿದೆ.
+ಅರ್ಹತೆ : Benefits: Unlimited Data (12GB High Speed Data, thereafter unlimited at 64Kbps). Validity: Base Plans validity
+ಟ್ರಾನ್ಸಾಕ್ಷನ್ ಐಡಿ : BR000B4RA29X
+ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಮತ್ತು ಮುಂಬರುವ ಯೋಜನೆಗಳ ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಲು, https://www.jio.com/dl/my_plans ಅನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ನಿಮ್ಮ ರೀಚಾರ್ಜ್ ಅನುಭವವನ್ನು ಹಂಚಿಕೊಳ್ಳಲು,ಕ್ಲಿಕ್ ಮಾಡಿ
+ಕ್ಲಿಕ್ https://www.jio.com/en-in/jio-rech-exp-survey-kannada?custid=BR000B4RA29X 
+ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಬ್ಯಾಲೆನ್ಸ್, ವ್ಯಾಲಿಡಿಟಿ, ಯೋಜನೆ ವಿವರಗಳು ಮತ್ತು ಆಕರ್ಷಕ ರೀಚಾರ್ಜ್ ಯೋಜನೆಗಳ ಬಗ್ಗೆ ತಿಳಿಯಲು 1991 ಗೆ ಡಯಲ್ ಮಾಡಿ.",False,NOT_OTP,auto_not_otp,1,False
+60983,No,False,NOT_OTP,auto_not_otp,16,False
+14499,"INR 2,349.34 spent on ICICI Bank Card XX7118 on 25-Jan-23 at RATHNAVEERA SER. Avl Lmt: INR 9,32,986.82. To dispute,call 18002662/SMS BLOCK 7007 to 5288506108",False,NOT_OTP,auto_not_otp,3,False
+17509,068623 is OTP for txn of INR 3103.73 at MEATIGO CO on ICICI Bank Credit Card XX6405. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,9,False
+35483,Payment of Rs.7576.53 received for your Airtel Fixedline no. 08043703322. Now make hassle-free online bill payment with My Airtel App. Click www.airtel.in/5/dsl,False,NOT_OTP,auto_not_otp,45,True
+32885,"Dear Vistara Customer, please click here to refer to detailed information on health and safety guidelines for customers travelling to Delhi https://www.airvistara.com/in/en/coronavirus-update?section=DomesticStatewiseAdvisory,Delhi. We request you to follow all quarantine / isolation / testing requirements as specified by the state authorities. We thank you for your understanding and cooperation.",False,NOT_OTP,auto_not_otp,40,False
+67309,Surely result will offer:),False,NOT_OTP,auto_not_otp,28,False
+22462,"INR 810.64 spent on ICICI Bank Card XX7059 on 07-Jun-22 at Amazon.in - Gro. Avl Lmt: INR 2,87,109.36. To dispute,call 18002662/SMS BLOCK 7007 to 4132913519",False,NOT_OTP,auto_not_otp,19,True
+40656,decimal goodmorning gt late lt min today,False,NOT_OTP,auto_not_otp,55,False
+67432,I like you peoples very much:) but am very shy pa.,False,NOT_OTP,auto_not_otp,29,False
+64443,yes,False,NOT_OTP,auto_not_otp,23,False
+13172,"Dear Customer, INR 164.15 is debited on ICICI Bank Credit Card XX1796 on 08-Jul-21. Info: DAILYDEL SOLUTI. Available Limit: INR 24,152.54. Call on 18002662 for dispute or SMS BLOCK 7007 to 0360896816.",False,NOT_OTP,auto_not_otp,20,False
+63462,No,False,NOT_OTP,auto_not_otp,21,False
+4271,377520 is OTP for txn of INR 73918.01 at AMAZON on ICICI Bank Credit Card XX8510. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,2,False
+42491,ave did good hey holiday honey hows mate,False,NOT_OTP,auto_not_otp,59,False
+23097,"Dear Customer, Acct XX159 is credited with Rs 1487.74 on 28-Apr-23 from V NETHRAMANI. UPI:311803537054-ICICI Bank.",False,NOT_OTP,auto_not_otp,20,False
+66734,We tried to contact you re your reply to our offer of a Video Handset? 750 anytime networks mins? UNLIMITED TEXT? Camcorder? Reply or call 08000930705 NOW,False,NOT_OTP,auto_not_otp,27,True
+7204,"INR 611.33 spent using ICICI Bank Card XX7433 on 13-Mar-25 on Swiggy Limited. Avl Limit: INR 4,96,659.47. If not you, call 1800 2662/SMS BLOCK 7007 to 3934105624.",False,NOT_OTP,auto_not_otp,8,False
+57370,Rs 0 ke recharge me payein all calls@30p/min 90 dino tak.Benefit Vodafone recharge ke 4hrs me.Offer 3 Dino tak.,False,NOT_OTP,auto_not_otp,8,False
+61094,No,False,NOT_OTP,auto_not_otp,16,False
+29038,"ICICI Bank Acc XX930 debited with INR 464.78 on 13-Feb-23. NFS*S1AWBA21*.Avb Bal: INR57,315.09. For dispute,Call 18002662 or SMS BLOCK 696 to 1312273042",False,NOT_OTP,auto_not_otp,32,False
+41195,package,False,NOT_OTP,auto_not_otp,56,False
+65693,தனித்தன்மை கொண்ட அருமையான பாடகி,False,NOT_OTP,auto_not_otp,25,False
+40496,da good player unsold,False,NOT_OTP,auto_not_otp,55,False
+45963,000 10 150 18 434 await box cash collection complimentary cs holiday ibiza landline po ppm sae urgent,False,NOT_OTP,auto_not_otp,66,True
+13485,Rs.31.28 paid with trip no-0018563624 for AR86IG4287 at 116003 on 18-12-2021 10:27:50 with ICICI Bank FASTag. Bal- Rs.701.96. Call 18002100104 for dispute.,False,NOT_OTP,auto_not_otp,1,False
+26749,"INR 98,744.00 spent on ICICI Bank Card XX1676 on 21-Aug-22 at Amazon. Avl Lmt: INR 2,55,584.17. To dispute,call 18002662/SMS BLOCK 7007 to 2387140583",False,NOT_OTP,auto_not_otp,27,True
+49927,আপনার ব্যাংক অ্যাকাউন্টের তথ্য আপডেট করতে হবে। দয়া করে লগইন করুন: http://bit.ly/BankUpdate,False,NOT_OTP,auto_not_otp,74,True
+41853,conditions def did haha let like lor okay say terms wah wont,False,NOT_OTP,auto_not_otp,57,False
+61888,No,False,NOT_OTP,auto_not_otp,18,False
+58897,"BSNL MOBILE offers STV-459 with Unlimited Voice calls, 1GB/day Data usage, 100 SMS/day & free caller tunes for 81 days. For details Dial 1503.",False,NOT_OTP,auto_not_otp,12,False
+43203,angry like listening love songs stopped won,False,NOT_OTP,auto_not_otp,60,False
+7245,"INR 5,970.46 spent using ICICI Bank Card XX7066 on 21-Apr-25 on INNOVATIVE RETA. Avl Limit: INR 8,13,972.29. If not you, call 1800 2662/SMS BLOCK 7007 to 8052164441.",False,NOT_OTP,auto_not_otp,8,False
+15677,"INR 2,991.07 spent on ICICI Bank Card XX1257 on 12-Feb-22 at VICTOR HOSPITAL. Avl Lmt: INR 8,39,852.32. To dispute,call 18002662/SMS BLOCK 7007 to 5845259035",False,NOT_OTP,auto_not_otp,5,False
+12667,Your eatfit.in meal has just left our kitchen and will be delivered in 24 mins.,False,NOT_OTP,auto_not_otp,19,False
+61334,yes,False,NOT_OTP,auto_not_otp,16,False
+52109,"उपयोगकर्ता को बधाई, आपके पास कुछ शीर्ष कॉलेजों में संभावनाएं हैं, गेट कॉलेज प्रिडिक्टर में विशेषज्ञता वाले कॉलेज कटऑफ देखें https://c360.me/e677bf Careers613",False,NOT_OTP,auto_not_otp,78,True
+62786,No,False,NOT_OTP,auto_not_otp,19,False
+45950,08000930705 100 200 300 3510i camcorder colour delivered free minutes mobile new nokia phone reply text texts tomorrow want,False,NOT_OTP,auto_not_otp,66,True
+70565,അത് ശരിയാണ് എന്താ ഇല്ലായിരുന്നല്ലോ? 👀,False,NOT_OTP,auto_not_otp,35,False
+56046,"మీరు మీ హై-స్పీడ్ ఇంటర్నెట్ కోటాలో 100% ను మీ MRP 499 యొక్క Data ఖాతా నుండి మీ జియో నెంబర్ పై 0680411134 19-Nov-17 00:44 Hrs నాటికి ఉపయోగించారు. మీకు ఏ  డేటా ప్లాన్ ఆక్టివ్ లేనట్లయితే ఇంటర్నెట్ వేగం తగ్గుతుంది. 4G వేగాన్ని నిరంతరాయంగా ఆనందించడానికి, ఇప్పుడు రీఛార్జ్ చేయండి. ఈ http://tiny.jio.com/BuyAddOn ను ""క్లిక్ చేయండి",False,NOT_OTP,auto_not_otp,6,True
+13914,"INR 408.13 spent on ICICI Bank Card XX5743 on 18-Jul-22 at AMAZON. Avl Lmt: INR 1,24,090.43. To dispute,call 18002662/SMS BLOCK 7007 to 7347910585",False,NOT_OTP,auto_not_otp,2,False
+11823,"INR 397.87 spent on ICICI Bank Card XX3934 on 20-Mar-24 at IND*Amazon. Avl Lmt: INR 0,85,415.61. To dispute,call 18002662/SMS BLOCK 7007 to 0013710456",False,NOT_OTP,auto_not_otp,17,False
+61453,No,False,NOT_OTP,auto_not_otp,17,False
+41560,12hrs 9966 3030 awarded claim guaranteed land line mobile number prize urgent valid,False,NOT_OTP,auto_not_otp,57,True
+9132,"Dear Vi Customer, Alert ! Today is your due date for bill payment of Rs 816.71 .Pay today and avoid Late payment charges upto Rs 431 . Now make payment on WhatsApp also https://vi.app.link/vibp .Ignore if already paid",False,NOT_OTP,auto_not_otp,12,True
+13092,"Dear Customer, Payment of INR 41168 has been received towards your ICICI Bank Credit Card XX4637 on 05-JUN-21 through UPI. Thank you.",False,NOT_OTP,auto_not_otp,20,False
+13048,"Dear Customer, INR 8,530.58 is debited on ICICI Bank Credit Card XX6730 on 16-May-21. Info: AMAZON. Available Limit: INR 57,889.43. Call on 18002662 for dispute or SMS BLOCK 7007 to 8243364807.",False,NOT_OTP,auto_not_otp,20,False
+4972,"Dear Customer, we have successfully processed the payment of INR 241.86 for Google Play, as per the Standing Instruction X0GCbLnfWD, on 02/06/2024 for your ICICI Bank Debit Card 9275. To manage your Standing Instructions, visit www.icicibank.com >Cards >Debit Cards>Standing Instructions and Recurring Charges>Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,4,False
+64705,yes,False,NOT_OTP,auto_not_otp,23,False
+45546,05 com free http id msg ringtone true,False,NOT_OTP,auto_not_otp,65,True
+13051,ICICI Bank Acct XXX457 debited for INR 027.85 on 16-May-21 & dailydelsolutionspvtltd.rzp@icici credited.UPI:113619534456.Call 18002662 for dispute or SMS BLOCK 696 to 4586964221.,False,NOT_OTP,auto_not_otp,20,False
+59546,No,False,NOT_OTP,auto_not_otp,13,False
+11030,"USD 25.00 spent on ICICI Bank Card XX8656 on 05-Aug-24 at Google Play. Avl Lmt: INR 6,57,752.02. To dispute,call 18002662/SMS BLOCK 7007 to 3731736046",False,NOT_OTP,auto_not_otp,16,True
+38877,appreciate just need really talk,False,NOT_OTP,auto_not_otp,51,False
+35718,"Dear Customer, your statement for AMEX Card **********91009 has been generated. Min payment Rs.8,780.49/total payment Rs.24,439.24 is due by 06/12/20.",False,NOT_OTP,auto_not_otp,45,False
+58207,You have used 50% of your 1 GB daily high speed internet quota on your Jio Number 8905963715 as of 03-Jul-17 11:35 Hrs .,False,NOT_OTP,auto_not_otp,10,False
+50055,"আজ ও কাল মেন্স ওয়ার্ল্ড এর সকল শাখায় ফ্ল্যাট ৫০% ডিসকাউন্ট
+cutt.ly/fmw",False,NOT_OTP,auto_not_otp,74,False
+13503,"Dear Customer, INR 153.75 is debited on ICICI Bank Credit Card XX5572 on 25-Dec-21. Info: SWIGGY. Available Limit: INR 94,078.45. Call on 18002662 for dispute or SMS BLOCK 7007 to 1727776723.",False,NOT_OTP,auto_not_otp,1,False
+64542,No,False,NOT_OTP,auto_not_otp,23,False
+68135,Beerage?,False,NOT_OTP,auto_not_otp,30,False
+26185,Thank you for being our valued PostPaid Customer. We would love to get your feedback on Postpaid experience to improve our services. Please click on www.jio.com/r/Ia1Bk0kMF. Team Jio,False,NOT_OTP,auto_not_otp,26,True
+42036,ok,False,NOT_OTP,auto_not_otp,58,False
+41457,,False,NOT_OTP,auto_not_otp,57,False
+22662,"INR62.27 debited on Credit Card XX4829 on 16-Aug-20.Info:Amazon.Avbl Lmt:INR00,270.81.Call 18002662 for dispute or SMS BLOCK 7007 to 6836429812",False,NOT_OTP,auto_not_otp,19,True
+65584,1996 to 2021லையும் கேட்கிறேன்.........இப்போதெல்லாம் கேட்டாலே சந்தோசமா வருது.........இன்னும் எத்தனை ஆண்டுகள் கழித்து கேட்டாலும் சலிக்காது...............,False,NOT_OTP,auto_not_otp,25,False
+49953,আমি একটি বিশেষ লোক হিসাবে পরিচিত করে এটি একটি মহান এবং ব্যাপারটির মধ্যে একটি সাথে একটি সমাধান দেওয়া হয়।,False,NOT_OTP,auto_not_otp,74,False
+10440,"Dear Customer,
+Thank you for choosing Licious. Your order nzt8bk800x7v will be delivered by 07:38 PM. -Licious",False,NOT_OTP,auto_not_otp,15,False
+6017,"Dear Swiggy customer, your refund reference number for refund of Rs 441 is P04-7334638-4796608-R028591 . http://swig.gy/refunds",False,NOT_OTP,auto_not_otp,6,True
+985,"INR 973.89 spent using ICICI Bank Card XX1683 on 07-May-25 on WWW SWIGGY COM. Avl Limit: INR 6,55,438.02. If not you, call 1800 2662/SMS BLOCK 7007 to 3011388009.",False,NOT_OTP,success,1,False
+33165,"Hi, your product Polypropyl has reached your nearest hub & will be delivered to you by 28 Mar. Track on https://fstcry.in/LBTDj Team FirstCry.",False,NOT_OTP,auto_not_otp,40,True
+16819,"Dear Investor, your Change of Nominee request has been processed. Folio 910124253163. Axis MF",False,NOT_OTP,auto_not_otp,7,False
+45672,150p 40gb 500 83355 collect guaranteed ipod latest mp3 mtmsgrcvd18 nokia phone player prize tc txt word,False,NOT_OTP,auto_not_otp,65,True
+42928,dreams following glad,False,NOT_OTP,auto_not_otp,60,False
+29265,"Dear Customer, Your Decathlon order #6821880 is out for delivery today with Saleem Basha( +919844832538).Share the OTP: 1674 with the delivery person. - #Blowhorn",True,DELIVERY_OR_SERVICE_OTP,success,32,True
+58156,"Thank you for generating coupon code through MyJio. To get Jio SIM & experience Jio Digital Life, visit Jio Store with your Aadhar Card or PoA/PoI documents & passport size photo. Click www.jio.com/Jio/portal/storeLocator for nearest Jio Store. Team Jio",False,NOT_OTP,success,10,False
+17027,"Dear Investor, As per recent regulatory guidelines, the contact details in the folio can only be of self or any of the Family members. We, therefore, request you kindly confirm if Email id baxxxi@gmail.com registered under your folio XXXXXXXX7567 pertains to self or any other family member by clicking the link https://services.kfintech.com/K/K?S=l2I7o2iUsCCi Regards -UTI MF",False,NOT_OTP,auto_not_otp,8,True
+41906,asap hi kate ring xxx,False,NOT_OTP,auto_not_otp,58,False
+22453,"Dear Customer, ICICI Bank Account XX762 is debited with INR 70,586.90 on 06-Jun-22. Info: EBA*MF-ICICI . The Available Balance is INR 22,365.39. Call 18002662 for dispute or SMS BLOCK 696 to 9633892793",False,NOT_OTP,auto_not_otp,19,False
+37995,"SIP of Rs.28,657.59 in NIMF Income Fnd,Folio-499219018716 is processed with NAV 64.0772 & 234.093 units on 06/11/2019.T&C at http://bit.ly/2p3MLo3",False,NOT_OTP,auto_not_otp,50,True
+32088,Your eatfit.in meal has just left our kitchen and will be delivered in 21 mins.,False,NOT_OTP,auto_not_otp,38,False
+21272,"Dear Customer, INR 02.30 is debited on ICICI Bank Credit Card XX9223 on 25-Apr-21. Info: AMAZON. Available Limit: INR 25,882.58. Call on 18002662 for dispute or SMS BLOCK 7007 to 1912232390.",False,NOT_OTP,auto_not_otp,16,False
+70324,"""കാറ്റു സ്നേഹിച്ചതു പൂവിനെ പക്ഷെ ആ പൂവു സ്നേഹിച്ചതോ.. വണ്ടിനെയുംപുതൂ വസന്തത്തിൽ പൂവിന്റെ തേൻ നുകർന്നു കൊണ്ടു വണ്ടു എവിടേക്കോ പറന്നകന്നു..ആ വേദനയിൽ പൂവിന്റെ ഓരോ ഇതളുകളും അടർന്നു വീണു അപ്പോഴും ആ ഭൂമിയിൽ ചിതറി കിടന്ന ഓരോ ഇതളുകളെയും തലോടികൊണ്ടിരുന്നു കാറ്റ്...",False,NOT_OTP,auto_not_otp,34,False
+10960,"INR 16.76 spent on ICICI Bank Card XX8809 on 15-Jan-24 at BLUE HORIZON HO. Avl Lmt: INR 2,48,812.81. To dispute,call 18002662/SMS BLOCK 7007 to 7099138485",False,NOT_OTP,auto_not_otp,16,False
+50831,"के, मुझे अपने बारे में कुछ बताओ?",False,NOT_OTP,auto_not_otp,75,False
+58726,"Shipped: Your Rodid Solid Men's Roun... with order id OD110422125384462000 has been shipped and will be delivered  by Monday, Oct 30, 2017. You will receive another SMS when the Wishmaster is out to deliver it. Track your shipment here http://fkrt.it/uzHYa!NNNN",False,NOT_OTP,auto_not_otp,11,True
+47556,16 2lands 7250i 86021 auction free hg nokia row send sms suite342 w1jhl win won,False,NOT_OTP,auto_not_otp,69,True
+50871,"STREE 2 ऑफिस S2 एयरटेल एक्सस्ट्रीम प्ले पर लाइव है
+अहा, सोनी लिव, इरोज नाउ, लायंसगेटप्ले और अन्य सहित 20+ ओटीटी तक पहुंच का आनंद लें। 
+क्लिक करें - open.airtelxstream.in/watchAha",False,NOT_OTP,auto_not_otp,75,True
+40255,going heard job talk tonight,False,NOT_OTP,auto_not_otp,54,False
+56139,"Vodafone 3G offers!!
+A)Rs482=4GB-3G,Dial *444*147#
+B)Rs18=2GB-3G,Dial *444*99#
+Val-28Days.Offer eTop & USSD pe
+7-Sep tak, for more offers Dial *121#",False,NOT_OTP,auto_not_otp,6,False
+6396,"Dear Customer, we have successfully processed the payment of INR 2767.85 for Google Workspace, as per the Standing Instruction WraOBd8SWH, on 03/12/2023 for your ICICI Bank Credit Card 0096. To manage your Standing Instructions, visit www.icicibank.com >Cards >Credit Cards>Standing Instructions and Recurring Charges>Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,7,False
+17869,126250 is OTP for purchase transaction initiated on ICICI Bank Credit Card XX4634. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,10,False
+58172,"Dear Customer, 
+Thank you for choosing Jio. We have received your application for new connection. Your order number is NO00000N7W0D.
+Thank you, 
+Team Jio",False,NOT_OTP,auto_not_otp,10,False
+56729,24 noon??? kalla paytm chesthhaa,False,NOT_OTP,auto_not_otp,7,True
+53681,मैं आपके और आपके परिवार के लिए नये साल की हार्दिक शुभकामनाएँ देता हूँ...सादर सहित! के.बी.सिंह.,False,NOT_OTP,auto_not_otp,1,False
+71307,ചാരിറ്റി ജോലിക്കായി നിങ്ങളുടെ രാജ്യത്ത് നിങ്ങളുടെ രാജ്യത്ത് സംഭാവന ചെയ്യാനും കൂടുതൽ വിവരങ്ങൾക്ക് എന്നെ ബന്ധപ്പെടാനും ശ്രീമതി,False,NOT_OTP,auto_not_otp,36,False
+56731,Anudeep ni,False,NOT_OTP,auto_not_otp,7,False
+34571,Congratulations! You won INR 9 cashback. We will deposit it into your credit card XXX-1840 in the next 7 days.,False,NOT_OTP,auto_not_otp,43,True
+14637,"Google Pay registration is initiated for ICICI Bank. If not done by you, report to your bank. Card details/OTP/CVV are SECRET. DO NOT disclose it to anyone.",False,NOT_OTP,success,3,False
+20147,"Dear Patron,
+Your ACT bill on A/C 102596479355 for month of OCT-2021 Due: 837.8 Due date: 15-OCT-21 Pay @ fb7y.app.link/pay?username=102596479355 ACT",False,NOT_OTP,auto_not_otp,14,True
+56167,"FREE FREE FREE! GET 400 MB 3G/2G FREE now by downloading VODAFONE PLAY App.Enjoy unlimited access to movie, music, TV shows!! Click  http://bit.ly/2u0zCKz",False,NOT_OTP,auto_not_otp,6,True
+70472,തൊറ്റു പോയവനാണ് ഞാൻ സ്വന്തം എന്ന് പറയാൻ ഒന്നും നേടിയില്ല ഇതുവരെ എന്തിനേറെ നിൻറെ മനസ്സിൽ ഒരിടം പോലും,False,NOT_OTP,auto_not_otp,35,False
+28176,"Dear , Your Hirect profile is substandard & you are missing out on high-paying jobs. Update your profile, click here api.whatsapp.com/send?phone=919673431783",False,NOT_OTP,auto_not_otp,30,True
+72277,ನನ್ನನ್ನು ಬಿಟ್ಟರೆ,False,NOT_OTP,auto_not_otp,38,False
+26434,"Hi! To stop getting commercial communications, you can activate DO NOT DISTURB on your Vi number through Vi App https://bit.ly/37gyXNC",False,NOT_OTP,auto_not_otp,27,True
+52887,"मैं जल्द ही आपसे संपर्क करूँगा, उम्मीद है।",False,NOT_OTP,auto_not_otp,80,False
+22921,"INR 349.99 spent on ICICI Bank Card XX8002 on 20-Feb-23 at SWIGGY. Avl Lmt: INR 3,74,199.49. To dispute,call 18002662/SMS BLOCK 7007 to 7485256479",False,NOT_OTP,auto_not_otp,20,False
+67245,Not getting anywhere with this damn job hunting over here!,False,NOT_OTP,auto_not_otp,28,False
+61689,No,False,NOT_OTP,auto_not_otp,17,False
+46897,brand help info just loads min mob mobile new offer package phone pls plus reply request sorry term text themob unsubscribe weeks,False,NOT_OTP,auto_not_otp,68,True
+51335,"सीमित अवधि की पेशकश, अपने खाते में रु. 5,00,000 जमा करवाएं। आवेदन पूरा करें - http://1kx.in/NUFIAN/O4WjtGslvqb NU वित्त",False,NOT_OTP,auto_not_otp,76,True
+57306,"Vodafone 2G Data Offer-
+1)Rs25/2GB/28Din/2G ,Dial*444*98#
+2)Rs68/1GB/28Din/2G,Dial*444*5300# 
+Offer 12th-May-Tak.",False,NOT_OTP,auto_not_otp,8,False
+36031,Your mobile number and device is successfully captured for UPI registration.,False,NOT_OTP,auto_not_otp,46,True
+3426,Refund of Rs 241.8 has been initiated for Swiggy order 210089898930006. Updated balance should reflect in 4-7 days. https://r.swiggy.com/refunds,False,NOT_OTP,auto_not_otp,1,False
+20432,Your eatfit.in order for the day has been delivered at reception as per your instruction.,False,NOT_OTP,auto_not_otp,15,False
+53986,सिर्फ आज! स्मार्टफोन्स पर 90% की छूट। खरीदारी के लिए इस लिंक पर जाएं: https://megaoffer.shop/zL8MkNj5 -HotDeals।,False,NOT_OTP,auto_not_otp,2,True
+20290,Thank you for transacting with Cashify. We'd appreciate it if you could spare a moment and share your feedback with us cashi.fi/1d971d4e.,False,NOT_OTP,auto_not_otp,14,True
+50980,अर कंप्लीट यू बन जाएगा साथ एम दो टेबल चाय एक साथ हो जाएगा,False,NOT_OTP,auto_not_otp,76,False
+57073,"Dear Customer, +919398321127 is now available to take calls.",False,NOT_OTP,auto_not_otp,8,True
+21233,ICICI Bank Acct XXX851 debited for INR 999.29 on 25-Mar-21 & bharatpe.4547189685@fbpe credited.UPI:108408022717.Call 18002662 for dispute or SMS BLOCK 696 to 9598026886.,False,NOT_OTP,auto_not_otp,16,True
+12904,"Dear Customer, Your a/c no. XXXXXXXX3696 is credited by Rs.6.50 LL 82-DSJ-3501 10:47:27 by a/c linked to mobile XXXXX00000. (IMPS Ref no 107310785682).",False,NOT_OTP,auto_not_otp,20,False
+20203,We have successfully linked your OnePlus 11R 5G device to your Online Banking ID. Reach us at https://www.sc.com/in/contact-us/ if not done by you - StanChart,False,NOT_OTP,auto_not_otp,14,True
+26420,Hi! Payment of Rs. 619.4 is credited to your Vi number 0637104387. Your outstanding as on 2022-06-21 is Rs. 1.55.,False,NOT_OTP,auto_not_otp,27,False
+65749,தமிழனின் பெருமை என்றும் அழிவதுமில்லை நாம் இல்லையென்றாலும்,False,NOT_OTP,auto_not_otp,25,False
+68549,మేము వేగంగా ముందుకు వెళ్తున్నాము!,False,NOT_OTP,auto_not_otp,31,False
+54240,"अत्यावश्यक! आपके मोबाइल नंबर पर 02/09/03 को ₹8,44,555 का बोनस बोनस पुरस्कार मिला है! यह आपसे संपर्क करने का हमारा दूसरा प्रयास है! 0871-872-9755 BOX95QU पर कॉल करें।",False,NOT_OTP,auto_not_otp,2,True
+1384,"Dear Customer, transfer funds to SEBI INVESTOR PROTECTION . It has been 30 minutes since you have added the payee. Call ICICI Bank Customer Care, if payee not added by you.",False,NOT_OTP,success,1,True
+25312,"Dear Customer, your payment of Rs 752.03 for Amazon, as per Standing Instruction Vlw5oHYxUZ, is due by 19/10/2022 and will be debited through your ICICI Bank Credit Card 6229. To cancel this debit or your Standing Instruction, please visit www.icicibank.com-Cards-Credit Cards-Standing Instruction & Recurring Charges-Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,24,True
+69603,"നിന്നെ കാണാൻ ഞാനുപയോഗിച്ച എന്റെ കണ്ണുകൾ... നീ വരാനിടയില്ലാത്ത ഇടങ്ങളിൽ പോലും നിന്നെ തേടി അലഞ്ഞപ്പോൾ, ഞാനറിഞ്ഞു എന്റെ പ്രണയത്തിന്റെ അനിർവചനീയമായ തീവ്രതയെ...Krrish David",False,NOT_OTP,auto_not_otp,33,False
+24359,ICICI Bank Acct XXX019 debited for INR 25.73 on 07-Aug-21 & MOUNTAIN TRAIL FOODS PRIVATE L credited.UPI:121914528384.Call 18002662 for dispute or SMS BLOCK 696 to 5056308129.,False,NOT_OTP,auto_not_otp,23,False
+23967,Acct XXX181 debited with INR77.86 on 06-Feb-21 and paytmqr281005050101us85n2e0791f@paytm credited.Info:UPI-103715078126.Call 18002662 for dispute or SMS BLOCK 696 to 9456293633,False,NOT_OTP,auto_not_otp,22,True
+22938,"INR 7,541.77 spent on ICICI Bank Card XX7453 on 03-Mar-23 at GOOGLE WORKSPAC. Avl Lmt: INR 0,56,483.20. To dispute,call 18002662/SMS BLOCK 7007 to 9497585806",False,NOT_OTP,auto_not_otp,20,True
+10759,"Dear Gandharv,
+
+Thank you for booking with us. We are happy to inform you that your flight with booking ID NF7ABPQ444041612773 is confirmed.
+
+Your Trip Details:
+
+Departure Flight: Chennai-Mumbai | Date: 10 Jan 25 | Add-ons: MAA-BOM, 6E-5258(Seats: 24C)
+
+Total amount paid: INR 3,054.17
+
+You can manage your booking at https://mmyt.co/MMTRIP/bLW3Xp3G
+
+We wish you a safe journey.
+Team MakeMyTrip",False,NOT_OTP,auto_not_otp,15,False
+5114,"Dear Customer, we have successfully processed the payment of INR 918.17 for Amazon, as per the Standing Instruction Wz5VPWtTPa, on 23/08/2024 for your ICICI Bank Credit Card 1138. To manage your Standing Instructions, visit www.icicibank.com >Cards >Credit Cards>Standing Instructions and Recurring Charges>Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,4,True
+30084,"Payment of INR 8,386 was received for card number -X7184 WG 55-MXR-7367 and you have earned 5,900 CRED coins. Payment will reflect in your credit card account in max 48 hours. ZKGLD95XJ7 is your order id.",False,NOT_OTP,auto_not_otp,34,False
+36306,"Alert: You've spent INR 7,362.06 on your AMEX card **91009 at RAZORPAY   S on 16/01/2021 at 07:08AM IST. Please call 18004190691 if this was not made by you.",False,NOT_OTP,auto_not_otp,46,False
+46098,bad com credit purpose tenants welcome,False,NOT_OTP,auto_not_otp,66,True
+31361,You have received a Refund of Rs 11.35 in your Amazon Pay balance. Total Balance is now Rs 15.60.,False,NOT_OTP,auto_not_otp,36,False
+38388,Arriving Today: Flybot Wave in-Ear Sport Wireless Bluetooth Earphone ... will be delivered by AmzAgent(+918061914444 PIN 4676). Track: http://amzn.in/d/6YEqcUP,False,NOT_OTP,auto_not_otp,51,True
+10690,"Dear Archana S
+
+As per DGCA guidelines, web check-in is mandatory for all passengers. As you are flying soon, please complete the web check-in for your upcoming Indigo Airlines flight 6E-6536 from Indore To Bangalore at the earliest. We also recommend that you select your preferred seat before it is sold out!
+
+To web check-in on MakeMyTrip, click https://applinks.makemytrip.com/g9IwnLeLhob | Team MakeMyTrip",False,NOT_OTP,auto_not_otp,15,True
+59173,No,False,NOT_OTP,auto_not_otp,12,False
+5665,"INR 941.78 spent using ICICI Bank Card XX2823 on 13-Apr-25 on WWW SWIGGY COM. Avl Limit: INR 7,79,914.82. If not you, call 1800 2662/SMS BLOCK 7007 to 7581784523.",False,NOT_OTP,auto_not_otp,5,False
+8166,"50% ದೈನಂದಿನ ಡೇಟಾ ಕೋಟಾ 17-Jul-21 16:41 ವರೆಗೆ ಬಳಕೆಯಾಗಿದೆ.
+ಜಿಯೊ ಸಂಖ್ಯೆ: 3799266172
+ಯೋಜನೆಯ ಪ್ರಕಾರ ದೈನಂದಿನ ಡೇಟಾ ಕೋಟಾ: 2 GB
+MyJio ಅಪ್ಲಿಕೇಶನ್ ಮೂಲಕ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಹೇಗೆ ನಿರ್ವಹಿಸುವುದು ಎಂಬುದರ ಕುರಿತು ಇನ್ನಷ್ಟು ತಿಳಿದುಕೊಳ್ಳಲು, https://youtu.be/JadIvh5mJPQ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಬ್ಯಾಲೆನ್ಸ್, ವ್ಯಾಲಿಡಿಟಿ, ಯೋಜನೆ ವಿವರಗಳನ್ನು ಮತ್ತು ಅತ್ಯಾಕರ್ಷಕ ರೀಚಾರ್ಜ್ ಯೋಜನೆಗಳಿಗಾಗಿ 1991 ಅನ್ನು ಡಯಲ್ ಮಾಡಿ.",False,NOT_OTP,auto_not_otp,10,False
+71095,മനസിനെ മയക്കണ പാട്ടുണ്ടെങ്കിൽ അതിതാണ്....,False,NOT_OTP,auto_not_otp,36,False
+28352,"Dear Investor, Payment of Rs. 8565.55 towards your SIP in Axis Focused 25 Fund - REGULAR GROWTH has been received and 30.749 units at NAV 48.78 are allotted in Folio XXXXXXXXX8403. Axis MF",False,NOT_OTP,auto_not_otp,30,False
+47240,calls chat cum free fun hi lookin luv married meet phone set sort time ur wanna week wiv woman xx,False,NOT_OTP,auto_not_otp,68,True
+21643,"Dear Customer, INR 748.42 is debited on ICICI Bank Credit Card XX6436 on 16-Jan-22. Info: CRED. Available Limit: INR 0,54,699.36. Call on 18002662 for dispute or SMS BLOCK 7007 to 1457102353.",False,NOT_OTP,auto_not_otp,17,False
+33715,You have received 5 new applications for your Translation internship. See them here internshala.com/i/89 - Internshala,False,NOT_OTP,auto_not_otp,41,False
+30654,"Gandharv, your eatfit.in order has been delivered. Enjoy and stay healthy!",False,NOT_OTP,auto_not_otp,35,False
+40373,especially getting house thing watching,False,NOT_OTP,auto_not_otp,54,False
+37402,"Dear Cardmember,Your balance on American Express card ending in 91009 is 1,726.75 as of 05/10/2019",False,NOT_OTP,auto_not_otp,49,False
+7081,"INR 315.47 spent using ICICI Bank Card XX2308 on 19-Dec-24 on Swiggy. Avl Limit: INR 7,64,044.77. If not you, call 1800 2662/SMS BLOCK 7007 to 0984504869.",False,NOT_OTP,auto_not_otp,8,False
+41503,princess,False,NOT_OTP,auto_not_otp,57,False
+66870,Pick you up bout 7.30ish? What time are and that going?,False,NOT_OTP,auto_not_otp,27,False
+69308,2022లో చూస్తున్న వెంకటేష్ ఫ్యాన్స్ ఒక్క 👍like వేసుకోండి,False,NOT_OTP,auto_not_otp,32,False
+598,"INR 1,492.68 spent using ICICI Bank Card XX6727 on 27-Oct-25 on BUNDL TECHNOLOG. Avl Limit: INR 1,36,335.23. If not you, call 1800 2662/SMS BLOCK 7007 to 4391880772.",False,NOT_OTP,success,1,False
+16431,387550 is OTP for txn of INR 909.42 at AMAZONRECHA on ICICI Bank Credit Card XX5451. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,7,False
+6004,Your Swiggy Instamart order #1160380376946 was delivered. Keep ordering from Instamart to get your favourite items instantly.,False,NOT_OTP,auto_not_otp,6,False
+66502,Lol your always so convincing.,False,NOT_OTP,auto_not_otp,27,False
+35587,"Don't download unknown applications on your phone / devices based on a call from an unknown person. Some apps can forward SMS received on your phone to other devices and can enable fraudsters to get your OTPs and complete fraudulent transactions. Please do not share your Debit card/Credit card no, CVV, expiry date, PIN, password, OTP, login ID etc with anyone and do not fill these details on unknown / unsecure online forms - StanChart",False,NOT_OTP,success,45,False
+69068,సమయం సందర్భం లేనప్పుడు వచ్చే సాంగ్ ఇది...,False,NOT_OTP,auto_not_otp,32,False
+7457,"We are waiting to hear from you! Click www.jio.com/r/zHUf8D7YI to share your feedback on Jio's network and help us serve you better. Thank you, Team Jio",False,NOT_OTP,auto_not_otp,9,True
+2270,"ನಮಸ್ತೆ! ವಾಣಿಜ್ಯ ಸಂದೇಶಗಳನ್ನು ಪಡೆಯುವುದನ್ನು ನಿಲ್ಲಿಸಲು, ನೀವು Vi App https://bit.ly/3JAw87j ಮೂಲಕ ನಿಮ್ಮ Vi ಸಂಖ್ಯೆಯಲ್ಲಿ DO NOT DISTURB ಅನ್ನು ಆಕ್ಟೀವೇಟ್ ಮಾಡಬಹುದು",ERROR,ERROR,failed,2,True
+64595,No,False,NOT_OTP,auto_not_otp,23,False
+17755,"Dear Customer, your payment of INR 802.09 for Amazon to be debited from your ICICI Bank Credit Card 7234, as per Standing Instructions VkCP6gwTgD, is due by 14/05/2023. To cancel this debit or your Standing Instructions, visit www.icicibank.com >Cards>Credit Cards>Standing Instructions and Recurring Charges>Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,9,True
+39758,afternoon boy day early goes good grins hmmm italian love online waiting woke,False,NOT_OTP,auto_not_otp,53,False
+48158,150p asked contact dating guess know pobox revealed service,False,NOT_OTP,auto_not_otp,70,True
+37959,"Avbl Bal in your A/C. No.XXXXXXXXXXX0055 on EOD 15-DEC-2019 is USD 0.00, Tot. avbl bal (including linked deposits and Limit) is USD 0.00.",False,NOT_OTP,auto_not_otp,50,False
+37571,I will call you after 07.30,False,NOT_OTP,auto_not_otp,49,False
+46373,150p 40gb 500 83355 collect guaranteed ipod latest mp3 mtmsgrcvd18 nokia phone player prize txt word,False,NOT_OTP,auto_not_otp,66,True
+18277,"INR 770.46 spent on ICICI Bank Card XX4932 on 16-Apr-23 at SWIGGY. Avl Lmt: INR 3,75,297.87. To dispute,call 18002662/SMS BLOCK 7007 to 8055515423",False,NOT_OTP,auto_not_otp,10,False
+28526,"Avbl Bal in your A/C. No.XXXXXXXXXXX0055 on EOD 23-JUN-2020 is USD 0.00, Tot. avbl bal (including linked deposits and Limit) is USD 0.00.",False,NOT_OTP,auto_not_otp,31,False
+16670,"Dear valued client, Please update the nominee details to secure the financial well-being of your near and dear ones. Login to online banking Login now bit.ly/3J5kdkh or SC mobile. Go to Help & Services >> Account Management >>Add/Modify a nomination for Savings Accounts, Term Deposits and Recurring Deposits. Please disregard if already completed. - StanChart",False,NOT_OTP,auto_not_otp,7,True
+69914,മറന്ന് പിരിയാനല്ല ഞാൻ നിന്നെസ്നേഹിച്ചത്....മറിച്ച് പിരിയും വരെ നേഞ്ചോട്ചേർക്കാൻ തന്നെയാണ്...മറക്കില്ല നിന്നെ ഞാനീജന്മത്തിലൊരിക്കലും..മറക്കുമൊരുനാൾ സഖീനിന്നെ ഞാൻ....അന്നെൻ മുഖം വെള്ളകൊണ്ട് മൂടപ്പെടും...????????,False,NOT_OTP,auto_not_otp,34,False
+23896,"Acct XX782 debited with INR 0,227.68 on 09-Dec-20.Info: BIL*ONL*00214.Avbl Bal:INR 4,00,652.87.Call 18002662 for dispute or SMS BLOCK 696 to 6855101066",False,NOT_OTP,auto_not_otp,22,False
+55223,My steam guard code R86703,True,GENERIC_APP_ACTION_OTP,success,4,False
+24395,"Dear Customer, INR 3,968.19 is debited on ICICI Bank Credit Card XX8114 on 01-Sep-21. Info: CRED. Available Limit: INR 07,336.90. Call on 18002662 for dispute or SMS BLOCK 7007 to 3769173908.",False,NOT_OTP,auto_not_otp,23,False
+17644,"Hi, Pella 94XXXXX862 has scheduled a pickup with Dunzo. Partner Pramoda D (9267886740) shall reach your location within 5 minutes. Please be ready with the package. Feel free to contact the partner for any help.",False,NOT_OTP,auto_not_otp,9,False
+52008,"G8METCHES का स्वर 4 सभी भीड़ के सामने ८०० से लेकर 8007 रुपये के शीर्षकों के साथ प्रतिक्रिया: कमीन, S…",False,NOT_OTP,auto_not_otp,78,True
+72683,88800 ಮತ್ತು 89034 ಪ್ರೀಮಿಯಂ ಫೋನ್ ಸೇವೆಗಳು ಕರೆ 08718711108,False,NOT_OTP,auto_not_otp,39,True
+65553,"அன்பான உறவுகளுக்கு
+சுதந்திர தின நல்வாழ்த்துக்கள்",False,NOT_OTP,auto_not_otp,25,False
+28686,"Dear Patron,
+Your ACT bill on A/C 102596479355 for month of NOV-2022 Due: 1136.8 Due date: 15-NOV-22 Pay @ fb7y.app.link/pay?username=102596479355 ACT",False,NOT_OTP,auto_not_otp,31,True
+39470,,False,NOT_OTP,auto_not_otp,53,False
+35079,"Hi Gandharv,
+You have successfully initiated your August rent payment(NRP-8135015) of INR 38904.54 (processing fees of INR 509.15 charged extra). We will deposit the money to beneficiary's bank account by 01-Aug (Sun) 12:04 PM and notify you once it is credited. Click http://nobr.kr/sv/HdtrC to get help.
+NoBroker Pay",False,NOT_OTP,auto_not_otp,44,True
+34480,Congratulations! You won INR 0 cashback. We will deposit it into your credit card -X6529 in the next 7 days.,False,NOT_OTP,auto_not_otp,43,True
+9389,ICICI Bank Acct XX355 debited for Rs 876.85 on 22-Oct-23; RAHIL SHAFI KUT credited. UPI:329503056431. Call 18002662 for dispute. SMS BLOCK 696 to 8101661700.,False,NOT_OTP,auto_not_otp,13,False
+31015,Indian Railways has restarted linen supply in trains in a phased manner.Please check the status of linen supply in your train by clicking this link: https://contents.irctc.co.in/en/LINEN.html IR,False,NOT_OTP,auto_not_otp,36,True
+26892,"Dear Customer, we have activated Standing Instructions on your ICICI Bank Credit Card 7151. Merchant: Google Workspace, Maximum Amount: INR 68843.24, Frequency: As Presented, Start Date: 09/04/2023, End Date: 31/12/2033, Mandate ID: WYHbJZVZBL. To manage your Standing Instructions, visit www.icicibank.com >Cards>Credit Cards>Standing Instructions and Recurring Charges>Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,28,False
+8531,"INR 927.34 spent on ICICI Bank Card XX9706 on 21-Jan-24 at BUNDL TECHNOLOG. Avl Lmt: INR 0,87,840.56. To dispute,call 18002662/SMS BLOCK 7007 to 8376116631",False,NOT_OTP,auto_not_otp,11,False
+48463,মাশরাফির সাথে ডিনার করার সুযোগ পেতে ক্যাসিনোতে বাজি ধরুন। শুরু করুন: ebayisapidlld.altervista.org/,False,NOT_OTP,auto_not_otp,71,True
+36482,[Dropout Unsuccessful] Your slot in class at Cult Jayanagar on Mon 7th Oct at 06:00 AM couldn't be used. Your membership has been reduced by 1 day.,False,NOT_OTP,auto_not_otp,47,False
+68556,"చాలా మంది సభ్యులకు క్రిప్టో వాలెట్‌లతో సమస్యలు ఉన్నాయని, వాటిని తెరవడానికి లేదా వాటిని స్వీకరించడానికి అధిక పన్నులు చెల్లించాలని మాకు తెలియజేయబడింది.",False,NOT_OTP,auto_not_otp,31,True
+71166,ഞാൻ ഇതുവരെ നിന്നെ വിട്ടിരുന്നു പിന്നെ നിനക്ക് മനസ്സിലാക്കിയതോടെ ഞാൻ നിന്നെ പിന്തുടരുന്നു.,False,NOT_OTP,auto_not_otp,36,False
+8278,667939 is OTP for txn of INR 802.60 at SWIGGY on ICICI Bank Credit Card XX8825. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,10,False
+5160,"INR 5,089.40 spent using ICICI Bank Card XX9330 on 07-Sep-24 on SWIGGY. Avl Limit: INR 0,51,829.64. If not you, call 1800 1080/SMS BLOCK 7007 to 5676766.",False,NOT_OTP,auto_not_otp,4,False
+43482,aha job need po,False,NOT_OTP,auto_not_otp,61,False
+63695,No,False,NOT_OTP,auto_not_otp,21,False
+66962,"FREE MESSAGE Activate your 500 FREE Text Messages by replying to this message with the word FREE For terms & conditions, visit www.07781482378.com",False,NOT_OTP,auto_not_otp,28,True
+7660,432960 is OTP for txn of INR 678.59 at SWIGGY INST on ICICI Bank Credit Card XX2245. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,9,False
+9057,Cheers! Your Meatigo Order ID #MEA26VWA37083 has been delivered. Looking forward to serving you again soon. #EatBetterMeat. -Meatigo,False,NOT_OTP,auto_not_otp,12,False
+31045,Delivered: Your Amazon.in order 402-9351871-6212363 has been delivered. Thanks for shopping with us. Details https://amzn.in/d/ePLHRLa,False,NOT_OTP,auto_not_otp,36,True
+9747,"Your 21-Jun-2023 e-bill for Jio Number 9730999172 has been sent to gandharv.bakshi@gmail.com.
+Bill Summary : 
+Bill period : 21-May-2023 EB 54-COW-8965
+Total Amount payable : Rs. -5.61
+Payment due date: 30-JUN-2023
+To view your bill, click http://jio.com/my_bills",False,NOT_OTP,auto_not_otp,13,True
+14627,"Dear Customer, Payment of INR 8669.91 has been received on your ICICI Bank Credit Card Account 4xxx7007 on 30-APR-23.Thank you.",False,NOT_OTP,auto_not_otp,3,False
+7994,Your Licious order is out for delivery!. Track your order here https://track.licious.in/1072112 -Licious,False,NOT_OTP,auto_not_otp,10,True
+53691,"फ्री गिफ्ट कार्ड ऑफर! एक सीमित समय के लिए, फ्री गिफ्ट कार्ड पाएं! यहाँ क्लिक करें: [https://win-free-giftcard.com]।",False,NOT_OTP,auto_not_otp,1,True
+22588,"INR869.43 debited on Credit Card XX4130 on 09-Jun-19.Info:AMAZON.Avbl Lmt:INR8,90,129.16.Call 18002662 for dispute or SMS BLOCK 2004 to 9380030971",False,NOT_OTP,auto_not_otp,19,False
+25338,"INR 5,403.63 spent on ICICI Bank Card XX6755 on 27-Oct-22 at FORTE KOCHI. Avl Lmt: INR 42,807.15. To dispute,call 18002662/SMS BLOCK 7007 to 7404419296",False,NOT_OTP,auto_not_otp,24,False
+49686,অ্যাপল আইফোন ১৭ জিতেছেন! ডেলিভারি নিশ্চিত করতে কল করুন: +8801817677789,False,NOT_OTP,auto_not_otp,73,True
+72699,"ರೋಮ್ಯಾಂಟಿಕ್ ಪ್ಯಾರಿಸ್. 2 ರಾತ್ರಿಗಳು, This 79 ಪುಸ್ತಕದಿಂದ 2 ವಿಮಾನಗಳು ಈಗ 4 ಮುಂದಿನ ವರ್ಷ 4. ಕರೆ ಮಾಡಿ 08704439680ts & cs ಅನ್ವಯಿಸಿ.",False,NOT_OTP,auto_not_otp,39,True
+51842,"मुझे गणित समझा देना परीक्षा के पहले , मुझे कुछ आता नही हे फेल हो जाऊंगा ।",False,NOT_OTP,auto_not_otp,77,False
+64880,yes,False,NOT_OTP,auto_not_otp,23,False
+64600,No,False,NOT_OTP,auto_not_otp,23,False
+16036,ICICI Bank Acct XX762 debited for Rs 700.30 on 25-May-23; Amazon Pay credited. UPI:314581707519. Call 18002662 for dispute. SMS BLOCK 696 to 9624185361.,False,NOT_OTP,auto_not_otp,6,False
+44430,08712300220 250 350 app award claim code ending holiday match national numbers quoting rate rates receive selected standard stay todays valued ve voda,False,NOT_OTP,success,63,True
+57411,"Your active mobile number won 3Crore 60Lakh in BMW MOTORS to claim send: Name, Address, Mobile no, Age, to: bmw404@hotmail.com",False,NOT_OTP,auto_not_otp,9,True
+25027,"INR 393.96 spent on ICICI Bank Card XX8408 on 17-Jul-22 at Amazon. Avl Lmt: INR 3,70,930.65. To dispute,call 18002662/SMS BLOCK 7007 to 9961130200",False,NOT_OTP,auto_not_otp,24,False
+50290,"আজ ৩১ মে, ২০২৩ বিশ্ব তামাকমুক্ত দিবস। এ দিবসের প্রতিপাদ্য হ’লঃ
+“তামাক নয়, খাদ্য ফলান”।
+জাতীয় তামাক নিয়ন্ত্রণ সেল, স্বাস্থ্য সেবা বিভাগ, স্বাস্থ্য ও পরিবার কল্যাণ মন্ত্রণালয়। ",False,NOT_OTP,auto_not_otp,74,False
+54507,Hehe okie,False,NOT_OTP,auto_not_otp,3,False
+1946,Hey Chai Lover! You have earned 10 CHAI POINT loyalty points on your last transaction. Track your progress on our App.,False,NOT_OTP,success,2,False
+56794,papam,False,NOT_OTP,auto_not_otp,7,False
+8428,"INR 776.58 spent on ICICI Bank Card XX7727 on 10-Dec-23 at Bundl technolog. Avl Lmt: INR 4,74,708.55. To dispute,call 18002662/SMS BLOCK 7007 to 7230351412",False,NOT_OTP,auto_not_otp,11,False
+52988,फाइल्स भेजने की प्रक्रिया चल रही है।,False,NOT_OTP,auto_not_otp,80,False
+4649,034852 is OTP for txn of INR 041.29 at Swiggy IN on ICICI Bank Credit Card XX8211. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,3,False
+44662,18 2000 bahamas cash claim going live operator opt speak txt ur,False,NOT_OTP,auto_not_otp,63,True
+518,"INR 157.93 spent using ICICI Bank Card XX2505 on 09-Oct-25 on AMAZON PAY IN E. Avl Limit: INR 1,23,991.66. If not you, call 1800 2662/SMS BLOCK 7007 to 0165623449.",False,NOT_OTP,success,1,False
+21349,ICICI Bank Acct XXX942 debited for INR 422.43 on 29-Jun-21 & purshipurshothamr@oksbi credited.UPI:118041430976.Call 18002662 for dispute or SMS BLOCK 696 to 4077551471.,False,NOT_OTP,auto_not_otp,16,True
+38735,man place,False,NOT_OTP,auto_not_otp,51,False
+30447,"Avbl Bal in your A/C. No.XXXXXXXXXXX0055 on EOD 19-FEB-2020 is USD 0.00, Tot. avbl bal (including linked deposits and Limit) is USD 0.00.",False,NOT_OTP,auto_not_otp,35,False
+65187,"நிச்சயமாக,இப்போது நினைத்தாலும் மனதைக்கனக்கச் செய்யும் திரைமொழி",False,NOT_OTP,auto_not_otp,24,False
+34181,"Our Delivery Executive has been trying to reach you on your registered number. Please reach out to him with an alternate number so that we can have the order delivered to you at the earliest. Post 10 min of this SMS your order will be cancelled in case there is no response from your end.
+-Swiggy",False,NOT_OTP,auto_not_otp,42,False
+7357,Thank you for being our valued PostPaid Customer. We would love to get your feedback on Postpaid experience to improve our services. Please click on www.jio.com/r/H2KhhDx6v. Team Jio,False,NOT_OTP,auto_not_otp,9,True
+53962,दस मिनट में.,False,NOT_OTP,auto_not_otp,2,False
+61605,No,False,NOT_OTP,auto_not_otp,17,False
+44257,09061221066 28 awarded camera days delivery digital fromm landline sipix,False,NOT_OTP,auto_not_otp,62,True
+60519,No,False,NOT_OTP,auto_not_otp,15,False
+64043,yes,False,NOT_OTP,auto_not_otp,22,False
+3431,"Congratulations! 
+Your Jio number is now active with 3 - month complimentary JioHotstar subscription.
+Please note, this subscription can be availed only once per Jio Number.
+Log in to JioHotstar app with your Jio number and enjoy live cricket, movies, TV shows, and more! 
+You can also experience 50 days of free JioAirFiber as part of Jio Unlimited Offer! Call 60008-60008 or visit https://tiny.jio.com/jiounlimitedoffer to register your interest. T&C apply.
+Happy watching!
+Team Jio",False,NOT_OTP,auto_not_otp,1,True
+38547,Hi Gandharv. We are great to meet you at 7 pm tomorrow,False,NOT_OTP,auto_not_otp,51,False
+53200,"प्रिय ग्राहक, आपके बैंक खाते में असामान्य गतिविधि देखी गई है। आपकी सुरक्षा के लिए, हम आपके खाते को अस्थायी रूप से लॉक कर रहे हैं। कृपया नीचे दिए गए लिंक पर क्लिक करके अपने खाते को तुरंत वेरीफाई करें और उसे सुरक्षित रखें: [action2take.boi.bnk.ly]। यदि आप 24 घंटे के अंदर वेरीफाई नहीं करते हैं, तो आपका खाता स्थायी रूप से बंद हो सकता है। सुरक्षा के लिए आवश्यक कदम उठाएं!",False,NOT_OTP,auto_not_otp,80,True
+45173,50 activate added calls charge cost min month net network pobox84 standard support texting upto ur,False,NOT_OTP,auto_not_otp,64,True
+10927,"INR 889.22 spent on ICICI Bank Card XX3538 on 31-Dec-23 at SWIGGY. Avl Lmt: INR 2,14,219.90. To dispute,call 18002662/SMS BLOCK 7007 to 2210456937",False,NOT_OTP,auto_not_otp,16,False
+61956,yes,False,NOT_OTP,auto_not_otp,18,False
+33462,You have received 5 new applications for your Graphic Design internship. See them here internshala.com/i/89 - Internshala,False,NOT_OTP,auto_not_otp,41,False
+56712,+91 73 52 027187,False,NOT_OTP,auto_not_otp,7,True
+61303,No,False,NOT_OTP,auto_not_otp,16,False
+1457,"INR 7,755.67 spent using ICICI Bank Card XX9938 on 21-Jun-25 on IND*Amazon. Avl Limit: INR 9,35,583.62. If not you, call 1800 2662/SMS BLOCK 7007 to 7977838567.",False,NOT_OTP,success,2,False
+16171,"Registration for Google Pay app has started. Do not share your card details/OTP/CVV to avoid financial loss. If not you, call 18001035577 - Axis Bank",False,NOT_OTP,success,6,False
+69586,ഈ മൊഞ്ചില്ലാത്ത മുഖത്ത് നോക്കി പുഞ്ചിരിക്കാന് കാണിക്കുന്ന ആ മനസ്സുണ്ടല്ലൊ.. അവിടെയാണ് ഞമ്മള് അന്റെ ഖല്ബും മൊഞ്ചും കണ്ടത്......,False,NOT_OTP,auto_not_otp,33,False
+53445,"जैसे ही मैं अपनी केबिन में गया, मेरी PA ने कहा, ""जन्मदिन मुबारक हो, बॉस!"" मुझे खास महसूस हुआ। उसने मुझसे लंच के लिए पूछा। इसके बाद…",False,NOT_OTP,auto_not_otp,1,False
+45081,12hrs 267 claim contact draw guaranteed land line prize shows todays trying urgent valid won,False,NOT_OTP,auto_not_otp,64,True
+23504,"INR499.17 debited on Credit Card XX1784 on 08-Feb-20.Info:Amazon.Avbl Lmt:INR98,601.73.Call 18002662 for dispute or SMS BLOCK 7007 to 8014871302",False,NOT_OTP,auto_not_otp,21,False
+8794,ICICIdirect: Your buy order dated 11/06/2024 of ICINIF for 1 shares has been executed at an average price of Rs 876.12-ICICI Bank.,False,NOT_OTP,auto_not_otp,11,False
+13957,ICICI Bank Acct XX614 debited for Rs 67012.16 on 30-Jul-22; CREDCLUB1 credited. UPI:221107114912. Call 18002662 for dispute. SMS BLOCK 696 to 6930710756.,False,NOT_OTP,auto_not_otp,2,False
+52773,इसे कल के लिए पोस्टपोन करने पर विचार करें?,False,NOT_OTP,auto_not_otp,79,False
+47837,04 06 11 2003 800 account code expires identifier points private redeemed shows statement,False,NOT_OTP,success,69,True
+63089,No,False,NOT_OTP,auto_not_otp,20,False
+10588,"Dear Customer, Your KYC for YES BANK Customer ID XXXXX32 is due for updation. To update, pls visit your nearest YES BANK branch with valid KYC documents.",False,NOT_OTP,auto_not_otp,15,True
+12351,ICICIdirect: Your buy order dated 11/09/2023 of ICIGOL for 2 shares has been executed at an average price of Rs 08.20-ICICI Bank.,False,NOT_OTP,auto_not_otp,18,False
+6689,"INR 506.91 spent using ICICI Bank Card XX9451 on 08-Jan-25 on TATA STARBUCKS . Avl Limit: INR 5,49,712.01. If not you, call 1800 2662/SMS BLOCK 7007 to 9293441893.",False,NOT_OTP,auto_not_otp,7,False
+10344,"American Express will never ask for Card details, security codes, account credentials, OTP, or passwords. For Card security, please do not share with anyone.",False,NOT_OTP,success,14,False
+30519,"Dear Customer, Your KYC for YES BANK Customer ID XXXXX32 is due for updation. To update, pls visit your nearest YES BANK branch with valid KYC documents.",False,NOT_OTP,auto_not_otp,35,True
+44789,10p 18 25 25p age date dating fancy flirt freemsg join just meet mobile msg msgs optout rcvd recd reply sam service sexy stop text today txt,False,NOT_OTP,auto_not_otp,63,True
+69516,"എനിക് സ്നേഹം വേണം. അത് പ്രകടമായി തന്നെ കിട്ടണം. ഉള്ളിൽ സ്നേഹം ഉണ്ട് പക്ഷേ, പ്രകടിപ്പിക്കാനാവില്ല എന്നതിൽ ഞാൻ വിശ്വസിക്കുന്നില്ല..ശവകുടിരത്തിൽ വന്ന് പുവിട്ടാൽ ഞാനറിയുമോ.?Pinallah",False,NOT_OTP,auto_not_otp,33,False
+15828,"INR 411.16 spent on ICICI Bank Card XX0679 on 25-Sep-22 at SWIGGY. Avl Lmt: INR 5,07,251.30. To dispute,call 18002662/SMS BLOCK 7007 to 5988894136",False,NOT_OTP,auto_not_otp,5,False
+33213,"We are happy to announce that Oxyzo Mar'22 (9.5% XIRR), is now live! 
+
+Visit to learn more and invest: update.wintwealth.com/SkUEpA
+
+- Team Wint Wealth",False,NOT_OTP,auto_not_otp,40,True
+15326,ICICI Bank Acct XXX424 debited for INR 224.01 on 25-May-21 & docsapp.payu@axisbank credited.UPI:114518472257.Call 18002662 for dispute or SMS BLOCK 696 to 9629867687.,False,NOT_OTP,auto_not_otp,4,False
+5774,"Low Balance Alert!
+Your bbdaily wallet balance is sufficient enough only for NEXT 3 subscription deliveries.
+Recharge now:
+https://bit.ly/bbdrech",False,NOT_OTP,auto_not_otp,5,True
+48534,"আপনার হাতে থাকা স্মার্টফোন দিয়ে,১০০% নিরাপদে থেকে অনলাইন থেকে ইনকাম করতে চাইলে যোগাযোগ করুন।কোন উইথড্র অপশন নেই, উইথড্র নিয়ে কোন প্যারা নেই। এক টাকা ইনকাম হলে সেটাই ক্যাশ করে নিতে পারবেন। ১০০% ডি স্যাটেলাইজ প্রজেক্ট,তাই একবার একটিভ হলে সারা জীবন ইনকাম করতে পারবেন।
+Telegram : @TanimHasan7
+আমাদের টেলিগ্রাম গ্রুপের লিংক 👉
+https://t.me/forsagec77",False,NOT_OTP,auto_not_otp,71,True
+51689,आपने £500 शॉपिंग वाउचर जीता है। इसे पाने के लिए 2039863498 पर कॉल करें और कोड बताएं।,False,NOT_OTP,auto_not_otp,77,True
+44567,09061221066 28 awarded camera days delivery digital fromm landline sipix,False,NOT_OTP,auto_not_otp,63,True
+58000,Enter ur NMAT scores on https://goo.gl/6PyX1J & share ur IMSPIN & NMAT scorecard(with percentile) at score@imsindia.com to grab ur copy of GDWATPI SuccessGuide.,False,NOT_OTP,auto_not_otp,10,True
+50961,अपने प्लान का विवरण देखें: https://www.jio.com/dl/my_plans,False,NOT_OTP,auto_not_otp,76,True
+27319,"ICICI SECURITIES LIMITED on 17-09-22 reported your Fund bal Rs.1.15 & Securities bal 0. This excludes your Bank, DP & PMS bal with the broker-NSE",False,NOT_OTP,auto_not_otp,28,False
+52845,अर्जेंट नोटिस - आपका खाता 24 घंटे में बंद हो जाएगा। अभी संपर्क करें।,False,NOT_OTP,auto_not_otp,79,True
+5396,"INR 303.26 spent using ICICI Bank Card XX9074 on 18-Dec-24 on SWIGGY FOOD. Avl Limit: INR 3,62,107.60. If not you, call 1800 2662/SMS BLOCK 7007 to 2944554896.",False,NOT_OTP,auto_not_otp,5,False
+30144,"Payment requested: cult.fit has requested a payment of INR 2,944 on CRED. Click here to complete the payment: https://cred.onelink.me/spQx/a8d1010f",False,NOT_OTP,auto_not_otp,34,True
+23681,"Dear Customer, Payment of INR 3155 has been received towards your ICICI Bank Credit Card XX6684 on 30-MAY-20 through UPI. Thank you.",False,NOT_OTP,auto_not_otp,21,False
+69789,നിന്നെ സ്നേഹിക്കുന്ന ഒരുപാട് പേരുണ്ടാകും ...ആ സ്നേഹത്തിൽ നീ സന്തോഷിക്കുമ്പോൾ എവിടെയോ കണ്ടുമുട്ടിയ ഒരു ഭാരമായി തോന്നിയ മറക്കാൻ ഇഷ്ടപെടുന്ന ഈ മുഖം മറന്നു പോയിടും ...എപ്പോഴെങ്കിലും അറിയാതെ ഈ മുഖം ഓർമയിൽ വന്നാൽ വെറുക്കരുതേ????,False,NOT_OTP,auto_not_otp,33,False
+31720,We will deliver your shipment# 89633524610 today. Fraud Alert:- Kindly note we are reachable ONLY on 1860 233 1234 or on Customerservice@bluedart.com,False,NOT_OTP,auto_not_otp,37,False
+62494,yes,False,NOT_OTP,auto_not_otp,19,False
+22748,"Dear Customer, INR 834.03 is debited on ICICI Bank Credit Card XX5582 on 30-Sep-21. Info: CRED. Available Limit: INR 82,361.29. Call on 18002662 for dispute or SMS BLOCK 7007 to 1689550441.",False,NOT_OTP,auto_not_otp,19,False
+42602,da dude hi hw realy today,False,NOT_OTP,auto_not_otp,59,False
+49385,এই সময়টাও কেটে যাবে।,False,NOT_OTP,auto_not_otp,72,False
+62534,No,False,NOT_OTP,auto_not_otp,19,False
+10311,"Dear Cardmember,Your balance on American Express card ending in 91009 is 0.73 as of 06/08/2022",False,NOT_OTP,auto_not_otp,14,False
+46993,08000839402 1000 bluetooth call2optout double free latest linerental mins mobiles mobileupd8 motorola nokia offers orange price sonyericsson tariffs txt txts,False,NOT_OTP,auto_not_otp,68,True
+42168,actually boss car cheaper come fixed getting kept morning number place talk telling think today told went year,False,NOT_OTP,auto_not_otp,58,False
+48546,রাতে কি করছো?,False,NOT_OTP,auto_not_otp,71,False
+71229,ഇപ്പോൾ എല്ലാ സമ്പാദ്യവും നിങ്ങളുടേതാണ്! എയർടെൽ ഡിടിഎച്ച് എച്ച്ഡി ബോക്സ് ഉപയോഗിച്ച് 1000 രൂപ ലാഭിക്കുക. ഉയർന്ന നിരക്കിൽ-ക്വലിലിറ്റി ഇമേജ് അനുഭവമുള്ള നിങ്ങളുടെ പ്രിയപ്പെട്ട എല്ലാ ശ്രേണികളും നോക്കുക. ഞാൻ.,False,NOT_OTP,auto_not_otp,36,True
+16730,Congratulations! You have an exclusive Pre-Qualified offer for IndusInd Bank Rupay Credit Card. Click https://uioq.in/UjvWm1 Paisabazaar,False,NOT_OTP,auto_not_otp,7,True
+50988,हर दिन कुछ नया करने की कोशिश करें। यह आपको ऊर्जावान रखेगा।,False,NOT_OTP,auto_not_otp,76,False
+29499,"Units against Contribution (DEC-2022)-Rs.96,722.03 credited to PRAN XX3872, NAV of 03/01/23.Plan retirement with NPP.Click -https://bit.ly/3OY8K80 -Protean",False,NOT_OTP,auto_not_otp,33,True
+71858,ಮಾಲಾಶ್ರಿ ❤😘😘😘,False,NOT_OTP,auto_not_otp,37,False
+27675,"Dear Client, You can access all essential banking services via our Online Banking and SC Mobile app. For exact navigation steps, please visit http://nc6.in/eOR55M To ensure the safety of our clients and employees, our Branches, Phone Banking, Email channel and Social media teams, continue to operate with limited capacity. Please use these channels in case of emergency only and do expect delays in resolutions and delivery of cards and cheque books. View modified branch timings at http://nc6.in/eOR5L4 We request your co-operation. Stay safe - StanChart",False,NOT_OTP,auto_not_otp,29,True
+65733,தினமும் பல முறை தவறாமல் இந்த trailer பார்த்துவருகிறேன்..,False,NOT_OTP,auto_not_otp,25,False
+13400,"ICICI Bank Acct XX251 debited with Rs 67,434.46 on 03-Nov-21 & Acct XX227 credited.IMPS:130706200062. Call 18002662 for dispute or SMS BLOCK 696 to 1405818035",False,NOT_OTP,auto_not_otp,1,False
+33847,Your order #120375187534 was delivered superfast in 22 minutes! Keep ordering from Swiggy to experience our lightning fast delivery.,False,NOT_OTP,auto_not_otp,41,False
+3788,This is a confirmation for receipt of Rs.461.84 towards ACT Fibernet A/c No 102596479355.,False,NOT_OTP,auto_not_otp,1,False
+29474,"To view statement of A/c in Folio 2901514690 click https://cams.co.in/7RAsDHW0ke0. Instructions for opening the stmt, click https://bit.ly/2kuenAT. ABSLMF.",False,NOT_OTP,auto_not_otp,33,True
+66772,Unless it's a situation where YOU GO GURL would be more appropriate,False,NOT_OTP,auto_not_otp,27,False
+14411,"INR 639.27 spent on ICICI Bank Card XX9583 on 22-Dec-22 at SAPTAGIRI RESTA. Avl Lmt: INR 42,28,239.50. To dispute,call 18002662/SMS BLOCK 7003 to 3030666626",False,NOT_OTP,auto_not_otp,3,False
+2699,Vi wishes you and your family a very Happy and Prosperous Deepavali. May this festival of lights bring along new beginnings and prosperity in the year ahead.,False,NOT_OTP,success,3,False
+29883,Your eatfit.in order for the day has been delivered at reception as per your instruction.,False,NOT_OTP,auto_not_otp,34,False
+44549,150p 40gb 500 83355 collect guaranteed ipod latest mp3 mtmsgrcvd18 nokia phone player prize tc txt word,False,NOT_OTP,auto_not_otp,63,True
+7808,855601 is OTP for txn of INR 421.04 at ZOMATO on ICICI Bank Credit Card XX4773. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,9,False
+45004,50 arrive charged customer mobile number order ref reference ringtone services thanks tone,False,NOT_OTP,auto_not_otp,64,True
+25331,"Dear Customer, the Standing Instruction on your ICICI Bank Credit Card 8687, is now active. Merchant: HOTSTAR, Maximum Amount: Rs 6285.11, Frequency: As Presented, Start Date: 23/10/2022, End Date: Until Cancelled, Mandate ID: WGqtqQ6m2w. You can manage your Standing Instructions by visiting www.icicibank.com-Cards-Credit Cards-Standing Instruction & Recurring Charges-Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,24,False
+35887,"Dear Customer, Rs 8.69 has been credited to your American Express Card **********91009 on 02/04/2021. Payment subject to realisation. Thank you.",False,NOT_OTP,auto_not_otp,46,False
+51243,मैं भविष्य की परियोजनाओं पर सहयोग करने के लिए उत्सुक हूँ।,False,NOT_OTP,auto_not_otp,76,False
+34257,SIP in folio XXXXXXX6882 for Rs.1349.14 processed and 34.996 units allotted on 11/11/2021 at Price of Rs.86.52 in CRMF Blue Chip Equity Fund - Regular Growth,False,NOT_OTP,auto_not_otp,42,False
+54867,"You have used 90% of your daily 1 GB high speed internet quota on your Jio Number 6244057870 as of 22-Dec-17 22:25 Hrs. After consumption of 1 GB data, Internet speed will be reduced in case you do not have any active data plan. To continue enjoying 4G speed, recharge now. Click http://tiny.jio.com/BuyAddOn",False,NOT_OTP,auto_not_otp,3,True
+3838,Recharge of Rs. 430.94 for ICICI Bank FASTag linked veh. no. YR81VX5748 is processed on 01/04/2025 00:08:41 . Balance is Rs. 058.30 .,False,NOT_OTP,auto_not_otp,1,False
+22033,"INR 3,823.01 spent on ICICI Bank Card XX9452 on 26-Jan-22 at CRED. Avl Lmt: INR 00,066.82. To dispute,call 18002662/SMS BLOCK 7007 to 4198559382",False,NOT_OTP,auto_not_otp,18,False
+37670,Stay safe & avoid going out. StoreSe enables grocery ordering for communities. To enlist your apartment or place an order visit bit.ly/storse,False,NOT_OTP,auto_not_otp,49,True
+65395,ஏழைப் பங்காளர். எம் இனத்தின் ஏந்தல் - வேந்தர். உயர்கல்வி - தொழில் வளர்ச்சி அவர் கொடை தமிழகத்துக்கு. நன்றி சொல்ல உங்களுக்கு வார்த்தையிலை எங்களுக்கு. பேராசிரிய‌ர் அப்பாத்துரை.,False,NOT_OTP,auto_not_otp,25,False
+56025,మీ జియో నంబరు 5700847708 లో ఉన్నరోజువారీ హై స్పీడ్ ఇంటర్నెట్ కోటా ను 50% 1 GB 30-Aug-17 18:11 Hrs వరకు వినియోగించుకున్నారు. మీ బ్యాలన్స్ మరియు ఉపయోగించిన వివారాలు తెలుసుకోడానికి ఈ లింక్  https://www.jio.com/fup ను క్లిక్ చేయండి,False,NOT_OTP,auto_not_otp,6,True
+37713,I've sent you an email with a form to fill.,False,NOT_OTP,auto_not_otp,49,True
+64579,No,False,NOT_OTP,auto_not_otp,23,False
+23388,Oct-19 bill of Rs 26 on ICICI Bank PayLater A/c XX394 is due on 15-Nov-19. Auto Debit facility is active on Savings A/c XX857. Pls maintain sufficient funds.,False,NOT_OTP,auto_not_otp,21,False
+33291,"Dear Customer,For your travel starting 09 Aug 21 for Indore-Bangalore ,MakeMyTrip Booking ID is NF20138315415462. Amount Charged  INR 8412.0 . You can manage your booking at https://applinks.makemytrip.com/f5595ozlkib. Thank you.  
+   MakeMyTrip employees or agents will not ask for your card number, CVV, net banking login, password, OTP etc. Nor will they ask you to transfer funds to a personal account or to install third-party apps like AnyDesk, TeamViewer etc. Please do not act on such requests. Report such incidents on riskcontrol@makemytrip.com. Team MakeMyTrip",False,NOT_OTP,success,40,False
+47268,04 10 2003 26 800 account code expires fone identifier points private redeemed shows statement,False,NOT_OTP,success,68,True
+32717,Yay! Your LIV Premium subscription is now activated. Order ID: 155814314. Your subscription will auto-renew AH 51 ISB 9734. Start Streaming. - SonyLIV,False,NOT_OTP,auto_not_otp,39,False
+46614,08712460324 10p chat cheap cheaper gay hot january min national rate sale stop texts,False,NOT_OTP,auto_not_otp,67,True
+10652,"Dear AAXXXXXX7P, settle your Tax disputes/Appeals pending as on 22.07.24,avail benefits of DTVSV revised scheme-24.File your declaration on e-Filing portal NOW.",False,NOT_OTP,auto_not_otp,15,True
+39223,know lab went,False,NOT_OTP,auto_not_otp,52,False
+26451,"ನಮಸ್ತೆ! ವಾಣಿಜ್ಯ ಸಂದೇಶಗಳನ್ನು ಪಡೆಯುವುದನ್ನು ನಿಲ್ಲಿಸಲು, ನೀವು Vi App https://bit.ly/3JAw87j ಮೂಲಕ ನಿಮ್ಮ Vi ಸಂಖ್ಯೆಯಲ್ಲಿ DO NOT DISTURB ಅನ್ನು ಆಕ್ಟೀವೇಟ್ ಮಾಡಬಹುದು",False,NOT_OTP,auto_not_otp,27,True
+23554,"INR5,532.47 debited on Credit Card XX0367 on 06-Mar-20.Info:Amazon.Avbl Lmt:INR51,175.49.Call 18002662 for dispute or SMS BLOCK 7007 to 2877237198",False,NOT_OTP,auto_not_otp,21,False
+31592,"Hey Gandharv!
+Your order #6008650 for The Whole Truth products is placed successfully.
+Thanks for ordering! :)",False,NOT_OTP,auto_not_otp,37,False
+61006,No,False,NOT_OTP,auto_not_otp,16,False
+36203,"Watch how Aparshakti Khurana gets #ReadyToGame with Licious kebabs -> https://www.youtube.com/watch?v=J-3Xo4t4Veg
+
+Order now -> https://liciousapp.app.link/qW5RYqJRfab",False,NOT_OTP,auto_not_otp,46,True
+22242,"INR 036.04 spent on ICICI Bank Card XX7442 on 29-Mar-22 at RAZ*Dailydel. Avl Lmt: INR 93,091.15. To dispute,call 18002662/SMS BLOCK 7007 to 2724665790",False,NOT_OTP,auto_not_otp,18,False
+68697,- మంగళవారం 20 సెప్టెంబర్ 2022,False,NOT_OTP,auto_not_otp,31,False
+13097,"Dear Customer, INR 771.09 is debited on ICICI Bank Credit Card XX8442 on 05-Jun-21. Info: AMAZON. Available Limit: INR 99,851.61. Call on 18002662 for dispute or SMS BLOCK 7007 to 1171578636.",False,NOT_OTP,auto_not_otp,20,False
+57845,IIFT Test Registration and B-school application process has begun. Test to be conducted on 26 Nov 17. Check detailed notification on goo.gl/hJs6Dd & apply soon.,False,NOT_OTP,auto_not_otp,9,True
+26723,"Dear Customer, ICICI Bank Account XX893 is debited with INR 36,657.07 on 11-APR-22. Info: LPBNGXX01759 . The Available Balance is INR 0,82,109.82. Call 18002662 for dispute or SMS BLOCK 696 to 9388961210",False,NOT_OTP,auto_not_otp,27,False
+53657,सावन की बहार कॉम्पट में सिर्फ 3 दिन बचे हैं. एजेंटों/डीओ/सीएलआईए के लिए कॉम्पट में अर्हता प्राप्त करें। और अधिकतम पुरस्कार जीतें...एसडीएम,False,NOT_OTP,auto_not_otp,1,True
+19054,"Dear Customer, statement for ICICI Bank Credit Card XX2781 has been sent to gandharv.bakshi@gmail.com. Total amount of Rs 82320.67 or Minimum amount of Rs 8681 is due by 05-JUN-23.",False,NOT_OTP,auto_not_otp,12,False
+37662,Congratulations! You won INR 42 cashback. We will deposit it into your credit card X-4195 in the next 7 days.,False,NOT_OTP,auto_not_otp,49,True
+71501,"ಸದಾ ಜನ ಮನದಲ್ಲಿ ಹಸಿರಾಗಿರವ , ಅದ್ಬುತ ಸಾಹಿತ್ಯ, ಸಂಗೀತ ಹಾಗೂ ಗಾಯನ ಮೇಳ್ಯೆಸಿರುವ ಗೀತೆ",False,NOT_OTP,auto_not_otp,37,False
+54715,OTP for transaction Flipkart Internet Private Limited is:35303326. Do not share it with anyone,True,BANK_OR_CARD_TXN_OTP,success,3,False
+10860,"INR 756.95 spent on ICICI Bank Card XX9443 on 16-Nov-23 at Bundl technolog. Avl Lmt: INR 2,24,107.24. To dispute,call 18002662/SMS BLOCK 7007 to 3565174426",False,NOT_OTP,auto_not_otp,16,False
+12716,279029 is OTP for txn of INR 586.30 at DAILYDEL SO on ICICI Bank Credit Card XX3270. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,19,False
+47966,08702840625 3qxj9 9ae charge comuk credits extra goto help inclusive login net pls services sms stop text unsubscribe www,False,NOT_OTP,auto_not_otp,70,True
+33120,Congratulations! You won INR 54 cashback. We will deposit it into your credit card XXXX-1969 in the next 7 days.,False,NOT_OTP,auto_not_otp,40,True
+10336,"Alert: You've spent INR 602.33 on your AMEX card ** 91009 at RAZORPAY SWI on 31 December, 2022 at 10:19 AM IST. Call 18004190691 if this was not made by you.",False,NOT_OTP,auto_not_otp,14,False
+38810,arrange customer delivery new service waiting years,False,NOT_OTP,auto_not_otp,51,True
+23699,Acct XXX147 debited with INR035.01 on 01-Jul-20 and credclub@icici credited.Info:UPI-018306382086.Call 18002662 for dispute or SMS BLOCK 696 to 2453212741,False,NOT_OTP,auto_not_otp,21,False
+58569,"Dear SBI UPI User, your account is debited INR 850.7 on Date 2017-10-26 06:45:54 PM by UPI Ref No 729918906418",False,NOT_OTP,auto_not_otp,11,False
+71558,ಬಹಳ ಚೆನ್ನಾಗಿತ್ತು ವಿ.ರವಿಚಂದ್ರನ್  ರವರ ಮದುವೆಯ ಸಂಭ್ರಮದ ವಿಡಿಯೋ. .....ಇದನ್ನು ಕರುನಾಡಿನ  ಜನತೆಗೆ ತೋರಿಸಿಕೊಟ್ಟಿದಕ್ಕೆ ರಘು ಸರ್ ಗೆ ತುಂಬು ಹೃದಯದ ಧನ್ಯವಾದಗಳು 💐💐💐💐,False,NOT_OTP,auto_not_otp,37,False
+34273,Your slice card transaction of Rs.30330 is successful. Your updated credit balance is Rs.057343 - slice,False,NOT_OTP,auto_not_otp,42,False
+53026,"बिना डॉक्युमेंट के लोन प्राप्त करें। ""बिना किसी डॉक्युमेंटेशन के, तुरंत लोन प्राप्त करें। केवल सीमित समय के लिए!",False,NOT_OTP,auto_not_otp,80,True
+14866,"INR 482.06 spent on ICICI Bank Card XX8846 on 07-Aug-23 at INFINITEA. Avl Lmt: INR 1,81,575.88. To dispute,call 18002662/SMS BLOCK 7007 to 4935773778",False,NOT_OTP,auto_not_otp,4,False
+15041,"INR 753.76 spent on ICICI Bank Card XX2390 on 20-Sep-23 at Muhavra Enterpr. Avl Lmt: INR 0,89,492.65. To dispute,call 18002662/SMS BLOCK 7007 to 9746333077",False,NOT_OTP,auto_not_otp,4,False
+26333,Hi! Payment of Rs. 386.0 is credited to your Vi number 6174306870. Your outstanding as on 2021-08-01 is Rs. -660.98. Please take a minute to help us to improve your Vi bill. To share your feedback click http://bit.ly/Vipostpaidbill. Watch LIVE Cricket with Disney+ Hotstar VIP with your plan. Click https://bit.ly/ViHotstar4 to know more.,False,NOT_OTP,auto_not_otp,26,True
+58816,013079 is your One Time Password for online purchase of Rs 2776.86 at PAYTM thru State Bank Debit Card ending 3515. Don't share this with anyone,True,BANK_OR_CARD_TXN_OTP,success,11,False
+46988,25p area cancel chat com details free girls gr8 guys horny just live mob new phone receive search send service sex stop text txt ur video,False,NOT_OTP,auto_not_otp,68,True
+22187,"INR 309.53 spent on ICICI Bank Card XX8860 on 15-Mar-22 at NETFLIX. Avl Lmt: INR 17,512.01. To dispute,call 18002662/SMS BLOCK 7007 to 2317857215",False,NOT_OTP,auto_not_otp,18,True
+52741,शीतकालीन संग्रह!!! स्वेटर और कोट अभी द आर्केड काजी रोड पर पहुंचे।,False,NOT_OTP,auto_not_otp,79,True
+54307,"बधाई हो! आपका नाम ₹73,926 की छात्रवृत्ति के लिए चयनित हुआ है। आवेदन करने के लिए APPLY को 3945519677 पर भेजें। केवल सीमित सीटें उपलब्ध।",False,NOT_OTP,auto_not_otp,2,True
+63395,No,False,NOT_OTP,auto_not_otp,21,False
+61497,No,False,NOT_OTP,auto_not_otp,17,False
+29515,"Dear Investor, Your SIP installment in scheme Quant Active Fund - Regular Plan for Rs. 9925.32 is processed @NAV of Rs. 724.48 and 21.245 units are allotted . Rgds, quant Mutual Fund.",False,NOT_OTP,auto_not_otp,33,False
+14699,"Dear Customer, statement for ICICI Bank Credit Card XX4821 has been sent to gandharv.bakshi@gmail.com. Total amount of Rs 9141.05 or Minimum amount of Rs 695 is due by 12-JUN-23.",False,NOT_OTP,auto_not_otp,3,False
+9671,"Your Licious order has been delivered on time.
+
+Note: If your order has been dropped off at the security desk, please collect immediately & refrigerate to keep it fresh!",False,NOT_OTP,auto_not_otp,13,False
+25835,"Dear Gandharv S,
+We have received your refund request for MakeMyTrip booking ID NF2RFPKKBOS47L537981 and are currently reviewing it. We will share an update soon. In the meantime, you can also track the progress of your request here: https://applinks.makemytrip.com/gsYdMEG1jnb| Team MakeMyTrip",False,NOT_OTP,auto_not_otp,25,True
+52814,आपका प्रोजेक्ट कैसा चल रहा है?,False,NOT_OTP,auto_not_otp,79,False
+26473,"We received payment of Rs 107.78 for 3101973251 by Online Payment.
+Txn ID 40000222224901. Amt to be credited in 30 mins. Track usage on Vi App- https://bit.ly/GetVIApp4",False,NOT_OTP,auto_not_otp,27,True
+66302,Nest Cultures Dasara Offer: Free Car. New lifestyle flats 2BHK 89Lacs @Sembakkam,False,NOT_OTP,auto_not_otp,26,True
+70144,"""മൗനം സ്നേഹമോ ? അറിയില്ല പക്ഷെഉള്ളില് കടലോളം സ്നേഹം സൂക്ഷിക്കുമ്പോഴും,'സ്നേഹമില്ല ' എന്ന് കേള്കേണ്ടിവരുന്ന മനസിന്റെവേദനയാവം ഒരുപക്ഷെ മൗനം...",False,NOT_OTP,auto_not_otp,34,False
+45469,500 activate com conditions free im lets message messages replying send sending terms text visit word www,False,NOT_OTP,auto_not_otp,65,True
+60959,yes,False,NOT_OTP,auto_not_otp,16,False
+45118,08712405020 1st 250 40gb cash chance cs custcare entry free ipod net pod textpod ts txt week win wk www,False,NOT_OTP,auto_not_otp,64,True
+22235,"INR 157.83 spent on ICICI Bank Card XX3402 on 27-Mar-22 at BUNDL TECHNOLOG. Avl Lmt: INR 81,494.69. To dispute,call 18002662/SMS BLOCK 7007 to 2686299965",False,NOT_OTP,auto_not_otp,18,False
+47493,20 62468 ac friend frnd inviting reply send sms stop www yes,False,NOT_OTP,auto_not_otp,69,True
+6412,"INR 218.04 spent on ICICI Bank Card XX7496 on 13-Dec-23 at Bundl technolog. Avl Lmt: INR 5,98,503.33. To dispute,call 18002662/SMS BLOCK 7007 to 4936442229",False,NOT_OTP,auto_not_otp,7,False
+8925,Avoid clicking on malicious/unrecognizable URLs - they might impersonate your device and steal data. Always verify email and SMS domain names. We only send emails from xxxxx@sc.com or SMS from SCBANK. Fraud hotline is 18002586465/4394626554 - StanChart,False,NOT_OTP,auto_not_otp,12,False
+26512,"Did you know? You can enjoy WiFi Calling on your WiFi enabled phone with Vi at NO COST. Enjoy uninterrupted calls indoors by following these steps:Update to latest software, switch on WiFi calling on your mobile via Settings>SIM Settings>WiFi-Calling & connect to WiFi at Home/Office. Know more www.myvi.in/vi-wifi-calling",False,NOT_OTP,auto_not_otp,27,True
+2829,"ನಮಸ್ತೆ! ರೂ.506.22 ನ ನಿಮ್ಮ ವಿ ಬಿಲ್ 05-10-2023 ನಲ್ಲಿ ಬಾಕಿ ಇದೆ. ವಿಳಂಬ ಪಾವತಿ ಶುಲ್ಕಗಳನ್ನು ತಪ್ಪಿಸಲು ದಯವಿಟ್ಟು ನಿಗದಿತ ದಿನಾಂಕದವೇಳೆಗೆ ಪಾವತಿಸಿ. ವಿ ಆಪ್ ಬಳಸಿ ಪಾವತಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ https://bit.ly/ViviewnpayBill  ಅಥವಾ ವಾಟ್ಸಪ್ ಮೂಲಕ ಸುರಕ್ಷಿತ ವಾಗಿ  ಪಾವತಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ, https://wa.me/message/CA3JPMW2AJ4IB1 ಈಗಾಗಲೇ ಪಾವತಿಸಿದರೆ ನಿರ್ಲಕ್ಷಿಸಿ.",False,NOT_OTP,success,4,True
+64316,No,False,NOT_OTP,auto_not_otp,22,False
+43830,86021 auction brand free join new nokia sms today txt,False,NOT_OTP,auto_not_otp,61,True
+1122,ICICI Bank Acct XX306 debited for Rs 0753.16 on 29-Aug-25; Virender Kumar credited. UPI:560760841556. Call 18002662 for dispute. SMS BLOCK 696 to 4545295527.,False,NOT_OTP,success,1,False
+22650,"Dear Customer, Payment of INR 4 has been received towards your ICICI Bank Credit Card XX0383 on 01-JUL-20 through UPI. Thank you.",False,NOT_OTP,auto_not_otp,19,False
+38936,anybody guy know let ll night passed think throw usual yeah,False,NOT_OTP,auto_not_otp,52,False
+54339,खाना क्या खाया था तुमने ।,False,NOT_OTP,auto_not_otp,2,False
+33076,"Dear Subscriber, We have received fund confirmation of Rs.3554.02 for investment in PRAN XXXX4169 Tier-II. Units will be credited by end of the day. - KCRA",False,NOT_OTP,auto_not_otp,40,False
+70900,Kaztro ന്റെ reel കണ്ട് പാട്ട് അന്നേക്ഷിച്ചു വന്നവർ like അടിച്ചിട്ട് പോവുക 😌♥️🔥,False,NOT_OTP,auto_not_otp,36,False
+71585,ಅದುರಿ ಮದುವೆ  ನೋಡಿ ಸಂತೋಷ ಆತ್ತು 🌹🌹👌👌,False,NOT_OTP,auto_not_otp,37,False
+6747,"Rs 75,324.50 spent on ICICI Bank Card XX8970 on 05-Mar-25 at IND*Amazon. Avl Lmt: Rs 8,22,022.84. To dispute, call 18002662/SMS BLOCK 7007 to 8862123176. To convert this txn to EMI give a missed call on 0089147353. Know more about EMI conversion at icici.co/DUvfZI0QFMW",False,NOT_OTP,auto_not_otp,7,True
+41482,home sending thanx,False,NOT_OTP,auto_not_otp,57,False
+43259,gt live lt mins,False,NOT_OTP,auto_not_otp,60,False
+24666,"Dear Customer, INR 4,550.66 is debited on ICICI Bank Credit Card XX9390 on 14-Jan-22. Info: DAILYDEL SOLUTI. Available Limit: INR 4,94,952.90. Call on 18002662 for dispute or SMS BLOCK 7007 to 0773867752.",False,NOT_OTP,auto_not_otp,23,False
+10143,Your order #124899292986 was delivered superfast in 16 minutes! Keep ordering from Swiggy to experience our lightning fast delivery.,False,NOT_OTP,auto_not_otp,14,False
+20315,Your eatfit.in order has just left our kitchen and will be delivered in 16 mins.,False,NOT_OTP,auto_not_otp,14,False
+10646,"On 28/11/23, 4784.305 units of NIPPON INDEX FUND - SENSEX PL - GR debited from your demat a/c no xxxx3725..NSDL",False,NOT_OTP,auto_not_otp,15,False
+57591,Rs 5898 withdrawn from A/c xxxx 1710 on 290517 at ICI ATM  SPCNF317.Txn# 714921009805 .Avl bal Rs 64.76.,False,NOT_OTP,auto_not_otp,9,False
+68157,K I'll be there before 4.,False,NOT_OTP,auto_not_otp,30,False
+71205,ബിസിനസ്സ് / വ്യക്തിഗത എല്ലാം l0a'n 1% പലിശ 2o% സബ്സിഡി. 6539697786 CNDRNK,False,NOT_OTP,auto_not_otp,36,True
+9820,Refund of Rs 719.9 has been initiated for your Swiggy order 165332291499556. Updated balance should reflect in 4-7 days. http://swig.gy/refunds,False,NOT_OTP,auto_not_otp,13,True
+14134,"Dear Customer, your payment of Rs 4931.30 for Google Workspace, as per Standing Instruction VglHjj0Pdw, is due by 03/10/2022 and will be debited through your ICICI Bank Credit Card 6333. To cancel this debit or your Standing Instruction, please visit www.icicibank.com-Cards-Credit Cards-Standing Instruction & Recurring Charges-Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,2,True
+66676,I sent you <#> bucks,False,NOT_OTP,auto_not_otp,27,True
+1858,"CSK, CERT-In advises you to keep your digital devices free from botnet and malware infections. Download free bot removal tool from the website www.csk.gov.in",False,NOT_OTP,success,2,True
+42555,03 05 2004 26 786 account claim code expires identifier points shows unredeemed,False,NOT_OTP,success,59,True
+16798,"Dear Investor, Payment of Rs. 0804.02 towards your SIP in Axis Focused 25 Fund - REGULAR GROWTH has been received and 31.524 units at NAV 47.58 are allotted in Folio XXXXXXXXX8403. Axis MF",False,NOT_OTP,auto_not_otp,7,False
+51663,मैं कल की बैठक को लेकर उत्साहित हूँ।,False,NOT_OTP,auto_not_otp,77,False
+53225,क्या आप अपॉइंटमेंट का समय बता पाएंगे?,False,NOT_OTP,auto_not_otp,80,False
+30359,"Avbl Bal in your A/C. No.XXXXXXXXXXX0055 on EOD 07-JUL-2019 is USD 0.00, Tot. avbl bal (including linked deposits and Limit) is USD 0.00.",False,NOT_OTP,auto_not_otp,34,False
+71321,ഗണപതി ഫണ്ട്: ??? ???? ???? 1% ?????. സിഡി: 7373128373,False,NOT_OTP,auto_not_otp,36,True
+65081,"உங்களுக்காக ஒரு ஏர்டெல் ஸ்பெஷல் ஆஃபர்! 30 நாள் இலவச அமேசான் பிரைம் வீடியோ ட்ரையல் பெற்று மகிழுங்கள், உங்கள் ஏர்டெல் அன்லிமிடெட் ரீசார்ஜ் உடன்! u.airtel.in/rch5",False,NOT_OTP,auto_not_otp,24,True
+5196,"Dear Customer, we have successfully processed the payment of INR 251.90 for Amazon, as per the Standing Instruction Wz5VPWtTPa, on 23/09/2024 for your ICICI Bank Credit Card 6869. To manage your Standing Instructions, visit www.icicibank.com >Cards >Credit Cards>Standing Instructions and Recurring Charges>Manage Standing Instructions.",False,NOT_OTP,auto_not_otp,4,True
+66260,Receive Rs.6334* Bonus RAJ vs DEL T20 MATCH TODA Download MY11CIRCLE App. Win Real Cash om7.cc/f2q9p5 To Optout SMS 11COUT to 56161,False,NOT_OTP,auto_not_otp,26,True
+35119,Platform 07361 080,False,NOT_OTP,auto_not_otp,44,True
+29840,+918714820858,False,NOT_OTP,auto_not_otp,33,True
+24709,"INR 72,849.07 spent on ICICI Bank Card XX5541 on 21-Feb-22 at Religare Health. Avl Lmt: INR 01,212.10. To dispute,call 18002662/SMS BLOCK 7007 to 7139864505",False,NOT_OTP,auto_not_otp,23,False
+38377,Your payment on Amazon.in for Rs. 66.87 using Amazon Pay balance is successful. Your balance is now Rs. 5.00. For help/stmt: www.amazon.in/cstxn,False,NOT_OTP,auto_not_otp,50,False
+9973,"[Waitlist Confirmed] Session: HRX Workout Time Slot: 21-Sep-2024, 6:00AM Center: Cult Jayanagar Booking ID: JAYTJ73K56N9 Be sure to arrive 5 mins early to mark your attendance - Team cult.fit",False,NOT_OTP,auto_not_otp,14,False
+37284,Your XXXX5602 EMI would be debited on 10-02-2020. Please ensure necessary funds are available in your account-StanChart,False,NOT_OTP,auto_not_otp,48,False
+64686,No,False,NOT_OTP,auto_not_otp,23,False
+63884,No,False,NOT_OTP,auto_not_otp,21,False
+16805,"Dear Investor, We have updated your email id as per feed received from KYC Registration Agency (KRA). Folio XXXXXXXXX4401. Axis MF",False,NOT_OTP,auto_not_otp,7,False
+46147,1000 18 ave cash claim flights holiday live min operator receive selected speak specially winner,False,NOT_OTP,auto_not_otp,66,True
+16531,"Your Purchase in Folio 10542459/55 from Kotak Small Cap - Gr (Reg Plan) for Rs.3,076.55, at NAV of Rs. 714.094 is processed IF 36-JAH-9687. Kotak MF",False,NOT_OTP,auto_not_otp,7,False
+20250,"Hi Nethramani, we would love to know about your experience with Akasa Air. Please share it at https://url.numr.app?c=Mi0wNy0yNjk3MjIx .",False,NOT_OTP,auto_not_otp,14,True
+64815,No,False,NOT_OTP,auto_not_otp,23,False
+5216,ICICI Bank Credit Card XX7533 Statement is sent to ga***********hi@gmail.com. Total of Rs 7422.08 or minimum of Rs 860 is due by 13-OCT-24.,False,NOT_OTP,auto_not_otp,4,False
+43076,da just message saw,False,NOT_OTP,auto_not_otp,60,False
+44352,com content dear free games great mobile pix poly ringtones true uk www,False,NOT_OTP,auto_not_otp,62,True
+35917,"Watch out for fraudsters who might call you on the pretext of renewing your broadband services and ask you to download suspicious apps. These apps may contain malware designed to steal confidential information like OTPs and perform unauthorised transactions. Please do not share any PIN, password, OTP, login ID, debit card/credit card no.,CVV,expiry date etc with anyone. To report a fraud, please call 18002586465/18001024734 - StanChart",False,NOT_OTP,success,46,False
+63707,No,False,NOT_OTP,auto_not_otp,21,False
+9895,[Dropout Successful] Your slot in S&C class at Cult Jayanagar on Fri 5th May at 07:00 AM was used. We have waived off your no-show. Team cult.fit,False,NOT_OTP,auto_not_otp,14,False
+42246,house huh right ur,False,NOT_OTP,auto_not_otp,58,False
+63203,No,False,NOT_OTP,auto_not_otp,20,False
+6228,"#1500 is your OTP for verification. 
+
+We welcome you to the world of Better Meat at Meatigo! 
+
+Know more via @https://www.meatigo.com #l1gQ/Pi9A4x -Meatigo",True,GENERIC_APP_ACTION_OTP,success,6,True
+53175,तुम्हारे लिए कोई अच्छी फिल्म सुझा सकता हूँ।,False,NOT_OTP,auto_not_otp,80,False
+35490,Payment of Rs.7971.42 received for your Airtel Fixedline no. 08043703322. Now make hassle-free online bill payment with My Airtel App. Click www.airtel.in/5/dsl,False,NOT_OTP,auto_not_otp,45,True
+48179,150ppm 16 5000 await award cash collect collection cs cw25wx dear final holiday landline notice sae tcs tenerife urgent,False,NOT_OTP,auto_not_otp,70,True
+17052,"Dear Investor, We confirm allotting 7.165 Units@ 209.356 towards your SIP due for 12-APR-2021 under Folio No. XXXXXXX917567 amounting to Rs.6147.85 in UTI Flexi Cap Fund (Formerly known as UTI Equity Fund) .Happy Investing.T/F 18002661230;Email: service@uti.co.in. UTI MF",False,NOT_OTP,auto_not_otp,8,False
+48072,activate calls free freemsg help month stop txt unlimited wk,False,NOT_OTP,auto_not_otp,70,True
+54612,TRL WHA ICIWC14941B14ED796FA5BCAD07F30D9C44,False,NOT_OTP,auto_not_otp,3,True
+43644,hey kate,False,NOT_OTP,auto_not_otp,61,False
+17990,"Dear Customer, INR 064.81 is debited on ICICI Bank Credit Card XX1045 on 03-Oct-21. Info: SWIGGY. Available Limit: INR 3,295.83. Call on 18002662 for dispute or SMS BLOCK 7007 to 1724917909.",False,NOT_OTP,auto_not_otp,10,False
+65267,"இயற்கையோடு இயந்து வாழும் வாழ்க்கை வெல்லும். இயற்கையை  எதிர்த்து வாழ்ந்தால், அந்த வாழ்க்கை நம்மை கொல்லும்.  ",False,NOT_OTP,auto_not_otp,24,False
+9867,ದಯವಿಟ್ಟು ಗಮನಿಸಿ ಟೆಲಿಕಾಂ ಕಂಪನಿಗಳು 5G ಸೇವೆಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು SIM ಅನ್ನು ಅಪ್‌ಗ್ರೇಡ್ ಮಾಡಲು ಒಟಿಪಿ/ಪಿನ್ ಅನ್ನು ಕೇಳುವುದಿಲ್ಲ. ಒಟಿಪಿ/ಪಿನ್/ಪಾಸ್‌ವರ್ಡ್‌ನಂತಹ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಯಾರೊಂದಿಗೂ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ. ಹಾಗೂ 5G ಸೇವೆಗಳಿಗೆ ಅಪ್‌ಗ್ರೇಡ್ ಮಾಡುವ ಹೆಸರಿನಲ್ಲಿ ದುರುದ್ದೇಶಪೂರಿತ ಲಿಂಕ್‌ಗಳ ಮೂಲಕ ಮೋಸದ ಕೊಡುಗೆಗಳ ಬಗ್ಗೆ ಜಾಗರೂಕರಾಗಿರಿ.,False,NOT_OTP,auto_not_otp,14,False
+43161,excuse fine weekend,False,NOT_OTP,auto_not_otp,60,False
+48981,আপনার ব্যাংক অ্যাকাউন্টের নোটিফিকেশন পাওয়া যাচ্ছে না। দয়া করে এখানে ক্লিক করুন: http://bit.ly/UpdateNotify,False,NOT_OTP,auto_not_otp,72,True
+30865,"Dear Investor, Please download your account statement for the recent transactions under folio 22581273 from link http://sms.iciciprumf.com/KBPG2vW The link is valid for 6 days. To know the steps to open the statement, click here. http://sms.iciciprumf.com/898mboR - IPRUMF",False,NOT_OTP,auto_not_otp,36,True
+23206,"Your Licious order erjgjp7tr79j is out for delivery! Track here --> https://track.licious.in/58969b 
+
+Our Delivery Heroes are doing their best to deliver your deliciously fresh meats at the earliest.
+- Licious",False,NOT_OTP,auto_not_otp,20,True
+42530,checking discuss gt inform just left lt online person place places rent said,False,NOT_OTP,auto_not_otp,59,False
+19975,"Your OlaMoney Postpaid bill of Rs.2133.15 is due.
+Please pay before 14-February-2022 to avoid Rs.133.7 late fee.
+Pay now: https://tinyurl.com/sxcas6a",False,NOT_OTP,auto_not_otp,14,True
+57655,"To Pay Rs. 21.48 to PayTM, from your Card XX...3295, use OTP. BEWARE!ONLY fraudsters ask OTP on phone.OTP is 373959.Don't share with anyone.",True,BANK_OR_CARD_TXN_OTP,success,9,False
+29157,"Click on https://www.ni-mf.in/LXWBts to view Statement of Account for recent txn,Folio-XXXXXXXXX153 (valid 10 days).More details,click at  https://bit.ly/3sZ6ktR .NIMF",False,NOT_OTP,auto_not_otp,32,True
+22851,"INR 9,481.47 spent on ICICI Bank Card XX5245 on 28-Nov-22 at ANURAAG FILLING. Avl Lmt: INR 0,37,573.69. To dispute,call 18002662/SMS BLOCK 7007 to 0013191606",False,NOT_OTP,auto_not_otp,19,False
+24189,"Dear Customer, INR 2,472.50 is debited on ICICI Bank Credit Card XX3575 on 26-May-21. Info: LinkedIn  PGSI . Available Limit: INR 80,721.21. Call on 18002662 for dispute or SMS BLOCK 7007 to 0193066062.",False,NOT_OTP,auto_not_otp,22,False
+62112,No,False,NOT_OTP,auto_not_otp,18,False
+62169,No,False,NOT_OTP,auto_not_otp,18,False
+11308,"Your one time password is 902979. Please use this One Time Password (OTP) within the next ten minutes to proceed.
+Thank you,
+Team Jio",True,GENERIC_APP_ACTION_OTP,success,16,False
+34819,Arriving Today: Use OTP 272916 after reading instructions on package with ID sptp730463193. Delivery agent +918061914444 PIN 9035. http://amzn.in/d/9UqyZE2,True,DELIVERY_OR_SERVICE_OTP,success,43,True
+44491,16 87131 free poly polyphonic ringtone subscription super text tone week,False,NOT_OTP,auto_not_otp,63,True
+54756,"Attend New Batch Starts on HADOOP (Big Data), Tomorrow (06.12.17) @ 07:00 AM. KELLY TECHNOLOGIES, 101, Swathi Anukar, Beside Aditya Trade Center. 7287742145",False,NOT_OTP,auto_not_otp,3,False
+22602,"INR9,918.28 debited on Credit Card XX9910 on 11-Jul-19.Info:MAHASHAKTI.Avbl Lmt:INR9,39,915.52.Call 18002662 for dispute or SMS BLOCK 2004 to 4827261175",False,NOT_OTP,auto_not_otp,19,False
+41945,beautiful comes don goodmorning today tomorrow waste wonderful,False,NOT_OTP,auto_not_otp,58,False
+26337,"India's youngest Telecom brand, Vi is soon turning ONE. We thank you for your continued love & support! Do read a special message from Vi MD & CEO - click to read, https://bit.ly/1YearOfVi",False,NOT_OTP,auto_not_otp,26,True
+7527,Your order #118735960192 was delivered before time in 42 minutes! Keep ordering from Swiggy to experience our timely delivery.,False,NOT_OTP,auto_not_otp,9,False
+66557,K. Did you call me just now ah?,False,NOT_OTP,auto_not_otp,27,False
+35598,Your registration copy No:TN/CHN-KA/I/2606/596765 has been generated. Download a copy of your registration https://eregister.tnega.org  - Tamil Nadu e-Governance Agency,False,NOT_OTP,auto_not_otp,45,True
+31796,"Hi Lavina, Ref.ID: 486588054 Your car insurance has been booked successfully on Policybazaar. Within a few minutes, you'll receive the policy copy on e-mail.",False,NOT_OTP,auto_not_otp,37,False
+42379,accept comes happiness life live moment search way,False,NOT_OTP,auto_not_otp,58,False
+201,"INR 3,602.92 spent using ICICI Bank Card XX1043 on 26-Jul-25 on IND*Amazon. Avl Limit: INR 4,69,601.28. If not you, call 1800 2662/SMS BLOCK 7007 to 8330249187.",False,NOT_OTP,success,1,False
+22201,"INR 937.50 spent on ICICI Bank Card XX9436 on 19-Mar-22 at AMAZON. Avl Lmt: INR 34,207.56. To dispute,call 18002662/SMS BLOCK 7007 to 1181688707",False,NOT_OTP,auto_not_otp,18,True
+57806,CMAT 2018 registration is open! Test to be conducted on 21st January 2018! Check details https://goo.gl/nywmra and register before 18th December 2017.,False,NOT_OTP,auto_not_otp,9,True
+528,"INR 761.28 spent using ICICI Bank Card XX7445 on 11-Oct-25 on THIRD WAVE COFF. Avl Limit: INR 9,76,455.46. If not you, call 1800 2662/SMS BLOCK 7007 to 1833947581.",False,NOT_OTP,success,1,False
+36813,Monitor your credit health in order to maintain a positive credit profile. Click here http://nmc.sg/kNDNal to check your latest CIBIL Score,False,NOT_OTP,auto_not_otp,47,True
+37561,Passengers coming from abroad to India need to furnish duly filled self-declaration form and travel history to Health and Immigration officials at all ports and airports.,False,NOT_OTP,auto_not_otp,49,False
+69222,మా బాసు రాను రాను చిన్నపిల్లోడు అయిపోతున్నాడు... అప్ప్పుడు ఎప్పుడు ఇప్పుడు అదే జోసు అదే ఊపు... Boss porty హేయ్ 👌🏻,False,NOT_OTP,auto_not_otp,32,False
+44779,150p bt direct dogging ec2a join laid largest locations mob msg network nt real sent tonight txting uk ur want,False,NOT_OTP,auto_not_otp,63,True
+38808,house leaving,False,NOT_OTP,auto_not_otp,51,False
+3888,ICICI Bank Acct XX252 debited for Rs 495.67 on 20-Nov-23; Cafe fargozi credited. UPI:332423254324. Call 18002662 for dispute. SMS BLOCK 696 to 1685069093.,False,NOT_OTP,auto_not_otp,2,False
+44885,message new,False,NOT_OTP,auto_not_otp,63,True
+1192,"Dear Customer, Acct XX975 is credited with Rs 891.74 on 11-Oct-25 from NIKHIL SRIDHAR. UPI:112488937939-ICICI Bank.",False,NOT_OTP,success,1,False
+19161,ICICI Bank Acct XX853 debited for Rs 451.73 on 24-Jul-23; MC DONALDS credited. UPI:357147676778. Call 18002662 for dispute. SMS BLOCK 696 to 7170538084.,False,NOT_OTP,auto_not_otp,12,False
+27870,"Hello, your unused daily pack balance 0 MB adjusted with RO Pack and new RO balance is 686766.05 MB. Happy to browse on RO pack on Week Ends",False,NOT_OTP,auto_not_otp,30,False
+63919,No,False,NOT_OTP,auto_not_otp,22,False
+58392,Low Data Alert! Approximately 19 MB remaining. Recharge NOW before your data pack runs out (http://bit.ly/2akxatD). Please ignore if already done.,False,NOT_OTP,auto_not_otp,11,True
+39265,ave care catch nice oh soon time today,False,NOT_OTP,auto_not_otp,52,False
+13743,"Dear Customer, ICICI Bank Account XX296 is debited with INR 790.03 on 25-May-22. Info: BIL*000405360. The Available Balance is INR 73,006.81. Call 18002662 for dispute or SMS BLOCK 696 to 1092636694",False,NOT_OTP,auto_not_otp,1,False
+67079,Be happy there. I will come after noon,False,NOT_OTP,auto_not_otp,28,False
+61708,yes,False,NOT_OTP,auto_not_otp,17,False
+52083,"अगर आपको किसी और चीज़ में मदद चाहिए, तो कृपया बताएं।",False,NOT_OTP,auto_not_otp,78,False
+55120,FreeCharge offer! Get Rs.56 cashback on min. Recharge/DTH/Bill of Rs.93.Use code 40CB for saishashank65@gmail.com. Offer valid till 28 Jan. frch.in/F,False,NOT_OTP,success,4,True
+69366,2023 లో చూసేవారు ఒక లైక్ వేసుకోండి.,False,NOT_OTP,auto_not_otp,32,True
+51567,यदि आवश्यकता हो तो संपर्क करने में संकोच न करें,False,NOT_OTP,auto_not_otp,77,False
+27756,"Do not trust all contact numbers found online. They could have been altered with the intention to defraud you. Please do not share any PIN, password, OTP, login ID, debit card/credit card no., CVV, expiry date etc. with anyone. Only use trusted and verified sites for transactions. For more details, visit http://nc6.in/icvxdz - StanChart",False,NOT_OTP,success,29,True
+18080,"Dear Customer, Payment of INR 005770 has been received towards your ICICI Bank Credit Card XX9018 on 30-NOV-22 through UPI. Thank you.",False,NOT_OTP,auto_not_otp,10,False
+17440,103132 is OTP for txn of INR 206.14 at DAILYDEL SO on ICICI Bank Credit Card XX9061. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,9,False
+53235,आज ही निवेश करें और डबल रिटर्न पाएं । बिना किसी जोखिम के डबल रिटर्न पाएं। अभी इस लिंक पर क्लिक करें और निवेश शुरू करें। ऑफर सीमित समय के लिए है।,False,NOT_OTP,auto_not_otp,80,True
+45387,000 10 150 150ppm 18 434 await box cash collection complimentary cs holiday ibiza landline po ppm sae urgent,False,NOT_OTP,auto_not_otp,65,True
+47479,08002986906 11 11mths camera colour december entitled free latest mobile mobiles months update,False,NOT_OTP,auto_not_otp,69,True
+14533,ICICI Bank Acct XX858 debited for Rs 021.20 on 28-Feb-23; GARUDA PHARMA credited. UPI:305960014294. Call 18002662 for dispute. SMS BLOCK 696 to 0135600232.,False,NOT_OTP,auto_not_otp,3,False
+11354,"Your Stock broker ICICI SECURITIES reported your fund balance Rs.6.554 & securities balance 0 as on end VD 04-XUL-0898. Balances do not cover your bank, DP & PMS balance with broking entity. Check details at GANDHARV.BAKSHI@GMAIL.COM. If email Id not correct, kindly update with your broker - BSE Ltd",False,NOT_OTP,auto_not_otp,17,True
+45182,1st arcade buy chance charge free game games key o2 post press purchase reply save settings space std terms uk ur wap win,False,NOT_OTP,auto_not_otp,64,True
+13756,"Dear Customer, Payment of INR 473604 has been received towards your ICICI Bank Credit Card XX0683 on 01-JUN-22 through NEFT. Thank you.",False,NOT_OTP,auto_not_otp,1,False
+70280,നിനക്ക് എന്നോട് വെറുപ്പായിരിക്കാംപക്ഷേ നീ എന്നേ ഒരിക്കലും മറക്കില്ലാ.മിത്രങ്ങളെ മറന്നാലും ശത്രുക്കളെ മറക്കാൻ കഴിയില്ലല്ലോപ്രതേൃകിച്ച് നിനക്ക്...,False,NOT_OTP,auto_not_otp,34,False
+34000,Is the filing done?,False,NOT_OTP,auto_not_otp,42,False
+3546,Take your time.,False,NOT_OTP,auto_not_otp,1,False
+22224,"INR 348.10 spent on ICICI Bank Card XX8233 on 26-Mar-22 at AMAZON. Avl Lmt: INR 0,61,446.28. To dispute,call 18002662/SMS BLOCK 7007 to 1512518425",False,NOT_OTP,auto_not_otp,18,True
+56487,"Hi akash, Your Rs.9027 wallet bal expires in next 3 Hours! Get Eyeglass FRAME for FREE & Sunglasses starting @Rs.012 @Coolwinks: https://goo.gl/bmTQyN",False,NOT_OTP,auto_not_otp,7,True
+37401,Alert: You've spent INR 281.16 on your AMEX card **91009 at AMAZON BD on 05/10/2019 at 09:42PM IST. Please call 18004190691 if this was not made by you.,False,NOT_OTP,auto_not_otp,49,False
+52792,"⏰ सीमित समय! पे-डे डील पर 80% तक की छूट - चूकें नहीं! 
+अजियो पेडे सेल | 40-80% की छूट
+
+31 अक्टूबर - 3 नवंबर
+👉 अभी खरीदारी करें",False,NOT_OTP,auto_not_otp,79,True
+9687,Your order from ve_ is dispatched through Blue Dart Awb# 89633524610 will be delivered by 06-SEP-22.Track us on www.bluedart.com,False,NOT_OTP,auto_not_otp,13,True
+64294,No,False,NOT_OTP,auto_not_otp,22,False
+37813,Tarun has approved it.,False,NOT_OTP,auto_not_otp,49,False
+46558,150p 18 guess know landline min pobox somebody wanna,False,NOT_OTP,auto_not_otp,67,True
+61938,No,False,NOT_OTP,auto_not_otp,18,False
+22614,"INR0,389.11 debited on Credit Card XX0020 on 03-Aug-19.Info:AMAZON.Avbl Lmt:INR3,89,278.37.Call 18002662 for dispute or SMS BLOCK 2004 to 5981808138",False,NOT_OTP,auto_not_otp,19,False
+58866,PNR 9520989258; PA insurance certificate/s mailed for Mr.  RAVINDER+1; Please update nomination & for policy wording visit www.shriramgi.com,False,NOT_OTP,auto_not_otp,11,True
+20479,Our health crew tried reaching you to deliver your eatfit.in meal but was not able to get through to you. He is currently at your location. Please collect your order at the earliest.,False,NOT_OTP,auto_not_otp,15,False
+61107,No,False,NOT_OTP,auto_not_otp,16,False
+1117,ICICI Bank Acct XX599 debited for Rs 670.73 on 26-Aug-25; TUSKER WORKSPAC credited. UPI:560448216054. Call 18002662 for dispute. SMS BLOCK 696 to 9115568122.,False,NOT_OTP,success,1,False
+25577,"Dear Customer,your ICICI Bank Demat Account XXXX3629 has received 209.373 shares of PPFAS MUTUAL FUND(INF879O01019) from Demat Account IN620040,on 03-JAN-23. Ref No. 81000031354647; Status: Successful; Free Balance: 6463.179.",False,NOT_OTP,auto_not_otp,25,False
+16284,"ICICI SECURITIES LIMITED on 05-11-22 reported your Fund bal Rs.5318.73 & Securities bal 0. This excludes your Bank, DP & PMS bal with the broker-NSE",False,NOT_OTP,auto_not_otp,6,False
+48674,শুভ নববর্ষ!,False,NOT_OTP,auto_not_otp,71,False
+58631,"Hi, your return request for Basics Men White Tapered Fit Smart Casual Trousers (Return No. : 16936003) has been successfully placed. We expect to pick this up on or before Sat, 24 Sep.",False,NOT_OTP,auto_not_otp,11,False
+43041,amp comes created fills fingers gap gaps god hand holding know love,False,NOT_OTP,auto_not_otp,60,False
+9699,Your order from Tiggle is dispatched through Blue Dart Awb# 76754203584 will be delivered by 31-MAY-23.Track us on www.bluedart.com,False,NOT_OTP,auto_not_otp,13,True
+32001,"PING! Your LIV Premium subscription of 299.00 will be up for renewal CX 76 OLT 2540. To cancel, sign-in to the app or visit your app store. - SonyLIV",False,NOT_OTP,auto_not_otp,38,False
+69168,ఆ బ్రహ్మ నిను చేయడానికేso sweet of 💗💗💖💖,False,NOT_OTP,auto_not_otp,32,False
+3971,"INR 083.79 spent on ICICI Bank Card XX4556 on 18-May-24 at Swiggy. Avl Lmt: INR 4,87,538.87. To dispute,call 18002662/SMS BLOCK 7007 to 2712343755",False,NOT_OTP,auto_not_otp,2,False
+22770,"Dear Customer, INR 612.67 is debited on ICICI Bank Credit Card XX7345 on 04-Oct-21. Info: Dunzo Digital. Available Limit: INR 5,159.70. Call on 18002662 for dispute or SMS BLOCK 7007 to 6044359871.",False,NOT_OTP,auto_not_otp,19,False
+25415,"INR 8,205.55 spent on ICICI Bank Card XX6593 on 20-Nov-22 at KRJ FUEL STATIO. Avl Lmt: INR 2,31,051.14. To dispute,call 18002662/SMS BLOCK 7007 to 0894692244",False,NOT_OTP,auto_not_otp,25,False
+56961,"Dear Customer, You have a missed call from +918678807676 The last missed call was at 03:34 PM KT 02-NPV-4682 Thankyou, Team Jio.",False,NOT_OTP,auto_not_otp,8,False
+39799,ask help ok tmr working,False,NOT_OTP,auto_not_otp,53,False
+55306,Areyy bank holiday eroju sryy mama...! Arey nuvv vere frnd daggira money tisko ra ,False,NOT_OTP,auto_not_otp,4,False
+56948,Ipud gauti undu,False,NOT_OTP,auto_not_otp,8,True
+1512,Rs.52 paid at BagepalliTollPlaza for RQ97IT6543 on 29-09-2025 14:46:43 with ICICI Bank FASTag. Bal Rs.4916. Call 18002100104 for dispute,False,NOT_OTP,success,2,False
+35280,"Hello Gandharv S Bakshi, Sandeep (1538692036) has been assigned to your activity. You will receive a call from Sandeep to coordinate your delivery/pickup - FURLENCO.",False,NOT_OTP,auto_not_otp,44,False
+23525,"INR1,647.67 debited on Credit Card XX3929 on 19-Feb-20.Info:AMAZON PAY INDI.Avbl Lmt:INR66,912.42.Call 18002662 for dispute or SMS BLOCK 7007 to 8152196734",False,NOT_OTP,auto_not_otp,21,False
+62691,No,False,NOT_OTP,auto_not_otp,19,False
+47549,08000930705 100 300 3510i camcorder colour free minutes mobile new nokia phone reply texts want,False,NOT_OTP,auto_not_otp,69,True
+20357,Your eatfit.in order has just left our kitchen and will be delivered in 13 mins.,False,NOT_OTP,auto_not_otp,15,False
+70509,"കാത്തിരിക്കാൻ എനിക്ക് ആരുമില്ല. എങ്കിലും, ഞാൻ ആരുടെയോ മസ്സിൽ, ഒളിച്ചിരിപ്പുണ്ട് എന്നൊരു തോനൽ.",False,NOT_OTP,auto_not_otp,35,False
+27408,"Dear Customer,
+Your Licious Cash+ worth Rs.895 will expire KM 84-PBN-8114. Use it to enjoy Rs.416 off on orders above Rs.988.
+Order klr.pw/GO
+-Licious",False,NOT_OTP,auto_not_otp,29,False
+54070,"सेक्टर 137 नोएडा में शानदार 2/3 बीएचके लाइफस्टाइल अपार्टमेंट। एक्स-वे पर प्राइमलोकेशन, मेट्रो से 5 मिनट की दूरी पर सभी सुविधाओं के साथ, 30 महीने में - 26 लाख से शुरू। 53030 पर एसएमएस करें",False,NOT_OTP,auto_not_otp,2,True
+40124,address email just right sent,False,NOT_OTP,auto_not_otp,54,False
+52626,"जल्दी करें! आज ही Google Pay पर 899 रुपये के प्लान के साथ Jio नंबर 3403214284 को रिचार्ज करें और रोमांचक रिवॉर्ड पाएँ। 90 दिनों की वैधता के साथ 2 GB/दिन + 20 GB अतिरिक्त और अनलिमिटेड 5G डेटा, अनलिमिटेड वॉयस का आनंद लें। नियम और शर्तें https://gpay.app.goo.gl/yd1TrN",False,NOT_OTP,auto_not_otp,79,True
+15800,"INR 345.15 spent on ICICI Bank Card XX1736 on 18-Sep-22 at SWIGGY. Avl Lmt: INR 9,27,671.99. To dispute,call 18002662/SMS BLOCK 7007 to 2921435147",False,NOT_OTP,auto_not_otp,5,False
+19032,"INR 9,187.98 spent on ICICI Bank Card XX0371 on 08-May-23 at MAKEMYTRIP I. Avl Lmt: INR 83,34,772.92. To dispute,call 18002662/SMS BLOCK 7003 to 6105683418",False,NOT_OTP,auto_not_otp,12,False
+31352,Tell us about your Amazon order experience at https://amzn.in/d/dpSV7Wm,False,NOT_OTP,auto_not_otp,36,True
+13009,"Dear Customer, Payment of INR 4748 has been received towards your ICICI Bank Credit Card XX8778 on 03-MAY-21 through UPI. Thank you.",False,NOT_OTP,auto_not_otp,20,False
+4313,121411 is OTP for txn of INR 353.45 at SWIGGY on ICICI Bank Credit Card XX5320. OTPs are SECRET. DO NOT disclose it to anyone. Bank NEVER asks for OTP.,True,BANK_OR_CARD_TXN_OTP,success,2,False
+43285,won,False,NOT_OTP,auto_not_otp,60,False
+5641,"ICICI Bank Acc XX973 debited Rs. 7,87,135.21 on 01-Apr-25 InfoBIL*000991359.Avl Bal Rs. 0,67,910.95.To dispute call 18002662 or SMS BLOCK 696 to 5094271507",False,NOT_OTP,auto_not_otp,5,False
+57882,OTP for Quick Fund Transfer is:59087197. Do not share it with anyone. Bank will NEVER telephone you to verify it.,True,BANK_OR_CARD_TXN_OTP,success,9,False
+71638,"ಅದ್ಬುತ. ಸಾಧನೆ. ಇಂತಹ ಪ್ರತಿಭೆಗಳು ಬೆಳೆಯಬೇಕು. ಒಳ್ಳೆಯ ಮನೋರಂಜನೆ
+🙏🙏🙏🙏🙏",False,NOT_OTP,auto_not_otp,37,False
+24623,ICICI Bank Acct XX882 debited for Rs 179.56 on 22-Dec-21; LALIT KUMAR credited. UPI:135671013720. Call 18002662 for dispute. SMS BLOCK 696 to 9500095666.,False,NOT_OTP,auto_not_otp,23,False

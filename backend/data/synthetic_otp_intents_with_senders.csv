@@ -1,0 +1,401 @@
+id,sender,body,timestamp,language,is_otp,otp_intent,share_advice
+synthetic_APP_ACCOUNT_CHANGE_OTP_1,VM-FBPOST,Use OTP 102405 to switch your Facebook account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_2,VM-INSTAG,"To update your Instagram account details, enter OTP 248446. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_3,VM-TELEGR,Use OTP 542613 to switch your Telegram account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_4,VM-WHATS,WhatsApp code 983937 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_5,VM-GOOGLE,Use 920064 to change your Google phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_6,VM-WHATS,"To update your WhatsApp account details, enter OTP 332456. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_7,VM-FBPOST,Use OTP 326459 to switch your Facebook account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_8,VM-GOOGLE,"To update your Google account details, enter OTP 675422. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_9,VM-WHATS,WhatsApp code 642636 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_10,VM-FBPOST,Use 118410 to change your Facebook phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_11,VM-INSTAG,Instagram code 140319 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_12,VM-TWITTR,Use OTP 259709 to switch your Twitter account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_13,VM-GOOGLE,Your Google verification code is 237172 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_14,VM-GOOGLE,Your Google verification code is 336355 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_15,VM-TWITTR,Twitter code 453964 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_16,VM-INSTAG,"To update your Instagram account details, enter OTP 496014. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_17,VM-TWITTR,Your Twitter verification code is 988834 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_18,VM-GOOGLE,"To update your Google account details, enter OTP 457317. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_19,VM-FBPOST,Facebook code 354913 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_20,VM-INSTAG,"To update your Instagram account details, enter OTP 963874. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_21,VM-TELEGR,"To update your Telegram account details, enter OTP 265054. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_22,VM-FBPOST,Facebook code 714735 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_23,VM-FBPOST,Use OTP 217768 to switch your Facebook account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_24,VM-TWITTR,Twitter code 770967 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_25,VM-FBPOST,Your Facebook verification code is 620253 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_26,VM-WHATS,Use OTP 750012 to switch your WhatsApp account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_27,VM-WHATS,"To update your WhatsApp account details, enter OTP 864329. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_28,VM-TWITTR,Use 382985 to change your Twitter phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_29,VM-INSTAG,Use OTP 426047 to switch your Instagram account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_30,VM-WHATS,Use 861509 to change your WhatsApp phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_31,VM-TELEGR,"To update your Telegram account details, enter OTP 846511. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_32,VM-GOOGLE,Your Google verification code is 937566 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_33,VM-TELEGR,Use OTP 555875 to switch your Telegram account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_34,VM-WHATS,"To update your WhatsApp account details, enter OTP 353355. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_35,VM-TELEGR,Use 681831 to change your Telegram phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_36,VM-WHATS,WhatsApp code 999515 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_37,VM-WHATS,WhatsApp code 941302 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_38,VM-WHATS,Your WhatsApp verification code is 512906 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_39,VM-WHATS,Use 199382 to change your WhatsApp phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_40,VM-GOOGLE,Use OTP 530480 to switch your Google account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_41,VM-WHATS,Use OTP 455949 to switch your WhatsApp account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_42,VM-INSTAG,Use OTP 108087 to switch your Instagram account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_43,VM-GOOGLE,Use OTP 661233 to switch your Google account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_44,VM-GOOGLE,Your Google verification code is 821782 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_45,VM-GOOGLE,Use OTP 229990 to switch your Google account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_46,VM-INSTAG,Use OTP 616210 to switch your Instagram account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_47,VM-FBPOST,Use OTP 510571 to switch your Facebook account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_48,VM-WHATS,"To update your WhatsApp account details, enter OTP 320314. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_49,VM-INSTAG,Your Instagram verification code is 912287 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_50,VM-GOOGLE,Your Google verification code is 337021 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_51,VM-FBPOST,Facebook code 672527 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_52,VM-TELEGR,"To update your Telegram account details, enter OTP 473300. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_53,VM-TELEGR,Telegram code 215926 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_54,VM-WHATS,WhatsApp code 780665 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_55,VM-INSTAG,Your Instagram verification code is 844252 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_56,VM-TWITTR,"To update your Twitter account details, enter OTP 477811. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_57,VM-TELEGR,Telegram code 597326 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_58,VM-TWITTR,Your Twitter verification code is 256809 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_59,VM-WHATS,WhatsApp code 422970 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_60,VM-INSTAG,Use 941110 to change your Instagram phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_61,VM-GOOGLE,Your Google verification code is 989857 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_62,VM-INSTAG,Use OTP 392286 to switch your Instagram account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_63,VM-TWITTR,Use OTP 692098 to switch your Twitter account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_64,VM-INSTAG,Your Instagram verification code is 162268 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_65,VM-TELEGR,Your Telegram verification code is 391011 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_66,VM-FBPOST,Use 402586 to change your Facebook phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_67,VM-TELEGR,Your Telegram verification code is 110148 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_68,VM-WHATS,Your WhatsApp verification code is 367954 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_69,VM-GOOGLE,Use OTP 516163 to switch your Google account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_70,VM-INSTAG,Instagram code 141666 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_71,VM-TWITTR,Your Twitter verification code is 417657 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_72,VM-FBPOST,Your Facebook verification code is 297456 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_73,VM-TWITTR,Your Twitter verification code is 695585 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_74,VM-TELEGR,Use OTP 464331 to switch your Telegram account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_75,VM-INSTAG,Use 874757 to change your Instagram phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_76,VM-TELEGR,Telegram code 209041 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_77,VM-TELEGR,"To update your Telegram account details, enter OTP 763814. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_78,VM-GOOGLE,Your Google verification code is 567435 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_79,VM-WHATS,Use OTP 494810 to switch your WhatsApp account to a new device. Do not reveal this to anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_80,VM-GOOGLE,Use 630973 to change your Google phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_81,VM-WHATS,"To update your WhatsApp account details, enter OTP 816661. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_82,VM-GOOGLE,"To update your Google account details, enter OTP 419586. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_83,VM-GOOGLE,"To update your Google account details, enter OTP 581961. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_84,VM-TELEGR,Use 942465 to change your Telegram phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_85,VM-TWITTR,Twitter code 393672 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_86,VM-TELEGR,Your Telegram verification code is 408476 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_87,VM-WHATS,"To update your WhatsApp account details, enter OTP 901989. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_88,VM-TELEGR,"To update your Telegram account details, enter OTP 296409. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_89,VM-TELEGR,Use 758705 to change your Telegram phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_90,VM-INSTAG,"To update your Instagram account details, enter OTP 317060. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_91,VM-FBPOST,Use 976894 to change your Facebook phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_92,VM-WHATS,WhatsApp code 501390 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_93,VM-FBPOST,Facebook code 747368 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_94,VM-TELEGR,Use 684306 to change your Telegram phone number. Do not share this code with anyone.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_95,VM-TWITTR,Twitter code 451842 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_96,VM-WHATS,"To update your WhatsApp account details, enter OTP 775765. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_97,VM-GOOGLE,"To update your Google account details, enter OTP 946531. Never share this OTP with anyone.",,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_98,VM-WHATS,WhatsApp code 817965 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_99,VM-TWITTR,Your Twitter verification code is 994211 for number change request. Ignore if not requested by you.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_APP_ACCOUNT_CHANGE_OTP_100,VM-WHATS,WhatsApp code 839217 is for changing your registered mobile number. Do not disclose it on calls.,,en,YES,APP_ACCOUNT_CHANGE_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_1,AX-AMAZON,"SBI: To reset your UPI PIN, enter OTP 964457 on Amazon Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_2,AX-BHIMUP,"HDFC Bank: OTP 945516 is required to set your UPI PIN on BHIM. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_3,AX-AMAZON,"SBI: OTP 404302 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_4,AX-AMAZON,"ICICI Bank: To reset your UPI PIN, enter OTP 135757 on Amazon Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_5,AX-BHIMUP,BHIM: Use 713332 to authorize your UPI collect request of INR 7784. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_6,AX-BHIMUP,"SBI: OTP 278320 is required to set your UPI PIN on BHIM. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_7,AX-PHPEIN,Use OTP 982800 to complete your UPI payment of INR 5252 on PhonePe. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_8,AX-PAYTMK,"HDFC Bank: OTP 888256 is required to set your UPI PIN on Paytm. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_9,AX-BHIMUP,BHIM: Use 994243 to authorize your UPI collect request of INR 4042. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_10,AX-PAYTMK,Paytm: Use 502077 to authorize your UPI collect request of INR 7385. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_11,VM-GOOGLE,"Kotak Mahindra Bank: To reset your UPI PIN, enter OTP 702709 on Google Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_12,VM-HDFCBK,OTP 796591 is for approving your UPI transfer of Rs 1487 from HDFC Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_13,AX-AMAZON,Use OTP 694879 to complete your UPI payment of INR 9959 on Amazon Pay. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_14,VM-GOOGLE,Use OTP 486147 to complete your UPI payment of INR 9199 on Google Pay. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_15,AX-AMAZON,Use OTP 690654 to complete your UPI payment of INR 5670 on Amazon Pay. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_16,AX-PHPEIN,PhonePe: Use 911996 to authorize your UPI collect request of INR 1868. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_17,VM-GOOGLE,"HDFC Bank: To reset your UPI PIN, enter OTP 738175 on Google Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_18,VM-GOOGLE,"SBI: To reset your UPI PIN, enter OTP 954005 on Google Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_19,AX-BHIMUP,"SBI: To reset your UPI PIN, enter OTP 623892 on BHIM. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_20,VK-SBIBNK,OTP 788588 is for approving your UPI transfer of Rs 4674 from SBI. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_21,AX-PAYTMK,"Kotak Mahindra Bank: To reset your UPI PIN, enter OTP 931873 on Paytm. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_22,AX-PAYTMK,"HDFC Bank: To reset your UPI PIN, enter OTP 666115 on Paytm. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_23,AX-AMAZON,"SBI: OTP 884446 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_24,VM-ICICIB,OTP 926622 is for approving your UPI transfer of Rs 6069 from ICICI Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_25,AX-BHIMUP,Use OTP 121309 to complete your UPI payment of INR 4072 on BHIM. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_26,AX-AMAZON,"Kotak Mahindra Bank: To reset your UPI PIN, enter OTP 612180 on Amazon Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_27,AX-AMAZON,Use OTP 309356 to complete your UPI payment of INR 4569 on Amazon Pay. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_28,VM-GOOGLE,"Axis Bank: To reset your UPI PIN, enter OTP 126000 on Google Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_29,AX-AXISBK,OTP 633390 is for approving your UPI transfer of Rs 7205 from Axis Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_30,AX-PAYTMK,"HDFC Bank: OTP 712045 is required to set your UPI PIN on Paytm. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_31,AX-AXISBK,OTP 642956 is for approving your UPI transfer of Rs 3553 from Axis Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_32,AX-PAYTMK,"Kotak Mahindra Bank: To reset your UPI PIN, enter OTP 547221 on Paytm. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_33,AX-AMAZON,Use OTP 352694 to complete your UPI payment of INR 5682 on Amazon Pay. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_34,AX-PHPEIN,"Kotak Mahindra Bank: OTP 728016 is required to set your UPI PIN on PhonePe. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_35,VM-HDFCBK,OTP 571404 is for approving your UPI transfer of Rs 1660 from HDFC Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_36,AX-PAYTMK,"Kotak Mahindra Bank: To reset your UPI PIN, enter OTP 160872 on Paytm. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_37,AX-PHPEIN,"Kotak Mahindra Bank: To reset your UPI PIN, enter OTP 201745 on PhonePe. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_38,VM-GOOGLE,"Axis Bank: To reset your UPI PIN, enter OTP 618345 on Google Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_39,VM-HDFCBK,OTP 522075 is for approving your UPI transfer of Rs 4262 from HDFC Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_40,AX-BHIMUP,BHIM: Use 380594 to authorize your UPI collect request of INR 7217. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_41,VK-SBIBNK,OTP 884508 is for approving your UPI transfer of Rs 8281 from SBI. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_42,AX-PHPEIN,Use OTP 854231 to complete your UPI payment of INR 5326 on PhonePe. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_43,AX-PHPEIN,PhonePe: Use 845307 to authorize your UPI collect request of INR 2539. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_44,AX-AMAZON,Use OTP 103585 to complete your UPI payment of INR 638 on Amazon Pay. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_45,AX-AXISBK,OTP 480393 is for approving your UPI transfer of Rs 4575 from Axis Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_46,VM-GOOGLE,Google Pay: Use 803811 to authorize your UPI collect request of INR 6025. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_47,VK-KOTAKB,OTP 501774 is for approving your UPI transfer of Rs 6517 from Kotak Mahindra Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_48,AX-AMAZON,"ICICI Bank: OTP 375395 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_49,VM-GOOGLE,Google Pay: Use 842403 to authorize your UPI collect request of INR 5794. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_50,VM-GOOGLE,Google Pay: Use 720609 to authorize your UPI collect request of INR 7868. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_51,AX-BHIMUP,"SBI: OTP 314828 is required to set your UPI PIN on BHIM. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_52,VM-GOOGLE,"ICICI Bank: OTP 147305 is required to set your UPI PIN on Google Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_53,AX-PAYTMK,Use OTP 452486 to complete your UPI payment of INR 3648 on Paytm. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_54,AX-PAYTMK,"HDFC Bank: To reset your UPI PIN, enter OTP 755368 on Paytm. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_55,AX-BHIMUP,BHIM: Use 343768 to authorize your UPI collect request of INR 6700. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_56,AX-AMAZON,"Kotak Mahindra Bank: OTP 118383 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_57,AX-PHPEIN,PhonePe: Use 530148 to authorize your UPI collect request of INR 918. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_58,AX-BHIMUP,Use OTP 505353 to complete your UPI payment of INR 1501 on BHIM. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_59,AX-AMAZON,Amazon Pay: Use 898839 to authorize your UPI collect request of INR 9955. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_60,VM-GOOGLE,Google Pay: Use 636917 to authorize your UPI collect request of INR 4577. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_61,AX-AMAZON,Use OTP 455984 to complete your UPI payment of INR 9285 on Amazon Pay. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_62,AX-BHIMUP,"HDFC Bank: To reset your UPI PIN, enter OTP 202224 on BHIM. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_63,AX-AXISBK,OTP 305769 is for approving your UPI transfer of Rs 6062 from Axis Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_64,VM-HDFCBK,OTP 363256 is for approving your UPI transfer of Rs 635 from HDFC Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_65,AX-PHPEIN,PhonePe: Use 547740 to authorize your UPI collect request of INR 8112. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_66,VM-GOOGLE,"Axis Bank: OTP 401326 is required to set your UPI PIN on Google Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_67,AX-BHIMUP,BHIM: Use 736301 to authorize your UPI collect request of INR 8594. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_68,VK-SBIBNK,OTP 959665 is for approving your UPI transfer of Rs 263 from SBI. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_69,AX-BHIMUP,Use OTP 320494 to complete your UPI payment of INR 3752 on BHIM. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_70,VM-HDFCBK,OTP 455264 is for approving your UPI transfer of Rs 727 from HDFC Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_71,AX-AMAZON,"Kotak Mahindra Bank: OTP 874238 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_72,AX-AMAZON,"ICICI Bank: OTP 704682 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_73,AX-BHIMUP,"HDFC Bank: OTP 436193 is required to set your UPI PIN on BHIM. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_74,AX-BHIMUP,Use OTP 866031 to complete your UPI payment of INR 6460 on BHIM. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_75,VM-ICICIB,OTP 484939 is for approving your UPI transfer of Rs 8083 from ICICI Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_76,VM-GOOGLE,Google Pay: Use 475534 to authorize your UPI collect request of INR 8812. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_77,AX-BHIMUP,BHIM: Use 574898 to authorize your UPI collect request of INR 577. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_78,AX-BHIMUP,Use OTP 624052 to complete your UPI payment of INR 182 on BHIM. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_79,AX-PAYTMK,"ICICI Bank: OTP 954923 is required to set your UPI PIN on Paytm. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_80,VM-GOOGLE,Use OTP 331753 to complete your UPI payment of INR 6762 on Google Pay. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_81,AX-AMAZON,"HDFC Bank: To reset your UPI PIN, enter OTP 710481 on Amazon Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_82,AX-AMAZON,"Axis Bank: OTP 788608 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_83,AX-AMAZON,"Kotak Mahindra Bank: OTP 733883 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_84,VK-SBIBNK,OTP 652564 is for approving your UPI transfer of Rs 3740 from SBI. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_85,AX-AMAZON,"HDFC Bank: OTP 920098 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_86,AX-PHPEIN,PhonePe: Use 888620 to authorize your UPI collect request of INR 823. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_87,AX-PHPEIN,"Axis Bank: OTP 528234 is required to set your UPI PIN on PhonePe. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_88,VM-GOOGLE,"HDFC Bank: To reset your UPI PIN, enter OTP 403360 on Google Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_89,AX-PHPEIN,"Kotak Mahindra Bank: OTP 558158 is required to set your UPI PIN on PhonePe. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_90,AX-AXISBK,OTP 946877 is for approving your UPI transfer of Rs 3358 from Axis Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_91,AX-BHIMUP,Use OTP 540745 to complete your UPI payment of INR 5514 on BHIM. Do not share this with anyone.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_92,AX-BHIMUP,BHIM: Use 569623 to authorize your UPI collect request of INR 8424. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_93,AX-BHIMUP,"ICICI Bank: OTP 400734 is required to set your UPI PIN on BHIM. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_94,VK-SBIBNK,OTP 325450 is for approving your UPI transfer of Rs 3525 from SBI. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_95,AX-AMAZON,"Axis Bank: To reset your UPI PIN, enter OTP 916543 on Amazon Pay. Do not share with anyone.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_96,AX-PHPEIN,PhonePe: Use 996161 to authorize your UPI collect request of INR 1199. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_97,VK-KOTAKB,OTP 204085 is for approving your UPI transfer of Rs 3517 from Kotak Mahindra Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_98,VM-GOOGLE,Google Pay: Use 754594 to authorize your UPI collect request of INR 4321. Do not disclose this OTP.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_99,AX-AXISBK,OTP 311949 is for approving your UPI transfer of Rs 865 from Axis Bank. Never share this code on phone calls.,,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_UPI_TXN_OR_PIN_OTP_100,AX-BHIMUP,"SBI: OTP 455543 is required to set your UPI PIN on BHIM. Do not share with anyone, even if they claim to be from the bank.",,en,YES,UPI_TXN_OR_PIN_OTP,NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_1,IM-RWHUBS,You are eligible for a lucky draw entry from RewardHub. Confirm using OTP 124976.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_2,IM-LKYMRT,You are eligible for a lucky draw entry from LuckyMart. Confirm using OTP 733958.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_3,IM-LKYMRT,LuckyMart promo: Apply OTP 865695 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_4,IM-SPRSHO,Use OTP 948795 to confirm your participation in SuperShop's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_5,IM-RWHUBS,Use OTP 486474 to confirm your participation in RewardHub's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_6,IM-MEGAWN,Congratulations! You have been selected for a special reward from MegaWin. Use OTP 763506 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_7,IM-MEGAWN,Use OTP 769793 to confirm your participation in MegaWin's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_8,IM-HOLWRL,Congratulations! You have been selected for a special reward from HolidayWorld. Use OTP 834741 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_9,IM-SPRSHO,Use OTP 701363 to confirm your participation in SuperShop's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_10,IM-HOLWRL,Use OTP 120632 to confirm your participation in HolidayWorld's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_11,IM-MEGAWN,Congratulations! You have been selected for a special reward from MegaWin. Use OTP 159081 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_12,IM-SPRSHO,SuperShop: Use OTP 367371 to unlock cashback offers worth Rs 4711.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_13,IM-RWHUBS,Use OTP 276123 to confirm your participation in RewardHub's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_14,IM-HOLWRL,You are eligible for a lucky draw entry from HolidayWorld. Confirm using OTP 999974.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_15,IM-SPRSHO,SuperShop promo: Apply OTP 854541 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_16,IM-LKYMRT,Congratulations! You have been selected for a special reward from LuckyMart. Use OTP 726987 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_17,IM-RWHUBS,Use OTP 987805 to confirm your participation in RewardHub's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_18,IM-MEGAWN,MegaWin promo: Apply OTP 734361 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_19,IM-MEGAWN,MegaWin: Use OTP 608099 to unlock cashback offers worth Rs 5086.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_20,IM-MEGAWN,MegaWin promo: Apply OTP 624592 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_21,IM-MEGAWN,Congratulations! You have been selected for a special reward from MegaWin. Use OTP 965133 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_22,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 161067.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_23,IM-HOLWRL,HolidayWorld promo: Apply OTP 775248 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_24,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 355957.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_25,IM-RWHUBS,You are eligible for a lucky draw entry from RewardHub. Confirm using OTP 943684.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_26,IM-RWHUBS,Congratulations! You have been selected for a special reward from RewardHub. Use OTP 969611 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_27,IM-MEGAWN,MegaWin: Use OTP 957372 to unlock cashback offers worth Rs 3549.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_28,IM-MEGAWN,Congratulations! You have been selected for a special reward from MegaWin. Use OTP 909182 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_29,IM-RWHUBS,Congratulations! You have been selected for a special reward from RewardHub. Use OTP 797579 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_30,IM-LKYMRT,LuckyMart promo: Apply OTP 779316 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_31,IM-HOLWRL,Congratulations! You have been selected for a special reward from HolidayWorld. Use OTP 972591 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_32,IM-HOLWRL,Congratulations! You have been selected for a special reward from HolidayWorld. Use OTP 453718 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_33,IM-SPRSHO,Use OTP 762838 to confirm your participation in SuperShop's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_34,IM-MEGAWN,MegaWin: Use OTP 463920 to unlock cashback offers worth Rs 4430.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_35,IM-HOLWRL,HolidayWorld: Use OTP 371920 to unlock cashback offers worth Rs 2840.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_36,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 619886.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_37,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 717780.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_38,IM-HOLWRL,Congratulations! You have been selected for a special reward from HolidayWorld. Use OTP 693408 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_39,IM-SPRSHO,Congratulations! You have been selected for a special reward from SuperShop. Use OTP 360175 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_40,IM-SPRSHO,Congratulations! You have been selected for a special reward from SuperShop. Use OTP 317269 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_41,IM-SPRSHO,Congratulations! You have been selected for a special reward from SuperShop. Use OTP 159386 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_42,IM-MEGAWN,Use OTP 651546 to confirm your participation in MegaWin's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_43,IM-SPRSHO,SuperShop promo: Apply OTP 229343 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_44,IM-HOLWRL,You are eligible for a lucky draw entry from HolidayWorld. Confirm using OTP 799828.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_45,IM-MEGAWN,Congratulations! You have been selected for a special reward from MegaWin. Use OTP 763117 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_46,IM-HOLWRL,HolidayWorld: Use OTP 987387 to unlock cashback offers worth Rs 7918.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_47,IM-MEGAWN,Congratulations! You have been selected for a special reward from MegaWin. Use OTP 517756 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_48,IM-RWHUBS,Congratulations! You have been selected for a special reward from RewardHub. Use OTP 171438 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_49,IM-RWHUBS,RewardHub promo: Apply OTP 804331 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_50,IM-MEGAWN,MegaWin promo: Apply OTP 234971 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_51,IM-SPRSHO,Congratulations! You have been selected for a special reward from SuperShop. Use OTP 808899 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_52,IM-SPRSHO,SuperShop promo: Apply OTP 334783 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_53,IM-SPRSHO,You are eligible for a lucky draw entry from SuperShop. Confirm using OTP 619321.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_54,IM-MEGAWN,MegaWin promo: Apply OTP 314715 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_55,IM-SPRSHO,Congratulations! You have been selected for a special reward from SuperShop. Use OTP 116991 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_56,IM-RWHUBS,Congratulations! You have been selected for a special reward from RewardHub. Use OTP 817900 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_57,IM-RWHUBS,Congratulations! You have been selected for a special reward from RewardHub. Use OTP 459773 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_58,IM-HOLWRL,HolidayWorld promo: Apply OTP 318617 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_59,IM-SPRSHO,You are eligible for a lucky draw entry from SuperShop. Confirm using OTP 200783.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_60,IM-RWHUBS,You are eligible for a lucky draw entry from RewardHub. Confirm using OTP 567415.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_61,IM-RWHUBS,RewardHub promo: Apply OTP 275664 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_62,IM-HOLWRL,HolidayWorld promo: Apply OTP 599769 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_63,IM-RWHUBS,Use OTP 229455 to confirm your participation in RewardHub's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_64,IM-HOLWRL,Congratulations! You have been selected for a special reward from HolidayWorld. Use OTP 974002 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_65,IM-RWHUBS,RewardHub: Use OTP 804068 to unlock cashback offers worth Rs 6208.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_66,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 578231.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_67,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 943678.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_68,IM-MEGAWN,Use OTP 278622 to confirm your participation in MegaWin's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_69,IM-SPRSHO,SuperShop promo: Apply OTP 557328 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_70,IM-LKYMRT,Use OTP 737192 to confirm your participation in LuckyMart's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_71,IM-HOLWRL,HolidayWorld promo: Apply OTP 354998 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_72,IM-HOLWRL,HolidayWorld promo: Apply OTP 915290 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_73,IM-HOLWRL,HolidayWorld promo: Apply OTP 599982 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_74,IM-LKYMRT,Use OTP 719707 to confirm your participation in LuckyMart's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_75,IM-MEGAWN,MegaWin promo: Apply OTP 380692 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_76,IM-RWHUBS,You are eligible for a lucky draw entry from RewardHub. Confirm using OTP 946840.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_77,IM-SPRSHO,Use OTP 556983 to confirm your participation in SuperShop's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_78,IM-HOLWRL,HolidayWorld: Use OTP 397461 to unlock cashback offers worth Rs 9583.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_79,IM-LKYMRT,LuckyMart promo: Apply OTP 215957 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_80,IM-SPRSHO,SuperShop promo: Apply OTP 594314 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_81,IM-RWHUBS,Congratulations! You have been selected for a special reward from RewardHub. Use OTP 267421 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_82,IM-RWHUBS,RewardHub promo: Apply OTP 421413 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_83,IM-HOLWRL,Use OTP 502093 to confirm your participation in HolidayWorld's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_84,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 633452.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_85,IM-MEGAWN,MegaWin: Use OTP 965345 to unlock cashback offers worth Rs 906.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_86,IM-HOLWRL,HolidayWorld promo: Apply OTP 284779 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_87,IM-RWHUBS,You are eligible for a lucky draw entry from RewardHub. Confirm using OTP 459667.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_88,IM-SPRSHO,Use OTP 159165 to confirm your participation in SuperShop's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_89,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 249481.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_90,IM-HOLWRL,HolidayWorld: Use OTP 630950 to unlock cashback offers worth Rs 3467.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_91,IM-SPRSHO,SuperShop promo: Apply OTP 566723 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_92,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 476052.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_93,IM-SPRSHO,Congratulations! You have been selected for a special reward from SuperShop. Use OTP 821902 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_94,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 998651.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_95,IM-HOLWRL,Use OTP 639916 to confirm your participation in HolidayWorld's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_96,IM-RWHUBS,Congratulations! You have been selected for a special reward from RewardHub. Use OTP 760128 to claim your gift.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_97,IM-LKYMRT,You are eligible for a lucky draw entry from LuckyMart. Confirm using OTP 189996.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_98,IM-MEGAWN,MegaWin promo: Apply OTP 622183 on our app to activate your festival discount coupons.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_99,IM-HOLWRL,Use OTP 332595 to confirm your participation in HolidayWorld's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_PROMO_OR_REWARD_OTP_100,IM-RWHUBS,Use OTP 426642 to confirm your participation in RewardHub's rewards program.,,en,YES,PROMO_OR_REWARD_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_1,IM-FDCLUB,FoodClub: Verification code 790305 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_2,IM-FDCLUB,FoodClub: Use OTP 336135 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_3,IM-EDULRN,EduLearn: Use OTP 909097 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_4,IM-FDCLUB,Use OTP 651646 to complete your profile verification on FoodClub.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_5,IM-RIDMAT,Your RideMate security code is 720592 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_6,IM-FTTRCK,FitTrack: Verification code 547118 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_7,IM-RIDMAT,RideMate: Use OTP 734552 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_8,IM-FDCLUB,FoodClub: Use OTP 898934 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_9,IM-NEWSNW,Use OTP 229070 to complete your profile verification on NewsNow.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_10,IM-EDULRN,EduLearn: Use OTP 943001 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_11,IM-FDCLUB,Your FoodClub security code is 663414 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_12,IM-FTTRCK,Your FitTrack security code is 366861 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_13,IM-FDCLUB,Your FoodClub security code is 141536 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_14,IM-FDCLUB,FoodClub: Use OTP 712235 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_15,IM-RIDMAT,RideMate: Verification code 845268 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_16,IM-FTTRCK,FitTrack: Verification code 637211 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_17,IM-NEWSNW,Use OTP 410263 to complete your profile verification on NewsNow.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_18,IM-EDULRN,EduLearn: Verification code 909496 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_19,IM-EDULRN,Use OTP 427900 to complete your profile verification on EduLearn.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_20,IM-NEWSNW,Your NewsNow security code is 120603 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_21,IM-FTTRCK,Your FitTrack security code is 612275 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_22,IM-EDULRN,Your EduLearn security code is 551905 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_23,IM-EDULRN,Your EduLearn security code is 815467 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_24,IM-FDCLUB,Use OTP 751312 to complete your profile verification on FoodClub.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_25,IM-RIDMAT,Your RideMate security code is 329386 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_26,IM-RIDMAT,Your RideMate security code is 326182 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_27,IM-NEWSNW,Enter OTP 912006 on NewsNow to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_28,IM-FTTRCK,Enter OTP 983920 on FitTrack to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_29,IM-EDULRN,EduLearn: Verification code 470138 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_30,IM-EDULRN,Your EduLearn security code is 390580 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_31,IM-FTTRCK,Your FitTrack security code is 522865 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_32,IM-EDULRN,Your EduLearn security code is 368288 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_33,IM-FTTRCK,FitTrack: Use OTP 942135 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_34,IM-FTTRCK,FitTrack: Verification code 132384 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_35,IM-EDULRN,Use OTP 362939 to complete your profile verification on EduLearn.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_36,IM-RIDMAT,Use OTP 498058 to complete your profile verification on RideMate.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_37,IM-RIDMAT,Enter OTP 160874 on RideMate to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_38,IM-FDCLUB,Enter OTP 941217 on FoodClub to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_39,IM-FDCLUB,FoodClub: Use OTP 874305 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_40,IM-FTTRCK,FitTrack: Verification code 259326 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_41,IM-EDULRN,Enter OTP 381963 on EduLearn to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_42,IM-FTTRCK,Use OTP 840452 to complete your profile verification on FitTrack.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_43,IM-EDULRN,Use OTP 126054 to complete your profile verification on EduLearn.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_44,IM-FTTRCK,Use OTP 806286 to complete your profile verification on FitTrack.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_45,IM-RIDMAT,RideMate: Use OTP 167634 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_46,IM-FTTRCK,FitTrack: Verification code 479525 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_47,IM-RIDMAT,Enter OTP 772131 on RideMate to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_48,IM-EDULRN,EduLearn: Use OTP 330651 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_49,IM-RIDMAT,RideMate: Verification code 827395 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_50,IM-EDULRN,Use OTP 679150 to complete your profile verification on EduLearn.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_51,IM-NEWSNW,Enter OTP 552541 on NewsNow to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_52,IM-RIDMAT,Use OTP 226363 to complete your profile verification on RideMate.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_53,IM-FDCLUB,Enter OTP 642408 on FoodClub to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_54,IM-RIDMAT,Your RideMate security code is 995996 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_55,IM-NEWSNW,Use OTP 886678 to complete your profile verification on NewsNow.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_56,IM-FDCLUB,FoodClub: Use OTP 124739 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_57,IM-FDCLUB,Your FoodClub security code is 890128 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_58,IM-FDCLUB,Your FoodClub security code is 253858 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_59,IM-NEWSNW,Enter OTP 442337 on NewsNow to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_60,IM-EDULRN,EduLearn: Verification code 156830 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_61,IM-FDCLUB,Use OTP 380473 to complete your profile verification on FoodClub.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_62,IM-RIDMAT,RideMate: Verification code 980860 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_63,IM-FDCLUB,FoodClub: Verification code 601897 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_64,IM-RIDMAT,Your RideMate security code is 814463 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_65,IM-EDULRN,Your EduLearn security code is 118469 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_66,IM-RIDMAT,Use OTP 838833 to complete your profile verification on RideMate.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_67,IM-NEWSNW,Use OTP 982328 to complete your profile verification on NewsNow.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_68,IM-RIDMAT,RideMate: Verification code 184267 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_69,IM-FTTRCK,Your FitTrack security code is 662724 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_70,IM-FDCLUB,FoodClub: Verification code 906801 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_71,IM-FTTRCK,Use OTP 309314 to complete your profile verification on FitTrack.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_72,IM-EDULRN,Use OTP 819342 to complete your profile verification on EduLearn.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_73,IM-FDCLUB,Enter OTP 512202 on FoodClub to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_74,IM-NEWSNW,Enter OTP 916837 on NewsNow to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_75,IM-RIDMAT,RideMate: Use OTP 180222 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_76,IM-NEWSNW,NewsNow: Use OTP 482164 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_77,IM-FTTRCK,Your FitTrack security code is 759436 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_78,IM-EDULRN,EduLearn: Use OTP 772548 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_79,IM-EDULRN,Your EduLearn security code is 102786 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_80,IM-FDCLUB,Use OTP 908251 to complete your profile verification on FoodClub.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_81,IM-FDCLUB,Use OTP 274975 to complete your profile verification on FoodClub.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_82,IM-FDCLUB,Use OTP 112120 to complete your profile verification on FoodClub.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_83,IM-RIDMAT,Your RideMate security code is 825326 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_84,IM-EDULRN,EduLearn: Use OTP 155781 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_85,IM-RIDMAT,Your RideMate security code is 791426 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_86,IM-FDCLUB,Your FoodClub security code is 456566 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_87,IM-EDULRN,Enter OTP 943365 on EduLearn to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_88,IM-FTTRCK,FitTrack: Use OTP 430302 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_89,IM-EDULRN,Your EduLearn security code is 490125 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_90,IM-RIDMAT,Enter OTP 500633 on RideMate to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_91,IM-FTTRCK,Enter OTP 306837 on FitTrack to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_92,IM-FTTRCK,FitTrack: Use OTP 346936 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_93,IM-EDULRN,EduLearn: Verification code 480892 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_94,IM-FTTRCK,Enter OTP 544298 on FitTrack to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_95,IM-NEWSNW,NewsNow: Verification code 850309 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_96,IM-FDCLUB,FoodClub: Use OTP 636979 to verify your email address.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_97,IM-FDCLUB,Your FoodClub security code is 884038 for enabling two-factor authentication.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_98,IM-NEWSNW,Use OTP 193612 to complete your profile verification on NewsNow.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_99,IM-NEWSNW,NewsNow: Verification code 185154 is for linking your account to this device.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE
+synthetic_GENERIC_APP_ACTION_OTP_100,IM-NEWSNW,Enter OTP 266918 on NewsNow to confirm this action.,,en,YES,GENERIC_APP_ACTION_OTP,UNKNOWN_TREAT_AS_NEVER_SHARE

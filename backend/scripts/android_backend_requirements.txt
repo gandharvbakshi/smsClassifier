@@ -1,0 +1,9 @@
+fastapi==0.121.2
+uvicorn[standard]==0.38.0
+python-dotenv==1.0.1
+requests==2.32.3
+numpy==1.26.4
+scipy==1.12.0
+scikit-learn==1.5.2
+lightgbm==4.5.0
+

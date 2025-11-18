@@ -1,0 +1,201 @@
+﻿eval_id,sms_text,is_otp_truth,otp_intent_truth,is_phishing_truth,source_id
+phishing_000,college come going ill pa self,,,False,balanced_spam_dataset_row_542
+phishing_001,home sending thanx,,,False,balanced_spam_dataset_row_2830
+phishing_002,100 200 3510i camcorder colour delivered free minutes mobile new nokia phone reply text tomorrow want,,,True,balanced_spam_dataset_row_4384
+phishing_003,আপনার সঞ্চয় দ্বিগুণ করার সুযোগ! কল করুন: +8801712122234,,,True,bangla_smish_row_1642
+phishing_004,I'm ok wif it cos i like 2 try new things. But i scared u dun like mah. Cos u said not too loud.,,,False,Spam Message Collection_row_1567
+phishing_005,"You have won ?1,000 cash or a ?2,000 prize! To claim, call09050000327. T&C: RSTM, SW7 3SS. 150ppm",,,True,Spam Message Collection_row_2104
+phishing_006,awesome car friend like throw time,,,False,balanced_spam_dataset_row_3339
+phishing_007,actually ask come dad fall fetch home ll lucky makes quite thk wat,,,False,balanced_spam_dataset_row_1464
+phishing_008,08002986906 11mths camera colour december entitled free latest mobile update,,,True,balanced_spam_dataset_row_5460
+phishing_009,5000 claim entitled free maybe msg pounds records reply stop txt,,,True,balanced_spam_dataset_row_9396
+phishing_010,it's really getting me down just hanging around.,,,False,Spam Message Collection_row_2249
+phishing_011,yes,,,False,SMS PHISHING DATASET FOR MACHINE LEARNING AND PATTERN RECOGNITION Dataset_5971_row_2442
+phishing_012,choose club mobile quality,,,True,balanced_spam_dataset_row_9452
+phishing_013,address box claim dream drinks envelope fantasy football holiday hols med opt play po quiz saturday self send sky starts stop sunshine team tv uk unsub ur,,,True,balanced_spam_dataset_row_7156
+phishing_014,150p 500 86688 answer balance bonus cash com currently easy hmv info just maximize msg play pounds questions quiz real send special ur vouchers won www,,,True,balanced_spam_dataset_row_6906
+phishing_015,happened thing wat,,,False,balanced_spam_dataset_row_4873
+phishing_016,"मैंने 2 खाना दे दिया है, बस उसे बाहर ले जाओ, छुट्टी ले लो",,,True,Hindi_row_3091
+phishing_017,children completely days handle just know loss malaria means meds relax self stop takes thinkin vomit worse,,,False,balanced_spam_dataset_row_5535
+phishing_018,yes,,,False,SMS PHISHING DATASET FOR MACHINE LEARNING AND PATTERN RECOGNITION Dataset_5971_row_1417
+phishing_019,ಕಲೆಗೆ ಇನ್ನೊಂದು ಹೆಸರೇ ರಾಜಕುಮಾರ್ sir,,,False,Spam Message Collection_row_6958
+phishing_020,great office today,,,False,balanced_spam_dataset_row_5018
+phishing_021,Dear reached railway. What happen to you,,,False,Spam Message Collection_row_2821
+phishing_022,150p calling cancel daily date days euro2004 free future giving kept kick latest mobile msg news results send stop txt uk welcome,,,True,balanced_spam_dataset_row_9453
+phishing_023,ఇవన్నీ నెలకు రూ. 100 అదనపు ధరతో ప్రారంభమవుతున్నాయి .,,,True,Spam Message Collection_row_3735
+phishing_024,000 10p 2nd 400 bt claim congratulations contact easy friend good just minute national prize rate thanks time tried won xmas,,,True,balanced_spam_dataset_row_8571
+phishing_025,wanna,,,False,balanced_spam_dataset_row_4926
+phishing_026,forgot like number smth tell,,,False,balanced_spam_dataset_row_4719
+phishing_027,"आपकी बैंक डीटेल्स अपडेट करें । प्रिय ग्राहक, आपके खाते की सुरक्षा के लिए कृपया अपनी डीटेल्स अपडेट करें। इस लिंक पर क्लिक करें: myfakebank.com/update।",,,True,Hindi_row_2176
+phishing_028,near office tv,,,False,balanced_spam_dataset_row_1571
+phishing_029,college darlin finish finished hello ive kate love txt xxx,,,False,balanced_spam_dataset_row_201
+phishing_030,আপনার ক্রেডিট কার্ডের নিরাপত্তা নিশ্চিত করতে এখানে ক্লিক করুন: http://bit.ly/SecureCard,,,True,bangla_smish_row_619
+phishing_031,dad home,,,False,balanced_spam_dataset_row_3808
+phishing_032,Am not interested to do like that.,,,False,Spam Message Collection_row_1798
+phishing_033,आपके डेबिट कार्ड को ब्लॉक किया जा रहा है। इसे अनब्लॉक करने के लिए क्लिक करें: https://cardhelp.info/kJ89LmN7 -CardService।,,,True,Hindi_row_3284
+phishing_034,"Fighting with the world is easy, u either win or lose bt fightng with some1 who is close to u is dificult if u lose - u lose if u win - u still lose.",,,False,Spam Message Collection_row_2834
+phishing_035,"आपके मौजूदा प्लान की वैधता समाप्त होने वाली है। अनलिमिटेड Jio TRUE 5G का आनंद लेने के लिए, कृपया 2 GB/दिन या उससे अधिक के प्लान से रिचार्ज करें।",,,True,Hindi_row_844
+phishing_036,"ठीक है, तो आपमें से कितनों की कक्षाएं 12 बजे तक हैं, कृपया हमें बताएं।",,,False,Hindi_row_3834
+phishing_037,later ll sorry,,,False,balanced_spam_dataset_row_1484
+phishing_038,class teach,,,False,balanced_spam_dataset_row_1354
+phishing_039,100 4u 500 87066 awarded cd cds com1win150ppmx3age16 congratulations draw entry free gift guaranteed ldew music tncs txt ur vouchers weekly wkly www xmas,,,True,balanced_spam_dataset_row_8080
+phishing_040,yes,,,False,SMS PHISHING DATASET FOR MACHINE LEARNING AND PATTERN RECOGNITION Dataset_5971_row_1929
+phishing_041,gt home lt oh sale send,,,False,balanced_spam_dataset_row_3447
+phishing_042,yes,,,False,SMS PHISHING DATASET FOR MACHINE LEARNING AND PATTERN RECOGNITION Dataset_5971_row_5523
+phishing_043,fri leh lor make ron said say wait,,,False,balanced_spam_dataset_row_3236
+phishing_044,12 film free just med msg offers reply sony ticket valid village wkend,,,True,balanced_spam_dataset_row_4904
+phishing_045,yes,,,False,SMS PHISHING DATASET FOR MACHINE LEARNING AND PATTERN RECOGNITION Dataset_5971_row_186
+phishing_046,জনতা ব্যাংক অ্যাকাউন্টের তথ্য আপডেট করুন। বিস্তারিত জানতে এখানে ক্লিক করুন: https://t.me/JanataUpdateBot,,,True,bangla_smish_row_263
+phishing_047,000 02 03 06 10 150ppm 2000 2nd asap attempt bonus box caller mobile number prize reach urgent won,,,True,balanced_spam_dataset_row_8124
+phishing_048,car come directly doctor goto till wait,,,False,balanced_spam_dataset_row_5158
+phishing_049,aight come time want,,,False,balanced_spam_dataset_row_3040
+phishing_050,000 10 150ppm 18 434 await box cash collection complimentary cs holiday ibiza landline lose needs po sae urgent,,,True,balanced_spam_dataset_row_7467
+phishing_051,किसी भी बैंक के एटीएम पर निःशुल्क असीमित लेनदेन के लिए फेडरल बैंक में खाता खोलें। एक अद्भुत बैंकिंग अनुभव प्राप्त करें. अधिक जानकारी के लिए 18004251199 पर कॉल करें,,,True,Hindi_row_1785
+phishing_052,0800 announcement customer freephone important service,,,True,balanced_spam_dataset_row_9357
+phishing_053,new,,,True,balanced_spam_dataset_row_5906
+phishing_054,21 alert forwarded hi matches messages min sms,,,True,balanced_spam_dataset_row_7360
+phishing_055,bad going good hope isn night rock soon speak tonight wait,,,False,balanced_spam_dataset_row_4145
+phishing_056,150p 4u 8007 eerie free getzed latest mobile news nokia plus pobox36504w45wq rply sport str title tone tones txt uk ur wk www,,,True,balanced_spam_dataset_row_9566
+phishing_057,"Nah I don't think he goes to usf, he lives around here though",,,False,Spam Message Collection_row_1459
+phishing_058,স্বচ্ছন্দে বসে ইনকাম করুন দৈনিক বেতন ১০০০-৫০০০ টাকা পেতে! এখন যোগাযোগ করুন: https://wa.me/8801320862219,,,True,bangla_smish_row_1507
+phishing_059,বাংলাদেশ ব্যাংক অ্যাকাউন্টে সমস্যা হয়েছে। কল করুন: +8801818899001,,,True,bangla_smish_row_906
+phishing_060,indian mind stopped,,,False,balanced_spam_dataset_row_600
+phishing_061,150p asked contact dating guess know pobox pobox84 revealed service,,,True,balanced_spam_dataset_row_7993
+phishing_062,kind lots need tea,,,False,balanced_spam_dataset_row_4255
+phishing_063,1x150p 250 action cash chance custcare tv txt ur win wk www,,,True,balanced_spam_dataset_row_9608
+phishing_064,When're you guys getting back? G said you were thinking about not staying for mcr,,,False,Spam Message Collection_row_2813
+phishing_065,arcade buy chance charge game games o2 press purchase settings space std terms uk wap win,,,True,balanced_spam_dataset_row_9465
+phishing_066,don goes lives nah think usf,,,False,balanced_spam_dataset_row_4
+phishing_067,schedule town week weekend,,,False,balanced_spam_dataset_row_1754
+phishing_068,ah den dun ex frm gd liao somebody tmr treat waitin wat work ya,,,False,balanced_spam_dataset_row_5516
+phishing_069,16 1st 36504 8007 free getzed just mates mob mobile no1 nokia norm150p pobox tell tone txt txting uk ur w45wq week www,,,True,balanced_spam_dataset_row_6110
+phishing_070,Any chance you might have had with me evaporated as soon as you violated my privacy by stealing my phone number from your employer's paperwork. Not cool at all. Please do not contact me again or I will report you to your supervisor.,,,False,Spam Message Collection_row_2667
+phishing_071,800 cash collect cup euro2004 final pobox tkts ve won,,,True,balanced_spam_dataset_row_3003
+phishing_072,yes,,,False,SMS PHISHING DATASET FOR MACHINE LEARNING AND PATTERN RECOGNITION Dataset_5971_row_2280
+phishing_073,Nice line said by a broken heart- Plz don't cum 1 more times infront of me... Other wise once again I ll trust U... Good 9t:),,,False,Spam Message Collection_row_1929
+phishing_074,ac bid correct dvd end ice new play red reply sms visit,,,True,balanced_spam_dataset_row_7587
+phishing_075,08000930705 750 anytime camcorder contact del handset mins network new offer reply sat text time tried unlimited video want,,,True,balanced_spam_dataset_row_8011
+phishing_076,150 collect computer customer easy just picked prize valued vodafone win won,,,True,balanced_spam_dataset_row_4843
+phishing_077,50 details just member mobile offers pobox savamob week weeks,,,True,balanced_spam_dataset_row_7921
+phishing_078,aight come just later plan tonight,,,False,balanced_spam_dataset_row_4456
+phishing_079,आप अपने पिछले जीवन में क्या थे?  अपने अंदर के अतीत का पता लगाएं. अतीत <जन्मतिथि> को 55352 पर एसएमएस करें। उदाहरण के लिए: पिछले 15/08/1975 को 55352 पर एसएमएस करें। रु.2/एसएमएस,,,True,Hindi_row_743
+phishing_080,apply charges collect enjoy normal pass polyphonic ringtones text tones,,,True,balanced_spam_dataset_row_8513
+phishing_081,com date fullonsms lot message missing number sent text thats,,,False,balanced_spam_dataset_row_409
+phishing_082,admirer contact looking make reveal secret special thinks ur,,,True,balanced_spam_dataset_row_9349
+phishing_083,08000930705 400 750 anytime calls delivery free half inclusive line mins months network new phone price rental reply text video want week,,,True,balanced_spam_dataset_row_7562
+phishing_084,Come by our room at some point so we can iron out the plan for this weekend,,,False,Spam Message Collection_row_1865
+phishing_085,ask big caller don food home hurry,,,False,balanced_spam_dataset_row_3274
+phishing_086,dear felt ill just leave morning night oh sat shit think,,,False,balanced_spam_dataset_row_761
+phishing_087,hurt just lot need,,,False,balanced_spam_dataset_row_2971
+phishing_088,birthday dear happy lots love rakhesh,,,False,balanced_spam_dataset_row_3185
+phishing_089,earth gn heart losing tc test,,,False,balanced_spam_dataset_row_4390
+phishing_090,babe buzz day did goes hey hope long love loving miss moment sleep smile think,,,False,balanced_spam_dataset_row_3749
+phishing_091,Whatsup there. Dont u want to sleep,,,False,Spam Message Collection_row_1870
+phishing_092,going hope meet ok sleep,,,False,balanced_spam_dataset_row_3133
+phishing_093,login need,,,False,balanced_spam_dataset_row_1135
+phishing_094,arrange customer delivery new service waiting years,,,True,balanced_spam_dataset_row_7469
+phishing_095,U don't know how stubborn I am. I didn't even want to go to the hospital. I kept telling Mark I'm not a weak sucker. Hospitals are for weak suckers.,,,False,Spam Message Collection_row_1504
+phishing_096,dont mode plus send,,,False,balanced_spam_dataset_row_2541
+phishing_097,bit bloody evening hi hope kate tomorrow txt xxx,,,False,balanced_spam_dataset_row_198
+phishing_098,beautiful intelligent law loving men needs wife,,,False,balanced_spam_dataset_row_4516
+phishing_099,आप अपने पिछले जीवन में क्या थे?  अपने अंदर के अतीत का पता लगाएं. अतीत को 55352 पर एसएमएस करें। उदाहरण: पिछले 15/08/1975 को 55352 पर एसएमएस। रु.3/एसएमएस,,,True,Hindi_row_858
+otp_000,402747 is the OTP for INR 2832.90 transaction on AMAZONRECHA using ICICI Bank Credit Card XX1480. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_001,048052 is the OTP for INR 045.06 transaction on Swiggy Limi using ICICI Bank Credit Card XX5356. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_002,645645 is the OTP for INR 584.18 transaction on Swiggy Limi using ICICI Bank Credit Card XX8193. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_003,025061 is the OTP for INR 0975.54 transaction on SWIGGY using ICICI Bank Credit Card XX2583. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_004,IM-EDULRN,True,GENERIC_APP_ACTION_OTP,,synthetic_GENERIC_APP_ACTION_OTP_41
+otp_005,434255 is the OTP for INR 277.03 transaction on Bundl techn using ICICI Bank Credit Card XX6525. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_006,IM-RIDMAT,True,GENERIC_APP_ACTION_OTP,,synthetic_GENERIC_APP_ACTION_OTP_54
+otp_007,971879 is the OTP for INR 7853.81 transaction on AMAZON using ICICI Bank Credit Card XX4842. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_008,002601 is the OTP for INR 742.54 transaction on Swiggy Limi using ICICI Bank Credit Card XX4955. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_009,VM-INSTAG,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_11
+otp_010,086206 is the OTP for INR 657.88 transaction on AMAZON using ICICI Bank Credit Card XX1658. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_011,"INR 802.81 spent using ICICI Bank Card XX1747 on 26-Jun-25 on Swiggy Limited. Avl Limit: INR 1,06,241.46. If not you, call 1800 2662/SMS BLOCK 7007 to 9243083889.",False,NOT_OTP,,SMS
+otp_012,"Hi, this is Gandharv here.",False,NOT_OTP,,SMS
+otp_013,235807 is the OTP for INR 298.37 transaction on Swiggy Limi using ICICI Bank Credit Card XX8626. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_014,329170 is the OTP for INR 9835.63 transaction on Swiggy Inst using ICICI Bank Credit Card XX2294. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_015,IM-SPRSHO,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_51
+otp_016,693767 is the OTP for INR 058.22 transaction on Swiggy Limi using ICICI Bank Credit Card XX5032. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_017,VM-GOOGLE,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_18
+otp_018,085839 is the OTP for INR 2766.80 transaction on Swiggy Limi using ICICI Bank Credit Card XX7680. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_019,"Alert: Beware of fraudsters sending SMS citing your SIM block / suspension / KYC / Document verification pending. DO NOT CALL BACK as they may ask you to download Apps to access your mobile phone and may get confidential information including OTP. Do not respond to SMS from unknown numbers,asking for such information other than from our official SMS ID- ViCARE. Avoid falling victim to such frauds,block these numbers and report to https://cybercrime.gov.in",False,NOT_OTP,,SMS
+otp_020,"Hey, your number is busy",False,NOT_OTP,,SMS
+otp_021,VM-HDFCBK,True,UPI_TXN_OR_PIN_OTP,,synthetic_UPI_TXN_OR_PIN_OTP_64
+otp_022,IM-MEGAWN,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_28
+otp_023,597250 is the OTP for INR 143.52 transaction on ZOMATO using ICICI Bank Credit Card XX4583. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_024,VM-GOOGLE,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_43
+otp_025,"INR 8,459.96 spent using ICICI Bank Card XX6163 on 11-May-25 on Swiggy. Avl Limit: INR 7,99,574.55. If not you, call 1800 2662/SMS BLOCK 7007 to 8054881654.",False,NOT_OTP,,SMS
+otp_026,364853 is the OTP for INR 272.03 transaction on AMAZON using ICICI Bank Credit Card XX3069. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_027,VM-FBPOST,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_93
+otp_028,IM-HOLWRL,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_23
+otp_029,IM-RWHUBS,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_81
+otp_030,AX-AMAZON,True,UPI_TXN_OR_PIN_OTP,,synthetic_UPI_TXN_OR_PIN_OTP_82
+otp_031,IM-MEGAWN,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_19
+otp_032,397263 is the OTP for INR 5278.83 transaction on Big Basket  using ICICI Bank Credit Card XX4547. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_033,420643 is the OTP for INR 4483.92 transaction on Licious using ICICI Bank Credit Card XX9726. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_034,<#> 3975 is the One Time Password (OTP) for your login to the Vi App. OTP is valid for next 10 minutes. Please do not share with anyone. vefx2VyVu+1,True,APP_LOGIN_OTP,,SMS
+otp_035,VM-HDFCBK,True,UPI_TXN_OR_PIN_OTP,,synthetic_UPI_TXN_OR_PIN_OTP_12
+otp_036,783776 is the OTP for INR 498.93 transaction on AMAZON using ICICI Bank Credit Card XX5788. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_037,127586 is the OTP for INR 8224.56 transaction on INSTAMART using ICICI Bank Credit Card XX7662. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_038,VM-INSTAG,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_90
+otp_039,"ICICI Bank Acc XX771 debited Rs. 96,980.74 on 25-Jun-25 InfoEBA*MFP-85007.Avl Bal Rs. 3,74,911.89.To dispute call 18002662 or SMS BLOCK 696 to 2488890488",False,NOT_OTP,,SMS
+otp_040,"INR 4,896.17 spent using ICICI Bank Card XX9598 on 31-May-25 on BLINK COMMERCE . Avl Limit: INR 8,54,872.45. If not you, call 1800 2662/SMS BLOCK 7007 to 0322965704.",False,NOT_OTP,,SMS
+otp_041,Your OTP for BHIVE Workspace app login is 1853. Kindly do not share it with anyone.,True,APP_LOGIN_OTP,,SMS
+otp_042,098547 is the OTP for INR 142.23 transaction on AMAZON using ICICI Bank Credit Card XX7563. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_043,Your OTP for BHIVE Workspace app login is 3406. Kindly do not share it with anyone.,True,APP_LOGIN_OTP,,SMS
+otp_044,199985 is the OTP for INR 7550.53 transaction on UrbanClap T using ICICI Bank Credit Card XX4232. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_045,VM-GOOGLE,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_13
+otp_046,VM-INSTAG,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_75
+otp_047,IM-RIDMAT,True,GENERIC_APP_ACTION_OTP,,synthetic_GENERIC_APP_ACTION_OTP_26
+otp_048,IM-NEWSNW,True,GENERIC_APP_ACTION_OTP,,synthetic_GENERIC_APP_ACTION_OTP_9
+otp_049,152372 is the OTP for INR 715.38 transaction on Swiggy Limi using ICICI Bank Credit Card XX2703. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_050,"INR 910.72 spent using ICICI Bank Card XX6040 on 28-Jun-25 on Swiggy Limited. Avl Limit: INR 4,94,805.94. If not you, call 1800 2662/SMS BLOCK 7007 to 8492871571.",False,NOT_OTP,,SMS
+otp_051,VM-WHATS,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_6
+otp_052,AX-PHPEIN,True,UPI_TXN_OR_PIN_OTP,,synthetic_UPI_TXN_OR_PIN_OTP_65
+otp_053,573976 is the OTP for INR 174.87 transaction on Swiggy using ICICI Bank Credit Card XX5741. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_054,IM-MEGAWN,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_6
+otp_055,IM-NEWSNW,True,GENERIC_APP_ACTION_OTP,,synthetic_GENERIC_APP_ACTION_OTP_100
+otp_056,671003 is the OTP for INR 5666.65 transaction on AMAZON using ICICI Bank Credit Card XX5786. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_057,VM-WHATS,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_68
+otp_058,Oh. No. Nothing specific. Joshua got late cause he got delayed somewhere. But that's all right. We stretched and had a good discussion.,False,NOT_OTP,,SMS
+otp_059,050349 is the OTP for INR 673.42 transaction on Swiggy Limi using ICICI Bank Credit Card XX3949. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_060,IM-EDULRN,True,GENERIC_APP_ACTION_OTP,,synthetic_GENERIC_APP_ACTION_OTP_43
+otp_061,IM-EDULRN,True,GENERIC_APP_ACTION_OTP,,synthetic_GENERIC_APP_ACTION_OTP_84
+otp_062,VM-TELEGR,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_94
+otp_063,AX-PAYTMK,True,UPI_TXN_OR_PIN_OTP,,synthetic_UPI_TXN_OR_PIN_OTP_22
+otp_064,VM-TWITTR,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_58
+otp_065,677508 is the OTP for INR 2854.98 transaction on AMAZON using ICICI Bank Credit Card XX2024. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_066,349834 is the OTP for INR 463.03 transaction on UrbanClap T using ICICI Bank Credit Card XX9649. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_067,503407 is the OTP for INR 069.77 transaction on AMAZON using ICICI Bank Credit Card XX6376. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_068,670473 is the OTP for INR 507.42 transaction on Swiggy Limi using ICICI Bank Credit Card XX7958. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_069,VM-WHATS,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_79
+otp_070,"Hey, we tried to reach you today regarding your weight loss requirements, but couldn't get through. If you are interested in knowing how 40000+ people are losing weight through food alone, and how you can too, we are just a call away at 080 4545 4747 Additionally, you can reserve your slot for free health consultation here https://truweight.in/consultation-wizard.html?data_phone=4508429960&city=Bangalore",False,NOT_OTP,,SMS
+otp_071,IM-MEGAWN,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_67
+otp_072,VM-FBPOST,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_25
+otp_073,AX-BHIMUP,True,UPI_TXN_OR_PIN_OTP,,synthetic_UPI_TXN_OR_PIN_OTP_69
+otp_074,IM-LKYMRT,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_97
+otp_075,015672 is the OTP for INR 0302.76 transaction on Licious using ICICI Bank Credit Card XX4778. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_076,516573 is the OTP for INR 1343.83 transaction on AMAZON using ICICI Bank Credit Card XX6911. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_077,"Congratulations, You are eligible for 1Cr Term Insurance cover starting Rs440/mo*. NO IncomeProof & Medical rqrd. Click http://z2s.in/s.s?MU4RHM21 to secure now",False,NOT_OTP,,SMS
+otp_078,IM-HOLWRL,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_71
+otp_079,529182 is the OTP for INR 9612.26 transaction on SWIGGY using ICICI Bank Credit Card XX3819. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_080,711516 is the OTP for INR 1968.89 transaction on MAKEMYTRIP  using ICICI Bank Credit Card XX4689. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_081,IM-MEGAWN,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_42
+otp_082,IM-NEWSNW,True,GENERIC_APP_ACTION_OTP,,synthetic_GENERIC_APP_ACTION_OTP_20
+otp_083,"INR 0,137.13 spent using ICICI Bank Card XX6139 on 27-Jun-25 on RAZ*BUNDL TECHN. Avl Limit: INR 8,01,032.71. If not you, call 1800 2662/SMS BLOCK 7007 to 2592392151.",False,NOT_OTP,,SMS
+otp_084,IM-SPRSHO,True,PROMO_OR_REWARD_OTP,,synthetic_PROMO_OR_REWARD_OTP_9
+otp_085,AX-AMAZON,True,UPI_TXN_OR_PIN_OTP,,synthetic_UPI_TXN_OR_PIN_OTP_59
+otp_086,383768 is the OTP for INR 6969.86 transaction on AMAZON using ICICI Bank Credit Card XX7732. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_087,AX-AMAZON,True,UPI_TXN_OR_PIN_OTP,,synthetic_UPI_TXN_OR_PIN_OTP_83
+otp_088,899069 is the OTP for INR 3659.34 transaction on Licious using ICICI Bank Credit Card XX8732. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_089,"INR 277.24 spent using ICICI Bank Card XX8546 on 30-May-25 on Swiggy Limited. Avl Limit: INR 0,51,732.83. If not you, call 1800 2662/SMS BLOCK 7007 to 8559803033.",False,NOT_OTP,,SMS
+otp_090,103753 is the OTP for INR 732.61 transaction on AMAZON using ICICI Bank Credit Card XX3374. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_091,876624 is the OTP for INR 286.14 transaction on SWIGGY using ICICI Bank Credit Card XX3851. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_092,984314 is the OTP for INR 329.70 transaction on AMAZON using ICICI Bank Credit Card XX7886. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_093,Arriving today: Loreal Paris Men Expert Carbon Protect Anti-Perspiran... & 1 item. Use OTP 504511 at delivery to receive your package. https://amzn.in/d/cGgzgb4,True,DELIVERY_OR_SERVICE_OTP,,SMS
+otp_094,025505 is the OTP for INR 536.39 transaction on Swiggy Limi using ICICI Bank Credit Card XX7554. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_095,AX-BHIMUP,True,UPI_TXN_OR_PIN_OTP,,synthetic_UPI_TXN_OR_PIN_OTP_40
+otp_096,VM-TELEGR,True,APP_ACCOUNT_CHANGE_OTP,,synthetic_APP_ACCOUNT_CHANGE_OTP_52
+otp_097,853719 is the OTP for INR 769.38 transaction on Swiggy Limi using ICICI Bank Credit Card XX0115. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS
+otp_098,VK-SBIBNK,True,UPI_TXN_OR_PIN_OTP,,synthetic_UPI_TXN_OR_PIN_OTP_41
+otp_099,837230 is the OTP for INR 264.08 transaction on AMAZON using ICICI Bank Credit Card XX4167. OTPs are SECRET. DO NOT disclose,True,BANK_OR_CARD_TXN_OTP,,SMS

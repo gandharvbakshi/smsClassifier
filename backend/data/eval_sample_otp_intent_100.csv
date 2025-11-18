@@ -1,0 +1,101 @@
+﻿id,sender,body,is_otp,otp_intent
+SMS,402747 is the OTP for INR 2832.90 transaction on AMAZONRECHA using ICICI Bank Credit Card XX1480. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,048052 is the OTP for INR 045.06 transaction on Swiggy Limi using ICICI Bank Credit Card XX5356. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,645645 is the OTP for INR 584.18 transaction on Swiggy Limi using ICICI Bank Credit Card XX8193. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,025061 is the OTP for INR 0975.54 transaction on SWIGGY using ICICI Bank Credit Card XX2583. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_GENERIC_APP_ACTION_OTP_41,IM-EDULRN,Enter OTP 381963 on EduLearn to confirm this action.,YES,GENERIC_APP_ACTION_OTP
+SMS,434255 is the OTP for INR 277.03 transaction on Bundl techn using ICICI Bank Credit Card XX6525. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_GENERIC_APP_ACTION_OTP_54,IM-RIDMAT,Your RideMate security code is 995996 for enabling two-factor authentication.,YES,GENERIC_APP_ACTION_OTP
+SMS,971879 is the OTP for INR 7853.81 transaction on AMAZON using ICICI Bank Credit Card XX4842. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,002601 is the OTP for INR 742.54 transaction on Swiggy Limi using ICICI Bank Credit Card XX4955. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_11,VM-INSTAG,Instagram code 140319 is for changing your registered mobile number. Do not disclose it on calls.,YES,APP_ACCOUNT_CHANGE_OTP
+SMS,086206 is the OTP for INR 657.88 transaction on AMAZON using ICICI Bank Credit Card XX1658. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,"INR 802.81 spent using ICICI Bank Card XX1747 on 26-Jun-25 on Swiggy Limited. Avl Limit: INR 1,06,241.46. If not you, call 1800 2662/SMS BLOCK 7007 to 9243083889.",SMS,NO,NOT_OTP
+SMS,"Hi, this is Gandharv here.",SMS,NO,NOT_OTP
+SMS,235807 is the OTP for INR 298.37 transaction on Swiggy Limi using ICICI Bank Credit Card XX8626. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,329170 is the OTP for INR 9835.63 transaction on Swiggy Inst using ICICI Bank Credit Card XX2294. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_PROMO_OR_REWARD_OTP_51,IM-SPRSHO,Congratulations! You have been selected for a special reward from SuperShop. Use OTP 808899 to claim your gift.,YES,PROMO_OR_REWARD_OTP
+SMS,693767 is the OTP for INR 058.22 transaction on Swiggy Limi using ICICI Bank Credit Card XX5032. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_18,VM-GOOGLE,"To update your Google account details, enter OTP 457317. Never share this OTP with anyone.",YES,APP_ACCOUNT_CHANGE_OTP
+SMS,085839 is the OTP for INR 2766.80 transaction on Swiggy Limi using ICICI Bank Credit Card XX7680. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,"Alert: Beware of fraudsters sending SMS citing your SIM block / suspension / KYC / Document verification pending. DO NOT CALL BACK as they may ask you to download Apps to access your mobile phone and may get confidential information including OTP. Do not respond to SMS from unknown numbers,asking for such information other than from our official SMS ID- ViCARE. Avoid falling victim to such frauds,block these numbers and report to https://cybercrime.gov.in",SMS,NO,NOT_OTP
+SMS,"Hey, your number is busy",SMS,NO,NOT_OTP
+synthetic_UPI_TXN_OR_PIN_OTP_64,VM-HDFCBK,OTP 363256 is for approving your UPI transfer of Rs 635 from HDFC Bank. Never share this code on phone calls.,YES,UPI_TXN_OR_PIN_OTP
+synthetic_PROMO_OR_REWARD_OTP_28,IM-MEGAWN,Congratulations! You have been selected for a special reward from MegaWin. Use OTP 909182 to claim your gift.,YES,PROMO_OR_REWARD_OTP
+SMS,597250 is the OTP for INR 143.52 transaction on ZOMATO using ICICI Bank Credit Card XX4583. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_43,VM-GOOGLE,Use OTP 661233 to switch your Google account to a new device. Do not reveal this to anyone.,YES,APP_ACCOUNT_CHANGE_OTP
+SMS,"INR 8,459.96 spent using ICICI Bank Card XX6163 on 11-May-25 on Swiggy. Avl Limit: INR 7,99,574.55. If not you, call 1800 2662/SMS BLOCK 7007 to 8054881654.",SMS,NO,NOT_OTP
+SMS,364853 is the OTP for INR 272.03 transaction on AMAZON using ICICI Bank Credit Card XX3069. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_93,VM-FBPOST,Facebook code 747368 is for changing your registered mobile number. Do not disclose it on calls.,YES,APP_ACCOUNT_CHANGE_OTP
+synthetic_PROMO_OR_REWARD_OTP_23,IM-HOLWRL,HolidayWorld promo: Apply OTP 775248 on our app to activate your festival discount coupons.,YES,PROMO_OR_REWARD_OTP
+synthetic_PROMO_OR_REWARD_OTP_81,IM-RWHUBS,Congratulations! You have been selected for a special reward from RewardHub. Use OTP 267421 to claim your gift.,YES,PROMO_OR_REWARD_OTP
+synthetic_UPI_TXN_OR_PIN_OTP_82,AX-AMAZON,"Axis Bank: OTP 788608 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",YES,UPI_TXN_OR_PIN_OTP
+synthetic_PROMO_OR_REWARD_OTP_19,IM-MEGAWN,MegaWin: Use OTP 608099 to unlock cashback offers worth Rs 5086.,YES,PROMO_OR_REWARD_OTP
+SMS,397263 is the OTP for INR 5278.83 transaction on Big Basket  using ICICI Bank Credit Card XX4547. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,420643 is the OTP for INR 4483.92 transaction on Licious using ICICI Bank Credit Card XX9726. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,<#> 3975 is the One Time Password (OTP) for your login to the Vi App. OTP is valid for next 10 minutes. Please do not share with anyone. vefx2VyVu+1,SMS,Yes,APP_LOGIN_OTP
+synthetic_UPI_TXN_OR_PIN_OTP_12,VM-HDFCBK,OTP 796591 is for approving your UPI transfer of Rs 1487 from HDFC Bank. Never share this code on phone calls.,YES,UPI_TXN_OR_PIN_OTP
+SMS,783776 is the OTP for INR 498.93 transaction on AMAZON using ICICI Bank Credit Card XX5788. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,127586 is the OTP for INR 8224.56 transaction on INSTAMART using ICICI Bank Credit Card XX7662. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_90,VM-INSTAG,"To update your Instagram account details, enter OTP 317060. Never share this OTP with anyone.",YES,APP_ACCOUNT_CHANGE_OTP
+SMS,"ICICI Bank Acc XX771 debited Rs. 96,980.74 on 25-Jun-25 InfoEBA*MFP-85007.Avl Bal Rs. 3,74,911.89.To dispute call 18002662 or SMS BLOCK 696 to 2488890488",SMS,NO,NOT_OTP
+SMS,"INR 4,896.17 spent using ICICI Bank Card XX9598 on 31-May-25 on BLINK COMMERCE . Avl Limit: INR 8,54,872.45. If not you, call 1800 2662/SMS BLOCK 7007 to 0322965704.",SMS,NO,NOT_OTP
+SMS,Your OTP for BHIVE Workspace app login is 1853. Kindly do not share it with anyone.,SMS,YES,APP_LOGIN_OTP
+SMS,098547 is the OTP for INR 142.23 transaction on AMAZON using ICICI Bank Credit Card XX7563. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,Your OTP for BHIVE Workspace app login is 3406. Kindly do not share it with anyone.,SMS,YES,APP_LOGIN_OTP
+SMS,199985 is the OTP for INR 7550.53 transaction on UrbanClap T using ICICI Bank Credit Card XX4232. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_13,VM-GOOGLE,Your Google verification code is 237172 for number change request. Ignore if not requested by you.,YES,APP_ACCOUNT_CHANGE_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_75,VM-INSTAG,Use 874757 to change your Instagram phone number. Do not share this code with anyone.,YES,APP_ACCOUNT_CHANGE_OTP
+synthetic_GENERIC_APP_ACTION_OTP_26,IM-RIDMAT,Your RideMate security code is 326182 for enabling two-factor authentication.,YES,GENERIC_APP_ACTION_OTP
+synthetic_GENERIC_APP_ACTION_OTP_9,IM-NEWSNW,Use OTP 229070 to complete your profile verification on NewsNow.,YES,GENERIC_APP_ACTION_OTP
+SMS,152372 is the OTP for INR 715.38 transaction on Swiggy Limi using ICICI Bank Credit Card XX2703. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,"INR 910.72 spent using ICICI Bank Card XX6040 on 28-Jun-25 on Swiggy Limited. Avl Limit: INR 4,94,805.94. If not you, call 1800 2662/SMS BLOCK 7007 to 8492871571.",SMS,NO,NOT_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_6,VM-WHATS,"To update your WhatsApp account details, enter OTP 332456. Never share this OTP with anyone.",YES,APP_ACCOUNT_CHANGE_OTP
+synthetic_UPI_TXN_OR_PIN_OTP_65,AX-PHPEIN,PhonePe: Use 547740 to authorize your UPI collect request of INR 8112. Do not disclose this OTP.,YES,UPI_TXN_OR_PIN_OTP
+SMS,573976 is the OTP for INR 174.87 transaction on Swiggy using ICICI Bank Credit Card XX5741. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_PROMO_OR_REWARD_OTP_6,IM-MEGAWN,Congratulations! You have been selected for a special reward from MegaWin. Use OTP 763506 to claim your gift.,YES,PROMO_OR_REWARD_OTP
+synthetic_GENERIC_APP_ACTION_OTP_100,IM-NEWSNW,Enter OTP 266918 on NewsNow to confirm this action.,YES,GENERIC_APP_ACTION_OTP
+SMS,671003 is the OTP for INR 5666.65 transaction on AMAZON using ICICI Bank Credit Card XX5786. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_68,VM-WHATS,Your WhatsApp verification code is 367954 for number change request. Ignore if not requested by you.,YES,APP_ACCOUNT_CHANGE_OTP
+SMS,Oh. No. Nothing specific. Joshua got late cause he got delayed somewhere. But that's all right. We stretched and had a good discussion.,SMS,NO,NOT_OTP
+SMS,050349 is the OTP for INR 673.42 transaction on Swiggy Limi using ICICI Bank Credit Card XX3949. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_GENERIC_APP_ACTION_OTP_43,IM-EDULRN,Use OTP 126054 to complete your profile verification on EduLearn.,YES,GENERIC_APP_ACTION_OTP
+synthetic_GENERIC_APP_ACTION_OTP_84,IM-EDULRN,EduLearn: Use OTP 155781 to verify your email address.,YES,GENERIC_APP_ACTION_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_94,VM-TELEGR,Use 684306 to change your Telegram phone number. Do not share this code with anyone.,YES,APP_ACCOUNT_CHANGE_OTP
+synthetic_UPI_TXN_OR_PIN_OTP_22,AX-PAYTMK,"HDFC Bank: To reset your UPI PIN, enter OTP 666115 on Paytm. Do not share with anyone.",YES,UPI_TXN_OR_PIN_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_58,VM-TWITTR,Your Twitter verification code is 256809 for number change request. Ignore if not requested by you.,YES,APP_ACCOUNT_CHANGE_OTP
+SMS,677508 is the OTP for INR 2854.98 transaction on AMAZON using ICICI Bank Credit Card XX2024. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,349834 is the OTP for INR 463.03 transaction on UrbanClap T using ICICI Bank Credit Card XX9649. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,503407 is the OTP for INR 069.77 transaction on AMAZON using ICICI Bank Credit Card XX6376. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,670473 is the OTP for INR 507.42 transaction on Swiggy Limi using ICICI Bank Credit Card XX7958. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_79,VM-WHATS,Use OTP 494810 to switch your WhatsApp account to a new device. Do not reveal this to anyone.,YES,APP_ACCOUNT_CHANGE_OTP
+SMS,"Hey, we tried to reach you today regarding your weight loss requirements, but couldn't get through. If you are interested in knowing how 40000+ people are losing weight through food alone, and how you can too, we are just a call away at 080 4545 4747 Additionally, you can reserve your slot for free health consultation here https://truweight.in/consultation-wizard.html?data_phone=4508429960&city=Bangalore",SMS,NO,NOT_OTP
+synthetic_PROMO_OR_REWARD_OTP_67,IM-MEGAWN,You are eligible for a lucky draw entry from MegaWin. Confirm using OTP 943678.,YES,PROMO_OR_REWARD_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_25,VM-FBPOST,Your Facebook verification code is 620253 for number change request. Ignore if not requested by you.,YES,APP_ACCOUNT_CHANGE_OTP
+synthetic_UPI_TXN_OR_PIN_OTP_69,AX-BHIMUP,Use OTP 320494 to complete your UPI payment of INR 3752 on BHIM. Do not share this with anyone.,YES,UPI_TXN_OR_PIN_OTP
+synthetic_PROMO_OR_REWARD_OTP_97,IM-LKYMRT,You are eligible for a lucky draw entry from LuckyMart. Confirm using OTP 189996.,YES,PROMO_OR_REWARD_OTP
+SMS,015672 is the OTP for INR 0302.76 transaction on Licious using ICICI Bank Credit Card XX4778. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,516573 is the OTP for INR 1343.83 transaction on AMAZON using ICICI Bank Credit Card XX6911. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,"Congratulations, You are eligible for 1Cr Term Insurance cover starting Rs440/mo*. NO IncomeProof & Medical rqrd. Click http://z2s.in/s.s?MU4RHM21 to secure now",SMS,NO,NOT_OTP
+synthetic_PROMO_OR_REWARD_OTP_71,IM-HOLWRL,HolidayWorld promo: Apply OTP 354998 on our app to activate your festival discount coupons.,YES,PROMO_OR_REWARD_OTP
+SMS,529182 is the OTP for INR 9612.26 transaction on SWIGGY using ICICI Bank Credit Card XX3819. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,711516 is the OTP for INR 1968.89 transaction on MAKEMYTRIP  using ICICI Bank Credit Card XX4689. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_PROMO_OR_REWARD_OTP_42,IM-MEGAWN,Use OTP 651546 to confirm your participation in MegaWin's rewards program.,YES,PROMO_OR_REWARD_OTP
+synthetic_GENERIC_APP_ACTION_OTP_20,IM-NEWSNW,Your NewsNow security code is 120603 for enabling two-factor authentication.,YES,GENERIC_APP_ACTION_OTP
+SMS,"INR 0,137.13 spent using ICICI Bank Card XX6139 on 27-Jun-25 on RAZ*BUNDL TECHN. Avl Limit: INR 8,01,032.71. If not you, call 1800 2662/SMS BLOCK 7007 to 2592392151.",SMS,NO,NOT_OTP
+synthetic_PROMO_OR_REWARD_OTP_9,IM-SPRSHO,Use OTP 701363 to confirm your participation in SuperShop's rewards program.,YES,PROMO_OR_REWARD_OTP
+synthetic_UPI_TXN_OR_PIN_OTP_59,AX-AMAZON,Amazon Pay: Use 898839 to authorize your UPI collect request of INR 9955. Do not disclose this OTP.,YES,UPI_TXN_OR_PIN_OTP
+SMS,383768 is the OTP for INR 6969.86 transaction on AMAZON using ICICI Bank Credit Card XX7732. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_UPI_TXN_OR_PIN_OTP_83,AX-AMAZON,"Kotak Mahindra Bank: OTP 733883 is required to set your UPI PIN on Amazon Pay. Do not share with anyone, even if they claim to be from the bank.",YES,UPI_TXN_OR_PIN_OTP
+SMS,899069 is the OTP for INR 3659.34 transaction on Licious using ICICI Bank Credit Card XX8732. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,"INR 277.24 spent using ICICI Bank Card XX8546 on 30-May-25 on Swiggy Limited. Avl Limit: INR 0,51,732.83. If not you, call 1800 2662/SMS BLOCK 7007 to 8559803033.",SMS,NO,NOT_OTP
+SMS,103753 is the OTP for INR 732.61 transaction on AMAZON using ICICI Bank Credit Card XX3374. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,876624 is the OTP for INR 286.14 transaction on SWIGGY using ICICI Bank Credit Card XX3851. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,984314 is the OTP for INR 329.70 transaction on AMAZON using ICICI Bank Credit Card XX7886. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+SMS,Arriving today: Loreal Paris Men Expert Carbon Protect Anti-Perspiran... & 1 item. Use OTP 504511 at delivery to receive your package. https://amzn.in/d/cGgzgb4,SMS,YES,DELIVERY_OR_SERVICE_OTP
+SMS,025505 is the OTP for INR 536.39 transaction on Swiggy Limi using ICICI Bank Credit Card XX7554. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_UPI_TXN_OR_PIN_OTP_40,AX-BHIMUP,BHIM: Use 380594 to authorize your UPI collect request of INR 7217. Do not disclose this OTP.,YES,UPI_TXN_OR_PIN_OTP
+synthetic_APP_ACCOUNT_CHANGE_OTP_52,VM-TELEGR,"To update your Telegram account details, enter OTP 473300. Never share this OTP with anyone.",YES,APP_ACCOUNT_CHANGE_OTP
+SMS,853719 is the OTP for INR 769.38 transaction on Swiggy Limi using ICICI Bank Credit Card XX0115. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP
+synthetic_UPI_TXN_OR_PIN_OTP_41,VK-SBIBNK,OTP 884508 is for approving your UPI transfer of Rs 8281 from SBI. Never share this code on phone calls.,YES,UPI_TXN_OR_PIN_OTP
+SMS,837230 is the OTP for INR 264.08 transaction on AMAZON using ICICI Bank Credit Card XX4167. OTPs are SECRET. DO NOT disclose,SMS,YES,BANK_OR_CARD_TXN_OTP

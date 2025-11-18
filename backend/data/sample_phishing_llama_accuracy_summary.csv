@@ -1,0 +1,2 @@
+﻿total_samples,accuracy,true_positives,true_negatives,false_positives,false_negatives,avg_seconds_per_row
+500,74.2,111,260,88,38,0.62

@@ -1,0 +1,21 @@
+﻿original_index,sms_text,predicted_is_otp,predicted_otp_intent,classification_status,batch_number,is_phishing_original
+synthetic_FINANCIAL_LOGIN_OTP_69f2a1cc,Your OTP for Zerodha trading platform login is 7294. Valid for 5 mins. Do not share OTP. Bank never asks for it.,True,FINANCIAL_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_FINANCIAL_LOGIN_OTP_e070d4f9,Groww Investment: 518372 is your OTP to access your mutual fund portfolio. Valid 10 mins. Never share OTP with anyone.,True,FINANCIAL_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_FINANCIAL_LOGIN_OTP_36af0974,Upstox Demat Login OTP: 846215. Valid 5 minutes. Secure your stocks & equity - Do NOT share this code with anyone.,True,FINANCIAL_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_FINANCIAL_LOGIN_OTP_712fcdce,Angel One: 3904 is your OTP for broker platform login. Valid 3 mins. Bank never asks for OTP. Keep it confidential.,True,FINANCIAL_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_FINANCIAL_LOGIN_OTP_600e5d88,Kotak Securities: Your OTP 628417 for trading account login. Valid 7 mins. OTP rahasya hai - kisi ke saath share na karein.,True,FINANCIAL_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_FINANCIAL_LOGIN_OTP_43b8c9cf,ICICI Direct: 8732 is your OTP to access investment portfolio. Valid 5 mins. Do not share this secret code with anyone.,True,FINANCIAL_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_FINANCIAL_LOGIN_OTP_19d93725,HDFC Securities OTP: 49581 for demat login. Valid 4 mins. Secure your stocks on NSE/BSE - Never disclose OTP to others.,True,FINANCIAL_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_FINANCIAL_LOGIN_OTP_de6cb321,Zerodha Kite OTP: 724639 for equity trading login. Valid 6 mins. Bank kabhi bhi OTP nahi maangta. Kisi ko mat batayein.,True,FINANCIAL_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_FINANCIAL_LOGIN_OTP_38320cde,Groww Demat Login OTP: 8520. Valid 5 mins for mutual fund & stock access. Your OTP is secret - do not share with anyone.,True,FINANCIAL_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_FINANCIAL_LOGIN_OTP_a4c754c5,Upstox: 937164 is your OTP for broker platform login. Valid 8 mins. Secure your investment portfolio - Never share OTP.,True,FINANCIAL_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_APP_LOGIN_OTP_80aad57c,Your OTP for Netflix login is 4829. Valid for 10 mins. Do not share with anyone.,True,APP_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_APP_LOGIN_OTP_f2c6ee42,Spotify login OTP: 71642. Expires in 5 minutes. Keep it confidential. Do not share.,True,APP_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_APP_LOGIN_OTP_7f77a069,Amazon login ke liye OTP 9357 hai. 10 minute tak valid hai. Kisi ko share na karein.,True,APP_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_APP_LOGIN_OTP_c5bb20c1,8572 is your OTP for Zomato account login. Valid for 5 mins. Bank never asks for OTP.,True,APP_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_APP_LOGIN_OTP_98d23a5f,Your Hotstar verification code is 620184. Use for app login. Do not share this OTP.,True,APP_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_APP_LOGIN_OTP_8ad41e73,Instagram login OTP: 2946. Expires in 10 minutes. Keep it secret. Do not share with anyone.,True,APP_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_APP_LOGIN_OTP_b8d14c42,Flipkart par login karne ke liye OTP 7741 hai. 5 minute tak valid. Kisi ko na batayein.,True,APP_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_APP_LOGIN_OTP_5e47c15e,Your OTP for Gaana app login is 50863. Valid for 10 mins. Do not share this code.,True,APP_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_APP_LOGIN_OTP_f1c628f6,8250 is your OTP for Disney+ account login. Expires in 5 minutes. Keep it confidential.,True,APP_LOGIN_OTP,synthetic,synthetic_deepseek,False
+synthetic_APP_LOGIN_OTP_aa8c4894,YouTube login OTP: 69147. Valid for 10 mins. Do not share with anyone. Bank never asks for OTP.,True,APP_LOGIN_OTP,synthetic,synthetic_deepseek,False
