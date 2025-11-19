@@ -31,8 +31,12 @@ data class ServerResponse(
 
 class ServerClassifier(
     private val baseUrl: String = BuildConfig.SERVER_API_BASE_URL,
-    private val timeoutSeconds: Int = 2
+    private val timeoutSeconds: Int = 10  // Increased timeout for Cloud Run
 ) : Classifier {
+    
+    companion object {
+        private const val TAG = "ServerClassifier"
+    }
     private val client = OkHttpClient.Builder()
         .connectTimeout(timeoutSeconds.toLong(), TimeUnit.SECONDS)
         .readTimeout(timeoutSeconds.toLong(), TimeUnit.SECONDS)
@@ -44,6 +48,9 @@ class ServerClassifier(
 
     override suspend fun predict(input: MessageFeatures): Prediction = withContext(Dispatchers.IO) {
         val startTime = System.currentTimeMillis()
+        val url = "$baseUrl/classify"
+        Log.d(TAG, "Making request to $url")
+        Log.d(TAG, "Request text length: ${input.text.length}, sender: ${input.sender}")
         
         val requestBody = Json.encodeToString(
             ServerRequest(
@@ -56,7 +63,7 @@ class ServerClassifier(
         ).toRequestBody("application/json".toMediaType())
 
         val request = Request.Builder()
-            .url("$baseUrl/classify")
+            .url(url)
             .post(requestBody)
             .build()
 
@@ -84,7 +91,7 @@ class ServerClassifier(
                 }
             } catch (e: Exception) {
                 lastException = e
-                Log.w("ServerClassifier", "Attempt ${attempt + 1} failed", e)
+                Log.w(TAG, "Attempt ${attempt + 1} failed: ${e.message}", e)
                 
                 // Exponential backoff
                 if (attempt < maxRetries - 1) {
@@ -95,7 +102,7 @@ class ServerClassifier(
         }
         
         // All retries failed
-        Log.e("ServerClassifier", "All retry attempts failed", lastException)
+        Log.e(TAG, "All retry attempts failed: ${lastException?.message}", lastException)
         val inferenceTime = System.currentTimeMillis() - startTime
         
         Prediction(

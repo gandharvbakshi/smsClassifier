@@ -4,19 +4,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.smsclassifier.app.data.MessageEntity
-import com.smsclassifier.app.ui.components.MessageItem
 import com.smsclassifier.app.ui.components.FilterChips
-import com.smsclassifier.app.ui.theme.*
+import com.smsclassifier.app.ui.components.MessageItem
 import com.smsclassifier.app.ui.viewmodel.FilterType
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
 
@@ -25,6 +22,8 @@ import com.smsclassifier.app.ui.viewmodel.InboxViewModel
 fun InboxScreen(
     viewModel: InboxViewModel,
     onMessageClick: (Long) -> Unit,
+    onOpenLogs: () -> Unit,
+    onOpenSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val messages = viewModel.messages.collectAsLazyPagingItems()
@@ -37,66 +36,104 @@ fun InboxScreen(
     val needsReviewCount by viewModel.needsReviewCount.collectAsState(initial = 0)
     val generalCount by viewModel.generalCount.collectAsState(initial = 0)
 
-    Column(modifier = modifier.fillMaxSize()) {
-        // Search bar
-        SearchBar(
-            query = searchQuery,
-            onQueryChange = viewModel::setSearchQuery,
-            modifier = Modifier.fillMaxWidth()
-        )
-        
-        // Filter chips
-        FilterChips(
-            selectedFilter = filter,
-            onFilterSelected = viewModel::setFilter,
-            counts = mapOf(
-                FilterType.OTP to otpCount,
-                FilterType.PHISHING to phishingCount,
-                FilterType.NEEDS_REVIEW to needsReviewCount,
-                FilterType.GENERAL to generalCount,
-                FilterType.ALL to totalCount
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            filterOrder = listOf(
-                FilterType.OTP,
-                FilterType.PHISHING,
-                FilterType.NEEDS_REVIEW,
-                FilterType.GENERAL,
-                FilterType.ALL
-            )
-        )
-        
-        // Messages list
-        when {
-            messages.loadState.refresh is androidx.paging.LoadState.Loading -> {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator()
-                }
-            }
-            messages.itemCount == 0 -> {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text("No messages")
-                }
-            }
-            else -> {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(messages.itemCount) { index ->
-                        messages[index]?.let { message ->
-                            MessageItem(
-                                message = message,
-                                onClick = { onMessageClick(message.id) },
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
+    var menuExpanded by remember { mutableStateOf(false) }
+
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Inbox") },
+                actions = {
+                    IconButton(onClick = { menuExpanded = true }) {
+                        Icon(Icons.Default.MoreVert, contentDescription = "More options")
                     }
-                    
-                    if (messages.loadState.append is androidx.paging.LoadState.Loading) {
-                        item {
-                            CircularProgressIndicator(modifier = Modifier.fillMaxWidth())
+                    DropdownMenu(
+                        expanded = menuExpanded,
+                        onDismissRequest = { menuExpanded = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("Misclassification logs") },
+                            onClick = {
+                                menuExpanded = false
+                                onOpenLogs()
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Settings") },
+                            onClick = {
+                                menuExpanded = false
+                                onOpenSettings()
+                            }
+                        )
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            SearchBar(
+                query = searchQuery,
+                onQueryChange = viewModel::setSearchQuery,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            FilterChips(
+                selectedFilter = filter,
+                onFilterSelected = viewModel::setFilter,
+                counts = mapOf(
+                    FilterType.OTP to otpCount,
+                    FilterType.PHISHING to phishingCount,
+                    FilterType.NEEDS_REVIEW to needsReviewCount,
+                    FilterType.GENERAL to generalCount,
+                    FilterType.ALL to totalCount
+                ),
+                modifier = Modifier.fillMaxWidth(),
+                filterOrder = listOf(
+                    FilterType.OTP,
+                    FilterType.PHISHING,
+                    FilterType.NEEDS_REVIEW,
+                    FilterType.GENERAL,
+                    FilterType.ALL
+                )
+            )
+
+            when {
+                messages.loadState.refresh is androidx.paging.LoadState.Loading -> {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator()
+                    }
+                }
+
+                messages.itemCount == 0 -> {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text("No messages")
+                    }
+                }
+
+                else -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(messages.itemCount) { index ->
+                            messages[index]?.let { message ->
+                                MessageItem(
+                                    message = message,
+                                    onClick = { onMessageClick(message.id) },
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
+                        }
+
+                        if (messages.loadState.append is androidx.paging.LoadState.Loading) {
+                            item {
+                                CircularProgressIndicator(modifier = Modifier.fillMaxWidth())
+                            }
                         }
                     }
                 }

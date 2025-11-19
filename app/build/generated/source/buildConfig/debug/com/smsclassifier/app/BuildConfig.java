@@ -10,5 +10,5 @@ public final class BuildConfig {
   public static final int VERSION_CODE = 1;
   public static final String VERSION_NAME = "1.0.0";
   // Field from default config.
-  public static final String SERVER_API_BASE_URL = "http://10.0.2.2:8001/api";
+  public static final String SERVER_API_BASE_URL = "https://sms-ensemble-hhpimusmbq-el.a.run.app/api";
 }

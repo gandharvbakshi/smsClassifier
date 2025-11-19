@@ -40,6 +40,9 @@ fun DetailScreen(
     val clipboardManager = LocalClipboardManager.current
     val coroutineScope = rememberCoroutineScope()
 
+    var showReportDialog by remember { mutableStateOf(false) }
+    var reportNote by remember { mutableStateOf("") }
+
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
@@ -152,7 +155,8 @@ fun DetailScreen(
                 // Report as wrong button
                 Button(
                     onClick = {
-                        viewModel.reportAsWrong("User reported as incorrect")
+                        reportNote = ""
+                        showReportDialog = true
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -164,6 +168,34 @@ fun DetailScreen(
                 CircularProgressIndicator()
             }
         }
+    }
+
+    if (showReportDialog) {
+        AlertDialog(
+            onDismissRequest = { showReportDialog = false },
+            title = { Text("Report classification") },
+            text = {
+                OutlinedTextField(
+                    value = reportNote,
+                    onValueChange = { reportNote = it },
+                    label = { Text("Optional note for developer") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    viewModel.reportAsWrong(reportNote)
+                    showReportDialog = false
+                }) {
+                    Text("Submit")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showReportDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 }
 

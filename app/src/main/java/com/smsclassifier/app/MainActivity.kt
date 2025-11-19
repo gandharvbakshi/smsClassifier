@@ -21,10 +21,12 @@ import androidx.navigation.navArgument
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.ui.screens.DetailScreen
 import com.smsclassifier.app.ui.screens.InboxScreen
+import com.smsclassifier.app.ui.screens.LogsScreen
 import com.smsclassifier.app.ui.screens.SettingsScreen
 import com.smsclassifier.app.ui.theme.SMSClassifierTheme
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
+import com.smsclassifier.app.ui.viewmodel.LogsViewModel
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
 
 class MainActivity : ComponentActivity() {
@@ -56,7 +58,9 @@ class MainActivity : ComponentActivity() {
                                 viewModel = viewModel,
                                 onMessageClick = { id ->
                                     navController.navigate("detail/$id")
-                                }
+                                },
+                                onOpenLogs = { navController.navigate("logs") },
+                                onOpenSettings = { navController.navigate("settings") }
                             )
                         }
                         
@@ -84,6 +88,16 @@ class MainActivity : ComponentActivity() {
                                 factory = SettingsViewModelFactory(this@MainActivity, database)
                             )
                             SettingsScreen(viewModel = viewModel)
+                        }
+
+                        composable("logs") {
+                            val viewModel: LogsViewModel = viewModel(
+                                factory = LogsViewModelFactory(database)
+                            )
+                            LogsScreen(
+                                viewModel = viewModel,
+                                onBack = { navController.popBackStack() }
+                            )
                         }
                     }
                 }
@@ -152,6 +166,18 @@ class SettingsViewModelFactory(
         if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return SettingsViewModel(context, database) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+    }
+}
+
+class LogsViewModelFactory(
+    private val database: AppDatabase
+) : ViewModelProvider.Factory {
+    override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(LogsViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return LogsViewModel(database) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

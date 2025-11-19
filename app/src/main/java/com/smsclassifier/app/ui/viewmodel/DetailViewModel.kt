@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.FeedbackEntity
 import com.smsclassifier.app.data.MessageEntity
+import com.smsclassifier.app.data.MisclassificationLogEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,6 +35,17 @@ class DetailViewModel(private val database: AppDatabase) : ViewModel() {
                 )
             )
             database.messageDao().markReviewed(msg.id)
+            database.misclassificationLogDao().insert(
+                MisclassificationLogEntity(
+                    messageId = msg.id,
+                    sender = msg.sender,
+                    body = msg.body,
+                    predictedIsOtp = msg.isOtp,
+                    predictedOtpIntent = msg.otpIntent,
+                    predictedIsPhishing = msg.isPhishing,
+                    userNote = correction.ifBlank { null }
+                )
+            )
         }
     }
 }

@@ -1,11 +1,17 @@
 package com.smsclassifier.app.ui.components
 
 import androidx.compose.foundation.clickable
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.data.MessageEntity
@@ -58,6 +64,10 @@ fun MessageItem(
             
             Spacer(modifier = Modifier.height(8.dp))
             
+            val clipboard = LocalClipboardManager.current
+            val context = LocalContext.current
+            val otpCode = ClassificationUtils.extractOtpCode(message.body)
+
             Row(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -72,6 +82,22 @@ fun MessageItem(
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.primary
                     )
+                }
+
+                Spacer(modifier = Modifier.weight(1f, fill = true))
+
+                if (otpCode != null) {
+                    IconButton(
+                        onClick = {
+                            clipboard.setText(AnnotatedString(otpCode))
+                            Toast.makeText(context, "OTP copied", Toast.LENGTH_SHORT).show()
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ContentCopy,
+                            contentDescription = "Copy OTP"
+                        )
+                    }
                 }
             }
         }
