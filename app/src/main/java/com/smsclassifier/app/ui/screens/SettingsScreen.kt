@@ -3,6 +3,8 @@ package com.smsclassifier.app.ui.screens
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
+import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -13,15 +15,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel,
+    onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val isDefaultSms by viewModel.isDefaultSmsApp.collectAsState()
     val context = LocalContext.current
     val activity = remember(context) { context.findActivity() }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         viewModel.refreshDefaultSmsStatus()
@@ -31,17 +39,25 @@ fun SettingsScreen(
         viewModel.refreshDefaultSmsStatus()
     }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Text(
-            text = "Settings",
-            style = MaterialTheme.typography.headlineMedium
-        )
-        
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = { Text("Settings") },
+                navigationIcon = {
+                    TextButton(onClick = onBack) { Text("Back") }
+                }
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
         // Inference Mode
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(
@@ -91,14 +107,43 @@ fun SettingsScreen(
             }
         }
         
-        // Export Labels (placeholder)
+        // Export Labels
         Button(
-            onClick = { /* TODO: export labels */ },
+            onClick = {
+                exportLabels(context, viewModel, snackbarHostState, coroutineScope)
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Export Labels")
         }
     }
+    }
+}
+
+private fun exportLabels(
+    context: Context,
+    viewModel: SettingsViewModel,
+    snackbarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope
+) {
+    viewModel.exportLabels { uri ->
+        coroutineScope.launch {
+            if (uri == null) {
+                snackbarHostState.showSnackbar("No messages to export.")
+            } else {
+                startShareIntent(context, uri)
+            }
+        }
+    }
+}
+
+private fun startShareIntent(context: Context, uri: Uri) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/csv"
+        putExtra(Intent.EXTRA_STREAM, uri)
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    context.startActivity(Intent.createChooser(intent, "Share labels"))
 }
 
 private fun Context.findActivity(): Activity? = when (this) {

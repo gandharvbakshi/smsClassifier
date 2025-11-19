@@ -4,8 +4,10 @@ import android.app.Activity
 import android.app.role.RoleManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.provider.Telephony
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.smsclassifier.app.data.AppDatabase
@@ -13,6 +15,7 @@ import com.smsclassifier.app.data.FeedbackEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -47,20 +50,35 @@ class SettingsViewModel(
         }
     }
 
-    suspend fun exportLabels(): File {
-        val feedback = database.feedbackDao().getAll()
-        val file = File(context.getExternalFilesDir(null), "feedback_export.csv")
-        
-        file.bufferedWriter().use { writer ->
-            writer.write("id,message_id,original_is_otp,original_otp_intent,original_is_phishing,original_phish_score,user_correction,timestamp\n")
-            feedback.collect { feedbackList ->
-                feedbackList.forEach { fb ->
-                    writer.write("${fb.id},${fb.messageId},${fb.originalIsOtp},${fb.originalOtpIntent},${fb.originalIsPhishing},${fb.originalPhishScore},\"${fb.userCorrection}\",${fb.timestamp}\n")
+    fun exportLabels(onExported: (Uri?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val messages = database.messageDao().getAllMessages()
+                
+                if (messages.isEmpty()) {
+                    onExported(null)
+                    return@launch
                 }
+                
+                val file = File(context.getExternalFilesDir(null), "labels_export.csv")
+                
+                file.bufferedWriter().use { writer ->
+                    writer.write("id,sender,body,timestamp,is_otp,otp_intent,is_phishing,phish_score,reviewed\n")
+                    messages.forEach { msg ->
+                        writer.write("${msg.id},\"${msg.sender}\",\"${msg.body.replace("\"", "\"\"")}\",${msg.ts},${msg.isOtp},${msg.otpIntent ?: ""},${msg.isPhishing},${msg.phishScore ?: ""},${msg.reviewed}\n")
+                    }
+                }
+                
+                val uri = FileProvider.getUriForFile(
+                    context,
+                    "${context.packageName}.fileprovider",
+                    file
+                )
+                onExported(uri)
+            } catch (e: Exception) {
+                onExported(null)
             }
         }
-        
-        return file
     }
 
     private fun checkIsDefaultSms(): Boolean {

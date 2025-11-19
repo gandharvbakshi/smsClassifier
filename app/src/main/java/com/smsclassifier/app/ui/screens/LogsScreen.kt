@@ -150,12 +150,29 @@ private fun shareSingleLog(
 }
 
 private fun startShareIntent(context: android.content.Context, uri: Uri) {
-    val intent = Intent(Intent.ACTION_SEND).apply {
+    // Create email intent with recipient pre-filled
+    val emailIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/csv"
+        putExtra(Intent.EXTRA_EMAIL, arrayOf("gandharv@musicaigeneration.com"))
+        putExtra(Intent.EXTRA_SUBJECT, "SMS Misclassification Logs")
+        putExtra(Intent.EXTRA_STREAM, uri)
+        putExtra(Intent.EXTRA_TEXT, "Please find attached the misclassification logs.")
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    
+    // Filter to show only email apps first
+    val emailChooser = Intent.createChooser(emailIntent, "Share logs via email")
+    
+    // Create a generic share intent as fallback
+    val genericIntent = Intent(Intent.ACTION_SEND).apply {
         type = "text/csv"
         putExtra(Intent.EXTRA_STREAM, uri)
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
-    context.startActivity(Intent.createChooser(intent, "Share logs"))
+    
+    // Add fallback to chooser
+    emailChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(genericIntent))
+    context.startActivity(emailChooser)
 }
 
 

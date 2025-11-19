@@ -87,7 +87,10 @@ class MainActivity : ComponentActivity() {
                             val viewModel: SettingsViewModel = viewModel(
                                 factory = SettingsViewModelFactory(this@MainActivity, database)
                             )
-                            SettingsScreen(viewModel = viewModel)
+                            SettingsScreen(
+                                viewModel = viewModel,
+                                onBack = { navController.popBackStack() }
+                            )
                         }
 
                         composable("logs") {
