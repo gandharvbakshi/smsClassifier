@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - SMS Classifier</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .last-updated {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .contact-info {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Policy for SMS Classifier</h1>
+        <p class="last-updated"><strong>Last Updated:</strong> November 18, 2024</p>
+        
+        <h2>Introduction</h2>
+        <p>SMS Classifier ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our SMS Classifier mobile application ("the App").</p>
+        
+        <h2>Information We Collect</h2>
+        
+        <h3>SMS Messages</h3>
+        <ul>
+            <li><strong>What we collect:</strong> The content of SMS messages received on your device, including message text and sender phone numbers.</li>
+            <li><strong>Why we collect it:</strong> To classify messages as OTP, phishing, or general messages for your convenience and security.</li>
+            <li><strong>How we use it:</strong> Messages are processed locally on your device or sent to our secure classification service to determine message type and potential security risks.</li>
+        </ul>
+        
+        <h3>Phone Numbers</h3>
+        <ul>
+            <li><strong>What we collect:</strong> Phone numbers from SMS senders.</li>
+            <li><strong>Why we collect it:</strong> To help identify and categorize messages.</li>
+            <li><strong>How we use it:</strong> Phone numbers are used only for message classification and are not stored or shared.</li>
+        </ul>
+        
+        <h2>Data Processing</h2>
+        
+        <h3>On-Device Processing</h3>
+        <ul>
+            <li>Classification can be performed entirely on your device using local machine learning models.</li>
+            <li>When processed on-device, your SMS content never leaves your device.</li>
+            <li>No data is transmitted to external servers when using on-device classification.</li>
+        </ul>
+        
+        <h3>Cloud Processing (Optional)</h3>
+        <ul>
+            <li>If you enable server-based classification, SMS content is sent to our secure API endpoint hosted on Google Cloud Run.</li>
+            <li>Messages are sent over encrypted HTTPS connections.</li>
+            <li>Messages are processed for classification only and are <strong>not stored</strong> on our servers.</li>
+            <li>Processing is performed in real-time and messages are immediately discarded after classification.</li>
+        </ul>
+        
+        <h3>Local Storage</h3>
+        <ul>
+            <li>SMS messages are stored locally on your device in an encrypted database.</li>
+            <li>This data remains on your device and is not transmitted to external servers.</li>
+            <li>You can delete all stored messages at any time through the app settings.</li>
+        </ul>
+        
+        <h2>Permissions</h2>
+        <p>The App requires the following permissions:</p>
+        <ul>
+            <li><strong>READ_SMS:</strong> Required to read and classify incoming SMS messages.</li>
+            <li><strong>RECEIVE_SMS:</strong> Required to receive SMS notifications and automatically classify new messages.</li>
+            <li><strong>SEND_SMS:</strong> Required if you choose to send SMS messages through the app.</li>
+            <li><strong>WRITE_SMS:</strong> Required to save classified messages locally on your device.</li>
+            <li><strong>INTERNET:</strong> Required only if you enable server-based classification (optional).</li>
+            <li><strong>ACCESS_NETWORK_STATE:</strong> Required to check network connectivity for server-based classification.</li>
+        </ul>
+        
+        <h2>Data Security</h2>
+        <p>We implement the following security measures:</p>
+        <ul>
+            <li><strong>Encryption in Transit:</strong> All API communications use HTTPS encryption (TLS 1.2+).</li>
+            <li><strong>Encryption at Rest:</strong> Local database is encrypted using Android's built-in encryption.</li>
+            <li><strong>No Data Sharing:</strong> We do not share your SMS content or phone numbers with third parties.</li>
+            <li><strong>Secure Infrastructure:</strong> Server-based processing uses Google Cloud Run with industry-standard security practices.</li>
+        </ul>
+        
+        <h2>Third-Party Services</h2>
+        
+        <h3>Google Cloud Run</h3>
+        <ul>
+            <li>Our classification service is hosted on Google Cloud Run.</li>
+            <li>Google Cloud Run processes messages only for classification and does not store them.</li>
+            <li>Google's privacy policy applies to their infrastructure: <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a></li>
+        </ul>
+        
+        <h3>Groq API (for Intent Classification)</h3>
+        <ul>
+            <li>When an OTP is detected, we may use Groq's API for advanced intent classification.</li>
+            <li>Only OTP messages are sent to Groq, and messages are not stored by Groq.</li>
+            <li>Groq's privacy policy applies: <a href="https://groq.com/privacy-policy" target="_blank">Groq Privacy Policy</a></li>
+        </ul>
+        
+        <h2>Data Retention</h2>
+        <ul>
+            <li><strong>On-Device:</strong> Messages are stored locally until you delete them or uninstall the app.</li>
+            <li><strong>Server-Side:</strong> Messages sent for classification are processed in real-time and immediately discarded. No messages are stored on our servers.</li>
+        </ul>
+        
+        <h2>Your Rights</h2>
+        <p>You have the following rights regarding your data:</p>
+        <ul>
+            <li><strong>Access:</strong> You can view all stored messages within the app.</li>
+            <li><strong>Deletion:</strong> You can delete individual messages or all messages at any time through the app.</li>
+            <li><strong>Uninstall:</strong> Uninstalling the app removes all locally stored data from your device.</li>
+            <li><strong>Opt-Out:</strong> You can disable server-based classification and use only on-device processing.</li>
+        </ul>
+        
+        <h2>Children's Privacy</h2>
+        <p>Our App is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please contact us immediately.</p>
+        
+        <h2>Changes to This Privacy Policy</h2>
+        <p>We may update this Privacy Policy from time to time. We will notify you of any changes by:</p>
+        <ul>
+            <li>Updating the "Last Updated" date at the top of this policy</li>
+            <li>Posting a notice in the app (for significant changes)</li>
+        </ul>
+        <p>Your continued use of the App after any changes constitutes acceptance of the updated Privacy Policy.</p>
+        
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <p>If you have questions or concerns about this Privacy Policy or our data practices, please contact us:</p>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:gandharv@musicaigeneration.com">gandharv@musicaigeneration.com</a></li>
+            </ul>
+        </div>
+        
+        <h2>Compliance</h2>
+        <p>This Privacy Policy complies with:</p>
+        <ul>
+            <li>Google Play Store requirements</li>
+            <li>General Data Protection Regulation (GDPR) for EU users</li>
+            <li>California Consumer Privacy Act (CCPA) for California users</li>
+        </ul>
+        
+        <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
+        <p style="color: #7f8c8d; font-size: 0.9em;"><strong>Note:</strong> This privacy policy is specific to the SMS Classifier app. By using the App, you agree to the collection and use of information in accordance with this policy.</p>
+    </div>
+</body>
+</html>
+
