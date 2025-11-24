@@ -13,6 +13,12 @@ __pycache__/
 
 # Secrets
 .env
+keystore.properties
+*.jks
+*.keystore
+**/release-keystore.jks
+**/test-keystore.jks
+**/upload-keystore.jks
 
 # IDE settings
 .idea/

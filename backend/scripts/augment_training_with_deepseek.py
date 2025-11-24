@@ -329,9 +329,10 @@ Guidance (choose the *most specific* matching intent):
 - `FINANCIAL_LOGIN_OTP`: OTPs for logging into banks or financial/brokerage apps (HDFC NetBanking, SBI YONO, ICICI Direct, trading platforms) when the goal is account access.
 - `KYC_OR_ESIGN_OTP`: OTPs for e-signing documents, completing KYC/verification paperwork, linking PAN/Aadhaar, or document signature flows even if a bank is mentioned.
 - `BANK_OR_CARD_TXN_OTP`: OTPs approving transactions (payments, transfers, card swipes).
-- `APP_LOGIN_OTP`: OTPs for non-financial apps (social, ecommerce, streaming) or general “app login” with no financial keywords.
-- `APP_ACCOUNT_CHANGE_OTP`: OTPs for updating app account details (email, phone, password).
-- `GENERIC_APP_ACTION_OTP`: OTPs for generic actions when no other label fits.
+- `APP_ACCOUNT_CHANGE_OTP`: OTPs for updating app account details (email, phone, password, delivery address, subscription settings).
+- `DELIVERY_OR_SERVICE_OTP`: OTPs for confirming deliveries, pickups, technician/service appointments, courier entry, or handover verification (Swiggy, Blinkit, Urban Company, Flipkart delivery agents, etc.).
+- `APP_LOGIN_OTP`: OTPs for non-financial app logins (social, ecommerce, streaming, gaming) when the user is signing into the app.
+- `GENERIC_APP_ACTION_OTP`: OTPs for truly generic actions when no other category above clearly fits (poll voting, survey confirmation, generic app actions without profile/delivery/KYC context).
 - `UPI_TXN_OR_PIN_OTP`: OTPs for UPI transactions, linking UPI devices/PINs, or authorizing UPI payments.
 - `NOT_OTP`: Messages without OTP codes.
 
@@ -342,9 +343,11 @@ Examples:
 4. "Your UPI transaction OTP is 7842. Do not share this code." → `UPI_TXN_OR_PIN_OTP`.
 5. "OTP 456789 to update your PayTM profile email." → `APP_ACCOUNT_CHANGE_OTP`.
 6. "Your Swiggy login OTP is 123456." → `APP_LOGIN_OTP`.
-7. "Your OTP for confirming your Ola ride rating is 8472." → `GENERIC_APP_ACTION_OTP`.
-8. "Your OTP for saving a recipe on Zomato is 6185." → `GENERIC_APP_ACTION_OTP`.
-9. "Your OTP for adding a Flipkart wishlist item is 7153." → `GENERIC_APP_ACTION_OTP`.
+7. "Use OTP 4729 to confirm your Swiggy delivery handover." → `DELIVERY_OR_SERVICE_OTP`.
+8. "OTP 5297 to let your Urban Company technician start service." → `DELIVERY_OR_SERVICE_OTP`.
+9. "Your OTP for confirming your Ola ride rating is 8472." → `GENERIC_APP_ACTION_OTP`.
+10. "Your OTP for saving a recipe on Zomato is 6185." → `GENERIC_APP_ACTION_OTP`.
+11. "Your OTP for adding a Flipkart wishlist item is 7153." → `GENERIC_APP_ACTION_OTP`.
 
 SMS: "{sms}"
 
