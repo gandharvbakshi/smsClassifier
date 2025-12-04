@@ -9,9 +9,20 @@ import androidx.room.TypeConverters
 data class MessageEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val sender: String,
+    
+    // SMS Handler fields
+    val sender: String,  // For incoming: sender number, For outgoing: recipient number
     val body: String,
-    val ts: Long, // timestamp
+    val ts: Long, // timestamp (date)
+    val threadId: Long = 0,  // Thread ID (calculated from phone number)
+    val type: Int = 1,  // 1=received, 2=sent, 3=draft, 4=outbox, 5=failed
+    val read: Boolean = false,
+    val seen: Boolean = false,
+    val status: Int? = null,  // For sent messages: -1=pending, 0=complete, etc.
+    val serviceCenter: String? = null,
+    val dateSent: Long? = null,  // For sent messages
+    
+    // Classification fields (existing)
     val language: String? = null,
     val featuresJson: String? = null, // JSON string of extracted features
     val isOtp: Boolean? = null,

@@ -35,14 +35,14 @@ public final class AppDatabase_Impl extends AppDatabase {
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(2) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(3) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS `messages` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sender` TEXT NOT NULL, `body` TEXT NOT NULL, `ts` INTEGER NOT NULL, `language` TEXT, `featuresJson` TEXT, `isOtp` INTEGER, `otpIntent` TEXT, `isPhishing` INTEGER, `phishScore` REAL, `reasonsJson` TEXT, `reviewed` INTEGER NOT NULL, `version` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `messages` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sender` TEXT NOT NULL, `body` TEXT NOT NULL, `ts` INTEGER NOT NULL, `threadId` INTEGER NOT NULL, `type` INTEGER NOT NULL, `read` INTEGER NOT NULL, `seen` INTEGER NOT NULL, `status` INTEGER, `serviceCenter` TEXT, `dateSent` INTEGER, `language` TEXT, `featuresJson` TEXT, `isOtp` INTEGER, `otpIntent` TEXT, `isPhishing` INTEGER, `phishScore` REAL, `reasonsJson` TEXT, `reviewed` INTEGER NOT NULL, `version` INTEGER NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `feedback` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `messageId` INTEGER NOT NULL, `originalIsOtp` INTEGER, `originalOtpIntent` TEXT, `originalIsPhishing` INTEGER, `originalPhishScore` REAL, `userCorrection` TEXT NOT NULL, `timestamp` INTEGER NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `misclassification_logs` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `messageId` INTEGER NOT NULL, `sender` TEXT NOT NULL, `body` TEXT NOT NULL, `predictedIsOtp` INTEGER, `predictedOtpIntent` TEXT, `predictedIsPhishing` INTEGER, `createdAt` INTEGER NOT NULL, `userNote` TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7e5998bf9cb10a9c9020c47dcfc19105')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6de07fcf4ae134a380a6d9fa757cd80a')");
       }
 
       @Override
@@ -93,11 +93,18 @@ public final class AppDatabase_Impl extends AppDatabase {
       @NonNull
       public RoomOpenHelper.ValidationResult onValidateSchema(
           @NonNull final SupportSQLiteDatabase db) {
-        final HashMap<String, TableInfo.Column> _columnsMessages = new HashMap<String, TableInfo.Column>(13);
+        final HashMap<String, TableInfo.Column> _columnsMessages = new HashMap<String, TableInfo.Column>(20);
         _columnsMessages.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMessages.put("sender", new TableInfo.Column("sender", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMessages.put("body", new TableInfo.Column("body", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMessages.put("ts", new TableInfo.Column("ts", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMessages.put("threadId", new TableInfo.Column("threadId", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMessages.put("type", new TableInfo.Column("type", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMessages.put("read", new TableInfo.Column("read", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMessages.put("seen", new TableInfo.Column("seen", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMessages.put("status", new TableInfo.Column("status", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMessages.put("serviceCenter", new TableInfo.Column("serviceCenter", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMessages.put("dateSent", new TableInfo.Column("dateSent", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMessages.put("language", new TableInfo.Column("language", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMessages.put("featuresJson", new TableInfo.Column("featuresJson", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsMessages.put("isOtp", new TableInfo.Column("isOtp", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
@@ -155,7 +162,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "7e5998bf9cb10a9c9020c47dcfc19105", "e3a4b3f3b4bb59b5c7e222606edf99b5");
+    }, "6de07fcf4ae134a380a6d9fa757cd80a", "714c25ca777490719c955f12e5abd90e");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

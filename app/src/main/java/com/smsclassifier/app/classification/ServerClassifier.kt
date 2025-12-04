@@ -1,7 +1,7 @@
 package com.smsclassifier.app.classification
 
-import android.util.Log
 import com.smsclassifier.app.BuildConfig
+import com.smsclassifier.app.util.AppLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
@@ -49,8 +49,8 @@ class ServerClassifier(
     override suspend fun predict(input: MessageFeatures): Prediction = withContext(Dispatchers.IO) {
         val startTime = System.currentTimeMillis()
         val url = "$baseUrl/classify"
-        Log.d(TAG, "Making request to $url")
-        Log.d(TAG, "Request text length: ${input.text.length}, sender: ${input.sender}")
+        AppLog.d(TAG, "Making request to $url")
+        AppLog.d(TAG, "Request text length: ${input.text.length}")
         
         val requestBody = Json.encodeToString(
             ServerRequest(
@@ -91,7 +91,7 @@ class ServerClassifier(
                 }
             } catch (e: Exception) {
                 lastException = e
-                Log.w(TAG, "Attempt ${attempt + 1} failed: ${e.message}", e)
+                AppLog.w(TAG, "Attempt ${attempt + 1} failed: ${e.message}", e)
                 
                 // Exponential backoff
                 if (attempt < maxRetries - 1) {
@@ -102,7 +102,7 @@ class ServerClassifier(
         }
         
         // All retries failed
-        Log.e(TAG, "All retry attempts failed: ${lastException?.message}", lastException)
+        AppLog.e(TAG, "All retry attempts failed", lastException)
         val inferenceTime = System.currentTimeMillis() - startTime
         
         Prediction(

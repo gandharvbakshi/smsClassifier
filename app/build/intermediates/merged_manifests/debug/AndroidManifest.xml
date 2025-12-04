@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.smsclassifier.app.debug"
-    android:versionCode="1"
-    android:versionName="1.0.0" >
+    android:versionCode="4"
+    android:versionName="1.0.3" >
 
     <uses-sdk
         android:minSdkVersion="26"
-        android:targetSdkVersion="34" />
+        android:targetSdkVersion="35" />
 
     <!-- SMS Permissions -->
     <uses-permission android:name="android.permission.READ_SMS" />
@@ -15,10 +15,12 @@
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH" />
     <uses-permission android:name="android.permission.RECEIVE_MMS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SEND_RESPOND_VIA_MESSAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- Notification Permission (required for Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -35,7 +37,7 @@
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:debuggable="true"
-        android:extractNativeLibs="false"
+        android:extractNativeLibs="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -43,8 +45,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/Theme.SMSClassifier"
-        android:usesCleartextTraffic="true" >
+        android:theme="@style/Theme.SMSClassifier" >
         <activity
             android:name="com.smsclassifier.app.MainActivity"
             android:exported="true"
@@ -127,10 +128,23 @@
         <provider
             android:name="com.smsclassifier.app.provider.SmsProvider"
             android:authorities="com.smsclassifier.app.debug.smsprovider"
-            android:exported="false"
+            android:exported="true"
             android:grantUriPermissions="true"
+            android:multiprocess="false"
             android:readPermission="android.permission.READ_SMS"
             android:writePermission="android.permission.WRITE_SMS" />
+
+        <!-- Broadcast receivers for SMS send status -->
+        <receiver
+            android:name="com.smsclassifier.app.service.SmsSentReceiver"
+            android:exported="false" />
+        <receiver
+            android:name="com.smsclassifier.app.service.SmsDeliveredReceiver"
+            android:exported="false" />
+        <receiver
+            android:name="com.smsclassifier.app.util.QuickReplyReceiver"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.smsclassifier.app.debug.fileprovider"

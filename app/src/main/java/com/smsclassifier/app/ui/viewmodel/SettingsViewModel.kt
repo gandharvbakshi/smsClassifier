@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.FeedbackEntity
+import com.smsclassifier.app.data.SettingsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,8 +24,42 @@ class SettingsViewModel(
     private val context: Context,
     private val database: AppDatabase
 ) : ViewModel() {
+    private val settingsRepository = SettingsRepository(context)
+    
     private val _isDefaultSmsApp = MutableStateFlow(checkIsDefaultSms())
     val isDefaultSmsApp: StateFlow<Boolean> = _isDefaultSmsApp.asStateFlow()
+    
+    // Notification settings
+    val notificationSoundEnabled: Boolean
+        get() = settingsRepository.notificationSoundEnabled
+    
+    val notificationVibrationEnabled: Boolean
+        get() = settingsRepository.notificationVibrationEnabled
+    
+    fun setNotificationSoundEnabled(enabled: Boolean) {
+        settingsRepository.notificationSoundEnabled = enabled
+    }
+    
+    fun setNotificationVibrationEnabled(enabled: Boolean) {
+        settingsRepository.notificationVibrationEnabled = enabled
+    }
+    
+    fun openNotificationSettings() {
+        val intent = Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+            putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, context.packageName)
+        }
+        context.startActivity(intent)
+    }
+    
+    fun openNotificationChannelSettings() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val intent = Intent(android.provider.Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).apply {
+                putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, context.packageName)
+                putExtra(android.provider.Settings.EXTRA_CHANNEL_ID, "sms_notifications")
+            }
+            context.startActivity(intent)
+        }
+    }
 
     fun refreshDefaultSmsStatus() {
         _isDefaultSmsApp.value = checkIsDefaultSms()
@@ -88,6 +123,14 @@ class SettingsViewModel(
         } else {
             Telephony.Sms.getDefaultSmsPackage(context) == context.packageName
         }
+    }
+    
+    fun getProviderAuthority(): String {
+        return "${context.packageName}.smsprovider"
+    }
+    
+    fun isDefaultSmsHandler(): Boolean {
+        return checkIsDefaultSms()
     }
 }
 

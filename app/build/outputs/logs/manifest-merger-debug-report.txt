@@ -1,35 +1,37 @@
 -- Merging decision tree log ---
 provider#com.smsclassifier.app.provider.SmsProvider
-INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:100:9-106:70
+INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:102:9-109:70
 	android:readPermission
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:105:13-65
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:108:13-65
 	android:grantUriPermissions
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:104:13-47
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:106:13-47
 	android:authorities
 		INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:102:13-63
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:104:13-63
+	android:multiprocess
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:107:13-41
 	android:exported
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:103:13-37
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:105:13-36
 	android:writePermission
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:106:13-67
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:109:13-67
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:101:13-49
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:103:13-49
 provider#androidx.core.content.FileProvider
-INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:108:9-116:20
+INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:124:9-132:20
 	android:grantUriPermissions
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:112:13-47
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:128:13-47
 	android:authorities
 		INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:110:13-64
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:126:13-64
 	android:exported
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:111:13-37
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:127:13-37
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:109:13-62
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:125:13-62
 manifest
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:2:1-119:12
-INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:2:1-119:12
-INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:2:1-119:12
-INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:2:1-119:12
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:2:1-135:12
+INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:2:1-135:12
+INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:2:1-135:12
+INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:2:1-135:12
 MERGED from [androidx.work:work-runtime-ktx:2.9.0] C:\Users\gandh\.gradle\caches\transforms-3\65c8e564f2c933a22136b71e7c4bcabf\transformed\work-runtime-ktx-2.9.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\gandh\.gradle\caches\transforms-3\c47e0c13ee716fd52140749394d75758\transformed\work-runtime-2.9.0\AndroidManifest.xml:17:1-145:12
 MERGED from [androidx.navigation:navigation-common:2.7.5] C:\Users\gandh\.gradle\caches\transforms-3\38f4400a924b7ff20acc8471b530a55f\transformed\navigation-common-2.7.5\AndroidManifest.xml:17:1-22:12
@@ -132,27 +134,30 @@ uses-permission#android.permission.RECEIVE_MMS
 ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:11:5-70
 	android:name
 		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:11:22-67
-uses-permission#android.permission.READ_PHONE_STATE
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:12:5-75
-	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:12:22-72
 uses-permission#android.permission.INTERNET
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:13:5-67
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:12:5-67
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:13:22-64
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:12:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:14:5-79
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:13:5-79
 MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\gandh\.gradle\caches\transforms-3\c47e0c13ee716fd52140749394d75758\transformed\work-runtime-2.9.0\AndroidManifest.xml:24:5-79
 MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\gandh\.gradle\caches\transforms-3\c47e0c13ee716fd52140749394d75758\transformed\work-runtime-2.9.0\AndroidManifest.xml:24:5-79
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:14:22-76
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:13:22-76
 uses-permission#android.permission.SEND_RESPOND_VIA_MESSAGE
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:15:5-83
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:14:5-83
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:15:22-80
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:14:22-80
+uses-permission#android.permission.READ_CONTACTS
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:15:5-72
+	android:name
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:15:22-69
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:17:5-77
+	android:name
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:17:22-74
 application
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:17:5-117:19
-INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:17:5-117:19
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:19:5-133:19
 MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\gandh\.gradle\caches\transforms-3\c47e0c13ee716fd52140749394d75758\transformed\work-runtime-2.9.0\AndroidManifest.xml:28:5-143:19
 MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\gandh\.gradle\caches\transforms-3\c47e0c13ee716fd52140749394d75758\transformed\work-runtime-2.9.0\AndroidManifest.xml:28:5-143:19
 MERGED from [androidx.room:room-runtime:2.6.1] C:\Users\gandh\.gradle\caches\transforms-3\d50db40c5043a56e2b1350cf7d7fc2cd\transformed\room-runtime-2.6.1\AndroidManifest.xml:23:5-29:19
@@ -174,129 +179,145 @@ MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\gandh\.g
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\gandh\.gradle\caches\transforms-3\500ce6c9167b33bfdb75c7bbfbbaf219\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\gandh\.gradle\caches\transforms-3\500ce6c9167b33bfdb75c7bbfbbaf219\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
 	android:extractNativeLibs
-		INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml
-	android:roundIcon
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:24:9-54
-	android:icon
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:22:9-43
-	android:networkSecurityConfig
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:27:9-69
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:23:9-41
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] C:\Users\gandh\.gradle\caches\transforms-3\1ccdb97a636ac16558a16a91e70f8484\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:25:9-35
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:28:9-35
 	android:label
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:23:9-41
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:26:9-41
 	android:fullBackupContent
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:21:9-54
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:24:9-54
+	android:roundIcon
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:27:9-54
 	tools:targetApi
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:29:9-29
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:31:9-29
+	android:icon
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:25:9-43
 	android:allowBackup
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:19:9-35
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:21:9-35
 	android:theme
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:28:9-51
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:30:9-51
+	android:networkSecurityConfig
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:29:9-69
 	android:dataExtractionRules
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:20:9-65
-	android:usesCleartextTraffic
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:26:9-44
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:22:9-65
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:18:9-49
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:20:9-49
 activity#com.smsclassifier.app.MainActivity
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:31:9-59:20
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:33:9-61:20
 	android:exported
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:33:13-36
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:35:13-36
 	android:theme
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:34:13-55
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:36:13-55
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:32:13-41
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:34:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:35:13-38:29
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:37:13-40:29
 action#android.intent.action.MAIN
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:36:17-69
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:38:17-69
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:36:25-66
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:38:25-66
 category#android.intent.category.LAUNCHER
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:37:17-77
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:39:17-77
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:37:27-74
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:39:27-74
 intent-filter#action:name:android.intent.action.SENDTO+category:name:android.intent.category.DEFAULT+data:scheme:sms
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:39:13-43:29
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:41:13-45:29
 action#android.intent.action.SENDTO
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:40:17-71
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:42:17-71
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:40:25-68
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:42:25-68
 category#android.intent.category.DEFAULT
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:41:17-76
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:43:17-76
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:41:27-73
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:43:27-73
 data
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:42:17-46
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:44:17-46
 	android:scheme
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:42:23-43
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:44:23-43
 	android:mimeType
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:77:23-73
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:79:23-73
 intent-filter#action:name:android.intent.action.SENDTO+category:name:android.intent.category.DEFAULT+data:scheme:smsto
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:44:13-48:29
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:46:13-50:29
 intent-filter#action:name:android.intent.action.SENDTO+category:name:android.intent.category.DEFAULT+data:scheme:mms
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:49:13-53:29
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:51:13-55:29
 intent-filter#action:name:android.intent.action.SENDTO+category:name:android.intent.category.DEFAULT+data:scheme:mmsto
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:54:13-58:29
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:56:13-60:29
 receiver#com.smsclassifier.app.receiver.SmsDeliverReceiver
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:62:9-69:20
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:64:9-71:20
 	android:exported
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:64:13-36
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:66:13-36
 	android:permission
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:65:13-66
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:67:13-66
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:63:13-56
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:65:13-56
 intent-filter#action:name:android.provider.Telephony.SMS_DELIVER
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:66:13-68:29
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:68:13-70:29
 action#android.provider.Telephony.SMS_DELIVER
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:67:17-81
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:69:17-81
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:67:25-78
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:69:25-78
 receiver#com.smsclassifier.app.receiver.WapPushReceiver
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:71:9-79:20
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:73:9-81:20
 	android:exported
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:73:13-36
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:75:13-36
 	android:permission
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:74:13-71
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:76:13-71
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:72:13-53
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:74:13-53
 intent-filter#action:name:android.provider.Telephony.WAP_PUSH_DELIVER+data:mimeType:application/vnd.wap.mms-message
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:75:13-78:29
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:77:13-80:29
 action#android.provider.Telephony.WAP_PUSH_DELIVER
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:76:17-86
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:78:17-86
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:76:25-83
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:78:25-83
 service#com.smsclassifier.app.service.SmsSendService
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:81:9-93:19
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:83:9-95:19
 	android:exported
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:83:13-36
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:85:13-36
 	android:permission
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:84:13-77
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:86:13-77
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:82:13-51
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:84:13-51
 intent-filter#action:name:android.intent.action.RESPOND_VIA_MESSAGE+category:name:android.intent.category.DEFAULT+data:scheme:mms+data:scheme:mmsto+data:scheme:sms+data:scheme:smsto
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:85:13-92:29
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:87:13-94:29
 action#android.intent.action.RESPOND_VIA_MESSAGE
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:86:17-84
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:88:17-84
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:86:25-81
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:88:25-81
 service#com.smsclassifier.app.service.MmsSendService
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:95:9-98:80
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:97:9-100:80
 	android:exported
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:97:13-36
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:99:13-36
 	android:permission
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:98:13-77
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:100:13-77
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:96:13-51
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:98:13-51
+receiver#com.smsclassifier.app.service.SmsSentReceiver
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:112:9-114:40
+	android:exported
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:114:13-37
+	android:name
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:113:13-52
+receiver#com.smsclassifier.app.service.SmsDeliveredReceiver
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:116:9-118:40
+	android:exported
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:118:13-37
+	android:name
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:117:13-57
+receiver#com.smsclassifier.app.util.QuickReplyReceiver
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:120:9-122:40
+	android:exported
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:122:13-37
+	android:name
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:121:13-52
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:113:13-115:54
+ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:129:13-131:54
 	android:resource
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:115:17-51
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:131:17-51
 	android:name
-		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:114:17-67
+		ADDED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml:130:17-67
 uses-sdk
 INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\Projects\SMS datasets and project\android_sms_classifier\app\src\main\AndroidManifest.xml

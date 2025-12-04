@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
@@ -42,6 +43,7 @@ fun DetailScreen(
 
     var showReportDialog by remember { mutableStateOf(false) }
     var reportNote by remember { mutableStateOf("") }
+    var reportType by remember { mutableStateOf<String?>(null) }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -100,7 +102,7 @@ fun DetailScreen(
                 // Classification badges
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     ClassificationBadge(type = ClassificationUtils.riskBadgeType(msg))
                     SensitivityBadge(type = ClassificationUtils.sensitivityType(msg))
@@ -172,26 +174,89 @@ fun DetailScreen(
 
     if (showReportDialog) {
         AlertDialog(
-            onDismissRequest = { showReportDialog = false },
-            title = { Text("Report classification") },
+            onDismissRequest = { 
+                showReportDialog = false
+                reportNote = ""
+                reportType = null
+            },
+            title = { Text("Report Classification Issue") },
             text = {
-                OutlinedTextField(
-                    value = reportNote,
-                    onValueChange = { reportNote = it },
-                    label = { Text("Optional note for developer") },
-                    modifier = Modifier.fillMaxWidth()
-                )
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Text(
+                        text = "What's wrong with the classification?",
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                    
+                    // Report type options
+                    val reportTypes = listOf(
+                        "Should be OTP" to "This message should be classified as OTP",
+                        "Should not be OTP" to "This message should NOT be classified as OTP",
+                        "Wrong OTP intent" to "The OTP intent category is incorrect",
+                        "Should be phishing" to "This message should be flagged as phishing",
+                        "Should not be phishing" to "This message should NOT be flagged as phishing"
+                    )
+                    
+                    reportTypes.forEach { (type, description) ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = reportType == type,
+                                onClick = { 
+                                    reportType = type
+                                    // Pre-fill note based on type
+                                    reportNote = description
+                                }
+                            )
+                            Text(
+                                text = type,
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    }
+                    
+                    Spacer(modifier = Modifier.height(8.dp))
+                    
+                    OutlinedTextField(
+                        value = reportNote,
+                        onValueChange = { reportNote = it },
+                        label = { Text("Additional details (optional)") },
+                        placeholder = { Text("Provide more context if needed...") },
+                        modifier = Modifier.fillMaxWidth(),
+                        minLines = 2,
+                        maxLines = 4
+                    )
+                }
             },
             confirmButton = {
-                TextButton(onClick = {
-                    viewModel.reportAsWrong(reportNote)
-                    showReportDialog = false
-                }) {
+                TextButton(
+                    onClick = {
+                        val finalNote = if (reportType != null) {
+                            "$reportType. $reportNote".trim()
+                        } else {
+                            reportNote
+                        }
+                        viewModel.reportAsWrong(finalNote)
+                        showReportDialog = false
+                        reportNote = ""
+                        reportType = null
+                    },
+                    enabled = reportType != null || reportNote.isNotBlank()
+                ) {
                     Text("Submit")
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showReportDialog = false }) {
+                TextButton(onClick = { 
+                    showReportDialog = false
+                    reportNote = ""
+                    reportType = null
+                }) {
                     Text("Cancel")
                 }
             }

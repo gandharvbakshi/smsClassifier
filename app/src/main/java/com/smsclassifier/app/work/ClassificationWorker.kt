@@ -1,8 +1,8 @@
 package com.smsclassifier.app.work
 
 import android.content.Context
-import android.util.Log
 import androidx.work.Constraints
+import com.smsclassifier.app.util.AppLog
 import androidx.work.CoroutineWorker
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
@@ -23,30 +23,30 @@ class ClassificationWorker(
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        Log.d(TAG, "doWork() started")
+        AppLog.d(TAG, "doWork() started")
         try {
             val database = AppDatabase.getDatabase(applicationContext)
-            Log.d(TAG, "Database initialized")
+            AppLog.d(TAG, "Database initialized")
             
             val classifier: Classifier = ServerClassifier()
-            Log.d(TAG, "ServerClassifier initialized with baseUrl=${com.smsclassifier.app.BuildConfig.SERVER_API_BASE_URL}")
+            AppLog.d(TAG, "ServerClassifier initialized")
 
             val featureExtractor = FeatureExtractor(applicationContext)
             val unclassifiedMessages = database.messageDao().getUnclassified(limit = 10)
-            Log.d(TAG, "Found ${unclassifiedMessages.size} unclassified messages")
+            AppLog.d(TAG, "Found ${unclassifiedMessages.size} unclassified messages")
 
             if (unclassifiedMessages.isEmpty()) {
-                Log.d(TAG, "No unclassified messages")
+                AppLog.d(TAG, "No unclassified messages")
                 return@withContext Result.success()
             }
 
-            Log.d(TAG, "Classifying ${unclassifiedMessages.size} messages")
+            AppLog.d(TAG, "Classifying ${unclassifiedMessages.size} messages")
 
             unclassifiedMessages.forEach { message ->
                 try {
                     val features = featureExtractor.extractFeatures(message.body, message.sender)
                     val prediction = classifier.predict(features)
-                    Log.d(
+                    AppLog.d(
                         TAG,
                         "Message ${message.id} otp=${prediction.isOtp} phishing=${prediction.isPhishing} intent=${prediction.otpIntent}"
                     )
@@ -61,14 +61,14 @@ class ClassificationWorker(
 
                     database.messageDao().update(updatedMessage)
                 } catch (e: Exception) {
-                    Log.e(TAG, "Failed to classify message ${message.id}", e)
+                    AppLog.e(TAG, "Failed to classify message ${message.id}", e)
                 }
             }
 
-            Log.d(TAG, "Classification completed successfully")
+            AppLog.d(TAG, "Classification completed successfully")
             Result.success()
         } catch (e: Exception) {
-            Log.e(TAG, "Classification failed", e)
+            AppLog.e(TAG, "Classification failed", e)
             Result.retry()
         }
     }
@@ -78,7 +78,7 @@ class ClassificationWorker(
         private const val WORK_NAME = "classify_sms"
 
         fun enqueue(context: Context) {
-            Log.d(TAG, "Enqueuing classification work")
+            AppLog.d(TAG, "Enqueuing classification work")
             
             // Temporarily use NOT_REQUIRED to test if network constraint is blocking
             // Will change back to CONNECTED once we confirm worker runs
@@ -96,7 +96,7 @@ class ClassificationWorker(
                 ExistingWorkPolicy.REPLACE,
                 request
             )
-            Log.d(TAG, "Work enqueued successfully with id=${request.id}")
+            AppLog.d(TAG, "Work enqueued successfully with id=${request.id}")
         }
     }
 }

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Icon Template - SMS Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f0f0f0;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .icon-preview {
+            width: 512px;
+            height: 512px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .icon-content {
+            color: white;
+            font-size: 200px;
+            font-weight: bold;
+        }
+        .instructions {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .instructions h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .download-btn {
+            background: #667eea;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .download-btn:hover {
+            background: #5568d3;
+        }
+        .size-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SMS Classifier - App Icon Template</h1>
+        <p>Use this as a reference for your 512x512 app icon</p>
+        
+        <div class="icon-preview">
+            <div class="icon-content">📱</div>
+        </div>
+        
+        <div class="size-info">
+            <strong>Size:</strong> 512 x 512 pixels<br>
+            <strong>Format:</strong> PNG or JPEG<br>
+            <strong>Max Size:</strong> 1 MB
+        </div>
+        
+        <div class="instructions">
+            <h2>Design Suggestions:</h2>
+            <ul>
+                <li>Use an SMS/message icon or shield icon to represent security</li>
+                <li>Use colors that represent trust and security (blue, green)</li>
+                <li>Avoid text - it won't be readable at small sizes</li>
+                <li>Keep design simple and recognizable</li>
+                <li>Test how it looks at 48x48px (smallest display size)</li>
+            </ul>
+            
+            <h2>How to Create:</h2>
+            <ol>
+                <li>Open your design tool (Canva, Figma, Photoshop, etc.)</li>
+                <li>Create a new 512x512px canvas</li>
+                <li>Design your icon with the suggestions above</li>
+                <li>Export as PNG (preferred) or JPEG</li>
+                <li>Ensure file size is under 1 MB</li>
+                <li>Test at different sizes to ensure readability</li>
+            </ol>
+            
+            <h2>Icon Ideas:</h2>
+            <ul>
+                <li>📱 SMS bubble with a checkmark/shield</li>
+                <li>🔒 Lock with SMS symbol</li>
+                <li>📬 Mailbox with security badge</li>
+                <li>🛡️ Shield with message icon</li>
+            </ul>
+        </div>
+        
+        <button class="download-btn" onclick="downloadTemplate()">Download Template (Instructions)</button>
+    </div>
+    
+    <script>
+        function downloadTemplate() {
+            // Create a simple text file with instructions
+            const content = `SMS Classifier - App Icon Template
+Size: 512x512 pixels
+Format: PNG or JPEG
+Max Size: 1 MB
+
+Design Tips:
+- Use simple, recognizable imagery
+- Avoid text (won't be readable at small sizes)
+- Use high contrast colors
+- Test at 48x48px
+- Consider SMS/shield icon for security theme
+
+Tools:
+- Canva: https://www.canva.com
+- Figma: https://www.figma.com
+- GIMP: https://www.gimp.org`;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'app-icon-instructions.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
+

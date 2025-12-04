@@ -1,0 +1,17 @@
+# Keystore files - NEVER commit these!
+keystore.properties
+*.jks
+*.keystore
+release-keystore.jks
+test-keystore.jks
+upload-keystore.jks
+
+# Build files
+build/
+.gradle/
+*.iml
+.idea/
+
+# Local configuration
+local.properties
+

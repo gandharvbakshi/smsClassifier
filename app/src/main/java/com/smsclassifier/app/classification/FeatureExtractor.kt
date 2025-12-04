@@ -1,7 +1,7 @@
 package com.smsclassifier.app.classification
 
 import android.content.Context
-import android.util.Log
+import com.smsclassifier.app.util.AppLog
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.util.regex.Pattern
@@ -26,9 +26,9 @@ class FeatureExtractor(private val context: Context) {
             val json = context.assets.open("feature_map.json").bufferedReader().use { it.readText() }
             val featureVocab = Json.decodeFromString<FeatureVocab>(json)
             vocab = featureVocab.vocab
-            Log.d("FeatureExtractor", "Loaded vocab with ${vocab?.size} terms")
+            AppLog.d("FeatureExtractor", "Loaded vocab with ${vocab?.size} terms")
         } catch (e: Exception) {
-            Log.e("FeatureExtractor", "Failed to load vocab", e)
+            AppLog.e("FeatureExtractor", "Failed to load vocab", e)
         }
     }
 

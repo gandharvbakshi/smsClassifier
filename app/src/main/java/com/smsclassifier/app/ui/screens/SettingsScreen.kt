@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.app.NotificationManagerCompat
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -30,6 +32,11 @@ fun SettingsScreen(
     val activity = remember(context) { context.findActivity() }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+    
+    // Notification settings state
+    var notificationSoundEnabled by remember { mutableStateOf(viewModel.notificationSoundEnabled) }
+    var notificationVibrationEnabled by remember { mutableStateOf(viewModel.notificationVibrationEnabled) }
+    val areNotificationsEnabled = remember { NotificationManagerCompat.from(context).areNotificationsEnabled() }
 
     LaunchedEffect(Unit) {
         viewModel.refreshDefaultSmsStatus()
@@ -104,6 +111,156 @@ fun SettingsScreen(
                 ) {
                     Text("Set as default SMS app")
                 }
+            }
+        }
+        
+        // Notification Settings
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Text(
+                    text = "Notifications",
+                    style = MaterialTheme.typography.titleMedium
+                )
+                
+                // Notification enabled status
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Notifications enabled",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = if (areNotificationsEnabled) "Enabled in system settings" else "Disabled in system settings",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    if (!areNotificationsEnabled) {
+                        Button(
+                            onClick = {
+                                viewModel.openNotificationSettings()
+                            },
+                            modifier = Modifier.padding(start = 8.dp)
+                        ) {
+                            Text("Enable")
+                        }
+                    }
+                }
+                
+                Divider()
+                
+                // Notification sound
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Notification sound",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = "Play sound when receiving messages",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    Switch(
+                        checked = notificationSoundEnabled,
+                        onCheckedChange = { enabled ->
+                            notificationSoundEnabled = enabled
+                            viewModel.setNotificationSoundEnabled(enabled)
+                        }
+                    )
+                }
+                
+                // Notification vibration
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Notification vibration",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = "Vibrate when receiving messages",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    Switch(
+                        checked = notificationVibrationEnabled,
+                        onCheckedChange = { enabled ->
+                            notificationVibrationEnabled = enabled
+                            viewModel.setNotificationVibrationEnabled(enabled)
+                        }
+                    )
+                }
+                
+                Divider()
+                
+                // Open notification settings button
+                OutlinedButton(
+                    onClick = {
+                        viewModel.openNotificationSettings()
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Open notification settings")
+                }
+                
+                // Open channel settings (Android 8.0+)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    OutlinedButton(
+                        onClick = {
+                            viewModel.openNotificationChannelSettings()
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Open notification channel settings")
+                    }
+                }
+            }
+        }
+        
+        // Debug Info (for troubleshooting OTP auto-fill)
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Debug Info",
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = "Default SMS Handler: ${if (isDefaultSms) "Yes" else "No"}",
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = "Provider Authority: ${viewModel.getProviderAuthority()}",
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = "Package: ${context.packageName}",
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = "Note: OTP apps query content://sms/inbox. When this app is default SMS handler, Android should route queries to our provider.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
         

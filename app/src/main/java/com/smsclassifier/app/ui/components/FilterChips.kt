@@ -1,10 +1,13 @@
 package com.smsclassifier.app.ui.components
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
@@ -19,9 +22,19 @@ fun FilterChips(
     modifier: Modifier = Modifier,
     filterOrder: List<FilterType> = FilterType.values().toList()
 ) {
+    val scrollState = rememberScrollState()
+    
+    // Auto-scroll to selected chip if it's off-screen
+    LaunchedEffect(selectedFilter) {
+        // Note: This is a simple implementation. For more precise scrolling,
+        // you'd need to measure chip positions, which is complex in Compose.
+        // Users can manually scroll if needed.
+    }
+    
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .horizontalScroll(scrollState)
             .padding(horizontal = 8.dp, vertical = 4.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {

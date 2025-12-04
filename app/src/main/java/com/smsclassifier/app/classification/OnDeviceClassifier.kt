@@ -1,8 +1,8 @@
 package com.smsclassifier.app.classification
 
 import android.content.Context
-import android.util.Log
 import ai.onnxruntime.OnnxTensor
+import com.smsclassifier.app.util.AppLog
 import ai.onnxruntime.OnnxValue
 import ai.onnxruntime.OrtSession
 import kotlinx.coroutines.Dispatchers
@@ -33,9 +33,9 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
             intentSession = loadModel("model_intent.onnx")
             
             loadTimeMs = System.currentTimeMillis() - startTime
-            Log.d("OnDeviceClassifier", "Models loaded in ${loadTimeMs}ms")
+            AppLog.d("OnDeviceClassifier", "Models loaded in ${loadTimeMs}ms")
         } catch (e: Exception) {
-            Log.e("OnDeviceClassifier", "Failed to load models", e)
+            AppLog.e("OnDeviceClassifier", "Failed to load models", e)
         }
     }
 
@@ -52,13 +52,13 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
                 }
 
                 val session = ORT_ENVIRONMENT.createSession(tempFile.absolutePath, SESSION_OPTIONS)
-                session.inputNames.forEach { Log.d("OnDeviceClassifier", "$assetName input: $it") }
-                session.outputNames.forEach { Log.d("OnDeviceClassifier", "$assetName output: $it") }
+                session.inputNames.forEach { AppLog.d("OnDeviceClassifier", "$assetName input: $it") }
+                session.outputNames.forEach { AppLog.d("OnDeviceClassifier", "$assetName output: $it") }
                 SESSION_CACHE[assetName] = session
                 session
             }
         } catch (e: Exception) {
-            Log.e("OnDeviceClassifier", "Failed to load $assetName", e)
+            AppLog.e("OnDeviceClassifier", "Failed to load $assetName", e)
             null
         }
     }
@@ -88,7 +88,7 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
                     }
                 }
             } ?: floatArrayOf(0f, 0f)
-            Log.d("OnDeviceClassifier", "phishingScores=${phishingScores.joinToString()}")
+            AppLog.d("OnDeviceClassifier", "phishingScores=${phishingScores.joinToString()}")
             val isPhishing = phishingScores.size > 1 && phishingScores[1] > 0.5f
             val phishScore = if (phishingScores.size > 1) phishingScores[1] else 0f
             
@@ -96,25 +96,48 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
                 reasons.add("Phishing score: ${String.format("%.2f", phishScore)}")
             }
             
-            // Predict is_otp
-            val isotpScores = isotpSession?.let { session ->
-                val inputName = session.inputNames.firstOrNull() ?: return@let floatArrayOf(0f, 0f)
-                createInputTensor(combinedFeatures).use { tensor ->
-                    session.run(mapOf(inputName to tensor)).use { result ->
-                        result.firstValue().asFloatArray(floatArrayOf(0f, 0f))
-                    }
-                }
-            } ?: floatArrayOf(0f, 0f)
-            Log.d("OnDeviceClassifier", "isOtpScores=${isotpScores.joinToString()}")
-            var isOtp = isotpScores.size > 1 && isotpScores[1] > OTP_THRESHOLD
-            if (!isOtp && HEURISTIC_OTP_REGEX.containsMatchIn(input.text.lowercase()) && CODE_REGEX.containsMatchIn(input.text)) {
+            // Heuristics-first approach: Run heuristics before ML
+            val heuristicResult = HeuristicOtpClassifier.classify(input.text, input.sender)
+            AppLog.d("OnDeviceClassifier", "Heuristic result: isOtp=${heuristicResult.isOtp}, confidence=${heuristicResult.confidence}")
+            
+            var isOtp: Boolean
+            var otpIntent: String? = null
+            
+            // Use heuristics if high confidence, otherwise use ML
+            if (heuristicResult.isOtp && heuristicResult.confidence > 0.8f) {
+                // High confidence heuristic match - use it
                 isOtp = true
-                reasons.add("OTP keywords detected heuristically")
+                otpIntent = heuristicResult.suggestedIntent
+                reasons.addAll(heuristicResult.reasons)
+                reasons.add("OTP detected by heuristics (confidence: ${String.format("%.2f", heuristicResult.confidence)})")
+                AppLog.d("OnDeviceClassifier", "Using heuristic classification (high confidence)")
+            } else {
+                // Low confidence or no heuristic match - use ML
+                val isotpScores = isotpSession?.let { session ->
+                    val inputName = session.inputNames.firstOrNull() ?: return@let floatArrayOf(0f, 0f)
+                    createInputTensor(combinedFeatures).use { tensor ->
+                        session.run(mapOf(inputName to tensor)).use { result ->
+                            result.firstValue().asFloatArray(floatArrayOf(0f, 0f))
+                        }
+                    }
+                } ?: floatArrayOf(0f, 0f)
+                AppLog.d("OnDeviceClassifier", "isOtpScores=${isotpScores.joinToString()}")
+                isOtp = isotpScores.size > 1 && isotpScores[1] > OTP_THRESHOLD
+                
+                if (!isOtp && heuristicResult.confidence > 0.5f) {
+                    // ML says no but heuristics suggest yes with medium confidence - trust heuristics
+                    isOtp = true
+                    otpIntent = heuristicResult.suggestedIntent
+                    reasons.addAll(heuristicResult.reasons)
+                    reasons.add("ML negative but heuristics positive (confidence: ${String.format("%.2f", heuristicResult.confidence)})")
+                    AppLog.d("OnDeviceClassifier", "Using heuristic classification (ML disagreed)")
+                } else if (isOtp) {
+                    reasons.add("OTP detected by ML (score: ${String.format("%.2f", isotpScores[1])})")
+                }
             }
             
-            // Predict intent (only if OTP)
-            var otpIntent: String? = null
-            if (isOtp) {
+            // Predict intent (only if OTP) - use ML if heuristics didn't suggest one
+            if (isOtp && otpIntent == null) {
                 val intentScores = intentSession?.let { session ->
                     val inputName = session.inputNames.firstOrNull() ?: return@let FloatArray(9)
                     createInputTensor(combinedFeatures).use { tensor ->
@@ -123,7 +146,7 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
                         }
                     }
                 } ?: FloatArray(9)
-                Log.d("OnDeviceClassifier", "intentScores=${intentScores.joinToString()}")
+                AppLog.d("OnDeviceClassifier", "intentScores=${intentScores.joinToString()}")
                 val maxIndex = intentScores.indices.maxByOrNull { intentScores[it] } ?: 0
                 
                 // Map index to intent (you'll need to load this from metadata)
@@ -142,7 +165,7 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
                 inferenceTimeMs = inferenceTime
             )
         } catch (e: Exception) {
-            Log.e("OnDeviceClassifier", "Prediction failed", e)
+            AppLog.e("OnDeviceClassifier", "Prediction failed", e)
             Prediction(
                 isOtp = null,
                 otpIntent = null,
@@ -193,8 +216,6 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
         private val SESSION_CACHE = ConcurrentHashMap<String, OrtSession>()
 
         private const val OTP_THRESHOLD = 0.5f
-        private val HEURISTIC_OTP_REGEX = Regex("(otp|verification code|password code|your code|security code)")
-        private val CODE_REGEX = Regex("\\b\\d{4,8}\\b")
     }
 }
 

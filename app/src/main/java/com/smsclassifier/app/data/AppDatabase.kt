@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
     entities = [MessageEntity::class, FeedbackEntity::class, MisclassificationLogEntity::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -28,7 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "sms_classifier.db"
                 )
-                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .build()
                 INSTANCE = instance
                 instance
@@ -52,6 +52,39 @@ abstract class AppDatabase : RoomDatabase() {
                     )
                     """.trimIndent()
                 )
+            }
+        }
+
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                // Add new columns for SMS handler functionality
+                db.execSQL("ALTER TABLE messages ADD COLUMN threadId INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE messages ADD COLUMN type INTEGER NOT NULL DEFAULT 1")
+                db.execSQL("ALTER TABLE messages ADD COLUMN read INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE messages ADD COLUMN seen INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE messages ADD COLUMN status INTEGER")
+                db.execSQL("ALTER TABLE messages ADD COLUMN serviceCenter TEXT")
+                db.execSQL("ALTER TABLE messages ADD COLUMN dateSent INTEGER")
+                
+                // Calculate thread_id for existing messages based on sender
+                // Use a simpler approach: hash the sender string
+                val cursor = db.query("SELECT id, sender FROM messages WHERE sender IS NOT NULL AND sender != ''")
+                try {
+                    while (cursor.moveToNext()) {
+                        val id = cursor.getLong(0)
+                        val sender = cursor.getString(1)
+                        // Normalize phone number and calculate hash
+                        val normalized = sender.replace(Regex("[^0-9]"), "")
+                        val threadId = if (normalized.isNotEmpty()) {
+                            normalized.hashCode().toLong().and(0x7FFFFFFF)
+                        } else {
+                            0L
+                        }
+                        db.execSQL("UPDATE messages SET threadId = ? WHERE id = ?", arrayOf(threadId, id))
+                    }
+                } finally {
+                    cursor.close()
+                }
             }
         }
     }

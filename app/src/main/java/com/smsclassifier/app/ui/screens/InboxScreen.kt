@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.smsclassifier.app.ui.components.FilterChips
 import com.smsclassifier.app.ui.components.MessageItem
+import com.smsclassifier.app.ui.components.ConversationItem
 import com.smsclassifier.app.ui.viewmodel.FilterType
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
 
@@ -22,11 +24,14 @@ import com.smsclassifier.app.ui.viewmodel.InboxViewModel
 fun InboxScreen(
     viewModel: InboxViewModel,
     onMessageClick: (Long) -> Unit,
+    onThreadClick: (Long) -> Unit,
+    onNewMessageClick: () -> Unit,
     onOpenLogs: () -> Unit,
     onOpenSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val messages = viewModel.messages.collectAsLazyPagingItems()
+    val conversations by viewModel.conversations.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
     val filter by viewModel.filter.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
     
@@ -37,6 +42,10 @@ fun InboxScreen(
     val generalCount by viewModel.generalCount.collectAsState(initial = 0)
 
     var menuExpanded by remember { mutableStateOf(false) }
+    
+    LaunchedEffect(Unit) {
+        viewModel.loadConversations()
+    }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -68,6 +77,16 @@ fun InboxScreen(
                     }
                 }
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onNewMessageClick
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "New Message"
+                )
+            }
         }
     ) { innerPadding ->
         Column(
@@ -102,15 +121,25 @@ fun InboxScreen(
             )
 
             when {
-                messages.loadState.refresh is androidx.paging.LoadState.Loading -> {
+                isLoading && conversations.isEmpty() -> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         CircularProgressIndicator()
                     }
                 }
 
-                messages.itemCount == 0 -> {
+                conversations.isEmpty() -> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text("No messages")
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text("No conversations")
+                            Text(
+                                text = "Tap the + button to start a new message",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
                 }
 
@@ -118,22 +147,17 @@ fun InboxScreen(
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        items(messages.itemCount) { index ->
-                            messages[index]?.let { message ->
-                                MessageItem(
-                                    message = message,
-                                    onClick = { onMessageClick(message.id) },
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            }
-                        }
-
-                        if (messages.loadState.append is androidx.paging.LoadState.Loading) {
-                            item {
-                                CircularProgressIndicator(modifier = Modifier.fillMaxWidth())
-                            }
+                        items(conversations) { conversation ->
+                            ConversationItem(
+                                thread = conversation,
+                                onClick = { onThreadClick(conversation.threadId) },
+                                onLongClick = conversation.latestMessage?.let { message ->
+                                    { onMessageClick(message.id) }
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
                         }
                     }
                 }
