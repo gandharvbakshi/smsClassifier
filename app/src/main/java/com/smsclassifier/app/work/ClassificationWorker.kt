@@ -14,6 +14,7 @@ import com.smsclassifier.app.classification.FeatureExtractor
 import com.smsclassifier.app.classification.ServerClassifier
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.MessageEntity
+import com.smsclassifier.app.util.PerformanceTracker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -44,8 +45,28 @@ class ClassificationWorker(
 
             unclassifiedMessages.forEach { message ->
                 try {
+                    // Handle edge cases
+                    if (message.body.isBlank()) {
+                        AppLog.w(TAG, "Skipping empty message ${message.id}")
+                        // Mark as reviewed to avoid retrying empty messages
+                        val emptyMessage = message.copy(
+                            isOtp = false,
+                            isPhishing = false,
+                            reasonsJson = "[\"Empty message\"]",
+                            reviewed = true
+                        )
+                        database.messageDao().update(emptyMessage)
+                        return@forEach
+                    }
+                    
                     val features = featureExtractor.extractFeatures(message.body, message.sender)
                     val prediction = classifier.predict(features)
+                    
+                    // Track performance metrics
+                    if (prediction.inferenceTimeMs > 0) {
+                        PerformanceTracker.recordLatency(applicationContext, prediction.inferenceTimeMs)
+                    }
+                    
                     AppLog.d(
                         TAG,
                         "Message ${message.id} otp=${prediction.isOtp} phishing=${prediction.isPhishing} intent=${prediction.otpIntent}"
@@ -61,7 +82,16 @@ class ClassificationWorker(
 
                     database.messageDao().update(updatedMessage)
                 } catch (e: Exception) {
-                    AppLog.e(TAG, "Failed to classify message ${message.id}", e)
+                    AppLog.e(TAG, "Failed to classify message ${message.id}: ${e.message}", e)
+                    // Don't retry indefinitely - mark as needing review after failures
+                    try {
+                        val failedMessage = message.copy(
+                            reasonsJson = "[\"Classification error: ${e.message?.take(50) ?: "Unknown error"}\"]"
+                        )
+                        database.messageDao().update(failedMessage)
+                    } catch (dbError: Exception) {
+                        AppLog.e(TAG, "Failed to update message after classification error", dbError)
+                    }
                 }
             }
 

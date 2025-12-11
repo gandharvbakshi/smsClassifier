@@ -23,6 +23,8 @@ fun ConversationListScreen(
     modifier: Modifier = Modifier
 ) {
     val conversations by viewModel.conversations.collectAsState()
+    val contactNames by viewModel.contactNames.collectAsState()
+    val contactPhotos by viewModel.contactPhotos.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val isDefaultSmsHandler by viewModel.isDefaultSmsHandler.collectAsState()
     
@@ -106,8 +108,14 @@ fun ConversationListScreen(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     items(conversations) { conversation ->
+                        val displayName = contactNames[conversation.address] 
+                            ?: viewModel.getContactName(conversation.address)
+                        val photoUri = contactPhotos[conversation.address]
+                            ?: viewModel.getContactPhoto(conversation.address)
                         ConversationItem(
                             thread = conversation,
+                            displayName = displayName,
+                            contactPhotoUri = photoUri,
                             onClick = { onConversationClick(conversation.threadId) }
                         )
                     }

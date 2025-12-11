@@ -105,12 +105,33 @@ class ServerClassifier(
         AppLog.e(TAG, "All retry attempts failed", lastException)
         val inferenceTime = System.currentTimeMillis() - startTime
         
+        // Generate user-friendly error message
+        val userFriendlyError = when {
+            lastException is java.net.UnknownHostException || 
+            lastException?.cause is java.net.UnknownHostException -> 
+                "Unable to connect to classification service. Please check your internet connection."
+            lastException is java.net.SocketTimeoutException || 
+            lastException?.cause is java.net.SocketTimeoutException -> 
+                "Classification request timed out. Please try again."
+            lastException is java.net.ConnectException || 
+            lastException?.cause is java.net.ConnectException -> 
+                "Unable to reach classification service. Please check your connection and try again."
+            lastException?.message?.contains("500", ignoreCase = true) == true -> 
+                "Classification service is temporarily unavailable. Please try again later."
+            lastException?.message?.contains("503", ignoreCase = true) == true -> 
+                "Classification service is temporarily unavailable. Please try again later."
+            lastException?.message?.contains("404", ignoreCase = true) == true -> 
+                "Classification service endpoint not found. Please contact support."
+            else -> 
+                "Unable to classify message at this time. Please try again later."
+        }
+        
         Prediction(
             isOtp = null,
             otpIntent = null,
             isPhishing = null,
             phishScore = 0f,
-            reasons = listOf("Server error: ${lastException?.message}"),
+            reasons = listOf(userFriendlyError),
             inferenceTimeMs = inferenceTime
         )
     }

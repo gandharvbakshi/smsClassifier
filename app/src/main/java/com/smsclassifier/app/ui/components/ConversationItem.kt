@@ -1,5 +1,6 @@
 package com.smsclassifier.app.ui.components
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -14,9 +15,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.smsclassifier.app.data.ThreadInfo
 import com.smsclassifier.app.ui.badges.ClassificationBadge
 import com.smsclassifier.app.ui.badges.SensitivityBadge
@@ -29,12 +34,14 @@ import java.util.*
 fun ConversationItem(
     thread: ThreadInfo,
     displayName: String? = null, // Contact name if available
+    contactPhotoUri: Uri? = null, // Contact photo URI if available
     onClick: () -> Unit,
     onLongClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val nameToShow = displayName ?: thread.address
     var showMenu by remember { mutableStateOf(false) }
+    val context = LocalContext.current
     
     Card(
         onClick = onClick,
@@ -46,7 +53,7 @@ fun ConversationItem(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Avatar placeholder
+            // Avatar with photo or placeholder
             Box(
                 modifier = Modifier
                     .size(48.dp)
@@ -54,11 +61,25 @@ fun ConversationItem(
                     .background(MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = nameToShow.take(1).uppercase(),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+                contactPhotoUri?.let { uri ->
+                    AsyncImage(
+                        model = ImageRequest.Builder(context)
+                            .data(uri)
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = nameToShow,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Crop
+                    )
+                } ?: run {
+                    Text(
+                        text = nameToShow.take(1).uppercase(),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
             }
             
             Spacer(modifier = Modifier.width(16.dp))

@@ -13,6 +13,8 @@ import androidx.lifecycle.viewModelScope
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.FeedbackEntity
 import com.smsclassifier.app.data.SettingsRepository
+import com.smsclassifier.app.util.BackendHealthChecker
+import com.smsclassifier.app.util.PerformanceTracker
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,6 +30,15 @@ class SettingsViewModel(
     
     private val _isDefaultSmsApp = MutableStateFlow(checkIsDefaultSms())
     val isDefaultSmsApp: StateFlow<Boolean> = _isDefaultSmsApp.asStateFlow()
+    
+    private val _backendHealthStatus = MutableStateFlow<BackendHealthChecker.HealthStatus?>(null)
+    val backendHealthStatus: StateFlow<BackendHealthChecker.HealthStatus?> = _backendHealthStatus.asStateFlow()
+    
+    private val _isCheckingBackendHealth = MutableStateFlow(false)
+    val isCheckingBackendHealth: StateFlow<Boolean> = _isCheckingBackendHealth.asStateFlow()
+    
+    private val _performanceStats = MutableStateFlow<PerformanceTracker.PerformanceStats?>(null)
+    val performanceStats: StateFlow<PerformanceTracker.PerformanceStats?> = _performanceStats.asStateFlow()
     
     // Notification settings
     val notificationSoundEnabled: Boolean
@@ -58,6 +69,27 @@ class SettingsViewModel(
                 putExtra(android.provider.Settings.EXTRA_CHANNEL_ID, "sms_notifications")
             }
             context.startActivity(intent)
+        }
+    }
+    
+    fun contactDeveloper() {
+        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf("gandharv@musicaigeneration.com"))
+            putExtra(Intent.EXTRA_SUBJECT, "SMS Classifier App - Feedback")
+            putExtra(Intent.EXTRA_TEXT, "Hi,\n\nI'd like to share some feedback about the SMS Classifier app:\n\n")
+        }
+        try {
+            context.startActivity(Intent.createChooser(emailIntent, "Send feedback via email"))
+        } catch (e: Exception) {
+            // If no email app is available, try generic send intent
+            val genericIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_EMAIL, arrayOf("gandharv@musicaigeneration.com"))
+                putExtra(Intent.EXTRA_SUBJECT, "SMS Classifier App - Feedback")
+                putExtra(Intent.EXTRA_TEXT, "Hi,\n\nI'd like to share some feedback about the SMS Classifier app:\n\n")
+            }
+            context.startActivity(Intent.createChooser(genericIntent, "Send feedback"))
         }
     }
 
@@ -131,6 +163,38 @@ class SettingsViewModel(
     
     fun isDefaultSmsHandler(): Boolean {
         return checkIsDefaultSms()
+    }
+    
+    fun checkBackendHealth() {
+        viewModelScope.launch {
+            _isCheckingBackendHealth.value = true
+            try {
+                _backendHealthStatus.value = BackendHealthChecker.checkHealth()
+            } catch (e: Exception) {
+                _backendHealthStatus.value = BackendHealthChecker.HealthStatus(
+                    isHealthy = false,
+                    errorMessage = "Health check failed: ${e.message}"
+                )
+            } finally {
+                _isCheckingBackendHealth.value = false
+            }
+        }
+    }
+    
+    fun refreshPerformanceStats() {
+        _performanceStats.value = PerformanceTracker.getStats(context)
+    }
+    
+    fun clearPerformanceStats() {
+        PerformanceTracker.clearStats(context)
+        _performanceStats.value = PerformanceTracker.getStats(context)
+    }
+    
+    init {
+        // Check backend health on initialization
+        checkBackendHealth()
+        // Load performance stats
+        refreshPerformanceStats()
     }
 }
 

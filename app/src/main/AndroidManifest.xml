@@ -120,6 +120,10 @@
         <receiver
             android:name=".util.QuickReplyReceiver"
             android:exported="false" />
+        
+        <receiver
+            android:name=".util.MarkAsReadReceiver"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

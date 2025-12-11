@@ -9,6 +9,8 @@ import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -52,7 +54,12 @@ fun SettingsScreen(
             TopAppBar(
                 title = { Text("Settings") },
                 navigationIcon = {
-                    TextButton(onClick = onBack) { Text("Back") }
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
                 }
             )
         },
@@ -83,6 +90,204 @@ fun SettingsScreen(
                     text = "All SMS are classified through the backend ensemble.",
                     style = MaterialTheme.typography.bodySmall
                 )
+            }
+        }
+        
+        // Backend Health Status
+        val backendHealth by viewModel.backendHealthStatus.collectAsState()
+        val isCheckingHealth by viewModel.isCheckingBackendHealth.collectAsState()
+        
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Backend Status",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    if (isCheckingHealth) {
+                        CircularProgressIndicator(modifier = Modifier.size(20.dp))
+                    }
+                }
+                
+                when (val status = backendHealth) {
+                    null -> {
+                        Text(
+                            text = "Status unknown",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    else -> {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text(
+                                text = if (status.isHealthy) "✓ Healthy" else "✗ Unhealthy",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = if (status.isHealthy) 
+                                    MaterialTheme.colorScheme.primary 
+                                else 
+                                    MaterialTheme.colorScheme.error
+                            )
+                            status.responseTimeMs?.let {
+                                Text(
+                                    text = "(${it}ms)",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                        
+                        status.errorMessage?.let { error ->
+                            Text(
+                                text = error,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
+                    }
+                }
+                
+                Button(
+                    onClick = { viewModel.checkBackendHealth() },
+                    enabled = !isCheckingHealth,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Check Backend Health")
+                }
+            }
+        }
+        
+        // Performance Metrics
+        val performanceStats by viewModel.performanceStats.collectAsState()
+        
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Performance Metrics",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+                
+                when (val stats = performanceStats) {
+                    null -> {
+                        Text(
+                            text = "Loading performance stats...",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    else -> {
+                        if (stats.totalRequests > 0) {
+                            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        text = "Total Requests:",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = "${stats.totalRequests}",
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
+                                }
+                                
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        text = "Average Latency:",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = "${stats.averageLatency}ms",
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
+                                }
+                                
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        text = "Recent Average:",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = "${stats.recentAverageLatency}ms",
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
+                                }
+                                
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        text = "Min/Max:",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = "${stats.minLatency}ms / ${stats.maxLatency}ms",
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
+                                }
+                            }
+                        } else {
+                            Text(
+                                text = "No performance data yet",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+                
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = { viewModel.refreshPerformanceStats() },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text("Refresh")
+                    }
+                    if (performanceStats?.totalRequests ?: 0 > 0) {
+                        OutlinedButton(
+                            onClick = {
+                                viewModel.clearPerformanceStats()
+                                viewModel.refreshPerformanceStats()
+                            },
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text("Clear")
+                        }
+                    }
+                }
             }
         }
 
@@ -261,6 +466,30 @@ fun SettingsScreen(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+            }
+        }
+        
+        // Contact Developer / Feedback
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Feedback & Support",
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = "Have a question, suggestion, or found a bug? We'd love to hear from you!",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Button(
+                    onClick = { viewModel.contactDeveloper() },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Contact Developer")
+                }
             }
         }
         

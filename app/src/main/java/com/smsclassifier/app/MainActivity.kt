@@ -53,6 +53,9 @@ class MainActivity : ComponentActivity() {
         database = AppDatabase.getDatabase(this)
         handleIntent(intent)
         
+        // Request SMS permissions first (needed before default SMS handler)
+        requestSmsPermissionsIfNeeded()
+        
         // Request notification permission for Android 13+ (API 33+)
         requestNotificationPermissionIfNeeded()
         
@@ -183,7 +186,7 @@ class MainActivity : ComponentActivity() {
                         ) { backStackEntry ->
                             val messageId = backStackEntry.arguments?.getLong("messageId") ?: 0L
                             val viewModel: DetailViewModel = viewModel(
-                                factory = DetailViewModelFactory(database)
+                                factory = DetailViewModelFactory(database, this@MainActivity)
                             )
                             DetailScreen(
                                 messageId = messageId,
@@ -235,13 +238,24 @@ class MainActivity : ComponentActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_NOTIFICATION_PERMISSION) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted - notification channel already created in onCreate
-                com.smsclassifier.app.util.AppLog.d("MainActivity", "Notification permission granted")
-            } else {
-                // Permission denied - user won't receive notifications
-                com.smsclassifier.app.util.AppLog.w("MainActivity", "Notification permission denied")
+        when (requestCode) {
+            REQUEST_NOTIFICATION_PERMISSION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted - notification channel already created in onCreate
+                    com.smsclassifier.app.util.AppLog.d("MainActivity", "Notification permission granted")
+                } else {
+                    // Permission denied - user won't receive notifications
+                    com.smsclassifier.app.util.AppLog.w("MainActivity", "Notification permission denied")
+                }
+            }
+            REQUEST_SMS_PERMISSIONS -> {
+                val allGranted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+                if (allGranted) {
+                    com.smsclassifier.app.util.AppLog.d("MainActivity", "SMS permissions granted")
+                } else {
+                    com.smsclassifier.app.util.AppLog.w("MainActivity", "SMS permissions denied")
+                    // Show rationale or link to settings
+                }
             }
         }
     }
@@ -310,6 +324,57 @@ class MainActivity : ComponentActivity() {
         }
     }
     
+    private fun requestSmsPermissionsIfNeeded() {
+        // Check if we already have SMS permissions
+        val hasReadSms = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_SMS
+        ) == PackageManager.PERMISSION_GRANTED
+        
+        val hasReceiveSms = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.RECEIVE_SMS
+        ) == PackageManager.PERMISSION_GRANTED
+        
+        if (hasReadSms && hasReceiveSms) {
+            com.smsclassifier.app.util.AppLog.d("MainActivity", "SMS permissions already granted")
+            return
+        }
+        
+        // Request permissions if not granted
+        val permissionsToRequest = mutableListOf<String>()
+        if (!hasReadSms) {
+            permissionsToRequest.add(Manifest.permission.READ_SMS)
+        }
+        if (!hasReceiveSms) {
+            permissionsToRequest.add(Manifest.permission.RECEIVE_SMS)
+        }
+        
+        if (permissionsToRequest.isNotEmpty()) {
+            // Check if we should show rationale
+            val shouldShowRationale = permissionsToRequest.any { permission ->
+                ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
+            }
+            
+            if (shouldShowRationale) {
+                // Show rationale dialog or snackbar explaining why permissions are needed
+                // For now, just request directly
+                ActivityCompat.requestPermissions(
+                    this,
+                    permissionsToRequest.toTypedArray(),
+                    REQUEST_SMS_PERMISSIONS
+                )
+            } else {
+                // Request permissions directly
+                ActivityCompat.requestPermissions(
+                    this,
+                    permissionsToRequest.toTypedArray(),
+                    REQUEST_SMS_PERMISSIONS
+                )
+            }
+        }
+    }
+    
     private fun promptForDefaultSmsIfNeeded() {
         // Check if already default SMS handler
         val isDefault = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -341,6 +406,7 @@ class MainActivity : ComponentActivity() {
     companion object {
         private const val REQUEST_DEFAULT_SMS = 1001
         private const val REQUEST_NOTIFICATION_PERMISSION = 1002
+        private const val REQUEST_SMS_PERMISSIONS = 1003
     }
 }
 
@@ -356,12 +422,14 @@ class InboxViewModelFactory(private val database: AppDatabase) :
     }
 }
 
-class DetailViewModelFactory(private val database: AppDatabase) :
-    ViewModelProvider.Factory {
+class DetailViewModelFactory(
+    private val database: AppDatabase,
+    private val context: Context? = null
+) : ViewModelProvider.Factory {
     override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return DetailViewModel(database) as T
+            return DetailViewModel(database, context) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
