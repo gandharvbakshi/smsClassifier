@@ -12,11 +12,17 @@ object ThreadUtils {
         // Normalize phone number: remove all non-digit characters
         val normalized = phoneNumber.replace(Regex("[^0-9]"), "")
         
-        if (normalized.isEmpty()) return 0
-        
-        // Use Android's standard thread ID calculation
-        // Hash the normalized number and ensure positive value
-        val hash = normalized.hashCode().toLong()
+        // If there are no digits (alphanumeric sender IDs), fall back to sender text
+        val key = if (normalized.isNotEmpty()) {
+            normalized
+        } else {
+            phoneNumber.trim().uppercase()
+        }
+
+        if (key.isEmpty()) return 0
+
+        // Use a stable hash and ensure positive value
+        val hash = key.hashCode().toLong()
         return hash.and(0x7FFFFFFF) // Ensure positive value
     }
     

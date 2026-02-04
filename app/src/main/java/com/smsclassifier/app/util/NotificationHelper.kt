@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.smsclassifier.app.MainActivity
 import com.smsclassifier.app.R
 import com.smsclassifier.app.data.SettingsRepository
+import com.smsclassifier.app.util.ClassificationUtils.extractOtpCode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -123,11 +124,15 @@ object NotificationHelper {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         
+        val otpCode = extractOtpCode(body)
+        val contentText = if (otpCode != null) "OTP: $otpCode" else body
+        val bigText = if (otpCode != null) "OTP: $otpCode\n$body" else body
+
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.ic_dialog_email)
             .setContentTitle(displayName)
-            .setContentText(body)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+            .setContentText(contentText)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(bigText))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
@@ -142,6 +147,22 @@ object NotificationHelper {
                 "Mark as read",
                 markReadPendingIntent
             )
+        if (otpCode != null) {
+            val copyOtpIntent = Intent(context, CopyOtpReceiver::class.java).apply {
+                putExtra(CopyOtpReceiver.EXTRA_OTP_CODE, otpCode)
+            }
+            val copyOtpPendingIntent = PendingIntent.getBroadcast(
+                context,
+                (messageId + 30000).toInt(),
+                copyOtpIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+            notificationBuilder.addAction(
+                android.R.drawable.ic_menu_save,
+                "Copy OTP",
+                copyOtpPendingIntent
+            )
+        }
         
         // Apply sound and vibration settings
         if (!soundEnabled) {
@@ -236,11 +257,15 @@ object NotificationHelper {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         
+        val otpCode = extractOtpCode(body)
+        val contentText = if (otpCode != null) "OTP: $otpCode" else body
+        val bigText = if (otpCode != null) "OTP: $otpCode\n$body" else body
+
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.ic_dialog_email)
             .setContentTitle(contactName)
-            .setContentText(body)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+            .setContentText(contentText)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(bigText))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
@@ -255,6 +280,22 @@ object NotificationHelper {
                 "Mark as read",
                 markReadPendingIntent
             )
+        if (otpCode != null) {
+            val copyOtpIntent = Intent(context, CopyOtpReceiver::class.java).apply {
+                putExtra(CopyOtpReceiver.EXTRA_OTP_CODE, otpCode)
+            }
+            val copyOtpPendingIntent = PendingIntent.getBroadcast(
+                context,
+                notificationId + 30000,
+                copyOtpIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+            notificationBuilder.addAction(
+                android.R.drawable.ic_menu_save,
+                "Copy OTP",
+                copyOtpPendingIntent
+            )
+        }
         
         if (!soundEnabled) {
             notificationBuilder.setSilent(true)

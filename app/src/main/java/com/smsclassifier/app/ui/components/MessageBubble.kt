@@ -19,6 +19,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.data.MessageEntity
+import com.smsclassifier.app.util.ClassificationUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -85,6 +86,18 @@ fun MessageBubble(
                 expanded = showMenu,
                 onDismissRequest = { showMenu = false }
             ) {
+                val otpCode = ClassificationUtils.extractOtpCode(message.body)
+                if (otpCode != null) {
+                    DropdownMenuItem(
+                        text = { Text("Copy OTP ($otpCode)") },
+                        leadingIcon = { Icon(Icons.Default.ContentCopy, null) },
+                        onClick = {
+                            clipboardManager.setText(AnnotatedString(otpCode))
+                            onCopy?.invoke()
+                            showMenu = false
+                        }
+                    )
+                }
                 DropdownMenuItem(
                     text = { Text("Copy") },
                     leadingIcon = { Icon(Icons.Default.ContentCopy, null) },
