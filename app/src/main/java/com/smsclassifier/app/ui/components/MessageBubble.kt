@@ -86,7 +86,11 @@ fun MessageBubble(
                 expanded = showMenu,
                 onDismissRequest = { showMenu = false }
             ) {
-                val otpCode = ClassificationUtils.extractOtpCode(message.body)
+                val otpCode = ClassificationUtils.extractOtpForCopy(
+                    message.body,
+                    message.sender,
+                    message.isOtp
+                )
                 if (otpCode != null) {
                     DropdownMenuItem(
                         text = { Text("Copy OTP ($otpCode)") },

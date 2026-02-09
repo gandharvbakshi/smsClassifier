@@ -11,7 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.smsclassifier.app.MainActivity
 import com.smsclassifier.app.R
 import com.smsclassifier.app.data.SettingsRepository
-import com.smsclassifier.app.util.ClassificationUtils.extractOtpCode
+import com.smsclassifier.app.util.ClassificationUtils.extractOtpForCopy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -124,7 +124,7 @@ object NotificationHelper {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         
-        val otpCode = extractOtpCode(body)
+        val otpCode = extractOtpForCopy(body, sender, null)
         val contentText = if (otpCode != null) "OTP: $otpCode" else body
         val bigText = if (otpCode != null) "OTP: $otpCode\n$body" else body
 
@@ -257,7 +257,7 @@ object NotificationHelper {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         
-        val otpCode = extractOtpCode(body)
+        val otpCode = extractOtpForCopy(body, sender, null)
         val contentText = if (otpCode != null) "OTP: $otpCode" else body
         val bigText = if (otpCode != null) "OTP: $otpCode\n$body" else body
 

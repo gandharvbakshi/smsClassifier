@@ -129,7 +129,9 @@ fun DetailScreen(
                     )
                 }
 
-                val otpCode = remember(msg.body) { ClassificationUtils.extractOtpCode(msg.body) }
+                val otpCode = remember(msg.body, msg.sender, msg.isOtp) {
+                    ClassificationUtils.extractOtpForCopy(msg.body, msg.sender, msg.isOtp)
+                }
                 if (otpCode != null) {
                     FilledTonalButton(
                         onClick = {

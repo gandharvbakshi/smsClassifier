@@ -158,9 +158,12 @@ class SmsProvider : ContentProvider() {
                 allMessages
             }
         }
+
+        val filteredMessages = applySelection(messages, selection, selectionArgs)
+        val finalMessages = applySortAndLimit(filteredMessages, sortOrder)
         
-        AppLog.d(TAG, "Query returning ${messages.size} messages")
-        return toSmsCursor(messages, projection)
+        AppLog.d(TAG, "Query returning ${finalMessages.size} messages")
+        return toSmsCursor(finalMessages, projection)
     }
 
     override fun getType(uri: Uri): String? {
@@ -257,6 +260,120 @@ class SmsProvider : ContentProvider() {
         }
         
         return cursor
+    }
+
+    private fun applySelection(
+        messages: List<MessageEntity>,
+        selection: String?,
+        selectionArgs: Array<out String>?
+    ): List<MessageEntity> {
+        if (selection.isNullOrBlank() || selectionArgs.isNullOrEmpty()) return messages
+
+        val parts = selection.split(Regex("(?i)\\s+AND\\s+"))
+        var argIndex = 0
+        var filtered = messages
+
+        parts.forEach { rawPart ->
+            val part = rawPart.trim().trim('(', ')')
+            val match = Regex("(?i)^\\s*([a-zA-Z_]+)\\s*(=|!=|>=|<=|>|<|LIKE)\\s*\\?\\s*$")
+                .find(part)
+            if (match == null) {
+                AppLog.w(TAG, "Unsupported selection clause: $part")
+                return@forEach
+            }
+
+            if (argIndex >= selectionArgs.size) return@forEach
+            val column = match.groupValues[1]
+            val op = match.groupValues[2].uppercase()
+            val value = selectionArgs[argIndex++]
+
+            filtered = filtered.filter { message ->
+                val field = when (column.lowercase()) {
+                    Telephony.Sms._ID.lowercase() -> message.id
+                    Telephony.Sms.THREAD_ID.lowercase() -> message.threadId
+                    Telephony.Sms.ADDRESS.lowercase() -> message.sender
+                    Telephony.Sms.BODY.lowercase() -> message.body
+                    Telephony.Sms.DATE.lowercase() -> message.ts
+                    Telephony.Sms.DATE_SENT.lowercase() -> message.dateSent ?: message.ts
+                    Telephony.Sms.TYPE.lowercase() -> message.type
+                    Telephony.Sms.READ.lowercase() -> if (message.read) 1 else 0
+                    Telephony.Sms.SEEN.lowercase() -> if (message.seen) 1 else 0
+                    else -> null
+                } ?: return@filter true
+
+                when (op) {
+                    "LIKE" -> when (field) {
+                        is String -> likeMatch(field, value)
+                        else -> false
+                    }
+                    "=" -> compareEq(field, value)
+                    "!=" -> !compareEq(field, value)
+                    ">" -> compareNumber(field, value) > 0
+                    ">=" -> compareNumber(field, value) >= 0
+                    "<" -> compareNumber(field, value) < 0
+                    "<=" -> compareNumber(field, value) <= 0
+                    else -> true
+                }
+            }
+        }
+
+        return filtered
+    }
+
+    private fun applySortAndLimit(messages: List<MessageEntity>, sortOrder: String?): List<MessageEntity> {
+        if (sortOrder.isNullOrBlank()) return messages
+
+        val limitMatch = Regex("(?i)\\s+LIMIT\\s+(\\d+)").find(sortOrder)
+        val limit = limitMatch?.groupValues?.getOrNull(1)?.toIntOrNull()
+        val orderPart = sortOrder.replace(Regex("(?i)\\s+LIMIT\\s+\\d+"), "").trim()
+
+        val orderMatch = Regex("(?i)^\\s*([a-zA-Z_]+)\\s*(ASC|DESC)?\\s*$").find(orderPart)
+        val column = orderMatch?.groupValues?.getOrNull(1)
+        val direction = orderMatch?.groupValues?.getOrNull(2)?.uppercase() ?: "ASC"
+
+        val sorted = when (column?.lowercase()) {
+            Telephony.Sms._ID.lowercase() -> messages.sortedBy { it.id }
+            Telephony.Sms.THREAD_ID.lowercase() -> messages.sortedBy { it.threadId }
+            Telephony.Sms.ADDRESS.lowercase() -> messages.sortedBy { it.sender }
+            Telephony.Sms.DATE.lowercase() -> messages.sortedBy { it.ts }
+            Telephony.Sms.DATE_SENT.lowercase() -> messages.sortedBy { it.dateSent ?: it.ts }
+            else -> messages
+        }.let { list ->
+            if (direction == "DESC") list.asReversed() else list
+        }
+
+        return if (limit != null) sorted.take(limit) else sorted
+    }
+
+    private fun compareEq(field: Any, value: String): Boolean {
+        return when (field) {
+            is String -> field.equals(value, ignoreCase = true)
+            is Int -> field == value.toIntOrNull()
+            is Long -> field == value.toLongOrNull()
+            else -> false
+        }
+    }
+
+    private fun compareNumber(field: Any, value: String): Int {
+        val target = value.toLongOrNull() ?: return 0
+        return when (field) {
+            is Int -> field.toLong().compareTo(target)
+            is Long -> field.compareTo(target)
+            else -> 0
+        }
+    }
+
+    private fun likeMatch(field: String, pattern: String): Boolean {
+        if (!pattern.contains('%') && !pattern.contains('_')) {
+            return field.contains(pattern, ignoreCase = true)
+        }
+        val regexPattern = Regex(
+            "^" + Regex.escape(pattern)
+                .replace("\\%".toRegex(), ".*")
+                .replace("\\_".toRegex(), ".") + "$",
+            RegexOption.IGNORE_CASE
+        )
+        return regexPattern.containsMatchIn(field)
     }
 
     private fun ContentValues.toMessageEntity(): MessageEntity {

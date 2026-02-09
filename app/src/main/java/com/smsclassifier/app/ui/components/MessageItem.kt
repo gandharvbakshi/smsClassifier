@@ -66,7 +66,11 @@ fun MessageItem(
             
             val clipboard = LocalClipboardManager.current
             val context = LocalContext.current
-            val otpCode = ClassificationUtils.extractOtpCode(message.body)
+            val otpCode = ClassificationUtils.extractOtpForCopy(
+                message.body,
+                message.sender,
+                message.isOtp
+            )
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
