@@ -117,36 +117,172 @@ class SettingsViewModel(
         }
     }
 
+    /**
+     * Quick label export — minimal columns for sharing labels.
+     */
     fun exportLabels(onExported: (Uri?) -> Unit) {
         viewModelScope.launch {
             try {
                 val messages = database.messageDao().getAllMessages()
-                
                 if (messages.isEmpty()) {
                     onExported(null)
                     return@launch
                 }
-                
                 val file = File(context.getExternalFilesDir(null), "labels_export.csv")
-                
                 file.bufferedWriter().use { writer ->
                     writer.write("id,sender,body,timestamp,is_otp,otp_intent,is_phishing,phish_score,reviewed\n")
                     messages.forEach { msg ->
-                        writer.write("${msg.id},\"${msg.sender}\",\"${msg.body.replace("\"", "\"\"")}\",${msg.ts},${msg.isOtp},${msg.otpIntent ?: ""},${msg.isPhishing},${msg.phishScore ?: ""},${msg.reviewed}\n")
+                        writer.write(
+                            buildString {
+                                append(msg.id).append(',')
+                                append(csv(msg.sender)).append(',')
+                                append(csv(msg.body)).append(',')
+                                append(msg.ts).append(',')
+                                append(msg.isOtp).append(',')
+                                append(csv(msg.otpIntent ?: "")).append(',')
+                                append(msg.isPhishing).append(',')
+                                append(msg.phishScore ?: "").append(',')
+                                append(msg.reviewed).append('\n')
+                            }
+                        )
                     }
                 }
-                
-                val uri = FileProvider.getUriForFile(
-                    context,
-                    "${context.packageName}.fileprovider",
-                    file
-                )
-                onExported(uri)
+                onExported(fileUri(file))
             } catch (e: Exception) {
                 onExported(null)
             }
         }
     }
+
+    /**
+     * Full classification export — every message with all classification metadata,
+     * the reasons JSON, plus all misclassification reports concatenated. Use this to
+     * share data with the developer for debugging classifications.
+     */
+    fun exportFullClassificationData(onExported: (Uri?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val messages = database.messageDao().getAllMessages()
+                val logs = database.misclassificationLogDao().getAll().first()
+
+                if (messages.isEmpty() && logs.isEmpty()) {
+                    onExported(null)
+                    return@launch
+                }
+
+                val timestamp = java.text.SimpleDateFormat("yyyyMMdd_HHmmss", java.util.Locale.US)
+                    .format(java.util.Date())
+                val file = File(
+                    context.getExternalFilesDir(null),
+                    "sms_classifier_export_$timestamp.csv"
+                )
+
+                file.bufferedWriter().use { writer ->
+                    writer.write(
+                        "section,id,message_id,sender,body,timestamp,thread_id,type," +
+                            "is_otp,otp_intent,is_phishing,phish_score,reasons,reviewed,user_note\n"
+                    )
+                    messages.forEach { msg ->
+                        writer.write(
+                            buildString {
+                                append("message,")
+                                append(msg.id).append(',')
+                                append(',')
+                                append(csv(msg.sender)).append(',')
+                                append(csv(msg.body)).append(',')
+                                append(msg.ts).append(',')
+                                append(msg.threadId).append(',')
+                                append(msg.type).append(',')
+                                append(msg.isOtp).append(',')
+                                append(csv(msg.otpIntent ?: "")).append(',')
+                                append(msg.isPhishing).append(',')
+                                append(msg.phishScore ?: "").append(',')
+                                append(csv(msg.reasonsJson ?: "")).append(',')
+                                append(msg.reviewed).append(',')
+                                append('\n')
+                            }
+                        )
+                    }
+                    logs.forEach { log ->
+                        writer.write(
+                            buildString {
+                                append("misclassification,")
+                                append(log.id).append(',')
+                                append(log.messageId).append(',')
+                                append(csv(log.sender)).append(',')
+                                append(csv(log.body)).append(',')
+                                append(log.createdAt).append(',')
+                                append(',')
+                                append(',')
+                                append(log.predictedIsOtp).append(',')
+                                append(csv(log.predictedOtpIntent ?: "")).append(',')
+                                append(log.predictedIsPhishing).append(',')
+                                append(',')
+                                append(',')
+                                append(',')
+                                append(csv(log.userNote ?: "")).append('\n')
+                            }
+                        )
+                    }
+                }
+
+                onExported(fileUri(file))
+            } catch (e: Exception) {
+                onExported(null)
+            }
+        }
+    }
+
+    /**
+     * Export only misclassification reports.
+     */
+    fun exportMisclassificationLogs(onExported: (Uri?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val logs = database.misclassificationLogDao().getAll().first()
+                if (logs.isEmpty()) {
+                    onExported(null)
+                    return@launch
+                }
+                val file = File(context.getExternalFilesDir(null), "misclassification_logs.csv")
+                file.bufferedWriter().use { writer ->
+                    writer.write(
+                        "id,message_id,sender,body,predicted_is_otp,predicted_otp_intent," +
+                            "predicted_is_phishing,reported_at,user_note\n"
+                    )
+                    logs.forEach { log ->
+                        writer.write(
+                            buildString {
+                                append(log.id).append(',')
+                                append(log.messageId).append(',')
+                                append(csv(log.sender)).append(',')
+                                append(csv(log.body)).append(',')
+                                append(log.predictedIsOtp).append(',')
+                                append(csv(log.predictedOtpIntent ?: "")).append(',')
+                                append(log.predictedIsPhishing).append(',')
+                                append(log.createdAt).append(',')
+                                append(csv(log.userNote ?: "")).append('\n')
+                            }
+                        )
+                    }
+                }
+                onExported(fileUri(file))
+            } catch (e: Exception) {
+                onExported(null)
+            }
+        }
+    }
+
+    private fun csv(value: String): String {
+        val escaped = value.replace("\"", "\"\"").replace("\n", " ").replace("\r", " ")
+        return "\"$escaped\""
+    }
+
+    private fun fileUri(file: File): Uri = FileProvider.getUriForFile(
+        context,
+        "${context.packageName}.fileprovider",
+        file
+    )
 
     private fun checkIsDefaultSms(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

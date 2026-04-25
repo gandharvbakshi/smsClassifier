@@ -1,18 +1,33 @@
 package com.smsclassifier.app.ui.badges
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.smsclassifier.app.ui.theme.*
+import com.smsclassifier.app.ui.theme.OTPBlue
+import com.smsclassifier.app.ui.theme.OTPBlueSoft
+import com.smsclassifier.app.ui.theme.PhishingRed
+import com.smsclassifier.app.ui.theme.PhishingRedSoft
+import com.smsclassifier.app.ui.theme.SafeGreen
+import com.smsclassifier.app.ui.theme.SafeGreenSoft
+import com.smsclassifier.app.ui.theme.SuspiciousAmber
+import com.smsclassifier.app.ui.theme.SuspiciousAmberSoft
 
-enum class BadgeType(val label: String, val color: androidx.compose.ui.graphics.Color) {
-    SAFE("Safe", SafeGreen),
-    SUSPICIOUS("Suspicious", SuspiciousAmber),
-    PHISHING("Phishing", PhishingRed),
-    OTP("OTP", OTPBlue)
+enum class BadgeType(
+    val label: String,
+    val color: Color,
+    val backgroundColor: Color
+) {
+    SAFE("Safe", SafeGreen, SafeGreenSoft),
+    SUSPICIOUS("Suspicious", SuspiciousAmber, SuspiciousAmberSoft),
+    PHISHING("Phishing", PhishingRed, PhishingRedSoft),
+    OTP("OTP", OTPBlue, OTPBlueSoft)
 }
 
 @Composable
@@ -21,17 +36,16 @@ fun ClassificationBadge(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        color = type.color.copy(alpha = 0.2f),
-        shape = MaterialTheme.shapes.small,
+        color = type.backgroundColor,
+        shape = RoundedCornerShape(50),
         modifier = modifier
     ) {
         Text(
             text = type.label,
             style = MaterialTheme.typography.labelSmall,
             color = type.color,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
         )
     }
 }
-

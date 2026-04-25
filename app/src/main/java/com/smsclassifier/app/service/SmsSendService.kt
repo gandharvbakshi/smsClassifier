@@ -3,10 +3,12 @@ package com.smsclassifier.app.service
 import android.app.PendingIntent
 import android.app.Service
 import android.content.BroadcastReceiver
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.IBinder
+import android.provider.Telephony
 import android.telephony.SmsManager
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.MessageEntity
@@ -86,11 +88,12 @@ class SmsSendService : Service() {
                     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                 )
                 
-                // Send SMS
                 smsManager.sendTextMessage(address, null, message, sentIntent, deliveredIntent)
                 AppLog.d(TAG, "Sent SMS to $address")
-                
-                // Update status to sent after sending
+
+                // Persist to system Telephony provider so other apps see the conversation
+                writeSentToSystemSmsProvider(applicationContext, address, message, timestamp)
+
                 if (messageId > 0) {
                     scope.launch {
                         try {
@@ -118,6 +121,29 @@ class SmsSendService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
+
+    private fun writeSentToSystemSmsProvider(
+        context: Context,
+        address: String,
+        body: String,
+        timestamp: Long
+    ) {
+        try {
+            val values = ContentValues().apply {
+                put(Telephony.Sms.ADDRESS, address)
+                put(Telephony.Sms.BODY, body)
+                put(Telephony.Sms.DATE, timestamp)
+                put(Telephony.Sms.DATE_SENT, timestamp)
+                put(Telephony.Sms.READ, 1)
+                put(Telephony.Sms.SEEN, 1)
+                put(Telephony.Sms.TYPE, Telephony.Sms.MESSAGE_TYPE_SENT)
+            }
+            val uri = context.contentResolver.insert(Telephony.Sms.Sent.CONTENT_URI, values)
+            AppLog.d(TAG, "Wrote sent SMS to system provider at $uri")
+        } catch (t: Throwable) {
+            AppLog.e(TAG, "Failed to write sent SMS to system provider", t)
+        }
+    }
 
     companion object {
         private const val TAG = "SmsSendService"

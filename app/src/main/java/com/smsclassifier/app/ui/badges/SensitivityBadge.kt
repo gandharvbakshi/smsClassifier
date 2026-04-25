@@ -1,6 +1,7 @@
 package com.smsclassifier.app.ui.badges
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -27,17 +28,16 @@ fun SensitivityBadge(
     if (type == SensitivityType.NONE) return
 
     Surface(
-        color = type.color.copy(alpha = 0.15f),
-        shape = MaterialTheme.shapes.small,
+        color = type.color.copy(alpha = 0.12f),
+        shape = RoundedCornerShape(50),
         modifier = modifier
     ) {
         Text(
             text = type.label,
             style = MaterialTheme.typography.labelSmall,
             color = type.color,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
         )
     }
 }
-

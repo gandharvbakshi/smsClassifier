@@ -38,14 +38,24 @@ fun ComposeScreen(
     
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            TopAppBar(
-                title = { Text("New Message") },
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        "New Message",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold
+                    )
+                },
                 navigationIcon = {
                     TextButton(onClick = onBack) {
                         Text("Cancel")
                     }
-                }
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
             )
         }
     ) { paddingValues ->

@@ -1,13 +1,13 @@
 package com.smsclassifier.app.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
@@ -23,40 +23,70 @@ fun FilterChips(
     filterOrder: List<FilterType> = FilterType.values().toList()
 ) {
     val scrollState = rememberScrollState()
-    
-    // Auto-scroll to selected chip if it's off-screen
-    LaunchedEffect(selectedFilter) {
-        // Note: This is a simple implementation. For more precise scrolling,
-        // you'd need to measure chip positions, which is complex in Compose.
-        // Users can manually scroll if needed.
-    }
-    
+
     Row(
         modifier = modifier
             .fillMaxWidth()
             .horizontalScroll(scrollState)
-            .padding(horizontal = 8.dp, vertical = 4.dp),
+            .padding(horizontal = 12.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         filterOrder.forEach { filter ->
-            val isSelected = selectedFilter == filter
-            Surface(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .clickable { onFilterSelected(filter) },
-                color = if (isSelected) MaterialTheme.colorScheme.primaryContainer 
-                       else MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
-                             else MaterialTheme.colorScheme.onSurfaceVariant
-            ) {
+            FilterPill(
+                label = filterLabel(filter),
+                count = counts[filter] ?: 0,
+                selected = selectedFilter == filter,
+                onClick = { onFilterSelected(filter) }
+            )
+        }
+    }
+}
+
+@Composable
+private fun FilterPill(
+    label: String,
+    count: Int,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    val container = if (selected) MaterialTheme.colorScheme.primary
+    else MaterialTheme.colorScheme.surfaceVariant
+    val content = if (selected) MaterialTheme.colorScheme.onPrimary
+    else MaterialTheme.colorScheme.onSurfaceVariant
+
+    Surface(
+        shape = RoundedCornerShape(50),
+        color = container,
+        contentColor = content,
+        modifier = Modifier
+            .clip(RoundedCornerShape(50))
+            .clickable(onClick = onClick)
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium
+            )
+            if (count > 0) {
                 Text(
-                    text = "${filter.name} (${counts[filter] ?: 0})",
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                    style = MaterialTheme.typography.labelMedium,
-                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                    text = count.toString(),
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
     }
 }
 
+private fun filterLabel(filter: FilterType): String = when (filter) {
+    FilterType.OTP -> "OTP"
+    FilterType.PHISHING -> "Phishing"
+    FilterType.NEEDS_REVIEW -> "Needs review"
+    FilterType.GENERAL -> "Personal"
+    FilterType.ALL -> "All"
+}
