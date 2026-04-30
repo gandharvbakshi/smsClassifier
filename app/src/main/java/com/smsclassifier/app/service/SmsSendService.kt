@@ -129,6 +129,14 @@ class SmsSendService : Service() {
         timestamp: Long
     ) {
         try {
+            val subId = runCatching {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+                    android.telephony.SubscriptionManager.getDefaultSmsSubscriptionId()
+                } else {
+                    -1
+                }
+            }.getOrDefault(-1)
+
             val values = ContentValues().apply {
                 put(Telephony.Sms.ADDRESS, address)
                 put(Telephony.Sms.BODY, body)
@@ -137,9 +145,12 @@ class SmsSendService : Service() {
                 put(Telephony.Sms.READ, 1)
                 put(Telephony.Sms.SEEN, 1)
                 put(Telephony.Sms.TYPE, Telephony.Sms.MESSAGE_TYPE_SENT)
+                if (subId != -1) put(Telephony.Sms.SUBSCRIPTION_ID, subId)
             }
-            val uri = context.contentResolver.insert(Telephony.Sms.Sent.CONTENT_URI, values)
-            AppLog.d(TAG, "Wrote sent SMS to system provider at $uri")
+            // Use the generic Sms URI so the system fills in THREAD_ID and other
+            // derived columns the same way AOSP Messaging does.
+            val uri = context.contentResolver.insert(Telephony.Sms.CONTENT_URI, values)
+            AppLog.d(TAG, "Wrote sent SMS to system provider at $uri (subId=$subId)")
         } catch (t: Throwable) {
             AppLog.e(TAG, "Failed to write sent SMS to system provider", t)
         }

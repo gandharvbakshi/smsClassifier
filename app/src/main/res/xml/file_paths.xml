@@ -2,5 +2,10 @@
 <paths>
     <files-path name="files" path="." />
     <cache-path name="cache" path="." />
+    <!-- The viewmodel writes CSV exports to context.getExternalFilesDir(null);
+         the FileProvider must declare it to be able to grant URIs for those
+         files. Without this, every export silently fails with "Failed to find
+         configured root". -->
+    <external-files-path name="external_files" path="." />
+    <external-cache-path name="external_cache" path="." />
 </paths>
-

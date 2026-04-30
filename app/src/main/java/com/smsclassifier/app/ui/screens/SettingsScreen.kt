@@ -61,6 +61,14 @@ fun SettingsScreen(
 
     LaunchedEffect(Unit) { viewModel.refreshDefaultSmsStatus() }
 
+    val exportError by viewModel.lastExportError.collectAsState()
+    LaunchedEffect(exportError) {
+        exportError?.let {
+            snackbarHostState.showSnackbar(it)
+            viewModel.consumeExportError()
+        }
+    }
+
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -176,6 +184,9 @@ fun SettingsScreen(
                     }
                 }
             )
+
+            // === Section: OTP autofill self-test ===
+            OtpSelfTestSection(viewModel)
 
             // === Section: Diagnostics ===
             DiagnosticsSection(
@@ -507,6 +518,117 @@ private fun ExportSection(
             trailing = {
                 TextButton(onClick = onExportLogs) { Text("Export") }
             }
+        )
+    }
+}
+
+@Composable
+private fun OtpSelfTestSection(viewModel: SettingsViewModel) {
+    val result by viewModel.otpSelfTest.collectAsState()
+    val running by viewModel.isRunningSelfTest.collectAsState()
+
+    SettingsSection(title = "OTP autofill self-test") {
+        SettingsRow(
+            icon = Icons.Default.BugReport,
+            title = "Verify OTP plumbing",
+            subtitle = if (result == null)
+                "Confirms that other apps (Swiggy/Amazon/etc.) can actually read SMS we receive."
+            else "Last result below — re-run after receiving an OTP.",
+            trailing = {
+                if (running) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    FilledTonalButton(onClick = { viewModel.runOtpSelfTest() }) {
+                        Text(if (result == null) "Run" else "Re-run")
+                    }
+                }
+            }
+        )
+        result?.let { r ->
+            Column(
+                modifier = Modifier.padding(start = 66.dp, end = 16.dp, bottom = 14.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                CheckLine("Default SMS app", r.isDefaultSms,
+                    okText = "Yes", failText = "No (other apps will see nothing)")
+                CheckLine("Can query system inbox", r.canQueryInbox,
+                    okText = "Yes", failText = "No — READ_SMS denied?")
+                CheckLine("Can write to system inbox", r.canInsertProbe,
+                    okText = "Probe row inserted & deleted",
+                    failText = "Insert returned null — OEM rejecting writes")
+                DiagLine(
+                    "Inbox rows: system vs ours",
+                    "${r.systemInboxCount} / ${r.ourDbCount}"
+                )
+                DiagLine(
+                    "Default SMS subscription id",
+                    if (r.defaultSmsSubId >= 0) r.defaultSmsSubId.toString() else "missing"
+                )
+                DiagLine(
+                    "Active SIM subscription ids",
+                    if (r.activeSubIds.isEmpty()) "(none reported)"
+                    else r.activeSubIds.joinToString()
+                )
+                DiagLine(
+                    "Latest inbox row has SUBSCRIPTION_ID",
+                    when (r.latestRowHasSubId) {
+                        true -> "Yes ✓"
+                        false -> "MISSING — autofill will be blocked on dual SIM"
+                        null -> "—"
+                    }
+                )
+                DiagLine(
+                    "Latest inbox row has PROTOCOL",
+                    when (r.latestRowHasProtocol) {
+                        true -> "Yes ✓"
+                        false -> "missing"
+                        null -> "—"
+                    }
+                )
+                r.latestSystemInboxTs?.let {
+                    DiagLine("Latest inbox row date", java.text.SimpleDateFormat(
+                        "MMM d, h:mm a", java.util.Locale.getDefault()
+                    ).format(java.util.Date(it)))
+                }
+                r.errorMessage?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
+                Text(
+                    text = "How to read this: if 'system inbox rows' is much smaller than 'ours', " +
+                        "or 'SUBSCRIPTION_ID missing' shows up, that's why Swiggy/Amazon don't see " +
+                        "OTPs. Receive a fresh OTP after installing v1.0.10 then re-run.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 6.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun CheckLine(label: String, passed: Boolean, okText: String, failText: String) {
+    Row(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = if (passed) okText else failText,
+            style = MaterialTheme.typography.bodySmall,
+            color = if (passed) MaterialTheme.colorScheme.primary
+            else MaterialTheme.colorScheme.error,
+            fontWeight = FontWeight.Medium
         )
     }
 }

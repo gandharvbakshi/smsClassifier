@@ -39,6 +39,143 @@ class SettingsViewModel(
     
     private val _performanceStats = MutableStateFlow<PerformanceTracker.PerformanceStats?>(null)
     val performanceStats: StateFlow<PerformanceTracker.PerformanceStats?> = _performanceStats.asStateFlow()
+
+    private val _otpSelfTest = MutableStateFlow<OtpSelfTestResult?>(null)
+    val otpSelfTest: StateFlow<OtpSelfTestResult?> = _otpSelfTest.asStateFlow()
+    private val _isRunningSelfTest = MutableStateFlow(false)
+    val isRunningSelfTest: StateFlow<Boolean> = _isRunningSelfTest.asStateFlow()
+
+    /**
+     * Snapshot of how OTP autofill plumbing looks on this device. Surfaced in
+     * Settings → Diagnostics so the user can verify what other apps actually see.
+     */
+    data class OtpSelfTestResult(
+        val isDefaultSms: Boolean,
+        val systemInboxCount: Int,
+        val ourDbCount: Int,
+        val latestSystemInboxTs: Long?,
+        val defaultSmsSubId: Int,
+        val activeSubIds: List<Int>,
+        val latestRowHasSubId: Boolean?,
+        val latestRowHasProtocol: Boolean?,
+        val canQueryInbox: Boolean,
+        val canInsertProbe: Boolean,
+        val errorMessage: String?
+    )
+
+    fun runOtpSelfTest() {
+        if (_isRunningSelfTest.value) return
+        viewModelScope.launch {
+            _isRunningSelfTest.value = true
+            try {
+                _otpSelfTest.value = performOtpSelfTest()
+            } finally {
+                _isRunningSelfTest.value = false
+            }
+        }
+    }
+
+    private suspend fun performOtpSelfTest(): OtpSelfTestResult {
+        val isDefault = checkIsDefaultSms()
+        var canQuery = false
+        var systemCount = 0
+        var latestTs: Long? = null
+        var latestHasSubId: Boolean? = null
+        var latestHasProtocol: Boolean? = null
+        var error: String? = null
+
+        try {
+            context.contentResolver.query(
+                Telephony.Sms.Inbox.CONTENT_URI,
+                arrayOf(
+                    Telephony.Sms._ID,
+                    Telephony.Sms.DATE,
+                    Telephony.Sms.SUBSCRIPTION_ID,
+                    Telephony.Sms.PROTOCOL
+                ),
+                null,
+                null,
+                "${Telephony.Sms.DATE} DESC LIMIT 1"
+            )?.use { c ->
+                canQuery = true
+                if (c.moveToFirst()) {
+                    val dateIdx = c.getColumnIndex(Telephony.Sms.DATE)
+                    val subIdx = c.getColumnIndex(Telephony.Sms.SUBSCRIPTION_ID)
+                    val protoIdx = c.getColumnIndex(Telephony.Sms.PROTOCOL)
+                    if (dateIdx >= 0) latestTs = c.getLong(dateIdx)
+                    if (subIdx >= 0) latestHasSubId = !c.isNull(subIdx) && c.getInt(subIdx) >= 0
+                    if (protoIdx >= 0) latestHasProtocol = !c.isNull(protoIdx)
+                }
+            }
+
+            // Count of all inbox rows.
+            context.contentResolver.query(
+                Telephony.Sms.Inbox.CONTENT_URI,
+                arrayOf(Telephony.Sms._ID),
+                null,
+                null,
+                null
+            )?.use { c -> systemCount = c.count }
+        } catch (t: Throwable) {
+            error = "Query failed: ${t.message}"
+        }
+
+        // Probe-write a transient row to verify writes work end-to-end, then
+        // immediately delete it. Only if we are the default SMS app — non-default
+        // apps cannot insert anyway and would leave a confusing toast.
+        var probeOk = false
+        if (isDefault) {
+            try {
+                val now = System.currentTimeMillis()
+                val v = android.content.ContentValues().apply {
+                    put(Telephony.Sms.ADDRESS, "+0000000000")
+                    put(Telephony.Sms.BODY, "[SMSClassifier self-test $now]")
+                    put(Telephony.Sms.DATE, now)
+                    put(Telephony.Sms.DATE_SENT, now)
+                    put(Telephony.Sms.READ, 1)
+                    put(Telephony.Sms.SEEN, 1)
+                    put(Telephony.Sms.TYPE, Telephony.Sms.MESSAGE_TYPE_INBOX)
+                }
+                val uri = context.contentResolver.insert(Telephony.Sms.CONTENT_URI, v)
+                if (uri != null) {
+                    probeOk = true
+                    context.contentResolver.delete(uri, null, null)
+                }
+            } catch (t: Throwable) {
+                error = (error?.plus("; ") ?: "") + "Probe write failed: ${t.message}"
+            }
+        }
+
+        val ourDbCount = try { database.messageDao().getAllMessages().size } catch (t: Throwable) { -1 }
+
+        val defaultSubId = runCatching {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
+                android.telephony.SubscriptionManager.getDefaultSmsSubscriptionId()
+            else -1
+        }.getOrDefault(-1)
+
+        val activeSubs: List<Int> = runCatching {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                val sm = context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE)
+                    as? android.telephony.SubscriptionManager
+                sm?.activeSubscriptionInfoList?.map { it.subscriptionId } ?: emptyList()
+            } else emptyList()
+        }.getOrDefault(emptyList())
+
+        return OtpSelfTestResult(
+            isDefaultSms = isDefault,
+            systemInboxCount = systemCount,
+            ourDbCount = ourDbCount,
+            latestSystemInboxTs = latestTs,
+            defaultSmsSubId = defaultSubId,
+            activeSubIds = activeSubs,
+            latestRowHasSubId = latestHasSubId,
+            latestRowHasProtocol = latestHasProtocol,
+            canQueryInbox = canQuery,
+            canInsertProbe = probeOk,
+            errorMessage = error
+        )
+    }
     
     // Notification settings
     val notificationSoundEnabled: Boolean
@@ -117,6 +254,11 @@ class SettingsViewModel(
         }
     }
 
+    /** Last-known export error message. Surfaced as a snackbar by the UI. */
+    private val _lastExportError = MutableStateFlow<String?>(null)
+    val lastExportError: StateFlow<String?> = _lastExportError.asStateFlow()
+    fun consumeExportError() { _lastExportError.value = null }
+
     /**
      * Quick label export — minimal columns for sharing labels.
      */
@@ -149,6 +291,7 @@ class SettingsViewModel(
                 }
                 onExported(fileUri(file))
             } catch (e: Exception) {
+                _lastExportError.value = "Export failed: ${e.javaClass.simpleName}: ${e.message}"
                 onExported(null)
             }
         }
@@ -228,6 +371,7 @@ class SettingsViewModel(
 
                 onExported(fileUri(file))
             } catch (e: Exception) {
+                _lastExportError.value = "Export failed: ${e.javaClass.simpleName}: ${e.message}"
                 onExported(null)
             }
         }
@@ -268,6 +412,7 @@ class SettingsViewModel(
                 }
                 onExported(fileUri(file))
             } catch (e: Exception) {
+                _lastExportError.value = "Export failed: ${e.javaClass.simpleName}: ${e.message}"
                 onExported(null)
             }
         }

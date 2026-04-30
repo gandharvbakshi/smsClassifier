@@ -6,8 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.text.Html
-import android.text.Spanned
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.smsclassifier.app.MainActivity
@@ -151,9 +150,9 @@ object NotificationHelper {
 
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(android.R.drawable.ic_dialog_email)
-            .setContentTitle(if (otpCode != null) "OTP from $displayName" else displayName)
+            .setContentTitle(if (otpCode != null) "$otpCode  •  OTP from $displayName" else displayName)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setCategory(if (otpCode != null) NotificationCompat.CATEGORY_MESSAGE else NotificationCompat.CATEGORY_MESSAGE)
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
@@ -161,24 +160,29 @@ object NotificationHelper {
             .setShowWhen(true)
 
         if (otpCode != null) {
-            // Big, bold, large OTP rendering. Android renders <big><b> in BigTextStyle text,
-            // so the code itself becomes the focal point.
-            val bigText: Spanned = Html.fromHtml(
-                "<big><big><big><b>$otpCode</b></big></big></big><br/><br/>" +
-                    "<small>${escape(body)}</small>",
-                Html.FROM_HTML_MODE_LEGACY
-            )
-            builder
-                .setContentText("Tap to copy: $otpCode")
-                .setStyle(
-                    NotificationCompat.BigTextStyle()
-                        .setBigContentTitle("OTP from $displayName")
-                        .setSummaryText("Verification code")
-                        .bigText(bigText)
-                )
-                .setTicker("OTP $otpCode from $displayName")
+            // Use a custom RemoteViews layout so the OTP code is rendered LARGE
+            // and BOLD in the actual notification on the lock screen / shade /
+            // heads-up — not just inside the inbox screen. HTML <big> tags inside
+            // BigTextStyle do not work reliably across OEM ROMs (Xiaomi, OnePlus,
+            // Samsung), so we render the layout ourselves.
+            val collapsed = RemoteViews(context.packageName, R.layout.notification_otp_collapsed)
+            collapsed.setTextViewText(R.id.notif_otp_sender, "OTP from $displayName")
+            collapsed.setTextViewText(R.id.notif_otp_code, otpCode)
 
-            // Primary "Copy OTP" action — make it the first/most-prominent action.
+            val expanded = RemoteViews(context.packageName, R.layout.notification_otp_expanded)
+            expanded.setTextViewText(R.id.notif_otp_sender, "OTP from $displayName")
+            expanded.setTextViewText(R.id.notif_otp_code, otpCode)
+            expanded.setTextViewText(R.id.notif_otp_body, body)
+
+            builder
+                .setContentText(otpCode)
+                .setTicker("OTP $otpCode from $displayName")
+                .setCustomContentView(collapsed)
+                .setCustomBigContentView(expanded)
+                // DecoratedCustomViewStyle keeps Android's standard chrome
+                // (icon, app name, time, action buttons) and only swaps the body.
+                .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+
             val copyOtpIntent = Intent(context, CopyOtpReceiver::class.java).apply {
                 putExtra(CopyOtpReceiver.EXTRA_OTP_CODE, otpCode)
             }
@@ -227,9 +231,6 @@ object NotificationHelper {
 
         NotificationManagerCompat.from(context).notify(messageId.toInt(), builder.build())
     }
-
-    private fun escape(input: String): String =
-        input.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
     private fun showSummaryNotification(context: Context, channelId: String) {
         val summaryIntent = Intent(context, MainActivity::class.java).apply {
