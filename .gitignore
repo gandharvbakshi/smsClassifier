@@ -9,6 +9,8 @@ upload-keystore.jks
 # Google Play Developer API service-account credentials - NEVER commit!
 play-publisher.json
 **/play-publisher.json
+# Key downloaded from Google Cloud (often PROJECT-ID-<suffix>.json)
+app/smsclassifier-*.json
 
 # Build files
 build/

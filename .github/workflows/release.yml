@@ -11,7 +11,7 @@ on:
       track:
         description: 'Play Store track to release to'
         required: true
-        default: 'internal'
+        default: 'beta'
         type: choice
         options:
           - internal
@@ -81,7 +81,8 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "track=${{ inputs.track }}" >> $GITHUB_OUTPUT
           else
-            echo "track=internal" >> $GITHUB_OUTPUT
+            # Open testing in Play Console = Publishing API track "beta"
+            echo "track=beta" >> $GITHUB_OUTPUT
           fi
           echo "Will release to track: $(grep '^track=' $GITHUB_OUTPUT | cut -d= -f2)"
 

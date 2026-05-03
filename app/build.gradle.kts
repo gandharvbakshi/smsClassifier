@@ -7,8 +7,10 @@ plugins {
 }
 
 // Load keystore properties for signing
-import java.util.Properties
+import java.io.File
 import java.io.FileInputStream
+import java.nio.charset.StandardCharsets
+import java.util.Properties
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
 val keystoreProperties = Properties()
@@ -184,24 +186,44 @@ dependencies {
 // to Google Play. See RELEASE_AUTOPUBLISH_SETUP.md for one-time setup.
 //
 // Defaults:
-//   - track: "internal" (safest — manual promote to production from
-//     Play Console or via `./gradlew promoteArtifact`)
+//   - track: "beta" (maps to **Open testing** in Play Console; use
+//     `--track=internal` for internal-only testers, or `production` when ready)
 //   - format: AAB (.aab), not APK
 //   - status: COMPLETED (immediate release on the chosen track)
-//   - resolutionStrategy: AUTO (auto-bump versionCode if the one in
-//     build.gradle is already taken on Play, so you don't need to remember
-//     to bump for every internal release)
+//   - resolutionStrategy: IGNORE (does not call Play during `assembleRelease`
+//     or `bundleRelease`). Bump `versionCode` in this file before each upload
+//     if Play already has that code. For auto versionCode from the store, use
+//     AUTO after enabling Android Publisher API — see RELEASE_AUTOPUBLISH_SETUP.md
 //
 // Override the track per-build: `./gradlew publishReleaseBundle --track=beta`
 // ---------------------------------------------------------------------------
 play {
-    val credsFile = rootProject.file("app/play-publisher.json")
-    if (credsFile.exists()) {
+    // Prefer app/play-publisher.json; otherwise use any JSON key in app/
+    // whose body looks like a GCP service-account (Cloud Console downloads
+    // often name it `<project>-<hex>.json` instead).
+    val appDir = layout.projectDirectory.asFile
+    val credsFile =
+        sequenceOf(File(appDir, "play-publisher.json"))
+            .plus(
+                appDir.listFiles()?.filter { f ->
+                    f.isFile && f.extension.equals("json", ignoreCase = true)
+                }.orEmpty().sorted(),
+            )
+            .firstOrNull { f ->
+                if (!f.exists()) return@firstOrNull false
+                runCatching {
+                    val txt = f.readText(StandardCharsets.UTF_8)
+                    txt.contains("\"type\"") &&
+                        txt.contains("service_account") &&
+                        txt.contains("client_email")
+                }.getOrDefault(false)
+            }
+    if (credsFile != null) {
         serviceAccountCredentials.set(credsFile)
     }
-    track.set("internal")
+    track.set("beta")
     defaultToAppBundles.set(true)
     releaseStatus.set(com.github.triplet.gradle.androidpublisher.ReleaseStatus.COMPLETED)
-    resolutionStrategy.set(com.github.triplet.gradle.androidpublisher.ResolutionStrategy.AUTO)
+    resolutionStrategy.set(com.github.triplet.gradle.androidpublisher.ResolutionStrategy.IGNORE)
 }
 
