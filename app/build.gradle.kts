@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.devtools.ksp") version "1.9.20-1.0.14"
+    id("com.github.triplet.play")
 }
 
 // Load keystore properties for signing
@@ -174,5 +175,33 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+}
+
+// ---------------------------------------------------------------------------
+// Gradle Play Publisher
+//
+// Configures `./gradlew publishReleaseBundle` to upload the signed release AAB
+// to Google Play. See RELEASE_AUTOPUBLISH_SETUP.md for one-time setup.
+//
+// Defaults:
+//   - track: "internal" (safest — manual promote to production from
+//     Play Console or via `./gradlew promoteArtifact`)
+//   - format: AAB (.aab), not APK
+//   - status: COMPLETED (immediate release on the chosen track)
+//   - resolutionStrategy: AUTO (auto-bump versionCode if the one in
+//     build.gradle is already taken on Play, so you don't need to remember
+//     to bump for every internal release)
+//
+// Override the track per-build: `./gradlew publishReleaseBundle --track=beta`
+// ---------------------------------------------------------------------------
+play {
+    val credsFile = rootProject.file("app/play-publisher.json")
+    if (credsFile.exists()) {
+        serviceAccountCredentials.set(credsFile)
+    }
+    track.set("internal")
+    defaultToAppBundles.set(true)
+    releaseStatus.set(com.github.triplet.gradle.androidpublisher.ReleaseStatus.COMPLETED)
+    resolutionStrategy.set(com.github.triplet.gradle.androidpublisher.ResolutionStrategy.AUTO)
 }
 

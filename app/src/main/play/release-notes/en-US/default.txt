@@ -1,0 +1,3 @@
+Massively reduced false-positive OTP detections for transaction notifications, refunds, balance alerts, and delivery confirmations.
+
+Notification readability fixes for OnePlus, Xiaomi, and other OEM Android skins.

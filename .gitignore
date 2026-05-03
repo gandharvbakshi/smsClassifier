@@ -6,6 +6,10 @@ release-keystore.jks
 test-keystore.jks
 upload-keystore.jks
 
+# Google Play Developer API service-account credentials - NEVER commit!
+play-publisher.json
+**/play-publisher.json
+
 # Build files
 build/
 .gradle/
