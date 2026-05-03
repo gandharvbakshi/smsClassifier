@@ -1,0 +1,28 @@
+Fix OTP notification readability + add LLM-jury accuracy audit tooling
+
+Notification UI:
+- Replace ?android:attr/textColor* with TextAppearance.Compat.Notification.*
+  styles in notification_otp_collapsed.xml and notification_otp_expanded.xml
+  so the OTP code and surrounding text render correctly on OEM ROMs (OnePlus,
+  Xiaomi, etc.) where the system color attributes don't adapt to the dark
+  notification shade.
+
+Accuracy audit tooling (analysis/):
+- jury_judge.py: LLM-as-jury runner. Sends each row of the SMS log to OpenAI,
+  Google Gemini, and DeepSeek for independent verdicts; resumable JSONL output.
+- analyze.py: aggregates jury verdicts via majority vote and computes per-axis
+  precision/recall/F1 with Wilson 95% CIs vs the app's recorded predictions.
+- revalidate_live.py: re-runs a stratified sample through the live Cloud Run
+  backend to measure current accuracy and drift vs the historical CSV.
+- test_new_heuristic.py: offline regression test that compares the rewritten
+  heuristic against jury truth on the full dataset.
+- deploy_new_revision.py / update_cloud_run_groq.py: safe-deploy helpers that
+  read GROQ_API_KEY from app/.env and pass it to gcloud via subprocess args
+  (never echoed in shell history) - fixes the prior PowerShell variable-
+  expansion bug that was failing Cloud Run deploys.
+
+Security:
+- .gitignore now excludes analysis/* by default (jury results, CSVs, and the
+  raw 'sms classifier log' all contain real SMS bodies - card numbers,
+  balances, OTPs). Only the .py scripts and requirements.txt are committed.
+- Also ignores .env / *.env globally to prevent another key leak.
