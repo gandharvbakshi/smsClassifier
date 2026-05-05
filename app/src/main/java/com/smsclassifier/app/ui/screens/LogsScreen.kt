@@ -2,6 +2,7 @@ package com.smsclassifier.app.ui.screens
 
 import android.content.Intent
 import android.net.Uri
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +22,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import com.smsclassifier.app.data.MisclassificationLogEntity
 import com.smsclassifier.app.ui.viewmodel.LogsViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -34,10 +37,25 @@ import java.util.Locale
 fun LogsScreen(
     viewModel: LogsViewModel,
     onBack: () -> Unit,
+    onNavigateToSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val logs by viewModel.logs.collectAsState()
+    val feedbackUploadEnabled by viewModel.feedbackUploadEnabled.collectAsState()
     val context = LocalContext.current
+    val activity = context as? ComponentActivity
+    DisposableEffect(activity) {
+        val obs = LifecycleEventObserver { _, e ->
+            if (e == Lifecycle.Event.ON_RESUME) {
+                viewModel.refreshFeedbackEnabledFromPrefs()
+            }
+        }
+        if (activity != null) activity.lifecycle.addObserver(obs)
+        onDispose {
+            if (activity != null) activity.lifecycle.removeObserver(obs)
+        }
+    }
+
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
@@ -84,7 +102,11 @@ fun LogsScreen(
                 .background(MaterialTheme.colorScheme.background)
         ) {
             if (logs.isEmpty()) {
-                EmptyLogsState(modifier = Modifier.align(Alignment.Center).padding(24.dp))
+                EmptyLogsState(
+                    modifier = Modifier.align(Alignment.Center).padding(24.dp),
+                    feedbackUploadEnabled = feedbackUploadEnabled,
+                    onOpenSettings = onNavigateToSettings
+                )
             } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
@@ -94,6 +116,7 @@ fun LogsScreen(
                     items(logs, key = { it.id }) { log ->
                         LogCard(
                             log = log,
+                            feedbackUploadEnabled = feedbackUploadEnabled,
                             onShare = {
                                 shareSingleLog(context, viewModel, log, snackbarHostState, coroutineScope)
                             },
@@ -107,7 +130,11 @@ fun LogsScreen(
 }
 
 @Composable
-private fun EmptyLogsState(modifier: Modifier = Modifier) {
+private fun EmptyLogsState(
+    modifier: Modifier = Modifier,
+    feedbackUploadEnabled: Boolean,
+    onOpenSettings: () -> Unit
+) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -137,12 +164,66 @@ private fun EmptyLogsState(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
+        if (!feedbackUploadEnabled) {
+            Text(
+                text = "To send reports to the developer for model improvement, turn on Settings → Feedback → Help improve classification.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            TextButton(onClick = onOpenSettings) {
+                Text("Open Settings")
+            }
+        }
+    }
+}
+
+@Composable
+private fun UploadStatusBadge(
+    log: MisclassificationLogEntity,
+    feedbackUploadEnabled: Boolean
+) {
+    val (label, container, content) =
+        when {
+            log.uploaded ->
+                Triple(
+                    "Sent",
+                    MaterialTheme.colorScheme.primaryContainer,
+                    MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            !feedbackUploadEnabled && !log.uploaded ->
+                Triple(
+                    "Local only",
+                    MaterialTheme.colorScheme.surfaceVariant,
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            log.uploadAttempts > 0 ->
+                Triple(
+                    "Will retry",
+                    MaterialTheme.colorScheme.tertiaryContainer,
+                    MaterialTheme.colorScheme.onTertiaryContainer
+                )
+            else ->
+                Triple(
+                    "Pending",
+                    MaterialTheme.colorScheme.secondaryContainer,
+                    MaterialTheme.colorScheme.onSecondaryContainer
+                )
+        }
+    Surface(color = container, shape = RoundedCornerShape(8.dp)) {
+        Text(
+            text = label,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = content
+        )
     }
 }
 
 @Composable
 private fun LogCard(
     log: MisclassificationLogEntity,
+    feedbackUploadEnabled: Boolean,
     onShare: () -> Unit,
     onDelete: () -> Unit
 ) {
@@ -158,7 +239,8 @@ private fun LogCard(
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
                     text = log.sender,
@@ -166,6 +248,7 @@ private fun LogCard(
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(1f)
                 )
+                UploadStatusBadge(log, feedbackUploadEnabled)
                 Text(
                     text = formatLogDate(log.createdAt),
                     style = MaterialTheme.typography.labelSmall,
@@ -184,6 +267,12 @@ private fun LogCard(
                     PredictionLine("Predicted OTP", log.predictedIsOtp?.toString() ?: "—")
                     PredictionLine("Predicted intent", log.predictedOtpIntent ?: "—")
                     PredictionLine("Predicted phishing", log.predictedIsPhishing?.toString() ?: "—")
+                    if (log.predictedPhishScore != null) {
+                        PredictionLine(
+                            "Phishing score",
+                            String.format("%.2f", log.predictedPhishScore)
+                        )
+                    }
                 }
             }
             log.userNote?.takeIf { it.isNotBlank() }?.let {
@@ -274,7 +363,6 @@ private fun shareSingleLog(
 }
 
 private fun startShareIntent(context: android.content.Context, uri: Uri) {
-    // Create email intent with recipient pre-filled
     val emailIntent = Intent(Intent.ACTION_SEND).apply {
         type = "text/csv"
         putExtra(Intent.EXTRA_EMAIL, arrayOf("gandharv@musicaigeneration.com"))
@@ -283,20 +371,15 @@ private fun startShareIntent(context: android.content.Context, uri: Uri) {
         putExtra(Intent.EXTRA_TEXT, "Please find attached the misclassification logs.")
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
-    
-    // Filter to show only email apps first
+
     val emailChooser = Intent.createChooser(emailIntent, "Share logs via email")
-    
-    // Create a generic share intent as fallback
+
     val genericIntent = Intent(Intent.ACTION_SEND).apply {
         type = "text/csv"
         putExtra(Intent.EXTRA_STREAM, uri)
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
-    
-    // Add fallback to chooser
+
     emailChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(genericIntent))
     context.startActivity(emailChooser)
 }
-
-

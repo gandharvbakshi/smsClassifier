@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.CloudDone
 import androidx.compose.material.icons.filled.CloudOff
+import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.FileDownload
@@ -52,6 +53,8 @@ fun SettingsScreen(
     val activity = remember(context) { context.findActivity() }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+    val feedbackUploadEnabled by viewModel.feedbackUploadEnabled.collectAsState()
+    var showFeedbackConsentDialog by remember { mutableStateOf(false) }
 
     var notificationSoundEnabled by remember { mutableStateOf(viewModel.notificationSoundEnabled) }
     var notificationVibrationEnabled by remember { mutableStateOf(viewModel.notificationVibrationEnabled) }
@@ -198,12 +201,61 @@ fun SettingsScreen(
             // === Section: Feedback ===
             SettingsSection(title = "Feedback") {
                 SettingsRow(
+                    icon = Icons.Default.CloudUpload,
+                    title = "Help improve classification",
+                    subtitle =
+                        "Send misclassification reports to the developer to improve the classifier. " +
+                            "Off by default. Includes the SMS text and sender.",
+                    trailing = {
+                        Switch(
+                            checked = feedbackUploadEnabled,
+                            onCheckedChange = { on ->
+                                if (!on) {
+                                    viewModel.setFeedbackUploadEnabled(false)
+                                } else if (!viewModel.feedbackConsentAlreadyAcknowledged()) {
+                                    showFeedbackConsentDialog = true
+                                } else {
+                                    viewModel.setFeedbackUploadEnabled(true)
+                                }
+                            }
+                        )
+                    }
+                )
+                SectionDivider()
+                SettingsRow(
                     icon = Icons.Default.Email,
                     title = "Contact developer",
                     subtitle = "Send feedback, bug reports, or feature ideas",
                     trailing = {
                         FilledTonalButton(onClick = { viewModel.contactDeveloper() }) {
                             Text("Email")
+                        }
+                    }
+                )
+            }
+
+            if (showFeedbackConsentDialog) {
+                AlertDialog(
+                    onDismissRequest = { showFeedbackConsentDialog = false },
+                    title = { Text("Share misclassification reports?") },
+                    text = {
+                        Text(
+                            "When this is on, each time you tap \"Report as wrong\" we send the SMS text, sender, predicted labels, your note, app version, and an anonymous install id over HTTPS so we can improve the classifier.\n\n" +
+                                "This is stored on our servers indefinitely for ML training unless you email us to request deletion. See our privacy policy."
+                        )
+                    },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                viewModel.markFeedbackConsentAcknowledged()
+                                viewModel.setFeedbackUploadEnabled(true)
+                                showFeedbackConsentDialog = false
+                            }
+                        ) { Text("Turn on") }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { showFeedbackConsentDialog = false }) {
+                            Text("Cancel")
                         }
                     }
                 )

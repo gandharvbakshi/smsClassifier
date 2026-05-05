@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
     entities = [MessageEntity::class, FeedbackEntity::class, MisclassificationLogEntity::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -28,7 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "sms_classifier.db"
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                     .build()
                 INSTANCE = instance
                 instance
@@ -85,6 +85,23 @@ abstract class AppDatabase : RoomDatabase() {
                 } finally {
                     cursor.close()
                 }
+            }
+        }
+
+        private val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "ALTER TABLE misclassification_logs ADD COLUMN predictedPhishScore REAL"
+                )
+                db.execSQL(
+                    "ALTER TABLE misclassification_logs ADD COLUMN uploaded INTEGER NOT NULL DEFAULT 0"
+                )
+                db.execSQL(
+                    "ALTER TABLE misclassification_logs ADD COLUMN lastUploadAttemptAt INTEGER"
+                )
+                db.execSQL(
+                    "ALTER TABLE misclassification_logs ADD COLUMN uploadAttempts INTEGER NOT NULL DEFAULT 0"
+                )
             }
         }
     }

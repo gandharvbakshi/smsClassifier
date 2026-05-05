@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Telephony
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.activity.compose.setContent
@@ -207,10 +206,11 @@ class MainActivity : ComponentActivity() {
 
                         composable("logs") {
                             val viewModel: LogsViewModel = viewModel(
-                                factory = LogsViewModelFactory(database)
+                                factory = LogsViewModelFactory(database, this@MainActivity)
                             )
                             LogsScreen(
                                 viewModel = viewModel,
+                                onNavigateToSettings = { navController.navigate("settings") },
                                 onBack = { navController.popBackStack() }
                             )
                         }
@@ -449,12 +449,13 @@ class SettingsViewModelFactory(
 }
 
 class LogsViewModelFactory(
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val context: Context
 ) : ViewModelProvider.Factory {
     override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LogsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return LogsViewModel(database) as T
+            return LogsViewModel(database, context) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

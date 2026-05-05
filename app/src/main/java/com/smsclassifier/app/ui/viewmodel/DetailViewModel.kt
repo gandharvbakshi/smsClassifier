@@ -9,7 +9,9 @@ import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.FeedbackEntity
 import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.data.MisclassificationLogEntity
+import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.work.ClassificationWorker
+import com.smsclassifier.app.work.FeedbackUploadWorker
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -53,9 +55,15 @@ class DetailViewModel(
                     predictedIsOtp = msg.isOtp,
                     predictedOtpIntent = msg.otpIntent,
                     predictedIsPhishing = msg.isPhishing,
+                    predictedPhishScore = msg.phishScore,
                     userNote = correction.ifBlank { null }
                 )
             )
+            context?.applicationContext?.let { appCtx ->
+                if (SettingsRepository(appCtx).feedbackUploadEnabled) {
+                    FeedbackUploadWorker.enqueue(appCtx)
+                }
+            }
         }
     }
     

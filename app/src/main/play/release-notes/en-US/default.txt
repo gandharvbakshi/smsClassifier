@@ -1,3 +1,1 @@
-Massively reduced false-positive OTP detections for transaction notifications, refunds, balance alerts, and delivery confirmations.
-
-Notification readability fixes for OnePlus, Xiaomi, and other OEM Android skins.
+Optional “Help improve classification”: when enabled in Settings → Feedback, misclassification reports (“Report as wrong”) can upload SMS text and sender plus predicted labels over HTTPS so we can improve the model — off by default. Privacy policy updated accordingly.

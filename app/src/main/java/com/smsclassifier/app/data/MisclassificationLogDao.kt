@@ -19,6 +19,21 @@ interface MisclassificationLogDao {
 
     @Query("DELETE FROM misclassification_logs")
     suspend fun clear()
+
+    @Query(
+        "SELECT * FROM misclassification_logs WHERE uploaded = 0 " +
+            "ORDER BY createdAt ASC LIMIT :limit"
+    )
+    suspend fun getPendingUpload(limit: Int): List<MisclassificationLogEntity>
+
+    @Query(
+        "UPDATE misclassification_logs SET uploaded = 1, lastUploadAttemptAt = :ts WHERE id = :id"
+    )
+    suspend fun markUploaded(id: Long, ts: Long)
+
+    @Query(
+        "UPDATE misclassification_logs SET uploadAttempts = uploadAttempts + 1, " +
+            "lastUploadAttemptAt = :ts WHERE id = :id"
+    )
+    suspend fun markUploadAttempt(id: Long, ts: Long)
 }
-
-

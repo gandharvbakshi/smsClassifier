@@ -15,6 +15,7 @@ import com.smsclassifier.app.data.FeedbackEntity
 import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.util.BackendHealthChecker
 import com.smsclassifier.app.util.PerformanceTracker
+import com.smsclassifier.app.work.FeedbackUploadWorker
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,6 +28,11 @@ class SettingsViewModel(
     private val database: AppDatabase
 ) : ViewModel() {
     private val settingsRepository = SettingsRepository(context)
+
+    private val _feedbackUploadEnabled =
+        MutableStateFlow(settingsRepository.feedbackUploadEnabled)
+    val feedbackUploadEnabled: StateFlow<Boolean> =
+        _feedbackUploadEnabled.asStateFlow()
     
     private val _isDefaultSmsApp = MutableStateFlow(checkIsDefaultSms())
     val isDefaultSmsApp: StateFlow<Boolean> = _isDefaultSmsApp.asStateFlow()
@@ -190,6 +196,22 @@ class SettingsViewModel(
     
     fun setNotificationVibrationEnabled(enabled: Boolean) {
         settingsRepository.notificationVibrationEnabled = enabled
+    }
+
+    fun feedbackConsentAlreadyAcknowledged(): Boolean =
+        settingsRepository.feedbackConsentAcknowledged
+
+    fun markFeedbackConsentAcknowledged() {
+        settingsRepository.feedbackConsentAcknowledged = true
+    }
+
+    /** Persists toggle; when enabling, enqueue any pending uploads. */
+    fun setFeedbackUploadEnabled(enabled: Boolean) {
+        settingsRepository.feedbackUploadEnabled = enabled
+        _feedbackUploadEnabled.value = enabled
+        if (enabled) {
+            FeedbackUploadWorker.enqueue(context.applicationContext)
+        }
     }
     
     fun openNotificationSettings() {
@@ -360,9 +382,8 @@ class SettingsViewModel(
                                 append(log.predictedIsOtp).append(',')
                                 append(csv(log.predictedOtpIntent ?: "")).append(',')
                                 append(log.predictedIsPhishing).append(',')
-                                append(',')
-                                append(',')
-                                append(',')
+                                append(log.predictedPhishScore ?: "").append(',')
+                                append(',').append(',')
                                 append(csv(log.userNote ?: "")).append('\n')
                             }
                         )
@@ -392,7 +413,8 @@ class SettingsViewModel(
                 file.bufferedWriter().use { writer ->
                     writer.write(
                         "id,message_id,sender,body,predicted_is_otp,predicted_otp_intent," +
-                            "predicted_is_phishing,reported_at,user_note\n"
+                            "predicted_is_phishing,predicted_phish_score," +
+                            "reported_at,uploaded,upload_attempts,user_note\n"
                     )
                     logs.forEach { log ->
                         writer.write(
@@ -404,7 +426,10 @@ class SettingsViewModel(
                                 append(log.predictedIsOtp).append(',')
                                 append(csv(log.predictedOtpIntent ?: "")).append(',')
                                 append(log.predictedIsPhishing).append(',')
+                                append(log.predictedPhishScore ?: "").append(',')
                                 append(log.createdAt).append(',')
+                                append(log.uploaded).append(',')
+                                append(log.uploadAttempts).append(',')
                                 append(csv(log.userNote ?: "")).append('\n')
                             }
                         )
