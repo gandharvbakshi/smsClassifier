@@ -39,6 +39,16 @@ object ClassificationUtils {
         }
     }
 
+    enum class RiskLevel { NONE, LOW, MEDIUM, HIGH }
+
+    fun riskLevelForThread(latest: MessageEntity?): RiskLevel = when {
+        latest == null -> RiskLevel.NONE
+        latest.isPhishing == true -> RiskLevel.HIGH
+        (latest.phishScore ?: 0f) >= 0.5f -> RiskLevel.MEDIUM
+        (latest.phishScore ?: 0f) >= 0.3f -> RiskLevel.LOW
+        else -> RiskLevel.NONE
+    }
+
     fun sensitivityType(message: MessageEntity): SensitivityType {
         if (!isOtpEffective(message)) return SensitivityType.NONE
         return when (message.otpIntent) {

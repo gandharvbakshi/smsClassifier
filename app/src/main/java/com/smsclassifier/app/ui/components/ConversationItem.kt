@@ -3,14 +3,31 @@ package com.smsclassifier.app.ui.components
 import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -22,6 +39,8 @@ import com.smsclassifier.app.data.ThreadInfo
 import com.smsclassifier.app.ui.badges.ClassificationBadge
 import com.smsclassifier.app.ui.badges.SensitivityBadge
 import com.smsclassifier.app.ui.badges.SensitivityType
+import com.smsclassifier.app.ui.theme.SuspiciousAmber
+import com.smsclassifier.app.ui.theme.SuspiciousAmberSoft
 import com.smsclassifier.app.ui.theme.avatarColor
 import com.smsclassifier.app.util.ClassificationUtils
 import java.text.SimpleDateFormat
@@ -39,6 +58,18 @@ fun ConversationItem(
 ) {
     val nameToShow = displayName ?: thread.address
     val isUnread = thread.unreadCount > 0
+    val risk = ClassificationUtils.riskLevelForThread(thread.latestMessage)
+    val accentColor = when (risk) {
+        ClassificationUtils.RiskLevel.HIGH -> MaterialTheme.colorScheme.error
+        ClassificationUtils.RiskLevel.MEDIUM -> SuspiciousAmber
+        ClassificationUtils.RiskLevel.LOW -> SuspiciousAmberSoft
+        ClassificationUtils.RiskLevel.NONE -> Color.Transparent
+    }
+    val ringColor = if (risk == ClassificationUtils.RiskLevel.HIGH) {
+        MaterialTheme.colorScheme.error
+    } else {
+        null
+    }
 
     Surface(
         color = MaterialTheme.colorScheme.surface,
@@ -52,13 +83,25 @@ fun ConversationItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .height(IntrinsicSize.Min)
         ) {
+            Box(
+                modifier = Modifier
+                    .width(4.dp)
+                    .fillMaxHeight()
+                    .background(accentColor)
+            )
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
             ContactAvatar(
                 name = nameToShow,
                 photoUri = contactPhotoUri,
-                size = 48.dp
+                size = 48.dp,
+                ringColor = ringColor
             )
 
             Spacer(modifier = Modifier.width(14.dp))
@@ -141,6 +184,7 @@ fun ConversationItem(
                     }
                 }
             }
+            }
         }
     }
 }
@@ -150,38 +194,57 @@ fun ContactAvatar(
     name: String,
     photoUri: Uri? = null,
     size: androidx.compose.ui.unit.Dp = 48.dp,
+    ringColor: Color? = null,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val initial = name.firstOrNull()?.uppercaseChar()?.toString() ?: "?"
     val color = avatarColor(name)
 
-    Box(
-        modifier = modifier
-            .size(size)
-            .clip(CircleShape)
-            .background(color),
-        contentAlignment = Alignment.Center
-    ) {
-        if (photoUri != null) {
-            AsyncImage(
-                model = ImageRequest.Builder(context)
-                    .data(photoUri)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = name,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
-            )
-        } else {
-            Text(
-                text = initial,
-                style = MaterialTheme.typography.titleLarge,
-                color = androidx.compose.ui.graphics.Color.White,
-                fontWeight = FontWeight.SemiBold
-            )
+    @Composable
+    fun AvatarCore() {
+        Box(
+            modifier = Modifier
+                .size(size)
+                .clip(CircleShape)
+                .background(color),
+            contentAlignment = Alignment.Center
+        ) {
+            if (photoUri != null) {
+                AsyncImage(
+                    model = ImageRequest.Builder(context)
+                        .data(photoUri)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = name,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+            } else {
+                Text(
+                    text = initial,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = Color.White,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+        }
+    }
+
+    if (ringColor != null) {
+        Box(
+            modifier = modifier
+                .border(2.dp, ringColor, CircleShape)
+                .padding(2.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            AvatarCore()
+        }
+    } else {
+        Box(modifier = modifier) {
+            AvatarCore()
         }
     }
 }

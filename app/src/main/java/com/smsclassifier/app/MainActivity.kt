@@ -9,11 +9,14 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Telephony
 import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -33,6 +36,9 @@ import com.smsclassifier.app.ui.screens.SettingsScreen
 import com.smsclassifier.app.ui.screens.ConversationListScreen
 import com.smsclassifier.app.ui.screens.ThreadScreen
 import com.smsclassifier.app.ui.screens.ComposeScreen
+import com.smsclassifier.app.ui.screens.FlaggedScreen
+import com.smsclassifier.app.ui.screens.MainBottomBar
+import com.smsclassifier.app.ui.screens.OtpInboxScreen
 import com.smsclassifier.app.ui.theme.SMSClassifierTheme
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
@@ -41,12 +47,14 @@ import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
 import com.smsclassifier.app.ui.viewmodel.ConversationListViewModel
 import com.smsclassifier.app.ui.viewmodel.ThreadViewModel
 import com.smsclassifier.app.ui.viewmodel.ComposeViewModel
+import com.smsclassifier.app.ui.viewmodel.OtpInboxViewModel
 import com.smsclassifier.app.util.NotificationHelper
 
 class MainActivity : ComponentActivity() {
     private lateinit var database: AppDatabase
     
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         
         database = AppDatabase.getDatabase(this)
@@ -70,29 +78,33 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    
+
                     // Handle intent extras for navigation
                     val composePhone = intent?.getStringExtra("compose_phone")
                     val composeMessage = intent?.getStringExtra("compose_message")
                     val openThreadId = intent?.getLongExtra("threadId", -1L)
                     val shouldOpenThread = intent?.getBooleanExtra("openThread", false) == true
-                    
+
                     LaunchedEffect(composePhone, composeMessage) {
                         if (composePhone != null || composeMessage != null) {
                             navController.navigate("compose")
                         }
                     }
-                    
+
                     LaunchedEffect(openThreadId, shouldOpenThread) {
                         if (shouldOpenThread && openThreadId != -1L) {
                             navController.navigate("thread/$openThreadId")
                         }
                     }
-                    
-                    NavHost(
-                        navController = navController,
-                        startDestination = "inbox"
-                    ) {
+
+                    Scaffold(
+                        bottomBar = { MainBottomBar(navController) }
+                    ) { innerPadding ->
+                        NavHost(
+                            navController = navController,
+                            startDestination = "inbox",
+                            modifier = Modifier.padding(innerPadding)
+                        ) {
                         // Conversation list (home screen)
                         composable("conversations") {
                             val viewModel: ConversationListViewModel = viewModel(
@@ -170,8 +182,27 @@ class MainActivity : ComponentActivity() {
                                 onNewMessageClick = {
                                     navController.navigate("compose")
                                 },
-                                onOpenLogs = { navController.navigate("logs") },
-                                onOpenSettings = { navController.navigate("settings") }
+                                onSetDefaultSms = { promptForDefaultSmsIfNeeded() }
+                            )
+                        }
+
+                        composable("otp") {
+                            val otpVm: OtpInboxViewModel = viewModel(
+                                factory = OtpInboxViewModelFactory(database)
+                            )
+                            OtpInboxScreen(
+                                viewModel = otpVm,
+                                onMessageClick = { id -> navController.navigate("detail/$id") }
+                            )
+                        }
+
+                        composable("flagged") {
+                            val flaggedVm: InboxViewModel = viewModel(
+                                factory = InboxViewModelFactory(database)
+                            )
+                            FlaggedScreen(
+                                viewModel = flaggedVm,
+                                onMessageClick = { id -> navController.navigate("detail/$id") }
                             )
                         }
                         
@@ -200,7 +231,8 @@ class MainActivity : ComponentActivity() {
                             )
                             SettingsScreen(
                                 viewModel = viewModel,
-                                onBack = { navController.popBackStack() }
+                                onBack = { navController.popBackStack() },
+                                onOpenMisclassificationLogs = { navController.navigate("logs") }
                             )
                         }
 
@@ -213,6 +245,7 @@ class MainActivity : ComponentActivity() {
                                 onNavigateToSettings = { navController.navigate("settings") },
                                 onBack = { navController.popBackStack() }
                             )
+                        }
                         }
                     }
                 }
@@ -486,3 +519,14 @@ class ThreadViewModelFactory(
     }
 }
 
+class OtpInboxViewModelFactory(
+    private val database: AppDatabase
+) : ViewModelProvider.Factory {
+    override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(OtpInboxViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return OtpInboxViewModel(database) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+    }
+}

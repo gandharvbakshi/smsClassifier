@@ -46,6 +46,7 @@ import kotlinx.coroutines.launch
 fun SettingsScreen(
     viewModel: SettingsViewModel,
     onBack: () -> Unit,
+    onOpenMisclassificationLogs: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isDefaultSms by viewModel.isDefaultSmsApp.collectAsState()
@@ -200,6 +201,17 @@ fun SettingsScreen(
 
             // === Section: Feedback ===
             SettingsSection(title = "Feedback") {
+                SettingsRow(
+                    icon = Icons.Default.Description,
+                    title = "Misclassification logs",
+                    subtitle = "Review messages you marked as wrong",
+                    trailing = {
+                        TextButton(onClick = onOpenMisclassificationLogs) {
+                            Text("Open")
+                        }
+                    }
+                )
+                SectionDivider()
                 SettingsRow(
                     icon = Icons.Default.CloudUpload,
                     title = "Help improve classification",

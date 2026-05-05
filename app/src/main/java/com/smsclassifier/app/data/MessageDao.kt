@@ -12,6 +12,9 @@ interface MessageDao {
     @Query("SELECT * FROM messages WHERE isOtp = 1 ORDER BY ts DESC")
     fun getOtpPaged(): PagingSource<Int, MessageEntity>
 
+    @Query("SELECT * FROM messages WHERE isOtp = 1 AND ts >= :sinceTs ORDER BY ts DESC LIMIT :limit")
+    suspend fun getRecentOtps(sinceTs: Long, limit: Int): List<MessageEntity>
+
     @Query("SELECT * FROM messages WHERE isPhishing = 1 ORDER BY ts DESC")
     fun getPhishingPaged(): PagingSource<Int, MessageEntity>
 

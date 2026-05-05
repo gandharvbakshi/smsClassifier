@@ -1,1 +1,8 @@
-Optional “Help improve classification”: when enabled in Settings → Feedback, misclassification reports (“Report as wrong”) can upload SMS text and sender plus predicted labels over HTTPS so we can improve the model — off by default. Privacy policy updated accordingly.
+v1.0.13 (May 2026)
+- Fresh look on Android 12+: Material You wallpaper-derived colors.
+- Edge-to-edge layout for a more native feel.
+- New bottom navigation: Inbox / OTPs / Flagged / Settings.
+- Pinned OTP cards on the home screen — copy any code in one tap.
+- Switch the Inbox between thread view and flat message view.
+- Risk accent strip on flagged threads at a glance.
+- Polished search bar and empty states.

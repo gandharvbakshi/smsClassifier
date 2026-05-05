@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
@@ -20,6 +21,11 @@ enum class FilterType {
     OTP, PHISHING, NEEDS_REVIEW, GENERAL, ALL
 }
 
+enum class ViewMode {
+    THREADS, MESSAGES
+}
+
+@OptIn(ExperimentalCoroutinesApi::class)
 class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     private val _filter = MutableStateFlow(FilterType.ALL)
     val filter: StateFlow<FilterType> = _filter.asStateFlow()
@@ -32,6 +38,12 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
+    private val _recentOtps = MutableStateFlow<List<MessageEntity>>(emptyList())
+    val recentOtps: StateFlow<List<MessageEntity>> = _recentOtps.asStateFlow()
+
+    private val _viewMode = MutableStateFlow(ViewMode.THREADS)
+    val viewMode: StateFlow<ViewMode> = _viewMode.asStateFlow()
 
     private var lastAutoMessageId: Long? = null
 
@@ -67,21 +79,32 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     val generalCount: StateFlow<Int> = _generalCount.asStateFlow()
 
     init {
-        // Load existing conversations immediately when ViewModel is created
         loadConversations()
-        
-        // Observe for new messages and refresh conversations when they arrive
+        viewModelScope.launch { refreshRecentOtps() }
+
         viewModelScope.launch {
             database.messageDao().getLatestMessage().collect { latest ->
                 latest?.let { message ->
                     if (message.id != lastAutoMessageId) {
                         lastAutoMessageId = message.id
                         _filter.value = determineFilterForMessage(message)
-                        loadConversations() // Refresh conversations when new message arrives
+                        loadConversations()
+                        refreshRecentOtps()
                     }
                 }
             }
         }
+    }
+
+    fun refreshRecentOtps() {
+        viewModelScope.launch {
+            val tenMinutesAgo = System.currentTimeMillis() - 10 * 60 * 1000L
+            _recentOtps.value = database.messageDao().getRecentOtps(tenMinutesAgo, limit = 3)
+        }
+    }
+
+    fun setViewMode(mode: ViewMode) {
+        _viewMode.value = mode
     }
 
     fun loadConversations() {
@@ -151,6 +174,7 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
                 }
                 
                 _conversations.value = filtered
+                refreshRecentOtps()
             } catch (e: Exception) {
                 // Handle error
             } finally {
