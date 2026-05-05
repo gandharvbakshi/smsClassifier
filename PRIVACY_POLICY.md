@@ -1,6 +1,6 @@
 # Privacy Policy for SMS Classifier
 
-**Last Updated:** November 18, 2024
+**Last Updated:** May 5, 2026
 
 ## Introduction
 
@@ -28,12 +28,22 @@ SMS Classifier ("we", "our", or "us") is committed to protecting your privacy. T
 ### Cloud Processing (Optional)
 - If you enable server-based classification, SMS content is sent to our secure API endpoint hosted on Google Cloud Run.
 - Messages are sent over encrypted HTTPS connections.
-- Messages are processed for classification only and are **not stored** on our servers.
-- Processing is performed in real-time and messages are immediately discarded after classification.
+- Classification requests are processed in real-time. **Normally** SMS content sent only for classification is **not retained** on our servers after processing.
+- Misclassification feedback (see below), when you explicitly opt in, is **stored separately** for improving the classifier — not limited to ephemeral processing.
+
+### Misclassification Feedback (Optional)
+- This feature is **off by default** (Settings → Feedback → "Help improve classification").
+- When it is enabled and you tap **"Report as wrong"**, the app sends to our server over HTTPS:
+  - The SMS text and sender
+  - The predicted labels shown in the app (OTP, intent, phishing, scores when available)
+  - Your correction note if you entered one
+  - App version and an anonymous random install identifier (UUID)
+- These items may be **stored on our servers indefinitely** so we can review mistakes and train or tune future models (including machine learning pipelines).
+- You may email us anytime to ask that your submitted feedback tied to your install id or account inquiry be deleted, subject to technical limits (aggregated artifacts may persist).
 
 ### Local Storage
 - SMS messages are stored locally on your device in an encrypted database.
-- This data remains on your device and is not transmitted to external servers.
+- This primary message store remains on your device unless you use optional features that send SMS content to our servers (server-based classification or Help improve classification).
 - You can delete all stored messages at any time through the app settings.
 
 ## Permissions
@@ -44,7 +54,7 @@ The App requires the following permissions:
 - **RECEIVE_SMS:** Required to receive SMS notifications and automatically classify new messages.
 - **SEND_SMS:** Required if you choose to send SMS messages through the app.
 - **WRITE_SMS:** Required to save classified messages locally on your device.
-- **INTERNET:** Required only if you enable server-based classification (optional).
+- **INTERNET:** Required for optional server-based classification / optional uploading of misclassification reports when you enable "Help improve classification".
 - **ACCESS_NETWORK_STATE:** Required to check network connectivity for server-based classification.
 
 ## Data Security
@@ -59,8 +69,8 @@ We implement the following security measures:
 ## Third-Party Services
 
 ### Google Cloud Run
-- Our classification service is hosted on Google Cloud Run.
-- Google Cloud Run processes messages only for classification and does not store them.
+- Our classification service and optional misclassification feedback ingestion are hosted on Google Cloud Run (or related Google Cloud services we operate).
+- Routine classification traffic may be processed without long-term storage; **misclassification feedback you opt into** may be stored there for training and quality review.
 - Google's privacy policy applies to their infrastructure: [Google Privacy Policy](https://policies.google.com/privacy)
 
 ### Groq API (for Intent Classification)
@@ -71,7 +81,8 @@ We implement the following security measures:
 ## Data Retention
 
 - **On-Device:** Messages are stored locally until you delete them or uninstall the app.
-- **Server-Side:** Messages sent for classification are processed in real-time and immediately discarded. No messages are stored on our servers.
+- **Server-Side (classification):** SMS content sent **only** for real-time classification through the optional server path is normally not retained after processing.
+- **Misclassification feedback:** If you turn on **Help improve classification** and submit a report, the associated SMS text, sender, labels, and your note may be **retained indefinitely** on our servers for model improvement unless you request deletion (see Contact Us).
 
 ## Your Rights
 
@@ -80,7 +91,7 @@ You have the following rights regarding your data:
 - **Access:** You can view all stored messages within the app.
 - **Deletion:** You can delete individual messages or all messages at any time through the app.
 - **Uninstall:** Uninstalling the app removes all locally stored data from your device.
-- **Opt-Out:** You can disable server-based classification and use only on-device processing.
+- **Opt-Out:** You can disable server-based classification and use only on-device processing. You can disable **Help improve classification** in Settings at any time to stop sending misclassification reports to our servers.
 
 ## Children's Privacy
 

@@ -67,7 +67,7 @@
 <body>
     <div class="container">
         <h1>Privacy Policy for SMS Classifier</h1>
-        <p class="last-updated"><strong>Last Updated:</strong> November 18, 2024</p>
+        <p class="last-updated"><strong>Last Updated:</strong> May 5, 2026</p>
         
         <h2>Introduction</h2>
         <p>SMS Classifier ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our SMS Classifier mobile application ("the App").</p>
@@ -101,14 +101,29 @@
         <ul>
             <li>If you enable server-based classification, SMS content is sent to our secure API endpoint hosted on Google Cloud Run.</li>
             <li>Messages are sent over encrypted HTTPS connections.</li>
-            <li>Messages are processed for classification only and are <strong>not stored</strong> on our servers.</li>
-            <li>Processing is performed in real-time and messages are immediately discarded after classification.</li>
+            <li>Classification requests are processed in real-time. <strong>Normally</strong> SMS content sent only for classification is <strong>not retained</strong> on our servers after processing.</li>
+            <li>Misclassification feedback (see below), when you explicitly opt in, is <strong>stored separately</strong> for improving the classifier — not limited to ephemeral processing.</li>
+        </ul>
+        
+        <h3>Misclassification Feedback (Optional)</h3>
+        <ul>
+            <li>This feature is <strong>off by default</strong> (Settings → Feedback → "Help improve classification").</li>
+            <li>When it is enabled and you tap <strong>"Report as wrong"</strong>, the app sends to our server over HTTPS:
+                <ul>
+                    <li>The SMS text and sender</li>
+                    <li>The predicted labels shown in the app (OTP, intent, phishing, scores when available)</li>
+                    <li>Your correction note if you entered one</li>
+                    <li>App version and an anonymous random install identifier (UUID)</li>
+                </ul>
+            </li>
+            <li>These items may be <strong>stored on our servers indefinitely</strong> so we can review mistakes and train or tune future models (including machine learning pipelines).</li>
+            <li>You may email us anytime to ask that your submitted feedback tied to your install id or account inquiry be deleted, subject to technical limits (aggregated artifacts may persist).</li>
         </ul>
         
         <h3>Local Storage</h3>
         <ul>
             <li>SMS messages are stored locally on your device in an encrypted database.</li>
-            <li>This data remains on your device and is not transmitted to external servers.</li>
+            <li>This primary message store remains on your device unless you use optional features that send SMS content to our servers (server-based classification or Help improve classification).</li>
             <li>You can delete all stored messages at any time through the app settings.</li>
         </ul>
         
@@ -119,7 +134,7 @@
             <li><strong>RECEIVE_SMS:</strong> Required to receive SMS notifications and automatically classify new messages.</li>
             <li><strong>SEND_SMS:</strong> Required if you choose to send SMS messages through the app.</li>
             <li><strong>WRITE_SMS:</strong> Required to save classified messages locally on your device.</li>
-            <li><strong>INTERNET:</strong> Required only if you enable server-based classification (optional).</li>
+            <li><strong>INTERNET:</strong> Required for optional server-based classification / optional uploading of misclassification reports when you enable "Help improve classification".</li>
             <li><strong>ACCESS_NETWORK_STATE:</strong> Required to check network connectivity for server-based classification.</li>
         </ul>
         
@@ -136,8 +151,8 @@
         
         <h3>Google Cloud Run</h3>
         <ul>
-            <li>Our classification service is hosted on Google Cloud Run.</li>
-            <li>Google Cloud Run processes messages only for classification and does not store them.</li>
+            <li>Our classification service and optional misclassification feedback ingestion are hosted on Google Cloud Run (or related Google Cloud services we operate).</li>
+            <li>Routine classification traffic may be processed without long-term storage; <strong>misclassification feedback you opt into</strong> may be stored there for training and quality review.</li>
             <li>Google's privacy policy applies to their infrastructure: <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a></li>
         </ul>
         
@@ -151,7 +166,8 @@
         <h2>Data Retention</h2>
         <ul>
             <li><strong>On-Device:</strong> Messages are stored locally until you delete them or uninstall the app.</li>
-            <li><strong>Server-Side:</strong> Messages sent for classification are processed in real-time and immediately discarded. No messages are stored on our servers.</li>
+            <li><strong>Server-Side (classification):</strong> SMS content sent <strong>only</strong> for real-time classification through the optional server path is normally not retained after processing.</li>
+            <li><strong>Misclassification feedback:</strong> If you turn on <strong>Help improve classification</strong> and submit a report, the associated SMS text, sender, labels, and your note may be <strong>retained indefinitely</strong> on our servers for model improvement unless you request deletion (see Contact Us).</li>
         </ul>
         
         <h2>Your Rights</h2>
@@ -160,7 +176,7 @@
             <li><strong>Access:</strong> You can view all stored messages within the app.</li>
             <li><strong>Deletion:</strong> You can delete individual messages or all messages at any time through the app.</li>
             <li><strong>Uninstall:</strong> Uninstalling the app removes all locally stored data from your device.</li>
-            <li><strong>Opt-Out:</strong> You can disable server-based classification and use only on-device processing.</li>
+            <li><strong>Opt-Out:</strong> You can disable server-based classification and use only on-device processing. You can disable <strong>Help improve classification</strong> in Settings at any time to stop sending misclassification reports to our servers.</li>
         </ul>
         
         <h2>Children's Privacy</h2>
