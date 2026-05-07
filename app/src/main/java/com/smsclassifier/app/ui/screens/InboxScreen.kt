@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,28 +16,27 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Inbox
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SegmentedButton
-import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -46,6 +47,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -82,8 +84,6 @@ fun InboxScreen(
     val needsReviewCount by viewModel.needsReviewCount.collectAsState(initial = 0)
     val generalCount by viewModel.generalCount.collectAsState(initial = 0)
 
-    var searchExpanded by remember { mutableStateOf(false) }
-
     LaunchedEffect(Unit) {
         viewModel.loadConversations()
     }
@@ -99,21 +99,6 @@ fun InboxScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = "Messages",
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                },
-                actions = {},
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
-            )
-        },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = onNewMessageClick,
@@ -130,53 +115,20 @@ fun InboxScreen(
                 .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            DockedSearchBar(
-                query = searchQuery,
-                onQueryChange = viewModel::setSearchQuery,
-                onSearch = { searchExpanded = false },
-                active = searchExpanded,
-                onActiveChange = { searchExpanded = it },
-                placeholder = { Text("Search messages") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                trailingIcon = {
-                    if (searchQuery.isNotEmpty()) {
-                        IconButton(onClick = { viewModel.setSearchQuery("") }) {
-                            Icon(Icons.Default.Close, contentDescription = "Clear")
-                        }
-                    }
-                },
+            InboxHeader(
+                searchQuery = searchQuery,
+                onSearchChange = viewModel::setSearchQuery,
+                viewMode = viewMode,
+                onViewModeChange = viewModel::setViewMode,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 4.dp)
-            ) {
-                // Suggestions slot unused for now
-            }
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
+            )
 
             OtpStrip(
                 messages = recentOtps,
                 onCardClick = { id -> onMessageClick(id) }
             )
-
-            SingleChoiceSegmentedButtonRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
-            ) {
-                SegmentedButton(
-                    selected = viewMode == ViewMode.THREADS,
-                    onClick = { viewModel.setViewMode(ViewMode.THREADS) },
-                    shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2)
-                ) {
-                    Text("Threads")
-                }
-                SegmentedButton(
-                    selected = viewMode == ViewMode.MESSAGES,
-                    onClick = { viewModel.setViewMode(ViewMode.MESSAGES) },
-                    shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2)
-                ) {
-                    Text("Messages")
-                }
-            }
 
             FilterChips(
                 selectedFilter = filter,
@@ -188,14 +140,7 @@ fun InboxScreen(
                     FilterType.GENERAL to generalCount,
                     FilterType.ALL to totalCount
                 ),
-                modifier = Modifier.fillMaxWidth(),
-                filterOrder = listOf(
-                    FilterType.OTP,
-                    FilterType.PHISHING,
-                    FilterType.NEEDS_REVIEW,
-                    FilterType.GENERAL,
-                    FilterType.ALL
-                )
+                modifier = Modifier.fillMaxWidth()
             )
 
             when (viewMode) {
@@ -227,7 +172,7 @@ fun InboxScreen(
                             ) {
                                 LazyColumn(
                                     modifier = Modifier.fillMaxSize(),
-                                    contentPadding = PaddingValues(vertical = 6.dp)
+                                    contentPadding = PaddingValues(top = 6.dp, bottom = 88.dp)
                                 ) {
                                     itemsIndexed(
                                         items = filteredConversations,
@@ -287,8 +232,7 @@ fun InboxScreen(
                             ) {
                                 LazyColumn(
                                     modifier = Modifier.fillMaxSize(),
-                                    contentPadding = PaddingValues(vertical = 6.dp),
-                                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                                    contentPadding = PaddingValues(top = 4.dp, bottom = 88.dp)
                                 ) {
                                     items(
                                         count = pagingItems.itemCount,
@@ -300,6 +244,13 @@ fun InboxScreen(
                                             onClick = { onMessageClick(msg.id) },
                                             modifier = Modifier.fillMaxWidth()
                                         )
+                                        if (idx < pagingItems.itemCount - 1) {
+                                            Divider(
+                                                modifier = Modifier.padding(start = 66.dp),
+                                                color = MaterialTheme.colorScheme.outline.copy(alpha = 0.4f),
+                                                thickness = 0.5.dp
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -347,6 +298,110 @@ private fun EmptyInboxState(
             )
             TextButton(onClick = onSetDefaultSms) {
                 Text("Set as default SMS app")
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun InboxHeader(
+    searchQuery: String,
+    onSearchChange: (String) -> Unit,
+    viewMode: ViewMode,
+    onViewModeChange: (ViewMode) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var menuExpanded by remember { mutableStateOf(false) }
+
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Surface(
+            modifier = Modifier
+                .weight(1f)
+                .height(44.dp),
+            shape = RoundedCornerShape(22.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 14.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(20.dp)
+                )
+                BasicTextField(
+                    value = searchQuery,
+                    onValueChange = onSearchChange,
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyLarge.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    ),
+                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                    modifier = Modifier.weight(1f),
+                    decorationBox = { inner ->
+                        if (searchQuery.isEmpty()) {
+                            Text(
+                                text = "Search messages",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        inner()
+                    }
+                )
+                if (searchQuery.isNotEmpty()) {
+                    IconButton(
+                        onClick = { onSearchChange("") },
+                        modifier = Modifier.size(28.dp)
+                    ) {
+                        Icon(
+                            Icons.Default.Close,
+                            contentDescription = "Clear",
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
+                }
+            }
+        }
+
+        Box {
+            IconButton(onClick = { menuExpanded = true }) {
+                Icon(Icons.Default.MoreVert, contentDescription = "More options")
+            }
+            DropdownMenu(
+                expanded = menuExpanded,
+                onDismissRequest = { menuExpanded = false }
+            ) {
+                DropdownMenuItem(
+                    text = { Text("View as messages") },
+                    onClick = {
+                        onViewModeChange(ViewMode.MESSAGES)
+                        menuExpanded = false
+                    },
+                    trailingIcon = if (viewMode == ViewMode.MESSAGES) {
+                        { Icon(Icons.Default.Check, contentDescription = null) }
+                    } else null
+                )
+                DropdownMenuItem(
+                    text = { Text("Group by sender (threads)") },
+                    onClick = {
+                        onViewModeChange(ViewMode.THREADS)
+                        menuExpanded = false
+                    },
+                    trailingIcon = if (viewMode == ViewMode.THREADS) {
+                        { Icon(Icons.Default.Check, contentDescription = null) }
+                    } else null
+                )
             }
         }
     }

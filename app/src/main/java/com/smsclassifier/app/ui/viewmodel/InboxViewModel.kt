@@ -42,7 +42,7 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     private val _recentOtps = MutableStateFlow<List<MessageEntity>>(emptyList())
     val recentOtps: StateFlow<List<MessageEntity>> = _recentOtps.asStateFlow()
 
-    private val _viewMode = MutableStateFlow(ViewMode.THREADS)
+    private val _viewMode = MutableStateFlow(ViewMode.MESSAGES)
     val viewMode: StateFlow<ViewMode> = _viewMode.asStateFlow()
 
     private var lastAutoMessageId: Long? = null

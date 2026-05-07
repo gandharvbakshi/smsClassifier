@@ -8,10 +8,8 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,8 +41,11 @@ import com.smsclassifier.app.ui.theme.SuspiciousAmber
 import com.smsclassifier.app.ui.theme.SuspiciousAmberSoft
 import com.smsclassifier.app.ui.theme.avatarColor
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.SenderNameResolver
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -56,7 +57,7 @@ fun ConversationItem(
     onLongClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
-    val nameToShow = displayName ?: thread.address
+    val nameToShow = displayName ?: SenderNameResolver.resolve(thread.address)
     val isUnread = thread.unreadCount > 0
     val risk = ClassificationUtils.riskLevelForThread(thread.latestMessage)
     val accentColor = when (risk) {
@@ -83,28 +84,17 @@ fun ConversationItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(IntrinsicSize.Min)
+                .padding(horizontal = 14.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier
-                    .width(4.dp)
-                    .fillMaxHeight()
-                    .background(accentColor)
-            )
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
             ContactAvatar(
                 name = nameToShow,
                 photoUri = contactPhotoUri,
-                size = 48.dp,
+                size = 40.dp,
                 ringColor = ringColor
             )
 
-            Spacer(modifier = Modifier.width(14.dp))
+            Spacer(modifier = Modifier.width(12.dp))
 
             Column(modifier = Modifier.weight(1f)) {
                 Row(
@@ -120,7 +110,15 @@ fun ConversationItem(
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.weight(1f)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    if (accentColor != Color.Transparent) {
+                        Box(
+                            modifier = Modifier
+                                .size(8.dp)
+                                .clip(CircleShape)
+                                .background(accentColor)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
                     Text(
                         text = formatTimestamp(thread.lastMessageTime),
                         style = MaterialTheme.typography.labelSmall,
@@ -130,7 +128,7 @@ fun ConversationItem(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(2.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -150,7 +148,7 @@ fun ConversationItem(
                         Spacer(modifier = Modifier.width(8.dp))
                         Box(
                             modifier = Modifier
-                                .size(20.dp)
+                                .size(18.dp)
                                 .clip(CircleShape)
                                 .background(MaterialTheme.colorScheme.primary),
                             contentAlignment = Alignment.Center
@@ -171,7 +169,7 @@ fun ConversationItem(
                         (message.phishScore ?: 0f) >= 0.3f ||
                         message.isOtp == true
                     if (showRiskBadge || sensitivity != SensitivityType.NONE) {
-                        Spacer(modifier = Modifier.height(6.dp))
+                        Spacer(modifier = Modifier.height(4.dp))
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(6.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -183,7 +181,6 @@ fun ConversationItem(
                         }
                     }
                 }
-            }
             }
         }
     }

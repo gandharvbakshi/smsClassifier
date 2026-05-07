@@ -1,8 +1,7 @@
-v1.0.13 (May 2026)
-- Fresh look on Android 12+: Material You wallpaper-derived colors.
-- Edge-to-edge layout for a more native feel.
-- New bottom navigation: Inbox / OTPs / Flagged / Settings.
-- Pinned OTP cards on the home screen — copy any code in one tap.
-- Switch the Inbox between thread view and flat message view.
-- Risk accent strip on flagged threads at a glance.
-- Polished search bar and empty states.
+v1.0.14 (May 2026)
+- New default: flat "Messages" view for transactional SMS. Threads view still available from the overflow (more) menu.
+- Friendlier sender names: "HSBC", "ICICI Bank" instead of cryptic IDs like "VD-HSBCIN-S".
+- Compact pill-style search replaces the chunky top app bar — more room for actual messages.
+- Filter chips scroll horizontally; empty categories are hidden; counts shown as "OTP * 163".
+- Tighter conversation and message rows with a small risk dot for flagged senders.
+- Single-line OTP strip; FAB no longer covers the last message.
