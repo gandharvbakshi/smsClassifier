@@ -31,7 +31,9 @@ import androidx.navigation.navArgument
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.ui.screens.DetailScreen
 import com.smsclassifier.app.ui.screens.InboxScreen
+import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.ui.screens.LogsScreen
+import com.smsclassifier.app.ui.screens.NotificationDebugScreen
 import com.smsclassifier.app.ui.screens.SettingsScreen
 import com.smsclassifier.app.ui.screens.ConversationListScreen
 import com.smsclassifier.app.ui.screens.ThreadScreen
@@ -43,6 +45,7 @@ import com.smsclassifier.app.ui.theme.SMSClassifierTheme
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
 import com.smsclassifier.app.ui.viewmodel.LogsViewModel
+import com.smsclassifier.app.ui.viewmodel.NotificationDebugViewModel
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
 import com.smsclassifier.app.ui.viewmodel.ConversationListViewModel
 import com.smsclassifier.app.ui.viewmodel.ThreadViewModel
@@ -232,7 +235,12 @@ class MainActivity : ComponentActivity() {
                             SettingsScreen(
                                 viewModel = viewModel,
                                 onBack = { navController.popBackStack() },
-                                onOpenMisclassificationLogs = { navController.navigate("logs") }
+                                onOpenMisclassificationLogs = { navController.navigate("logs") },
+                                onOpenNotificationDebug = {
+                                    if (BuildConfig.DEBUG) {
+                                        navController.navigate("notification_debug")
+                                    }
+                                }
                             )
                         }
 
@@ -243,6 +251,16 @@ class MainActivity : ComponentActivity() {
                             LogsScreen(
                                 viewModel = viewModel,
                                 onNavigateToSettings = { navController.navigate("settings") },
+                                onBack = { navController.popBackStack() }
+                            )
+                        }
+
+                        composable("notification_debug") {
+                            val vm: NotificationDebugViewModel = viewModel(
+                                factory = NotificationDebugViewModelFactory(database)
+                            )
+                            NotificationDebugScreen(
+                                viewModel = vm,
                                 onBack = { navController.popBackStack() }
                             )
                         }
@@ -489,6 +507,18 @@ class LogsViewModelFactory(
         if (modelClass.isAssignableFrom(LogsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return LogsViewModel(database, context) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+    }
+}
+
+class NotificationDebugViewModelFactory(
+    private val database: AppDatabase
+) : ViewModelProvider.Factory {
+    override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(NotificationDebugViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return NotificationDebugViewModel(database) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

@@ -9,8 +9,11 @@ import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.MainActivity
 import com.smsclassifier.app.R
+import com.smsclassifier.app.data.AppDatabase
+import com.smsclassifier.app.data.NotificationDebugLogEntity
 import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.util.ClassificationUtils.extractOtpForCopy
 import kotlinx.coroutines.CoroutineScope
@@ -160,11 +163,6 @@ object NotificationHelper {
             .setShowWhen(true)
 
         if (otpCode != null) {
-            // Use a custom RemoteViews layout so the OTP code is rendered LARGE
-            // and BOLD in the actual notification on the lock screen / shade /
-            // heads-up — not just inside the inbox screen. HTML <big> tags inside
-            // BigTextStyle do not work reliably across OEM ROMs (Xiaomi, OnePlus,
-            // Samsung), so we render the layout ourselves.
             val collapsed = RemoteViews(context.packageName, R.layout.notification_otp_collapsed)
             collapsed.setTextViewText(R.id.notif_otp_sender, "OTP from $displayName")
             collapsed.setTextViewText(R.id.notif_otp_code, otpCode)
@@ -175,12 +173,10 @@ object NotificationHelper {
             expanded.setTextViewText(R.id.notif_otp_body, body)
 
             builder
-                .setContentText(otpCode)
-                .setTicker("OTP $otpCode from $displayName")
+                .setContentText(body)
+                .setSubText("Autofill code: $otpCode")
                 .setCustomContentView(collapsed)
                 .setCustomBigContentView(expanded)
-                // DecoratedCustomViewStyle keeps Android's standard chrome
-                // (icon, app name, time, action buttons) and only swaps the body.
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
 
             val copyOtpIntent = Intent(context, CopyOtpReceiver::class.java).apply {
@@ -229,7 +225,66 @@ object NotificationHelper {
         if (!soundEnabled) builder.setSilent(true)
         if (!vibrationEnabled) builder.setVibrate(longArrayOf(0))
 
-        NotificationManagerCompat.from(context).notify(messageId.toInt(), builder.build())
+        val notification = builder.build()
+        if (otpCode != null) {
+            notification.extras.putCharSequence(NotificationCompat.EXTRA_BIG_TEXT, body)
+            notification.extras.putCharSequence(NotificationCompat.EXTRA_TEXT, body)
+        }
+        NotificationManagerCompat.from(context).notify(messageId.toInt(), notification)
+        if (BuildConfig.DEBUG) {
+            captureDebugSnapshot(
+                context = context,
+                notification = notification,
+                messageId = messageId,
+                sender = sender,
+                body = body,
+                otpCode = otpCode,
+                channelId = channelId
+            )
+        }
+    }
+
+    private fun captureDebugSnapshot(
+        context: Context,
+        notification: android.app.Notification,
+        messageId: Long,
+        sender: String,
+        body: String,
+        otpCode: String?,
+        channelId: String
+    ) {
+        if (!BuildConfig.DEBUG) return
+        val extras = notification.extras
+        val styleClass = extras.getString(NotificationCompat.EXTRA_TEMPLATE)
+            ?.substringAfterLast('.')
+            ?: "Unknown"
+        val entity = NotificationDebugLogEntity(
+            messageId = messageId,
+            sender = sender,
+            isOtp = otpCode != null,
+            otpCode = otpCode,
+            channelId = channelId,
+            styleClass = styleClass,
+            categoryStr = notification.category,
+            priority = notification.priority,
+            extraTitle = extras.getCharSequence(NotificationCompat.EXTRA_TITLE)?.toString(),
+            extraText = extras.getCharSequence(NotificationCompat.EXTRA_TEXT)?.toString(),
+            extraBigText = extras.getCharSequence(NotificationCompat.EXTRA_BIG_TEXT)?.toString(),
+            extraSubText = extras.getCharSequence(NotificationCompat.EXTRA_SUB_TEXT)?.toString(),
+            hasCustomContentView = notification.contentView != null,
+            hasCustomBigContentView = notification.bigContentView != null,
+            rawBody = body
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val dao = AppDatabase.getDatabase(context.applicationContext)
+                    .notificationDebugLogDao()
+                dao.insert(entity)
+                dao.pruneOldest()
+            } catch (t: Throwable) {
+                AppLog.w("NotificationHelper", "Failed to capture debug snapshot: ${t.message}", t)
+            }
+        }
     }
 
     private fun showSummaryNotification(context: Context, channelId: String) {

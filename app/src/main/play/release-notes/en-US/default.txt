@@ -1,7 +1,3 @@
-v1.0.14
-- Default to a flat Messages view; Threads still in the overflow menu.
-- Friendlier sender names: "HSBC" instead of cryptic IDs like "VD-HSBCIN-S".
-- Compact pill search replaces the bulky top bar; more room for messages.
-- Filter chips scroll horizontally; empty categories are hidden.
-- Tighter rows with a small risk dot for flagged senders.
-- Single-line OTP strip; FAB no longer covers the last message.
+v1.0.15
+- Improves OTP-autofill compatibility with apps like Amazon: full SMS body and an "Autofill code" hint are now exposed in the notification so the system OTP picker can read it.
+- Adds an internal diagnostic screen (debug builds only) for verifying notification structure.

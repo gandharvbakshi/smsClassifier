@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -37,6 +38,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.app.NotificationManagerCompat
+import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -47,6 +49,7 @@ fun SettingsScreen(
     viewModel: SettingsViewModel,
     onBack: () -> Unit,
     onOpenMisclassificationLogs: () -> Unit = {},
+    onOpenNotificationDebug: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isDefaultSms by viewModel.isDefaultSmsApp.collectAsState()
@@ -211,6 +214,20 @@ fun SettingsScreen(
                         }
                     }
                 )
+                if (BuildConfig.DEBUG) {
+                    SectionDivider()
+                    ListItem(
+                        headlineContent = { Text("Notification debug") },
+                        supportingContent = {
+                            Text(
+                                "See exactly what the system OTP-autofill scraper saw for each " +
+                                    "notification we posted. Debug builds only."
+                            )
+                        },
+                        leadingContent = { Icon(Icons.Default.BugReport, contentDescription = null) },
+                        modifier = Modifier.clickable { onOpenNotificationDebug() }
+                    )
+                }
                 SectionDivider()
                 SettingsRow(
                     icon = Icons.Default.CloudUpload,

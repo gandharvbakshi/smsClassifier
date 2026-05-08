@@ -8,14 +8,20 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [MessageEntity::class, FeedbackEntity::class, MisclassificationLogEntity::class],
-    version = 4,
+    entities = [
+        MessageEntity::class,
+        FeedbackEntity::class,
+        MisclassificationLogEntity::class,
+        NotificationDebugLogEntity::class
+    ],
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun messageDao(): MessageDao
     abstract fun feedbackDao(): FeedbackDao
     abstract fun misclassificationLogDao(): MisclassificationLogDao
+    abstract fun notificationDebugLogDao(): NotificationDebugLogDao
 
     companion object {
         @Volatile
@@ -28,7 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "sms_classifier.db"
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                     .build()
                 INSTANCE = instance
                 instance
@@ -101,6 +107,34 @@ abstract class AppDatabase : RoomDatabase() {
                 )
                 db.execSQL(
                     "ALTER TABLE misclassification_logs ADD COLUMN uploadAttempts INTEGER NOT NULL DEFAULT 0"
+                )
+            }
+        }
+
+        private val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS notification_debug_logs (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        createdAt INTEGER NOT NULL,
+                        messageId INTEGER NOT NULL,
+                        sender TEXT NOT NULL,
+                        isOtp INTEGER NOT NULL,
+                        otpCode TEXT,
+                        channelId TEXT NOT NULL,
+                        styleClass TEXT NOT NULL,
+                        categoryStr TEXT,
+                        priority INTEGER NOT NULL,
+                        extraTitle TEXT,
+                        extraText TEXT,
+                        extraBigText TEXT,
+                        extraSubText TEXT,
+                        hasCustomContentView INTEGER NOT NULL,
+                        hasCustomBigContentView INTEGER NOT NULL,
+                        rawBody TEXT NOT NULL
+                    )
+                    """.trimIndent()
                 )
             }
         }
