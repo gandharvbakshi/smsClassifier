@@ -41,6 +41,7 @@ jobs:
         env:
           KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
         run: |
+          echo "DEBUG: KEYSTORE_BASE64 length = ${#KEYSTORE_BASE64} chars (expect ~3500)"
           if [ -z "$KEYSTORE_BASE64" ]; then
             echo "FATAL: RELEASE_KEYSTORE_BASE64 secret is empty."
             exit 1
@@ -67,6 +68,7 @@ jobs:
         env:
           PLAY_SA_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
         run: |
+          echo "DEBUG: PLAY_SA_JSON length = ${#PLAY_SA_JSON} chars (expect ~2300)"
           if [ -z "$PLAY_SA_JSON" ]; then
             echo "FATAL: PLAY_SERVICE_ACCOUNT_JSON secret is empty."
             exit 1
