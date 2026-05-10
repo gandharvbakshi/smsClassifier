@@ -21,6 +21,9 @@ build/
 # Local configuration
 local.properties
 
+# Firebase Android config (contains project identifiers; keep local only)
+app/google-services.json
+
 # Secrets / API keys - NEVER commit these!
 .env
 *.env

@@ -9,11 +9,12 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.classification.Classifier
 import com.smsclassifier.app.classification.FeatureExtractor
+import com.smsclassifier.app.classification.HeuristicOnlyClassifier
 import com.smsclassifier.app.classification.ServerClassifier
 import com.smsclassifier.app.data.AppDatabase
-import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.util.PerformanceTracker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -28,9 +29,6 @@ class ClassificationWorker(
         try {
             val database = AppDatabase.getDatabase(applicationContext)
             AppLog.d(TAG, "Database initialized")
-            
-            val classifier: Classifier = ServerClassifier()
-            AppLog.d(TAG, "ServerClassifier initialized")
 
             val featureExtractor = FeatureExtractor(applicationContext)
             val unclassifiedMessages = database.messageDao().getUnclassified(limit = 10)
@@ -45,6 +43,11 @@ class ClassificationWorker(
 
             unclassifiedMessages.forEach { message ->
                 try {
+                    val classifier: Classifier = if (AppContainer.entitlementManager.isPro()) {
+                        ServerClassifier()
+                    } else {
+                        HeuristicOnlyClassifier()
+                    }
                     // Handle edge cases
                     if (message.body.isBlank()) {
                         AppLog.w(TAG, "Skipping empty message ${message.id}")
@@ -71,6 +74,10 @@ class ClassificationWorker(
                         TAG,
                         "Message ${message.id} otp=${prediction.isOtp} phishing=${prediction.isPhishing} intent=${prediction.otpIntent}"
                     )
+
+                    if (prediction.isOtp == true) {
+                        AppContainer.entitlementManager.onWorkerDetectedOtp()
+                    }
 
                     val updatedMessage = message.copy(
                         isOtp = prediction.isOtp,

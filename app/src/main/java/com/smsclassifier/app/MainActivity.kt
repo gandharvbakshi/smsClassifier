@@ -18,17 +18,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import com.smsclassifier.app.AppContainer
+import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.smsclassifier.app.data.AppDatabase
+import com.smsclassifier.app.ui.screens.ComposeScreen
 import com.smsclassifier.app.ui.screens.DetailScreen
 import com.smsclassifier.app.ui.screens.InboxScreen
 import com.smsclassifier.app.BuildConfig
@@ -37,7 +47,7 @@ import com.smsclassifier.app.ui.screens.NotificationDebugScreen
 import com.smsclassifier.app.ui.screens.SettingsScreen
 import com.smsclassifier.app.ui.screens.ConversationListScreen
 import com.smsclassifier.app.ui.screens.ThreadScreen
-import com.smsclassifier.app.ui.screens.ComposeScreen
+import com.smsclassifier.app.ui.screens.ConsentOnboardingScreen
 import com.smsclassifier.app.ui.screens.FlaggedScreen
 import com.smsclassifier.app.ui.screens.MainBottomBar
 import com.smsclassifier.app.ui.screens.OtpInboxScreen
@@ -75,12 +85,29 @@ class MainActivity : ComponentActivity() {
         promptForDefaultSmsIfNeeded()
         
         setContent {
+            var gateReady by remember { mutableStateOf(false) }
+            var needsConsent by remember { mutableStateOf(false) }
+            LaunchedEffect(Unit) {
+                val seen = AppContainer.consentManager.onboardingConsentSeen.first()
+                needsConsent = !seen
+                gateReady = true
+            }
             SMSClassifierTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    if (!gateReady) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    } else {
                     val navController = rememberNavController()
+                    val backStackEntry by navController.currentBackStackEntryAsState()
+                    val currentRoute = backStackEntry?.destination?.route
 
                     // Handle intent extras for navigation
                     val composePhone = intent?.getStringExtra("compose_phone")
@@ -101,13 +128,26 @@ class MainActivity : ComponentActivity() {
                     }
 
                     Scaffold(
-                        bottomBar = { MainBottomBar(navController) }
+                        bottomBar = {
+                            if (currentRoute != "consent_onboarding") {
+                                MainBottomBar(navController)
+                            }
+                        }
                     ) { innerPadding ->
                         NavHost(
                             navController = navController,
-                            startDestination = "inbox",
+                            startDestination = if (needsConsent) "consent_onboarding" else "inbox",
                             modifier = Modifier.padding(innerPadding)
                         ) {
+                        composable("consent_onboarding") {
+                            ConsentOnboardingScreen(
+                                onContinue = {
+                                    navController.navigate("inbox") {
+                                        popUpTo("consent_onboarding") { inclusive = true }
+                                    }
+                                }
+                            )
+                        }
                         // Conversation list (home screen)
                         composable("conversations") {
                             val viewModel: ConversationListViewModel = viewModel(
@@ -265,6 +305,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         }
+                    }
                     }
                 }
             }

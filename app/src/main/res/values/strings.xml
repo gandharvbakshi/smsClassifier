@@ -36,5 +36,7 @@
     <string name="loading">Loading…</string>
     <string name="error_loading">Error loading messages</string>
     <string name="sms_permission_required">SMS permission is required</string>
+
+    <string name="privacy_policy_url" translatable="false">https://gandharvbakshi.github.io/smsClassifier/privacy.html</string>
 </resources>
 
