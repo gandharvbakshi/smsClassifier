@@ -15,6 +15,7 @@ import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.feedback.FeedbackRequest
 import com.smsclassifier.app.feedback.FeedbackUploader
 import com.smsclassifier.app.util.AppLog
+import com.smsclassifier.app.util.SmsRedactor
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -47,12 +48,15 @@ class FeedbackUploadWorker(
             val versionName = BuildConfig.VERSION_NAME
             for (row in pending) {
                 val bodyLimited = row.body.take(BODY_MAX_LEN)
+                val redactedBody = SmsRedactor.redactForTraining(bodyLimited, installId)
                 val req = FeedbackRequest(
                     installId = installId,
+                    firebaseUid = null,
                     appVersionCode = versionCode,
                     appVersionName = versionName,
                     sender = row.sender,
-                    body = bodyLimited,
+                    body = redactedBody,
+                    bodyRedactionScheme = "digits_v1",
                     predictedIsOtp = row.predictedIsOtp,
                     predictedOtpIntent = row.predictedOtpIntent,
                     predictedIsPhishing = row.predictedIsPhishing,

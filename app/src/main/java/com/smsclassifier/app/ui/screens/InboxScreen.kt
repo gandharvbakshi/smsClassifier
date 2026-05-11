@@ -37,6 +37,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -61,6 +63,18 @@ import com.smsclassifier.app.ui.viewmodel.FilterType
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
 import com.smsclassifier.app.ui.viewmodel.ViewMode
 
+data class InboxEntitlementUi(
+    val showTrialWelcome: Boolean = false,
+    val onTrialWelcomeDismiss: () -> Unit = {},
+    val showTrialEnding: Boolean = false,
+    val trialDaysRemaining: Int = 0,
+    val formattedPrice: String? = null,
+    val onTrialEndingBuy: () -> Unit = {},
+    val onTrialEndingDismiss: () -> Unit = {},
+    val showUnlockPro: Boolean = false,
+    val onUnlockPro: () -> Unit = {},
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InboxScreen(
@@ -69,6 +83,7 @@ fun InboxScreen(
     onThreadClick: (Long) -> Unit,
     onNewMessageClick: () -> Unit,
     onSetDefaultSms: () -> Unit,
+    entitlementUi: InboxEntitlementUi = InboxEntitlementUi(),
     modifier: Modifier = Modifier
 ) {
     val conversations by viewModel.conversations.collectAsState()
@@ -115,6 +130,7 @@ fun InboxScreen(
                 .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background)
         ) {
+            InboxEntitlementBanners(ui = entitlementUi)
             InboxHeader(
                 searchQuery = searchQuery,
                 onSearchChange = viewModel::setSearchQuery,
@@ -402,6 +418,77 @@ private fun InboxHeader(
                         { Icon(Icons.Default.Check, contentDescription = null) }
                     } else null
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 6.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        if (ui.showTrialWelcome) {
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                )
+            ) {
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Text(
+                        text = "You've unlocked a 7-day free trial of Pro features — OTP classification, phishing detection, and intent.",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    TextButton(onClick = ui.onTrialWelcomeDismiss) {
+                        Text("Got it", fontWeight = FontWeight.SemiBold)
+                    }
+                }
+            }
+        }
+        if (ui.showTrialEnding) {
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                )
+            ) {
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Text(
+                        text = "Trial ends in ${ui.trialDaysRemaining} day(s). Keep Pro for ${ui.formattedPrice ?: "Play price"}.",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.padding(top = 8.dp)
+                    ) {
+                        TextButton(onClick = ui.onTrialEndingBuy) { Text("Buy") }
+                        TextButton(onClick = ui.onTrialEndingDismiss) { Text("Dismiss") }
+                    }
+                }
+            }
+        }
+        if (ui.showUnlockPro) {
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            ) {
+                Row(
+                    modifier = Modifier.padding(12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Unlock Pro for full cloud classification",
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.weight(1f)
+                    )
+                    TextButton(onClick = ui.onUnlockPro) {
+                        Text("Unlock Pro")
+                    }
+                }
             }
         }
     }

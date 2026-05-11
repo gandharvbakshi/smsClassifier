@@ -10,24 +10,33 @@ import android.provider.Telephony
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.FeedbackEntity
+import com.smsclassifier.app.data.DeleteAccountClient
 import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.util.BackendHealthChecker
+import com.google.firebase.auth.FirebaseAuth
 import com.smsclassifier.app.util.PerformanceTracker
 import com.smsclassifier.app.work.FeedbackUploadWorker
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import java.io.File
+import java.io.IOException
 
 class SettingsViewModel(
     private val context: Context,
     private val database: AppDatabase
 ) : ViewModel() {
     private val settingsRepository = SettingsRepository(context)
+    private val deleteAccountClient = DeleteAccountClient()
 
     private val _feedbackUploadEnabled =
         MutableStateFlow(settingsRepository.feedbackUploadEnabled)
@@ -210,6 +219,7 @@ class SettingsViewModel(
         settingsRepository.feedbackUploadEnabled = enabled
         _feedbackUploadEnabled.value = enabled
         if (enabled) {
+            AppContainer.telemetry.logEvent("feedback_upload_consent_granted")
             FeedbackUploadWorker.enqueue(context.applicationContext)
         }
     }
@@ -495,7 +505,72 @@ class SettingsViewModel(
         PerformanceTracker.clearStats(context)
         _performanceStats.value = PerformanceTracker.getStats(context)
     }
-    
+
+    private suspend fun performLocalDataDeletion() {
+        val appCtx = context.applicationContext
+        database.clearAllTables()
+        AppContainer.consentManager.clearAllDataStoreExceptConsent()
+        AppContainer.entitlementManager.clearTrialAndBannerStatePreservingPurchase()
+        appCtx.getSharedPreferences("satisfaction_prefs", Context.MODE_PRIVATE).edit().clear().apply()
+        appCtx.getSharedPreferences("telemetry_launch", Context.MODE_PRIVATE).edit().clear().apply()
+        settingsRepository.clearFeedbackSettingsOnly()
+        FirebaseAuth.getInstance().signOut()
+    }
+
+    suspend fun deleteLocalData(): Result<Unit> = withContext(Dispatchers.IO) {
+        runCatching { performLocalDataDeletion() }
+            .onSuccess {
+                AppContainer.telemetry.logEvent(
+                    "delete_data_requested",
+                    mapOf("layer" to "local")
+                )
+            }
+            .fold(onSuccess = { Result.success(Unit) }, onFailure = { Result.failure(it) })
+    }
+
+    suspend fun deleteAllData(): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            withTimeout(10_000L) {
+                val installId = settingsRepository.installId
+                val uid = FirebaseAuth.getInstance().currentUser?.uid
+                deleteAccountClient.delete(installId, uid).getOrElse { e ->
+                    AppContainer.telemetry.logEvent(
+                        "delete_data_requested",
+                        mapOf("layer" to "backend", "success" to false.toString())
+                    )
+                    return@withTimeout Result.failure(e)
+                }
+                runCatching { performLocalDataDeletion() }.getOrElse { e ->
+                    return@withTimeout Result.failure(e)
+                }
+                AppContainer.telemetry.logEvent(
+                    "delete_data_requested",
+                    mapOf("layer" to "backend", "success" to true.toString())
+                )
+                Result.success(Unit)
+            }
+        } catch (e: TimeoutCancellationException) {
+            AppContainer.telemetry.logEvent(
+                "delete_data_requested",
+                mapOf("layer" to "backend", "success" to false.toString())
+            )
+            Result.failure(IOException("Timed out", e))
+        }
+    }
+
+    fun openDeleteDataEmailFallback(installId: String) {
+        val subject = Uri.encode("Delete my data — $installId")
+        val body = Uri.encode(
+            "Please remove uploaded feedback samples tied to this install id."
+        )
+        val uri = Uri.parse("mailto:support@musicaigeneration.com?subject=$subject&body=$body")
+        val intent = Intent(Intent.ACTION_SENDTO).apply { data = uri }
+        try {
+            context.startActivity(intent)
+        } catch (_: Exception) {
+        }
+    }
+
     init {
         // Check backend health on initialization
         checkBackendHealth()

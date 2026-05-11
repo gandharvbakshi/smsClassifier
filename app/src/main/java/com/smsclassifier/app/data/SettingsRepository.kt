@@ -57,6 +57,13 @@ class SettingsRepository(context: Context) {
         get() = prefs.getBoolean(KEY_NOTIFICATION_VIBRATION, true)
         set(value) = prefs.edit().putBoolean(KEY_NOTIFICATION_VIBRATION, value).apply()
 
+    fun clearFeedbackSettingsOnly() {
+        prefs.edit()
+            .remove(KEY_FEEDBACK_UPLOAD)
+            .remove(KEY_FEEDBACK_CONSENT_ACK)
+            .apply()
+    }
+
     companion object {
         private const val PREFS_NAME = "sms_classifier_settings"
         private const val KEY_INSTALL_ID = "install_id_anonymous_v1"

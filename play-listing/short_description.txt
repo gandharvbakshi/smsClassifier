@@ -1,0 +1,1 @@
+Local SMS classification with OTP awareness, optional cloud ensemble (trial/Pro), and privacy-first settings. Not final store copy.

@@ -28,13 +28,25 @@ android {
         applicationId = "com.smsclassifier.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 17
-        versionName = "1.0.16"
+        versionCode = 19
+        versionName = "1.0.18"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField(
+            "String",
+            "META_APP_ID",
+            "\"\""
+        )
+
+        buildConfigField(
+            "String",
+            "META_CLIENT_TOKEN",
+            "\"\""
+        )
 
         buildConfigField(
             "String",
@@ -177,9 +189,15 @@ dependencies {
     // Paging
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
     implementation("androidx.paging:paging-compose:3.2.1")
-    
-    // Image Loading (Coil)
+
     implementation("io.coil-kt:coil-compose:2.5.0")
+
+    // Play Billing & in-app review (monetization plan)
+    implementation("com.android.billingclient:billing-ktx:7.1.1")
+    implementation("com.google.android.play:review-ktx:2.0.1")
+
+    // Meta / Facebook SDK (measurement behind consent)
+    implementation("com.facebook.android:facebook-android-sdk:17.0.2")
     
     // Testing
     testImplementation("junit:junit:4.13.2")

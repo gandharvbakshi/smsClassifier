@@ -3,7 +3,7 @@ package com.smsclassifier.app.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import android.content.Context
-import com.smsclassifier.app.classification.FeatureExtractor
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.classification.ServerClassifier
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.FeedbackEntity
@@ -33,9 +33,13 @@ class DetailViewModel(
         }
     }
 
-    fun reportAsWrong(correction: String) {
+    fun reportAsWrong(correctionKind: String, correctionText: String) {
         viewModelScope.launch {
             val msg = _message.value ?: return@launch
+            AppContainer.telemetry.logEvent(
+                "feedback_submitted",
+                mapOf("correction_kind" to correctionKind)
+            )
             database.feedbackDao().insert(
                 FeedbackEntity(
                     messageId = msg.id,
@@ -43,7 +47,7 @@ class DetailViewModel(
                     originalOtpIntent = msg.otpIntent,
                     originalIsPhishing = msg.isPhishing,
                     originalPhishScore = msg.phishScore,
-                    userCorrection = correction
+                    userCorrection = correctionText
                 )
             )
             database.messageDao().markReviewed(msg.id)
@@ -56,7 +60,7 @@ class DetailViewModel(
                     predictedOtpIntent = msg.otpIntent,
                     predictedIsPhishing = msg.isPhishing,
                     predictedPhishScore = msg.phishScore,
-                    userNote = correction.ifBlank { null }
+                    userNote = correctionText.ifBlank { null }
                 )
             )
             context?.applicationContext?.let { appCtx ->

@@ -22,6 +22,15 @@ class SMSClassifierApplication : Application() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                val lp = getSharedPreferences("telemetry_launch", MODE_PRIVATE)
+                if (!lp.contains("first_open_at_ms")) {
+                    lp.edit().putLong("first_open_at_ms", System.currentTimeMillis()).apply()
+                }
+            } catch (_: Exception) { }
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 val settingsPrefs = getSharedPreferences("sms_classifier_settings", MODE_PRIVATE)
                 if (settingsPrefs.contains("install_id_anonymous_v1")) {
                     AppContainer.consentManager.markOnboardingConsentSeen()
@@ -46,6 +55,8 @@ class SMSClassifierApplication : Application() {
         NotificationHelper.createNotificationChannel(this)
 
         ClassificationWorker.enqueue(this)
+
+        AppContainer.billingRepository.startConnection()
 
         // Fix legacy thread IDs for alphanumeric senders (previously grouped into thread 0)
         CoroutineScope(Dispatchers.IO).launch {

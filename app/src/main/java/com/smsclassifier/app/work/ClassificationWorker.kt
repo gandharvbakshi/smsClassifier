@@ -1,6 +1,7 @@
 package com.smsclassifier.app.work
 
 import android.content.Context
+
 import androidx.work.Constraints
 import com.smsclassifier.app.util.AppLog
 import androidx.work.CoroutineWorker
@@ -10,12 +11,12 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.smsclassifier.app.AppContainer
-import com.smsclassifier.app.classification.Classifier
 import com.smsclassifier.app.classification.FeatureExtractor
 import com.smsclassifier.app.classification.HeuristicOnlyClassifier
 import com.smsclassifier.app.classification.ServerClassifier
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.util.PerformanceTracker
+import com.smsclassifier.app.util.SafeError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -23,6 +24,14 @@ class ClassificationWorker(
     context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
+
+    private fun hasInternet(): Boolean {
+        val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE)
+            as? android.net.ConnectivityManager ?: return false
+        val network = cm.activeNetwork ?: return false
+        val caps = cm.getNetworkCapabilities(network) ?: return false
+        return caps.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         AppLog.d(TAG, "doWork() started")
@@ -43,15 +52,8 @@ class ClassificationWorker(
 
             unclassifiedMessages.forEach { message ->
                 try {
-                    val classifier: Classifier = if (AppContainer.entitlementManager.isPro()) {
-                        ServerClassifier()
-                    } else {
-                        HeuristicOnlyClassifier()
-                    }
-                    // Handle edge cases
                     if (message.body.isBlank()) {
                         AppLog.w(TAG, "Skipping empty message ${message.id}")
-                        // Mark as reviewed to avoid retrying empty messages
                         val emptyMessage = message.copy(
                             isOtp = false,
                             isPhishing = false,
@@ -61,18 +63,40 @@ class ClassificationWorker(
                         database.messageDao().update(emptyMessage)
                         return@forEach
                     }
-                    
+
                     val features = featureExtractor.extractFeatures(message.body, message.sender)
-                    val prediction = classifier.predict(features)
-                    
+                    val heuristicClassifier = HeuristicOnlyClassifier()
+                    val hPred = heuristicClassifier.predict(features)
+
+                    val useServer = AppContainer.entitlementManager
+                        .shouldUseServerForMessage(hPred.isOtp == true)
+
+                    val prediction = if (useServer) {
+                        if (!hasInternet()) {
+                            AppLog.d(TAG, "Skipping server classify (offline); using heuristic for message ${message.id}")
+                            AppContainer.telemetry.logEvent("server_classify_skipped_offline", emptyMap())
+                            hPred
+                        } else {
+                        try {
+                            ServerClassifier().predict(features)
+                        } catch (e: Exception) {
+                            AppLog.e(TAG, "Server classify failed for ${message.id}: ${e.message}", e)
+                            SafeError.report(TAG, e)
+                            hPred
+                        }
+                        }
+                    } else {
+                        hPred
+                    }
+
                     // Track performance metrics
                     if (prediction.inferenceTimeMs > 0) {
                         PerformanceTracker.recordLatency(applicationContext, prediction.inferenceTimeMs)
                     }
-                    
+
                     AppLog.d(
                         TAG,
-                        "Message ${message.id} otp=${prediction.isOtp} phishing=${prediction.isPhishing} intent=${prediction.otpIntent}"
+                        "Message ${message.id} otp=${prediction.isOtp} phishing=${prediction.isPhishing} intent=${prediction.otpIntent} server=$useServer"
                     )
 
                     if (prediction.isOtp == true) {
@@ -82,12 +106,13 @@ class ClassificationWorker(
                     val updatedMessage = message.copy(
                         isOtp = prediction.isOtp,
                         otpIntent = prediction.otpIntent,
-                        isPhishing = prediction.isPhishing,
-                        phishScore = prediction.phishScore,
+                        isPhishing = if (useServer) prediction.isPhishing else null,
+                        phishScore = if (useServer) prediction.phishScore else null,
                         reasonsJson = prediction.reasons.joinToString(",") { "\"$it\"" }.let { "[$it]" }
                     )
 
                     database.messageDao().update(updatedMessage)
+                    AppContainer.telemetry.maybeLogFirstSmsClassified()
                 } catch (e: Exception) {
                     AppLog.e(TAG, "Failed to classify message ${message.id}: ${e.message}", e)
                     // Don't retry indefinitely - mark as needing review after failures
@@ -116,11 +141,11 @@ class ClassificationWorker(
 
         fun enqueue(context: Context) {
             AppLog.d(TAG, "Enqueuing classification work")
-            
-            // Temporarily use NOT_REQUIRED to test if network constraint is blocking
-            // Will change back to CONNECTED once we confirm worker runs
+
+            // Heuristic-first design: workers must run offline for FREE-tier users.
+            // Server call inside doWork is best-effort and short-circuits when offline.
             val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.NOT_REQUIRED)  // Changed for testing
+                .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
                 .build()
 
             val request = OneTimeWorkRequestBuilder<ClassificationWorker>()

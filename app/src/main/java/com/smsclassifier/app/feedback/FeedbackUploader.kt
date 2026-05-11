@@ -23,17 +23,21 @@ private val feedbackJson = Json {
 @Serializable
 data class FeedbackRequest(
     val installId: String,
+    val firebaseUid: String? = null,
     val appVersionCode: Int,
     val appVersionName: String,
     val sender: String,
     val body: String,
+    val bodyRedactionScheme: String = "digits_v1",
     val predictedIsOtp: Boolean? = null,
     val predictedOtpIntent: String? = null,
     val predictedIsPhishing: Boolean? = null,
     val predictedPhishScore: Float? = null,
     val userCorrection: String?,
     val userNote: String? = null,
-    val clientCreatedAt: Long
+    val clientCreatedAt: Long,
+    val feedbackKind: String? = null,
+    val satisfactionScore: Int? = null
 )
 
 @Serializable

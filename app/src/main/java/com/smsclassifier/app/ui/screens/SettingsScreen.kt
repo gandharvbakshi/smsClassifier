@@ -1,46 +1,71 @@
 package com.smsclassifier.app.ui.screens
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.BugReport
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.CloudDone
 import androidx.compose.material.icons.filled.CloudOff
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CloudUpload
+import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.FileDownload
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Memory
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.PrivacyTip
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Speed
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.core.app.NotificationManagerCompat
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.BuildConfig
+import com.smsclassifier.app.R
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,8 +73,13 @@ import kotlinx.coroutines.launch
 fun SettingsScreen(
     viewModel: SettingsViewModel,
     onBack: () -> Unit,
-    onOpenMisclassificationLogs: () -> Unit = {},
-    onOpenNotificationDebug: () -> Unit = {},
+    onOpenMisclassificationLogs: () -> Unit,
+    onNavigateToNotifications: () -> Unit,
+    onNavigateToExport: () -> Unit,
+    onNavigateToDiagnostics: () -> Unit,
+    onNavigateToAbout: () -> Unit,
+    onNavigateToPaywall: () -> Unit = {},
+    onNavigateToConsent: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isDefaultSms by viewModel.isDefaultSmsApp.collectAsState()
@@ -59,14 +89,23 @@ fun SettingsScreen(
     val coroutineScope = rememberCoroutineScope()
     val feedbackUploadEnabled by viewModel.feedbackUploadEnabled.collectAsState()
     var showFeedbackConsentDialog by remember { mutableStateOf(false) }
+    var deleteConfirm by remember { mutableStateOf(false) }
+    var deleteLoading by remember { mutableStateOf(false) }
 
-    var notificationSoundEnabled by remember { mutableStateOf(viewModel.notificationSoundEnabled) }
-    var notificationVibrationEnabled by remember { mutableStateOf(viewModel.notificationVibrationEnabled) }
-    val areNotificationsEnabled = remember {
-        NotificationManagerCompat.from(context).areNotificationsEnabled()
+    val analyticsConsent by AppContainer.consentManager.analyticsConsent.collectAsState(
+        initial = AppContainer.consentManager.analyticsEnabledNow()
+    )
+    val crashConsent by AppContainer.consentManager.crashlyticsConsent.collectAsState(
+        initial = AppContainer.consentManager.crashlyticsEnabledNow()
+    )
+    val metaConsent by AppContainer.consentManager.metaAdsConsent.collectAsState(
+        initial = AppContainer.consentManager.metaAdsEnabledNow()
+    )
+
+    LaunchedEffect(Unit) {
+        viewModel.refreshDefaultSmsStatus()
+        viewModel.checkBackendHealth()
     }
-
-    LaunchedEffect(Unit) { viewModel.refreshDefaultSmsStatus() }
 
     val exportError by viewModel.lastExportError.collectAsState()
     LaunchedEffect(exportError) {
@@ -82,8 +121,9 @@ fun SettingsScreen(
         viewModel.refreshDefaultSmsStatus()
     }
 
+    Box(modifier = modifier.fillMaxSize()) {
     Scaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             CenterAlignedTopAppBar(
@@ -106,14 +146,11 @@ fun SettingsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(MaterialTheme.colorScheme.background)
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-
-            // === Section: SMS handler ===
-            SettingsSection(title = "SMS handler") {
+            SettingsSection(title = "General") {
                 SettingsRow(
                     icon = Icons.Default.Phone,
                     title = "Default SMS app",
@@ -139,115 +176,131 @@ fun SettingsScreen(
                         }
                     }
                 )
-            }
-
-            // === Section: Backend ===
-            BackendSection(viewModel)
-
-            // === Section: Performance ===
-            PerformanceSection(viewModel)
-
-            // === Section: Notifications ===
-            NotificationsSection(
-                areNotificationsEnabled = areNotificationsEnabled,
-                soundEnabled = notificationSoundEnabled,
-                vibrationEnabled = notificationVibrationEnabled,
-                onSoundChange = {
-                    notificationSoundEnabled = it
-                    viewModel.setNotificationSoundEnabled(it)
-                },
-                onVibrationChange = {
-                    notificationVibrationEnabled = it
-                    viewModel.setNotificationVibrationEnabled(it)
-                },
-                onOpenAppNotifs = { viewModel.openNotificationSettings() },
-                onOpenChannelNotifs = { viewModel.openNotificationChannelSettings() }
-            )
-
-            // === Section: Data export ===
-            ExportSection(
-                onExportLabels = {
-                    viewModel.exportLabels { uri ->
-                        coroutineScope.launch {
-                            if (uri == null) snackbarHostState.showSnackbar("No messages to export.")
-                            else startShareIntent(context, uri, "Share labels")
-                        }
-                    }
-                },
-                onExportFull = {
-                    viewModel.exportFullClassificationData { uri ->
-                        coroutineScope.launch {
-                            if (uri == null) snackbarHostState.showSnackbar("Nothing to export.")
-                            else startShareIntent(context, uri, "Share full classification data")
-                        }
-                    }
-                },
-                onExportLogs = {
-                    viewModel.exportMisclassificationLogs { uri ->
-                        coroutineScope.launch {
-                            if (uri == null) snackbarHostState.showSnackbar("No reports to export.")
-                            else startShareIntent(context, uri, "Share misclassification logs")
-                        }
-                    }
-                }
-            )
-
-            // === Section: OTP autofill self-test ===
-            OtpSelfTestSection(viewModel)
-
-            // === Section: Diagnostics ===
-            DiagnosticsSection(
-                isDefaultSms = isDefaultSms,
-                providerAuthority = viewModel.getProviderAuthority(),
-                packageName = context.packageName
-            )
-
-            // === Section: Feedback ===
-            SettingsSection(title = "Feedback") {
-                SettingsRow(
-                    icon = Icons.Default.Description,
-                    title = "Misclassification logs",
-                    subtitle = "Review messages you marked as wrong",
-                    trailing = {
-                        TextButton(onClick = onOpenMisclassificationLogs) {
-                            Text("Open")
-                        }
-                    }
-                )
-                if (BuildConfig.DEBUG) {
-                    SectionDivider()
-                    ListItem(
-                        headlineContent = { Text("Notification debug") },
-                        supportingContent = {
-                            Text(
-                                "See exactly what the system OTP-autofill scraper saw for each " +
-                                    "notification we posted. Debug builds only."
-                            )
-                        },
-                        leadingContent = { Icon(Icons.Default.BugReport, contentDescription = null) },
-                        modifier = Modifier.clickable { onOpenNotificationDebug() }
-                    )
-                }
                 SectionDivider()
                 SettingsRow(
-                    icon = Icons.Default.CloudUpload,
-                    title = "Help improve classification",
-                    subtitle =
-                        "Send misclassification reports to the developer to improve the classifier. " +
-                            "Off by default. Includes the SMS text and sender.",
+                    icon = Icons.Default.Notifications,
+                    title = "Notifications",
+                    subtitle = "Sound, vibration, system settings",
                     trailing = {
-                        Switch(
-                            checked = feedbackUploadEnabled,
-                            onCheckedChange = { on ->
-                                if (!on) {
-                                    viewModel.setFeedbackUploadEnabled(false)
-                                } else if (!viewModel.feedbackConsentAlreadyAcknowledged()) {
-                                    showFeedbackConsentDialog = true
-                                } else {
-                                    viewModel.setFeedbackUploadEnabled(true)
-                                }
-                            }
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
+                    },
+                    onClick = onNavigateToNotifications
+                )
+            }
+
+            ClassifierSection(
+                viewModel = viewModel,
+                feedbackUploadEnabled = feedbackUploadEnabled,
+                onFeedbackToggleOff = { viewModel.setFeedbackUploadEnabled(false) },
+                onFeedbackToggleOnConsentNeeded = { showFeedbackConsentDialog = true },
+                onFeedbackToggleOnGranted = { viewModel.setFeedbackUploadEnabled(true) },
+                onOpenMisclassificationLogs = onOpenMisclassificationLogs
+            )
+
+            SettingsSection(title = "Privacy & data") {
+                ToggleRow(
+                    title = "Anonymous usage analytics",
+                    subtitle = "Helps us understand which features are used (no SMS content).",
+                    checked = analyticsConsent,
+                    onCheckedChange = { on ->
+                    coroutineScope.launch {
+                        AppContainer.consentManager.setAnalyticsConsent(on)
+                        AppContainer.telemetry.logConsentChanged("analytics", on)
+                    }
+                    }
+                )
+                SectionDivider()
+                ToggleRow(
+                    title = "Crash reports",
+                    subtitle = "Helps us fix bugs. No message text is included.",
+                    checked = crashConsent,
+                    onCheckedChange = { on ->
+                    coroutineScope.launch {
+                        AppContainer.consentManager.setCrashlyticsConsent(on)
+                        AppContainer.telemetry.logConsentChanged("crash_reports", on)
+                    }
+                    }
+                )
+                SectionDivider()
+                ToggleRow(
+                    title = "Ad campaign measurement (Meta)",
+                    subtitle = "Only if you run or see our ads; uses limited device signals.",
+                    checked = metaConsent,
+                    onCheckedChange = { on ->
+                    coroutineScope.launch {
+                        AppContainer.consentManager.setMetaAdsConsent(on)
+                        AppContainer.telemetry.logConsentChanged("meta_ads", on)
+                    }
+                    }
+                )
+                SectionDivider()
+                SettingsRow(
+                    icon = Icons.Default.PrivacyTip,
+                    title = "Privacy policy",
+                    subtitle = "Opens in browser",
+                    trailing = {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    },
+                    onClick = {
+                        context.startActivity(
+                            Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.privacy_policy_url)))
+                        )
+                    }
+                )
+                SectionDivider()
+                SettingsRow(
+                    icon = Icons.Default.Description,
+                    title = "Export my data",
+                    subtitle = "Labels, full classification dump, misclassification reports",
+                    trailing = {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    },
+                    onClick = onNavigateToExport
+                )
+                SectionDivider()
+                SettingsRow(
+                    icon = Icons.Default.DeleteOutline,
+                    title = "Delete my data",
+                    subtitle = "Request deletion of data tied to this install",
+                    trailing = {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    },
+                    onClick = {
+                        if (!deleteLoading) deleteConfirm = true
+                    }
+                )
+            }
+
+            SettingsSection(title = "Help") {
+                SettingsRow(
+                    icon = Icons.Default.Star,
+                    title = "Upgrade to Pro",
+                    subtitle = "One-time purchase — full cloud classification",
+                    trailing = {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    },
+                    onClick = {
+                        onNavigateToPaywall()
                     }
                 )
                 SectionDivider()
@@ -260,6 +313,34 @@ fun SettingsScreen(
                             Text("Email")
                         }
                     }
+                )
+                SectionDivider()
+                SettingsRow(
+                    icon = Icons.Default.Settings,
+                    title = "Diagnostics & self-test",
+                    subtitle = "Performance, OTP plumbing, technical details",
+                    trailing = {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    },
+                    onClick = onNavigateToDiagnostics
+                )
+                SectionDivider()
+                SettingsRow(
+                    icon = Icons.Filled.Info,
+                    title = "About",
+                    subtitle = "Version and notices",
+                    trailing = {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    },
+                    onClick = onNavigateToAbout
                 )
             }
 
@@ -290,107 +371,97 @@ fun SettingsScreen(
                 )
             }
 
+            if (deleteConfirm) {
+                AlertDialog(
+                    onDismissRequest = { if (!deleteLoading) deleteConfirm = false },
+                    title = { Text("Delete my data") },
+                    text = {
+                        Text(
+                            buildAnnotatedString {
+                                append(
+                                    "This permanently removes all SMS classifications, feedback, " +
+                                        "and account data on this device. "
+                                )
+                                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                    append("Your purchase will be preserved by Google Play.")
+                                }
+                                append(" Continue?")
+                            }
+                        )
+                    },
+                    confirmButton = {
+                        TextButton(
+                            enabled = !deleteLoading,
+                            onClick = {
+                                coroutineScope.launch {
+                                    deleteLoading = true
+                                    deleteConfirm = false
+                                    val result = viewModel.deleteAllData()
+                                    deleteLoading = false
+                                    result.fold(
+                                        onSuccess = {
+                                            snackbarHostState.showSnackbar("All data deleted.")
+                                            if (!AppContainer.consentManager.onboardingSeenNow()) {
+                                                onNavigateToConsent()
+                                            }
+                                        },
+                                        onFailure = {
+                                            snackbarHostState.showSnackbar(
+                                                "Couldn't reach server, try again."
+                                            )
+                                        }
+                                    )
+                                }
+                            }
+                        ) { Text("Delete") }
+                    },
+                    dismissButton = {
+                        TextButton(
+                            onClick = { deleteConfirm = false },
+                            enabled = !deleteLoading
+                        ) { Text("Cancel") }
+                    }
+                )
+            }
+
+            if (BuildConfig.DEBUG) {
+                TextButton(
+                    onClick = {
+                        val id =
+                            com.smsclassifier.app.data.SettingsRepository(context).installId
+                        viewModel.openDeleteDataEmailFallback(id)
+                    },
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                ) {
+                    Text("Debug: email delete-data request")
+                }
+            }
+
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
-}
-
-// =============================================================================
-// === Reusable section primitives
-// =============================================================================
-
-@Composable
-private fun SettingsSection(
-    title: String,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(
-            text = title.uppercase(),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(start = 6.dp)
-        )
-        Surface(
-            shape = RoundedCornerShape(18.dp),
-            color = MaterialTheme.colorScheme.surface,
-            tonalElevation = 1.dp,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(
-                modifier = Modifier.padding(vertical = 4.dp),
-                content = content
-            )
-        }
-    }
-}
-
-@Composable
-private fun SettingsRow(
-    icon: ImageVector,
-    title: String,
-    subtitle: String? = null,
-    trailing: @Composable (() -> Unit)? = null
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Box(
-            modifier = Modifier
-                .size(36.dp)
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primaryContainer),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(20.dp)
-            )
-        }
-        Spacer(modifier = Modifier.width(14.dp))
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Medium
-            )
-            if (subtitle != null) {
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    text = subtitle,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+        if (deleteLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
             }
         }
-        if (trailing != null) {
-            Spacer(modifier = Modifier.width(8.dp))
-            trailing()
-        }
     }
 }
 
 @Composable
-private fun SectionDivider() {
-    Divider(
-        modifier = Modifier.padding(start = 66.dp),
-        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
-        thickness = 0.5.dp
-    )
-}
-
-// =============================================================================
-// === Sections
-// =============================================================================
-
-@Composable
-private fun BackendSection(viewModel: SettingsViewModel) {
+private fun ClassifierSection(
+    viewModel: SettingsViewModel,
+    feedbackUploadEnabled: Boolean,
+    onFeedbackToggleOff: () -> Unit,
+    onFeedbackToggleOnConsentNeeded: () -> Unit,
+    onFeedbackToggleOnGranted: () -> Unit,
+    onOpenMisclassificationLogs: () -> Unit
+) {
     val backendHealth by viewModel.backendHealthStatus.collectAsState()
     val isCheckingHealth by viewModel.isCheckingBackendHealth.collectAsState()
 
@@ -420,367 +491,44 @@ private fun BackendSection(viewModel: SettingsViewModel) {
                         strokeWidth = 2.dp
                     )
                 } else {
-                    TextButton(onClick = { viewModel.checkBackendHealth() }) {
-                        Text("Check")
+                    IconButton(onClick = { viewModel.checkBackendHealth() }) {
+                        Icon(Icons.Default.Refresh, contentDescription = "Refresh backend status")
                     }
                 }
-            }
-        )
-    }
-}
-
-@Composable
-private fun PerformanceSection(viewModel: SettingsViewModel) {
-    val performanceStats by viewModel.performanceStats.collectAsState()
-
-    SettingsSection(title = "Performance") {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(36.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primaryContainer),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Speed,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-            Spacer(modifier = Modifier.width(14.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text("Latency stats", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Medium)
-                val stats = performanceStats
-                if (stats == null || stats.totalRequests <= 0) {
-                    Text(
-                        text = "No data yet",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                } else {
-                    Text(
-                        text = "${stats.totalRequests} reqs · avg ${stats.averageLatency}ms · " +
-                            "min ${stats.minLatency}ms · max ${stats.maxLatency}ms",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
-            TextButton(onClick = { viewModel.refreshPerformanceStats() }) { Text("Refresh") }
-            if ((performanceStats?.totalRequests ?: 0) > 0) {
-                TextButton(onClick = {
-                    viewModel.clearPerformanceStats()
-                    viewModel.refreshPerformanceStats()
-                }) { Text("Clear") }
-            }
-        }
-    }
-}
-
-@Composable
-private fun NotificationsSection(
-    areNotificationsEnabled: Boolean,
-    soundEnabled: Boolean,
-    vibrationEnabled: Boolean,
-    onSoundChange: (Boolean) -> Unit,
-    onVibrationChange: (Boolean) -> Unit,
-    onOpenAppNotifs: () -> Unit,
-    onOpenChannelNotifs: () -> Unit
-) {
-    SettingsSection(title = "Notifications") {
-        SettingsRow(
-            icon = Icons.Default.Notifications,
-            title = "System notifications",
-            subtitle = if (areNotificationsEnabled) "Enabled in system settings"
-            else "Disabled in system settings",
-            trailing = if (!areNotificationsEnabled) {
-                { FilledTonalButton(onClick = onOpenAppNotifs) { Text("Enable") } }
-            } else null
-        )
-        SectionDivider()
-        ToggleRow(
-            title = "Notification sound",
-            subtitle = "Play sound for incoming SMS",
-            checked = soundEnabled,
-            onCheckedChange = onSoundChange
-        )
-        SectionDivider()
-        ToggleRow(
-            title = "Vibration",
-            subtitle = "Vibrate for incoming SMS",
-            checked = vibrationEnabled,
-            onCheckedChange = onVibrationChange
-        )
-        SectionDivider()
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            OutlinedButton(
-                onClick = onOpenAppNotifs,
-                modifier = Modifier.weight(1f)
-            ) { Text("App notifications") }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                OutlinedButton(
-                    onClick = onOpenChannelNotifs,
-                    modifier = Modifier.weight(1f)
-                ) { Text("Channels") }
-            }
-        }
-    }
-}
-
-@Composable
-private fun ToggleRow(
-    title: String,
-    subtitle: String?,
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Spacer(modifier = Modifier.width(50.dp))
-        Column(modifier = Modifier.weight(1f)) {
-            Text(title, style = MaterialTheme.typography.bodyLarge)
-            if (subtitle != null) {
-                Text(
-                    subtitle,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
-        Switch(checked = checked, onCheckedChange = onCheckedChange)
-    }
-}
-
-@Composable
-private fun ExportSection(
-    onExportLabels: () -> Unit,
-    onExportFull: () -> Unit,
-    onExportLogs: () -> Unit
-) {
-    SettingsSection(title = "Export data") {
-        SettingsRow(
-            icon = Icons.Default.FileDownload,
-            title = "Full classification data",
-            subtitle = "All messages, predictions, reasons, and your reports — share with the developer to debug misclassifications.",
-            trailing = {
-                FilledTonalButton(onClick = onExportFull) { Text("Export") }
             }
         )
         SectionDivider()
         SettingsRow(
             icon = Icons.Default.Description,
-            title = "Labels only",
-            subtitle = "Compact CSV with sender, body, and label",
+            title = "Misclassification logs",
+            subtitle = "Review messages you marked as wrong",
             trailing = {
-                TextButton(onClick = onExportLabels) { Text("Export") }
+                TextButton(onClick = onOpenMisclassificationLogs) {
+                    Text("Open")
+                }
             }
         )
         SectionDivider()
         SettingsRow(
-            icon = Icons.Default.BugReport,
-            title = "Misclassification reports",
-            subtitle = "Only your tagged misclassifications",
+            icon = Icons.Default.CloudUpload,
+            title = "Help improve classification",
+            subtitle =
+                "Send misclassification reports to the developer to improve the classifier. " +
+                    "Off by default. Includes the SMS text and sender.",
             trailing = {
-                TextButton(onClick = onExportLogs) { Text("Export") }
-            }
-        )
-    }
-}
-
-@Composable
-private fun OtpSelfTestSection(viewModel: SettingsViewModel) {
-    val result by viewModel.otpSelfTest.collectAsState()
-    val running by viewModel.isRunningSelfTest.collectAsState()
-
-    SettingsSection(title = "OTP autofill self-test") {
-        SettingsRow(
-            icon = Icons.Default.BugReport,
-            title = "Verify OTP plumbing",
-            subtitle = if (result == null)
-                "Confirms that other apps (Swiggy/Amazon/etc.) can actually read SMS we receive."
-            else "Last result below — re-run after receiving an OTP.",
-            trailing = {
-                if (running) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(20.dp),
-                        strokeWidth = 2.dp
-                    )
-                } else {
-                    FilledTonalButton(onClick = { viewModel.runOtpSelfTest() }) {
-                        Text(if (result == null) "Run" else "Re-run")
-                    }
-                }
-            }
-        )
-        result?.let { r ->
-            Column(
-                modifier = Modifier.padding(start = 66.dp, end = 16.dp, bottom = 14.dp),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                CheckLine("Default SMS app", r.isDefaultSms,
-                    okText = "Yes", failText = "No (other apps will see nothing)")
-                CheckLine("Can query system inbox", r.canQueryInbox,
-                    okText = "Yes", failText = "No — READ_SMS denied?")
-                CheckLine("Can write to system inbox", r.canInsertProbe,
-                    okText = "Probe row inserted & deleted",
-                    failText = "Insert returned null — OEM rejecting writes")
-                DiagLine(
-                    "Inbox rows: system vs ours",
-                    "${r.systemInboxCount} / ${r.ourDbCount}"
-                )
-                DiagLine(
-                    "Default SMS subscription id",
-                    if (r.defaultSmsSubId >= 0) r.defaultSmsSubId.toString() else "missing"
-                )
-                DiagLine(
-                    "Active SIM subscription ids",
-                    if (r.activeSubIds.isEmpty()) "(none reported)"
-                    else r.activeSubIds.joinToString()
-                )
-                DiagLine(
-                    "Latest inbox row has SUBSCRIPTION_ID",
-                    when (r.latestRowHasSubId) {
-                        true -> "Yes ✓"
-                        false -> "MISSING — autofill will be blocked on dual SIM"
-                        null -> "—"
+                Switch(
+                    checked = feedbackUploadEnabled,
+                    onCheckedChange = { on ->
+                        if (!on) {
+                            onFeedbackToggleOff()
+                        } else if (!viewModel.feedbackConsentAlreadyAcknowledged()) {
+                            onFeedbackToggleOnConsentNeeded()
+                        } else {
+                            onFeedbackToggleOnGranted()
+                        }
                     }
                 )
-                DiagLine(
-                    "Latest inbox row has PROTOCOL",
-                    when (r.latestRowHasProtocol) {
-                        true -> "Yes ✓"
-                        false -> "missing"
-                        null -> "—"
-                    }
-                )
-                r.latestSystemInboxTs?.let {
-                    DiagLine("Latest inbox row date", java.text.SimpleDateFormat(
-                        "MMM d, h:mm a", java.util.Locale.getDefault()
-                    ).format(java.util.Date(it)))
-                }
-                r.errorMessage?.let {
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                }
-                Text(
-                    text = "How to read this: if 'system inbox rows' is much smaller than 'ours', " +
-                        "or 'SUBSCRIPTION_ID missing' shows up, that's why Swiggy/Amazon don't see " +
-                        "OTPs. Receive a fresh OTP after installing v1.0.10 then re-run.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 6.dp)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun CheckLine(label: String, passed: Boolean, okText: String, failText: String) {
-    Row(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.weight(1f)
-        )
-        Text(
-            text = if (passed) okText else failText,
-            style = MaterialTheme.typography.bodySmall,
-            color = if (passed) MaterialTheme.colorScheme.primary
-            else MaterialTheme.colorScheme.error,
-            fontWeight = FontWeight.Medium
-        )
-    }
-}
-
-@Composable
-private fun DiagnosticsSection(
-    isDefaultSms: Boolean,
-    providerAuthority: String,
-    packageName: String
-) {
-    var expanded by remember { mutableStateOf(false) }
-    SettingsSection(title = "Diagnostics") {
-        SettingsRow(
-            icon = Icons.Default.Settings,
-            title = "Debug info",
-            subtitle = if (expanded) "Tap to hide" else "Tap to view technical details for OTP autofill troubleshooting",
-            trailing = {
-                TextButton(onClick = { expanded = !expanded }) {
-                    Text(if (expanded) "Hide" else "Show")
-                }
             }
         )
-        if (expanded) {
-            Column(
-                modifier = Modifier.padding(start = 66.dp, end = 16.dp, bottom = 14.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                DiagLine("Default SMS handler", if (isDefaultSms) "Yes" else "No")
-                DiagLine("Provider authority", providerAuthority)
-                DiagLine("Package", packageName)
-                Text(
-                    text = "OTP-aware apps query content://sms/inbox via the system Telephony provider. " +
-                        "When this app is the default SMS handler, we mirror every incoming SMS into the " +
-                        "system provider so other apps can read OTPs.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 6.dp)
-                )
-            }
-        }
     }
-}
-
-@Composable
-private fun DiagLine(label: String, value: String) {
-    Row(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.weight(1f)
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodySmall,
-            fontWeight = FontWeight.Medium
-        )
-    }
-}
-
-private fun startShareIntent(context: Context, uri: Uri, title: String) {
-    val intent = Intent(Intent.ACTION_SEND).apply {
-        type = "text/csv"
-        putExtra(Intent.EXTRA_STREAM, uri)
-        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-    }
-    context.startActivity(Intent.createChooser(intent, title))
-}
-
-private fun Context.findActivity(): Activity? = when (this) {
-    is Activity -> this
-    is android.content.ContextWrapper -> baseContext.findActivity()
-    else -> null
 }

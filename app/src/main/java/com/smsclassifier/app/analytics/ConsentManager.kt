@@ -76,6 +76,24 @@ class ConsentManager(context: Context) {
         cacheOnboardingSeen = true
     }
 
+    /**
+     * Removes all DataStore preferences except analytics / crash / meta / onboarding flags.
+     */
+    suspend fun clearAllDataStoreExceptConsent() {
+        val snap = dataStore.data.first()
+        val analytics = snap[KEY_ANALYTICS]
+        val crash = snap[KEY_CRASH]
+        val meta = snap[KEY_META]
+        val onboarding = snap[KEY_ONBOARDING]
+        dataStore.edit { prefs ->
+            prefs.clear()
+            if (analytics != null) prefs[KEY_ANALYTICS] = analytics
+            if (crash != null) prefs[KEY_CRASH] = crash
+            if (meta != null) prefs[KEY_META] = meta
+            if (onboarding != null) prefs[KEY_ONBOARDING] = onboarding
+        }
+    }
+
     companion object {
         private val KEY_ANALYTICS = booleanPreferencesKey("analytics_consent")
         private val KEY_CRASH = booleanPreferencesKey("crashlytics_consent")

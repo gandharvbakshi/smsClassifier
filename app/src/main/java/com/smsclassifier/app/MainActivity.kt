@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.Telephony
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.activity.compose.setContent
@@ -21,6 +22,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,13 +42,21 @@ import androidx.navigation.navArgument
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.ui.screens.ComposeScreen
 import com.smsclassifier.app.ui.screens.DetailScreen
+import com.smsclassifier.app.ui.screens.InboxEntitlementUi
 import com.smsclassifier.app.ui.screens.InboxScreen
+import com.smsclassifier.app.ui.screens.PaywallScreen
+import com.smsclassifier.app.ui.screens.PhoneAuthScreen
 import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.ui.screens.LogsScreen
 import com.smsclassifier.app.ui.screens.NotificationDebugScreen
+import com.smsclassifier.app.ui.screens.AboutSubScreen
+import com.smsclassifier.app.ui.screens.DiagnosticsSubScreen
+import com.smsclassifier.app.ui.screens.ExportSubScreen
+import com.smsclassifier.app.ui.screens.NotificationSettingsSubScreen
 import com.smsclassifier.app.ui.screens.SettingsScreen
 import com.smsclassifier.app.ui.screens.ConversationListScreen
 import com.smsclassifier.app.ui.screens.ThreadScreen
+import com.smsclassifier.app.ui.components.SatisfactionPromptHost
 import com.smsclassifier.app.ui.screens.ConsentOnboardingScreen
 import com.smsclassifier.app.ui.screens.FlaggedScreen
 import com.smsclassifier.app.ui.screens.MainBottomBar
@@ -62,6 +72,7 @@ import com.smsclassifier.app.ui.viewmodel.ThreadViewModel
 import com.smsclassifier.app.ui.viewmodel.ComposeViewModel
 import com.smsclassifier.app.ui.viewmodel.OtpInboxViewModel
 import com.smsclassifier.app.util.NotificationHelper
+import com.smsclassifier.app.util.CrashlyticsBootstrap
 
 class MainActivity : ComponentActivity() {
     private lateinit var database: AppDatabase
@@ -105,9 +116,53 @@ class MainActivity : ComponentActivity() {
                             CircularProgressIndicator()
                         }
                     } else {
+                    Box(modifier = Modifier.fillMaxSize()) {
                     val navController = rememberNavController()
                     val backStackEntry by navController.currentBackStackEntryAsState()
                     val currentRoute = backStackEntry?.destination?.route
+
+                    var entitlementRefresh by remember { mutableStateOf(0) }
+                    val productDetails by AppContainer.billingRepository.productDetails.collectAsState(initial = null)
+                    val formattedPrice = productDetails?.oneTimePurchaseOfferDetails?.formattedPrice
+
+                    LaunchedEffect(Unit) {
+                        AppContainer.billingRepository.purchaseSuccess.collect {
+                            entitlementRefresh++
+                        }
+                    }
+
+                    LaunchedEffect(backStackEntry?.destination?.route) {
+                        if (backStackEntry?.destination?.route == "inbox") {
+                            entitlementRefresh++
+                        }
+                    }
+
+                    val refreshEntitlement: () -> Unit = { entitlementRefresh++ }
+
+                    val inboxEntitlementUi = remember(entitlementRefresh, formattedPrice) {
+                        val em = AppContainer.entitlementManager
+                        InboxEntitlementUi(
+                            showTrialWelcome = em.shouldShowTrialStartedBanner(),
+                            onTrialWelcomeDismiss = {
+                                em.acknowledgeTrialStartedBanner()
+                                refreshEntitlement()
+                            },
+                            showTrialEnding = em.shouldShowTrialEndingBanner(),
+                            trialDaysRemaining = em.trialDaysRemaining(),
+                            formattedPrice = formattedPrice,
+                            onTrialEndingBuy = {
+                                navController.navigate("paywall/trial_ending")
+                            },
+                            onTrialEndingDismiss = {
+                                em.dismissTrialEndingBanner24h()
+                                refreshEntitlement()
+                            },
+                            showUnlockPro = em.showInboxUnlockProCta(),
+                            onUnlockPro = {
+                                navController.navigate("paywall/trial_expired")
+                            }
+                        )
+                    }
 
                     // Handle intent extras for navigation
                     val composePhone = intent?.getStringExtra("compose_phone")
@@ -225,7 +280,8 @@ class MainActivity : ComponentActivity() {
                                 onNewMessageClick = {
                                     navController.navigate("compose")
                                 },
-                                onSetDefaultSms = { promptForDefaultSmsIfNeeded() }
+                                onSetDefaultSms = { promptForDefaultSmsIfNeeded() },
+                                entitlementUi = inboxEntitlementUi
                             )
                         }
 
@@ -264,24 +320,83 @@ class MainActivity : ComponentActivity() {
                             DetailScreen(
                                 messageId = messageId,
                                 viewModel = viewModel,
-                                onBack = { navController.popBackStack() }
+                                onBack = { navController.popBackStack() },
+                                onOpenPaywall = {
+                                    navController.navigate("paywall/feature_locked")
+                                }
                             )
                         }
                         
                         composable("settings") {
+                            val activity = LocalContext.current as ComponentActivity
                             val viewModel: SettingsViewModel = viewModel(
-                                factory = SettingsViewModelFactory(this@MainActivity, database)
+                                viewModelStoreOwner = activity,
+                                factory = SettingsViewModelFactory(activity, database)
                             )
                             SettingsScreen(
                                 viewModel = viewModel,
                                 onBack = { navController.popBackStack() },
                                 onOpenMisclassificationLogs = { navController.navigate("logs") },
+                                onNavigateToNotifications = {
+                                    navController.navigate("settings_notifications")
+                                },
+                                onNavigateToExport = { navController.navigate("settings_export") },
+                                onNavigateToDiagnostics = {
+                                    navController.navigate("settings_diagnostics")
+                                },
+                                onNavigateToAbout = { navController.navigate("settings_about") },
+                                onNavigateToPaywall = { navController.navigate("paywall/settings") },
+                                onNavigateToConsent = {
+                                    navController.navigate("consent_onboarding") {
+                                        popUpTo(navController.graph.id) { inclusive = true }
+                                    }
+                                }
+                            )
+                        }
+
+                        composable("settings_notifications") {
+                            val activity = LocalContext.current as ComponentActivity
+                            val viewModel: SettingsViewModel = viewModel(
+                                viewModelStoreOwner = activity,
+                                factory = SettingsViewModelFactory(activity, database)
+                            )
+                            NotificationSettingsSubScreen(
+                                viewModel = viewModel,
+                                onBack = { navController.popBackStack() }
+                            )
+                        }
+
+                        composable("settings_export") {
+                            val activity = LocalContext.current as ComponentActivity
+                            val viewModel: SettingsViewModel = viewModel(
+                                viewModelStoreOwner = activity,
+                                factory = SettingsViewModelFactory(activity, database)
+                            )
+                            ExportSubScreen(
+                                viewModel = viewModel,
+                                onBack = { navController.popBackStack() }
+                            )
+                        }
+
+                        composable("settings_diagnostics") {
+                            val activity = LocalContext.current as ComponentActivity
+                            val viewModel: SettingsViewModel = viewModel(
+                                viewModelStoreOwner = activity,
+                                factory = SettingsViewModelFactory(activity, database)
+                            )
+                            DiagnosticsSubScreen(
+                                viewModel = viewModel,
+                                onBack = { navController.popBackStack() },
                                 onOpenNotificationDebug = {
                                     if (BuildConfig.DEBUG) {
                                         navController.navigate("notification_debug")
                                     }
                                 }
                             )
+                        }
+
+                        composable("settings_about") {
+                            AboutSubScreen(onBack = { navController.popBackStack() })
                         }
 
                         composable("logs") {
@@ -304,11 +419,61 @@ class MainActivity : ComponentActivity() {
                                 onBack = { navController.popBackStack() }
                             )
                         }
+
+                        composable(
+                            route = "paywall/{trigger}",
+                            arguments = listOf(
+                                navArgument("trigger") {
+                                    type = NavType.StringType
+                                    defaultValue = "settings"
+                                }
+                            )
+                        ) { entry ->
+                            val trigger = entry.arguments?.getString("trigger") ?: "settings"
+                            PaywallScreen(
+                                onClose = { navController.popBackStack() },
+                                onPurchaseFinishedNavigateNext = {
+                                    navController.navigate("phone_auth") {
+                                        popUpTo("paywall/{trigger}") { inclusive = true }
+                                    }
+                                },
+                                telemetryTrigger = trigger
+                            )
                         }
+
+                        composable("phone_auth") {
+                            PhoneAuthScreen(
+                                onBack = { navController.popBackStack() },
+                                onDoneSkip = { navController.popBackStack() }
+                            )
+                        }
+                        }
+                    }
+                    SatisfactionPromptHost(
+                        consentCompleted = !needsConsent,
+                        currentRoute = currentRoute
+                    )
                     }
                     }
                 }
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val def = isDefaultSmsAppNow()
+        AppContainer.telemetry.onMainActivityResume(def)
+        CrashlyticsBootstrap.refresh(this, def)
+        AppContainer.billingRepository.restorePurchases()
+    }
+
+    private fun isDefaultSmsAppNow(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val roleManager = getSystemService(RoleManager::class.java)
+            roleManager?.isRoleHeld(RoleManager.ROLE_SMS) ?: false
+        } else {
+            Telephony.Sms.getDefaultSmsPackage(this) == packageName
         }
     }
 
@@ -332,11 +497,12 @@ class MainActivity : ComponentActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             REQUEST_NOTIFICATION_PERMISSION -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                val granted = grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                AppContainer.telemetry.logNotificationPermission(granted)
+                if (granted) {
                     // Permission granted - notification channel already created in onCreate
                     com.smsclassifier.app.util.AppLog.d("MainActivity", "Notification permission granted")
                 } else {
-                    // Permission denied - user won't receive notifications
                     com.smsclassifier.app.util.AppLog.w("MainActivity", "Notification permission denied")
                 }
             }

@@ -10,14 +10,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextOverflow
+import com.smsclassifier.app.AppContainer
+import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.ui.badges.ClassificationBadge
 import com.smsclassifier.app.ui.badges.SensitivityBadge
 import com.smsclassifier.app.ui.components.ReasonChips
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.SmsRedactor
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
@@ -29,6 +34,7 @@ fun DetailScreen(
     messageId: Long,
     viewModel: DetailViewModel,
     onBack: () -> Unit,
+    onOpenPaywall: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val message by viewModel.message.collectAsState()
@@ -103,7 +109,45 @@ fun DetailScreen(
                 }
                 
                 Divider()
-                
+
+                if (AppContainer.entitlementManager.shouldShowDetailUnlockPlaceholder(msg)) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer
+                        )
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text(
+                                text = "Cloud classification locked",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                            Text(
+                                text = "Upgrade to Pro for phishing scores, cloud OTP intent, and full server classification.",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+                            Button(
+                                onClick = {
+                                    AppContainer.telemetry.logEvent(
+                                        "pro_feature_blocked",
+                                        mapOf("surface" to "detail")
+                                    )
+                                    onOpenPaywall()
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text("Unlock Pro")
+                            }
+                        }
+                    }
+                    Divider()
+                }
+
                 // Message body
                 Text(
                     text = msg.body,
@@ -254,15 +298,33 @@ fun DetailScreen(
             },
             title = { Text("Report Classification Issue") },
             text = {
+                val previewMsg = message
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
+                    if (previewMsg != null) {
+                        val ctx = LocalContext.current
+                        val installId = SettingsRepository(ctx).installId
+                        val redactedBody = SmsRedactor.redactForTraining(previewMsg.body, installId)
+                        Text(
+                            text = "Upload preview (digits redacted like server upload):",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = redactedBody,
+                            style = MaterialTheme.typography.bodySmall,
+                            maxLines = 4,
+                            overflow = TextOverflow.Ellipsis,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                     Text(
                         text = "What's wrong with the classification?",
                         style = MaterialTheme.typography.titleSmall
                     )
-                    
+
                     // Report type options
                     val reportTypes = listOf(
                         "Should be OTP" to "This message should be classified as OTP",
@@ -314,7 +376,15 @@ fun DetailScreen(
                         } else {
                             reportNote
                         }
-                        viewModel.reportAsWrong(finalNote)
+                        val correctionKind = when (reportType) {
+                            "Should be OTP" -> "actually_otp"
+                            "Should not be OTP" -> "not_otp"
+                            "Wrong OTP intent" -> "other"
+                            "Should be phishing" -> "phishing"
+                            "Should not be phishing" -> "not_phishing"
+                            else -> "other"
+                        }
+                        viewModel.reportAsWrong(correctionKind, finalNote)
                         showReportDialog = false
                         reportNote = ""
                         reportType = null

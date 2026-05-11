@@ -1,12 +1,24 @@
 package com.smsclassifier.app.analytics
 
 import android.content.Context
+import com.facebook.FacebookSdk
+import com.smsclassifier.app.BuildConfig
 
-/**
- * Meta SDK is wired in Phase 11. Stub keeps [SMSClassifierApplication] compiling before then.
- */
 object MetaInit {
-    fun init(context: Context, consentManager: ConsentManager) {
-        // Phase 11: FacebookSdk + AppEventsLogger behind consent
+    fun init(
+        @Suppress("UNUSED_PARAMETER") context: Context,
+        @Suppress("UNUSED_PARAMETER") consentManager: ConsentManager
+    ) {
+        if (BuildConfig.META_APP_ID.isBlank()) return
+        try {
+            FacebookSdk.setApplicationId(BuildConfig.META_APP_ID)
+            FacebookSdk.setClientToken(BuildConfig.META_CLIENT_TOKEN)
+            FacebookSdk.setAutoInitEnabled(false)
+            FacebookSdk.fullyInitialize()
+            // Advertiser ID collection: configure via manifest when META_APP_ID is set;
+            // runtime toggles vary by SDK minor version — avoid incompatible APIs here.
+        } catch (_: Throwable) {
+            // Avoid crashing if Play Services / FB deps unavailable on odd builds.
+        }
     }
 }

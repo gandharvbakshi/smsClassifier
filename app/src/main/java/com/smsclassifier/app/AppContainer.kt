@@ -4,6 +4,8 @@ import android.app.Application
 import com.smsclassifier.app.analytics.ConsentManager
 import com.smsclassifier.app.analytics.MetaInit
 import com.smsclassifier.app.analytics.Telemetry
+import com.smsclassifier.app.auth.PhoneAuthRepository
+import com.smsclassifier.app.billing.PlayBillingRepository
 import com.smsclassifier.app.entitlement.EntitlementManager
 
 /**
@@ -19,9 +21,17 @@ object AppContainer {
     lateinit var telemetry: Telemetry
         private set
 
+    lateinit var billingRepository: PlayBillingRepository
+        private set
+
+    lateinit var phoneAuthRepository: PhoneAuthRepository
+        private set
+
     fun init(application: Application) {
         consentManager = ConsentManager(application.applicationContext)
         entitlementManager = EntitlementManager(application.applicationContext)
+        billingRepository = PlayBillingRepository(application.applicationContext)
+        phoneAuthRepository = PhoneAuthRepository(application.applicationContext)
         telemetry = Telemetry(application.applicationContext, consentManager)
         Telemetry.instance = telemetry
         telemetry.init()
