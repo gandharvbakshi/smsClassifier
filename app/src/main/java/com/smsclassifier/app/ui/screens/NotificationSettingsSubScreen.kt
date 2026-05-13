@@ -1,9 +1,6 @@
 package com.smsclassifier.app.ui.screens
 
-import android.os.Build
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,16 +20,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.app.NotificationManagerCompat
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,8 +38,6 @@ fun NotificationSettingsSubScreen(
     val areNotificationsEnabled = remember {
         NotificationManagerCompat.from(context).areNotificationsEnabled()
     }
-    var soundEnabled by remember { mutableStateOf(viewModel.notificationSoundEnabled) }
-    var vibrationEnabled by remember { mutableStateOf(viewModel.notificationVibrationEnabled) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -75,50 +67,19 @@ fun NotificationSettingsSubScreen(
                 SettingsRow(
                     icon = Icons.Default.Notifications,
                     title = "System notifications",
-                    subtitle = if (areNotificationsEnabled) "Enabled in system settings"
-                    else "Disabled in system settings",
+                    subtitle = if (areNotificationsEnabled) "On in Android notification settings"
+                    else "Off in Android notification settings",
                     trailing = if (!areNotificationsEnabled) {
                         { FilledTonalButton(onClick = { viewModel.openNotificationSettings() }) { Text("Enable") } }
                     } else null
                 )
                 SectionDivider()
-                ToggleRow(
-                    title = "Notification sound",
-                    subtitle = "Play sound for incoming SMS",
-                    checked = soundEnabled,
-                    onCheckedChange = {
-                        soundEnabled = it
-                        viewModel.setNotificationSoundEnabled(it)
-                    }
-                )
-                SectionDivider()
-                ToggleRow(
-                    title = "Vibration",
-                    subtitle = "Vibrate for incoming SMS",
-                    checked = vibrationEnabled,
-                    onCheckedChange = {
-                        vibrationEnabled = it
-                        viewModel.setNotificationVibrationEnabled(it)
-                    }
-                )
-                SectionDivider()
-                Row(
+                OutlinedButton(
+                    onClick = { viewModel.openNotificationSettings() },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    OutlinedButton(
-                        onClick = { viewModel.openNotificationSettings() },
-                        modifier = Modifier.weight(1f)
-                    ) { Text("App notifications") }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        OutlinedButton(
-                            onClick = { viewModel.openNotificationChannelSettings() },
-                            modifier = Modifier.weight(1f).padding(start = 8.dp)
-                        ) { Text("Channels") }
-                    }
-                }
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                ) { Text("Open system settings") }
             }
         }
     }

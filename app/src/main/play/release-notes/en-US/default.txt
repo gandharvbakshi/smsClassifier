@@ -1,4 +1,7 @@
-v1.0.16
-- Adds optional privacy/consent for analytics and crash reporting (Firebase).
-- Free tier uses on-device heuristics only; full server classification unlocks after your first OTP is detected (7-day trial), then requires purchase when added in a future update.
-- Same OTP notification improvements as v1.0.15.
+v1.1.0 — Cleaner Settings
+- Simplified Settings: removed redundant rows and engineering jargon.
+- Removed unused Meta Ads consent toggle and the Facebook SDK from the app.
+- Notifications screen now defers to Android system settings.
+- New "Export my data" produces a single zip with all your data.
+- Diagnostics moved into About (tap version 5 times to reveal).
+- Privacy & data: clearer wording on what we share and store.

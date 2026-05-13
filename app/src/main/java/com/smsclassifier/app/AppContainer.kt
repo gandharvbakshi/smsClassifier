@@ -2,7 +2,6 @@ package com.smsclassifier.app
 
 import android.app.Application
 import com.smsclassifier.app.analytics.ConsentManager
-import com.smsclassifier.app.analytics.MetaInit
 import com.smsclassifier.app.analytics.Telemetry
 import com.smsclassifier.app.auth.PhoneAuthRepository
 import com.smsclassifier.app.billing.PlayBillingRepository
@@ -35,6 +34,5 @@ object AppContainer {
         telemetry = Telemetry(application.applicationContext, consentManager)
         Telemetry.instance = telemetry
         telemetry.init()
-        MetaInit.init(application.applicationContext, consentManager)
     }
 }

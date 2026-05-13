@@ -11,25 +11,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.CloudDone
-import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Memory
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.PrivacyTip
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -73,10 +67,8 @@ import kotlinx.coroutines.launch
 fun SettingsScreen(
     viewModel: SettingsViewModel,
     onBack: () -> Unit,
-    onOpenMisclassificationLogs: () -> Unit,
     onNavigateToNotifications: () -> Unit,
     onNavigateToExport: () -> Unit,
-    onNavigateToDiagnostics: () -> Unit,
     onNavigateToAbout: () -> Unit,
     onNavigateToPaywall: () -> Unit = {},
     onNavigateToConsent: () -> Unit = {},
@@ -98,13 +90,9 @@ fun SettingsScreen(
     val crashConsent by AppContainer.consentManager.crashlyticsConsent.collectAsState(
         initial = AppContainer.consentManager.crashlyticsEnabledNow()
     )
-    val metaConsent by AppContainer.consentManager.metaAdsConsent.collectAsState(
-        initial = AppContainer.consentManager.metaAdsEnabledNow()
-    )
 
     LaunchedEffect(Unit) {
         viewModel.refreshDefaultSmsStatus()
-        viewModel.checkBackendHealth()
     }
 
     val exportError by viewModel.lastExportError.collectAsState()
@@ -155,9 +143,9 @@ fun SettingsScreen(
                     icon = Icons.Default.Phone,
                     title = "Default SMS app",
                     subtitle = if (isDefaultSms)
-                        "This app handles all SMS on your phone"
+                        "Handles SMS for this phone"
                     else
-                        "Set this app as your default to receive SMS",
+                        "Make this app your default to get SMS",
                     trailing = {
                         if (!isDefaultSms) {
                             FilledTonalButton(
@@ -180,7 +168,7 @@ fun SettingsScreen(
                 SettingsRow(
                     icon = Icons.Default.Notifications,
                     title = "Notifications",
-                    subtitle = "Sound, vibration, system settings",
+                    subtitle = "Manage alerts in Android settings",
                     trailing = {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,
@@ -192,19 +180,10 @@ fun SettingsScreen(
                 )
             }
 
-            ClassifierSection(
-                viewModel = viewModel,
-                feedbackUploadEnabled = feedbackUploadEnabled,
-                onFeedbackToggleOff = { viewModel.setFeedbackUploadEnabled(false) },
-                onFeedbackToggleOnConsentNeeded = { showFeedbackConsentDialog = true },
-                onFeedbackToggleOnGranted = { viewModel.setFeedbackUploadEnabled(true) },
-                onOpenMisclassificationLogs = onOpenMisclassificationLogs
-            )
-
             SettingsSection(title = "Privacy & data") {
                 ToggleRow(
                     title = "Anonymous usage analytics",
-                    subtitle = "Helps us understand which features are used (no SMS content).",
+                    subtitle = "Helps us see which features are used (no message content).",
                     checked = analyticsConsent,
                     onCheckedChange = { on ->
                     coroutineScope.launch {
@@ -226,15 +205,23 @@ fun SettingsScreen(
                     }
                 )
                 SectionDivider()
-                ToggleRow(
-                    title = "Ad campaign measurement (Meta)",
-                    subtitle = "Only if you run or see our ads; uses limited device signals.",
-                    checked = metaConsent,
-                    onCheckedChange = { on ->
-                    coroutineScope.launch {
-                        AppContainer.consentManager.setMetaAdsConsent(on)
-                        AppContainer.telemetry.logConsentChanged("meta_ads", on)
-                    }
+                SettingsRow(
+                    icon = Icons.Default.CloudUpload,
+                    title = "Help improve classification",
+                    subtitle = "Optional wrong-label details; off by default.",
+                    trailing = {
+                        Switch(
+                            checked = feedbackUploadEnabled,
+                            onCheckedChange = { on ->
+                                if (!on) {
+                                    viewModel.setFeedbackUploadEnabled(false)
+                                } else if (!viewModel.feedbackConsentAlreadyAcknowledged()) {
+                                    showFeedbackConsentDialog = true
+                                } else {
+                                    viewModel.setFeedbackUploadEnabled(true)
+                                }
+                            }
+                        )
                     }
                 )
                 SectionDivider()
@@ -259,7 +246,7 @@ fun SettingsScreen(
                 SettingsRow(
                     icon = Icons.Default.Description,
                     title = "Export my data",
-                    subtitle = "Labels, full classification dump, misclassification reports",
+                    subtitle = "One zip with labels, full export, and wrong-label reports",
                     trailing = {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,
@@ -273,7 +260,7 @@ fun SettingsScreen(
                 SettingsRow(
                     icon = Icons.Default.DeleteOutline,
                     title = "Delete my data",
-                    subtitle = "Request deletion of data tied to this install",
+                    subtitle = "Remove data linked to this install",
                     trailing = {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,
@@ -287,11 +274,11 @@ fun SettingsScreen(
                 )
             }
 
-            SettingsSection(title = "Help") {
+            SettingsSection(title = "Pro") {
                 SettingsRow(
                     icon = Icons.Default.Star,
                     title = "Upgrade to Pro",
-                    subtitle = "One-time purchase — full cloud classification",
+                    subtitle = "One-time purchase for full online sorting",
                     trailing = {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,
@@ -303,30 +290,18 @@ fun SettingsScreen(
                         onNavigateToPaywall()
                     }
                 )
-                SectionDivider()
+            }
+
+            SettingsSection(title = "Help") {
                 SettingsRow(
                     icon = Icons.Default.Email,
                     title = "Contact developer",
-                    subtitle = "Send feedback, bug reports, or feature ideas",
+                    subtitle = "Feedback, bug reports, and ideas",
                     trailing = {
                         FilledTonalButton(onClick = { viewModel.contactDeveloper() }) {
                             Text("Email")
                         }
                     }
-                )
-                SectionDivider()
-                SettingsRow(
-                    icon = Icons.Default.Settings,
-                    title = "Diagnostics & self-test",
-                    subtitle = "Performance, OTP plumbing, technical details",
-                    trailing = {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    },
-                    onClick = onNavigateToDiagnostics
                 )
                 SectionDivider()
                 SettingsRow(
@@ -347,11 +322,11 @@ fun SettingsScreen(
             if (showFeedbackConsentDialog) {
                 AlertDialog(
                     onDismissRequest = { showFeedbackConsentDialog = false },
-                    title = { Text("Share misclassification reports?") },
+                    title = { Text("Improve wrong-label fixes?") },
                     text = {
                         Text(
-                            "When this is on, each time you tap \"Report as wrong\" we send the SMS text, sender, predicted labels, your note, app version, and an anonymous install id over HTTPS so we can improve the classifier.\n\n" +
-                                "This is stored on our servers indefinitely for ML training unless you email us to request deletion. See our privacy policy."
+                            "Send the text and sender of misclassified messages over HTTPS so we can improve the classifier. " +
+                                "Stored on our servers — see Privacy policy. Off by default."
                         )
                     },
                     confirmButton = {
@@ -407,7 +382,7 @@ fun SettingsScreen(
                                         },
                                         onFailure = {
                                             snackbarHostState.showSnackbar(
-                                                "Couldn't reach server, try again."
+                                                "Can't reach us right now. Try again."
                                             )
                                         }
                                     )
@@ -450,85 +425,5 @@ fun SettingsScreen(
                 CircularProgressIndicator()
             }
         }
-    }
-}
-
-@Composable
-private fun ClassifierSection(
-    viewModel: SettingsViewModel,
-    feedbackUploadEnabled: Boolean,
-    onFeedbackToggleOff: () -> Unit,
-    onFeedbackToggleOnConsentNeeded: () -> Unit,
-    onFeedbackToggleOnGranted: () -> Unit,
-    onOpenMisclassificationLogs: () -> Unit
-) {
-    val backendHealth by viewModel.backendHealthStatus.collectAsState()
-    val isCheckingHealth by viewModel.isCheckingBackendHealth.collectAsState()
-
-    SettingsSection(title = "Classifier") {
-        SettingsRow(
-            icon = Icons.Default.Memory,
-            title = "Inference mode",
-            subtitle = "Server ensemble (fixed)",
-            trailing = null
-        )
-        SectionDivider()
-        SettingsRow(
-            icon = if (backendHealth?.isHealthy == true) Icons.Default.CloudDone else Icons.Default.CloudOff,
-            title = "Backend status",
-            subtitle = when (val s = backendHealth) {
-                null -> "Unknown"
-                else -> {
-                    val ms = s.responseTimeMs?.let { " · ${it}ms" } ?: ""
-                    if (s.isHealthy) "Healthy$ms"
-                    else (s.errorMessage ?: "Unhealthy") + ms
-                }
-            },
-            trailing = {
-                if (isCheckingHealth) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(20.dp),
-                        strokeWidth = 2.dp
-                    )
-                } else {
-                    IconButton(onClick = { viewModel.checkBackendHealth() }) {
-                        Icon(Icons.Default.Refresh, contentDescription = "Refresh backend status")
-                    }
-                }
-            }
-        )
-        SectionDivider()
-        SettingsRow(
-            icon = Icons.Default.Description,
-            title = "Misclassification logs",
-            subtitle = "Review messages you marked as wrong",
-            trailing = {
-                TextButton(onClick = onOpenMisclassificationLogs) {
-                    Text("Open")
-                }
-            }
-        )
-        SectionDivider()
-        SettingsRow(
-            icon = Icons.Default.CloudUpload,
-            title = "Help improve classification",
-            subtitle =
-                "Send misclassification reports to the developer to improve the classifier. " +
-                    "Off by default. Includes the SMS text and sender.",
-            trailing = {
-                Switch(
-                    checked = feedbackUploadEnabled,
-                    onCheckedChange = { on ->
-                        if (!on) {
-                            onFeedbackToggleOff()
-                        } else if (!viewModel.feedbackConsentAlreadyAcknowledged()) {
-                            onFeedbackToggleOnConsentNeeded()
-                        } else {
-                            onFeedbackToggleOnGranted()
-                        }
-                    }
-                )
-            }
-        )
     }
 }

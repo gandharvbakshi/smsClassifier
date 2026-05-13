@@ -28,25 +28,13 @@ android {
         applicationId = "com.smsclassifier.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 19
-        versionName = "1.0.18"
+        versionCode = 20
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        buildConfigField(
-            "String",
-            "META_APP_ID",
-            "\"\""
-        )
-
-        buildConfigField(
-            "String",
-            "META_CLIENT_TOKEN",
-            "\"\""
-        )
 
         buildConfigField(
             "String",
@@ -196,9 +184,6 @@ dependencies {
     implementation("com.android.billingclient:billing-ktx:7.1.1")
     implementation("com.google.android.play:review-ktx:2.0.1")
 
-    // Meta / Facebook SDK (measurement behind consent)
-    implementation("com.facebook.android:facebook-android-sdk:17.0.2")
-    
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

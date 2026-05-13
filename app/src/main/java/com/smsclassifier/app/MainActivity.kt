@@ -336,14 +336,10 @@ class MainActivity : ComponentActivity() {
                             SettingsScreen(
                                 viewModel = viewModel,
                                 onBack = { navController.popBackStack() },
-                                onOpenMisclassificationLogs = { navController.navigate("logs") },
                                 onNavigateToNotifications = {
                                     navController.navigate("settings_notifications")
                                 },
                                 onNavigateToExport = { navController.navigate("settings_export") },
-                                onNavigateToDiagnostics = {
-                                    navController.navigate("settings_diagnostics")
-                                },
                                 onNavigateToAbout = { navController.navigate("settings_about") },
                                 onNavigateToPaywall = { navController.navigate("paywall/settings") },
                                 onNavigateToConsent = {
@@ -396,7 +392,10 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("settings_about") {
-                            AboutSubScreen(onBack = { navController.popBackStack() })
+                            AboutSubScreen(
+                                onBack = { navController.popBackStack() },
+                                onUnlockDiagnostics = { navController.navigate("settings_diagnostics") }
+                            )
                         }
 
                         composable("logs") {

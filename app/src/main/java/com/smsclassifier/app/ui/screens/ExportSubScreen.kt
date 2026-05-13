@@ -1,7 +1,10 @@
 package com.smsclassifier.app.ui.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -32,8 +35,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
 import kotlinx.coroutines.launch
+
+private fun startZipShareIntent(context: android.content.Context, uri: Uri, title: String) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "application/zip"
+        putExtra(Intent.EXTRA_STREAM, uri)
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    context.startActivity(Intent.createChooser(intent, title))
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,53 +92,75 @@ fun ExportSubScreen(
                 .padding(horizontal = 16.dp, vertical = 12.dp)
         ) {
             SettingsSection(title = "Exports") {
-                SettingsRow(
-                    icon = Icons.Default.FileDownload,
-                    title = "Full classification data",
-                    subtitle = "All messages, predictions, reasons, and your reports.",
-                    trailing = {
-                        FilledTonalButton(onClick = {
-                            viewModel.exportFullClassificationData { uri ->
+                FilledTonalButton(
+                    onClick = {
+                        scope.launch {
+                            viewModel.exportAllToZip { uri ->
                                 scope.launch {
-                                    if (uri == null) snackbarHostState.showSnackbar("Nothing to export.")
-                                    else startShareIntent(context, uri, "Share full classification data")
+                                    if (uri == null) {
+                                        snackbarHostState.showSnackbar("Export failed.")
+                                    } else {
+                                        startZipShareIntent(context, uri, "Share your data")
+                                    }
                                 }
                             }
-                        }) { Text("Export") }
-                    }
-                )
-                SectionDivider()
-                SettingsRow(
-                    icon = Icons.Default.Description,
-                    title = "Labels only",
-                    subtitle = "Compact CSV with sender, body, and label",
-                    trailing = {
-                        TextButton(onClick = {
-                            viewModel.exportLabels { uri ->
-                                scope.launch {
-                                    if (uri == null) snackbarHostState.showSnackbar("No messages to export.")
-                                    else startShareIntent(context, uri, "Share labels")
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                ) { Text("Export my data") }
+
+                if (BuildConfig.DEBUG) {
+                    SectionDivider()
+                    SettingsRow(
+                        icon = Icons.Default.FileDownload,
+                        title = "Full classification data",
+                        subtitle = "All messages with tags, reasons, and notes you added.",
+                        trailing = {
+                            FilledTonalButton(onClick = {
+                                viewModel.exportFullClassificationData { uri ->
+                                    scope.launch {
+                                        if (uri == null) snackbarHostState.showSnackbar("Nothing to export.")
+                                        else startShareIntent(context, uri, "Share full classification data")
+                                    }
                                 }
-                            }
-                        }) { Text("Export") }
-                    }
-                )
-                SectionDivider()
-                SettingsRow(
-                    icon = Icons.Default.BugReport,
-                    title = "Misclassification reports",
-                    subtitle = "Only your tagged misclassifications",
-                    trailing = {
-                        TextButton(onClick = {
-                            viewModel.exportMisclassificationLogs { uri ->
-                                scope.launch {
-                                    if (uri == null) snackbarHostState.showSnackbar("No reports to export.")
-                                    else startShareIntent(context, uri, "Share misclassification logs")
+                            }) { Text("Export") }
+                        }
+                    )
+                    SectionDivider()
+                    SettingsRow(
+                        icon = Icons.Default.Description,
+                        title = "Labels only",
+                        subtitle = "Smaller table: sender, body, and label only.",
+                        trailing = {
+                            TextButton(onClick = {
+                                viewModel.exportLabels { uri ->
+                                    scope.launch {
+                                        if (uri == null) snackbarHostState.showSnackbar("No messages to export.")
+                                        else startShareIntent(context, uri, "Share labels")
+                                    }
                                 }
-                            }
-                        }) { Text("Export") }
-                    }
-                )
+                            }) { Text("Export") }
+                        }
+                    )
+                    SectionDivider()
+                    SettingsRow(
+                        icon = Icons.Default.BugReport,
+                        title = "Misclassification reports",
+                        subtitle = "Only messages you marked as wrong.",
+                        trailing = {
+                            TextButton(onClick = {
+                                viewModel.exportMisclassificationLogs { uri ->
+                                    scope.launch {
+                                        if (uri == null) snackbarHostState.showSnackbar("No reports to export.")
+                                        else startShareIntent(context, uri, "Share misclassification logs")
+                                    }
+                                }
+                            }) { Text("Export") }
+                        }
+                    )
+                }
             }
         }
     }

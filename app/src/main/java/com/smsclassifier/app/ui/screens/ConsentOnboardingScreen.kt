@@ -43,7 +43,6 @@ fun ConsentOnboardingScreen(onContinue: () -> Unit) {
 
     var analyticsOn by remember { mutableStateOf(false) }
     var crashOn by remember { mutableStateOf(false) }
-    var metaOn by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -67,7 +66,7 @@ fun ConsentOnboardingScreen(onContinue: () -> Unit) {
         Spacer(modifier = Modifier.height(24.dp))
         ConsentToggleRow(
             title = "Anonymous usage analytics",
-            subtitle = "Helps us understand which features are used (no SMS content).",
+            subtitle = "Helps us see which features are used (no message content).",
             checked = analyticsOn,
             onCheckedChange = { analyticsOn = it }
         )
@@ -77,13 +76,6 @@ fun ConsentOnboardingScreen(onContinue: () -> Unit) {
             subtitle = "Helps us fix bugs. No message text is included.",
             checked = crashOn,
             onCheckedChange = { crashOn = it }
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        ConsentToggleRow(
-            title = "Ad campaign measurement (Meta)",
-            subtitle = "Only if you run or see our ads; uses limited device signals.",
-            checked = metaOn,
-            onCheckedChange = { metaOn = it }
         )
         Spacer(modifier = Modifier.height(24.dp))
         TextButton(
@@ -98,7 +90,6 @@ fun ConsentOnboardingScreen(onContinue: () -> Unit) {
                 scope.launch {
                     consent.setAnalyticsConsent(analyticsOn)
                     consent.setCrashlyticsConsent(crashOn)
-                    consent.setMetaAdsConsent(metaOn)
                     consent.markOnboardingConsentSeen()
                     val launchPrefs = context.getSharedPreferences(
                         "telemetry_launch",

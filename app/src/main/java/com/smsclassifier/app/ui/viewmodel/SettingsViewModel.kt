@@ -15,7 +15,6 @@ import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.FeedbackEntity
 import com.smsclassifier.app.data.DeleteAccountClient
 import com.smsclassifier.app.data.SettingsRepository
-import com.smsclassifier.app.util.BackendHealthChecker
 import com.google.firebase.auth.FirebaseAuth
 import com.smsclassifier.app.util.PerformanceTracker
 import com.smsclassifier.app.work.FeedbackUploadWorker
@@ -29,7 +28,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+import kotlinx.coroutines.CompletableDeferred
 
 class SettingsViewModel(
     private val context: Context,
@@ -45,13 +48,7 @@ class SettingsViewModel(
     
     private val _isDefaultSmsApp = MutableStateFlow(checkIsDefaultSms())
     val isDefaultSmsApp: StateFlow<Boolean> = _isDefaultSmsApp.asStateFlow()
-    
-    private val _backendHealthStatus = MutableStateFlow<BackendHealthChecker.HealthStatus?>(null)
-    val backendHealthStatus: StateFlow<BackendHealthChecker.HealthStatus?> = _backendHealthStatus.asStateFlow()
-    
-    private val _isCheckingBackendHealth = MutableStateFlow(false)
-    val isCheckingBackendHealth: StateFlow<Boolean> = _isCheckingBackendHealth.asStateFlow()
-    
+
     private val _performanceStats = MutableStateFlow<PerformanceTracker.PerformanceStats?>(null)
     val performanceStats: StateFlow<PerformanceTracker.PerformanceStats?> = _performanceStats.asStateFlow()
 
@@ -453,6 +450,71 @@ class SettingsViewModel(
         }
     }
 
+    /**
+     * Writes [classifications.csv], [labels.csv], and [misclassifications.csv] into a single zip for sharing.
+     */
+    suspend fun exportAllToZip(onResult: (Uri?) -> Unit) {
+        try {
+            withContext(Dispatchers.IO) {
+                val fullDeferred = CompletableDeferred<Uri?>()
+                exportFullClassificationData { fullDeferred.complete(it) }
+                val fullUri = fullDeferred.await()
+
+                val labelsDeferred = CompletableDeferred<Uri?>()
+                exportLabels { labelsDeferred.complete(it) }
+                val labelsUri = labelsDeferred.await()
+
+                val miscDeferred = CompletableDeferred<Uri?>()
+                exportMisclassificationLogs { miscDeferred.complete(it) }
+                val miscUri = miscDeferred.await()
+
+                val classificationsBytes = fullUri?.let { readExportUriBytes(it) }
+                    ?: ZIP_HEADER_CLASSIFICATIONS_FULL.toByteArray(Charsets.UTF_8)
+                val labelsBytes = labelsUri?.let { readExportUriBytes(it) }
+                    ?: ZIP_HEADER_LABELS.toByteArray(Charsets.UTF_8)
+                val misclassificationsBytes = miscUri?.let { readExportUriBytes(it) }
+                    ?: ZIP_HEADER_MISCLASSIFICATIONS.toByteArray(Charsets.UTF_8)
+
+                val zipFile = File(context.cacheDir, "your_data.zip")
+                ZipOutputStream(FileOutputStream(zipFile)).use { zos ->
+                    zos.putNextEntry(ZipEntry("classifications.csv"))
+                    zos.write(classificationsBytes)
+                    zos.closeEntry()
+                    zos.putNextEntry(ZipEntry("labels.csv"))
+                    zos.write(labelsBytes)
+                    zos.closeEntry()
+                    zos.putNextEntry(ZipEntry("misclassifications.csv"))
+                    zos.write(misclassificationsBytes)
+                    zos.closeEntry()
+                }
+
+                withContext(Dispatchers.Main) {
+                    onResult(fileUri(zipFile))
+                }
+            }
+        } catch (e: Exception) {
+            _lastExportError.value = "Export failed: ${e.javaClass.simpleName}: ${e.message}"
+            withContext(Dispatchers.Main) {
+                onResult(null)
+            }
+        }
+    }
+
+    private fun readExportUriBytes(uri: Uri): ByteArray =
+        context.contentResolver.openInputStream(uri)!!.use { it.readBytes() }
+
+    companion object {
+        private const val ZIP_HEADER_CLASSIFICATIONS_FULL =
+            "section,id,message_id,sender,body,timestamp,thread_id,type," +
+                "is_otp,otp_intent,is_phishing,phish_score,reasons,reviewed,user_note\n"
+        private const val ZIP_HEADER_LABELS =
+            "id,sender,body,timestamp,is_otp,otp_intent,is_phishing,phish_score,reviewed\n"
+        private const val ZIP_HEADER_MISCLASSIFICATIONS =
+            "id,message_id,sender,body,predicted_is_otp,predicted_otp_intent," +
+                "predicted_is_phishing,predicted_phish_score," +
+                "reported_at,uploaded,upload_attempts,user_note\n"
+    }
+
     private fun csv(value: String): String {
         val escaped = value.replace("\"", "\"\"").replace("\n", " ").replace("\r", " ")
         return "\"$escaped\""
@@ -479,22 +541,6 @@ class SettingsViewModel(
     
     fun isDefaultSmsHandler(): Boolean {
         return checkIsDefaultSms()
-    }
-    
-    fun checkBackendHealth() {
-        viewModelScope.launch {
-            _isCheckingBackendHealth.value = true
-            try {
-                _backendHealthStatus.value = BackendHealthChecker.checkHealth()
-            } catch (e: Exception) {
-                _backendHealthStatus.value = BackendHealthChecker.HealthStatus(
-                    isHealthy = false,
-                    errorMessage = "Health check failed: ${e.message}"
-                )
-            } finally {
-                _isCheckingBackendHealth.value = false
-            }
-        }
     }
     
     fun refreshPerformanceStats() {
@@ -572,9 +618,6 @@ class SettingsViewModel(
     }
 
     init {
-        // Check backend health on initialization
-        checkBackendHealth()
-        // Load performance stats
         refreshPerformanceStats()
     }
 }
