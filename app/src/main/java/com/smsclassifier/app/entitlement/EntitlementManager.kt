@@ -31,6 +31,22 @@ class EntitlementManager(private val context: Context) {
         else EntitlementState.TRIAL_EXPIRED
     }
 
+    fun hasTrialStarted(): Boolean = prefs.getLong(KEY_TRIAL_START, -1L) > 0L
+
+    fun hasTrialEverStarted(): Boolean = hasTrialStarted()
+
+    fun startTrialIfAvailable(): Boolean = startTrial()
+
+    fun startTrial(now: Long = System.currentTimeMillis()): Boolean {
+        if (prefs.getBoolean(KEY_PRO, false)) return false
+        if (hasTrialStarted()) return false
+
+        prefs.edit().putLong(KEY_TRIAL_START, now).apply()
+        Telemetry.instance?.logEvent("trial_started")
+        refreshCrashlyticsMode()
+        return true
+    }
+
     /** Calendar days left in trial, or 0 if not in trial. */
     fun trialDaysRemaining(now: Long = System.currentTimeMillis()): Int {
         if (prefs.getBoolean(KEY_PRO, false)) return 0
@@ -43,14 +59,6 @@ class EntitlementManager(private val context: Context) {
     }
 
     fun onWorkerDetectedOtp() {
-        if (prefs.getBoolean(KEY_PRO, false)) {
-            refreshCrashlyticsMode()
-            return
-        }
-        if (prefs.getLong(KEY_TRIAL_START, -1L) <= 0L) {
-            prefs.edit().putLong(KEY_TRIAL_START, System.currentTimeMillis()).apply()
-            Telemetry.instance?.logEvent("trial_started")
-        }
         if (!prefs.getBoolean(KEY_FIRST_OTP_EVENT, false)) {
             prefs.edit().putBoolean(KEY_FIRST_OTP_EVENT, true).apply()
             val launchPrefs = context.getSharedPreferences("telemetry_launch", Context.MODE_PRIVATE)
@@ -92,6 +100,7 @@ class EntitlementManager(private val context: Context) {
     /** True only for lifetime Play purchase (not trial). */
     fun isPaidPro(): Boolean = prefs.getBoolean(KEY_PRO, false)
 
+    @Suppress("UNUSED_PARAMETER")
     fun shouldUseServerForMessage(heuristicSaysOtp: Boolean): Boolean {
         if (prefs.getBoolean(KEY_PRO, false)) return true
         val trialStart = prefs.getLong(KEY_TRIAL_START, -1L)
@@ -100,7 +109,7 @@ class EntitlementManager(private val context: Context) {
             val inTrial = now - trialStart < TRIAL_MS
             return inTrial
         }
-        return heuristicSaysOtp
+        return false
     }
 
     /** One-shot welcome after trial starts (first OTP). */

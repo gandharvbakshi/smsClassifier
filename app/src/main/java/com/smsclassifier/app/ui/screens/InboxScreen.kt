@@ -55,6 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.ui.components.ConversationItem
 import com.smsclassifier.app.ui.components.FilterChips
 import com.smsclassifier.app.ui.components.MessageItem
@@ -425,6 +426,8 @@ private fun InboxHeader(
 
 @Composable
 private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
+    val trialAvailable = !AppContainer.entitlementManager.hasTrialStarted()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -475,18 +478,17 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             ) {
-                Row(
-                    modifier = Modifier.padding(12.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Column(modifier = Modifier.padding(12.dp)) {
                     Text(
-                        text = "Unlock Pro for full cloud classification",
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f)
+                        text = if (trialAvailable) {
+                            "Cloud phishing risk is unavailable here. Start the 7-day Pro trial or unlock Pro for full cloud classification."
+                        } else {
+                            "Cloud phishing risk is unavailable here. Unlock Pro for full cloud classification."
+                        },
+                        style = MaterialTheme.typography.bodyMedium
                     )
                     TextButton(onClick = ui.onUnlockPro) {
-                        Text("Unlock Pro")
+                        Text(if (trialAvailable) "Start trial / Unlock Pro" else "Unlock Pro")
                     }
                 }
             }

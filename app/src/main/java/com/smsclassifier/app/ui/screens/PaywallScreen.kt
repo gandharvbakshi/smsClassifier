@@ -52,6 +52,7 @@ fun PaywallScreen(
     val priceLabel = productDetails?.oneTimePurchaseOfferDetails?.formattedPrice ?: "…"
     val billingInFlight by AppContainer.billingRepository.isLaunchingFlow.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val entitlementManager = AppContainer.entitlementManager
 
     LaunchedEffect(Unit) {
         AppContainer.billingRepository.purchaseError.collect { msg ->
@@ -70,8 +71,9 @@ fun PaywallScreen(
         }
     }
 
-    val state = AppContainer.entitlementManager.currentState()
-    val trialDays = AppContainer.entitlementManager.trialDaysRemaining()
+    val state = entitlementManager.currentState()
+    val trialDays = entitlementManager.trialDaysRemaining()
+    val trialAvailable = !entitlementManager.hasTrialStarted()
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -100,12 +102,16 @@ fun PaywallScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Unlock full classification",
+                text = if (trialAvailable && state != EntitlementState.PRO) {
+                    "Choose your 7-day Pro trial or one-time purchase"
+                } else {
+                    "Unlock full classification"
+                },
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "• Cloud OTP classification & intent\n• Phishing detection & risk score\n• Best results during trial and with Pro",
+                text = "• Cloud OTP classification & intent\n• Cloud phishing detection & risk score\n• Start the trial first, or buy Pro once through Play Billing",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -115,11 +121,37 @@ fun PaywallScreen(
                     EntitlementState.PRO -> "You already have Pro."
                     EntitlementState.TRIAL_ACTIVE -> "Trial active — about $trialDays day(s) left."
                     EntitlementState.TRIAL_EXPIRED -> "Your trial has ended."
-                    EntitlementState.FREE -> "Receive your first OTP SMS to start a 7-day free trial automatically."
+                    EntitlementState.FREE -> if (trialAvailable) {
+                        "You have not used your 7-day Pro trial yet."
+                    } else {
+                        "You already used your 7-day Pro trial."
+                    }
                 },
                 style = MaterialTheme.typography.bodyMedium
             )
             Spacer(modifier = Modifier.height(16.dp))
+            if (trialAvailable && state != EntitlementState.PRO) {
+                Button(
+                    onClick = {
+                        if (entitlementManager.startTrialIfAvailable()) {
+                            AppContainer.telemetry.logEvent(
+                                "trial_started_from_paywall",
+                                mapOf("trigger" to telemetryTrigger)
+                            )
+                            onPurchaseFinishedNavigateNext()
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Start 7-day Pro trial")
+                }
+                Text(
+                    text = "No payment method required. No auto-charge during the trial.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+            }
             Button(
                 onClick = { AppContainer.billingRepository.launchBillingFlow(activity) },
                 modifier = Modifier.fillMaxWidth(),
@@ -139,6 +171,13 @@ fun PaywallScreen(
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+            if (trialAvailable && state != EntitlementState.PRO) {
+                Text(
+                    text = "If you start the trial, you can test cloud phishing risk first, and nothing auto-charges when the trial ends.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
             TextButton(
                 onClick = {
                     AppContainer.billingRepository.restorePurchases()

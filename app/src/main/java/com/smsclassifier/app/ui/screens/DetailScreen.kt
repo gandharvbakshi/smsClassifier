@@ -54,6 +54,8 @@ fun DetailScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val clipboardManager = LocalClipboardManager.current
     val coroutineScope = rememberCoroutineScope()
+    val entitlementManager = AppContainer.entitlementManager
+    val trialAvailable = !entitlementManager.hasTrialStarted()
 
     var showReportDialog by remember { mutableStateOf(false) }
     var reportNote by remember { mutableStateOf("") }
@@ -127,7 +129,11 @@ fun DetailScreen(
                                 fontWeight = FontWeight.SemiBold
                             )
                             Text(
-                                text = "Upgrade to Pro for phishing scores, cloud OTP intent, and full server classification.",
+                                text = if (trialAvailable) {
+                                    "Cloud phishing risk is unavailable here. Start the 7-day Pro trial or unlock Pro for phishing scores, cloud OTP intent, and full server classification."
+                                } else {
+                                    "Cloud phishing risk is unavailable here. Unlock Pro for phishing scores, cloud OTP intent, and full server classification."
+                                },
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer
                             )
@@ -141,7 +147,7 @@ fun DetailScreen(
                                 },
                                 modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text("Unlock Pro")
+                                Text(if (trialAvailable) "Start trial / Unlock Pro" else "Unlock Pro")
                             }
                         }
                     }

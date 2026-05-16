@@ -196,10 +196,15 @@ class MainActivity : ComponentActivity() {
                         ) {
                         composable("consent_onboarding") {
                             ConsentOnboardingScreen(
-                                onContinue = {
+                                onContinueFree = {
+                                    needsConsent = false
                                     navController.navigate("inbox") {
                                         popUpTo("consent_onboarding") { inclusive = true }
                                     }
+                                },
+                                onUnlockPro = {
+                                    needsConsent = false
+                                    navController.navigate("paywall/onboarding")
                                 }
                             )
                         }
