@@ -137,6 +137,10 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
+                    LaunchedEffect(currentRoute) {
+                        currentRoute?.let { AppContainer.telemetry.logScreenView(it) }
+                    }
+
                     val refreshEntitlement: () -> Unit = { entitlementRefresh++ }
 
                     val inboxEntitlementUi = remember(entitlementRefresh, formattedPrice) {
@@ -216,9 +220,11 @@ class MainActivity : ComponentActivity() {
                             ConversationListScreen(
                                 viewModel = viewModel,
                                 onConversationClick = { threadId ->
+                                    AppContainer.telemetry.logCtaTap("conversations", "thread_open")
                                     navController.navigate("thread/$threadId")
                                 },
                                 onNewMessageClick = {
+                                    AppContainer.telemetry.logCtaTap("conversations", "new_message")
                                     navController.navigate("compose")
                                 },
                                 onOpenSettings = { navController.navigate("settings") }
@@ -243,6 +249,7 @@ class MainActivity : ComponentActivity() {
                                 viewModel = viewModel,
                                 onBack = { navController.popBackStack() },
                                 onMessageClick = { messageId ->
+                                    AppContainer.telemetry.logMessageOpen("thread")
                                     navController.navigate("detail/$messageId")
                                 }
                             )
@@ -277,12 +284,15 @@ class MainActivity : ComponentActivity() {
                             InboxScreen(
                                 viewModel = viewModel,
                                 onMessageClick = { id ->
+                                    AppContainer.telemetry.logMessageOpen("inbox")
                                     navController.navigate("detail/$id")
                                 },
                                 onThreadClick = { threadId ->
+                                    AppContainer.telemetry.logCtaTap("inbox", "thread_open")
                                     navController.navigate("thread/$threadId")
                                 },
                                 onNewMessageClick = {
+                                    AppContainer.telemetry.logCtaTap("inbox", "new_message")
                                     navController.navigate("compose")
                                 },
                                 onSetDefaultSms = { promptForDefaultSmsIfNeeded() },
@@ -296,7 +306,10 @@ class MainActivity : ComponentActivity() {
                             )
                             OtpInboxScreen(
                                 viewModel = otpVm,
-                                onMessageClick = { id -> navController.navigate("detail/$id") }
+                                onMessageClick = { id ->
+                                    AppContainer.telemetry.logMessageOpen("otp")
+                                    navController.navigate("detail/$id")
+                                }
                             )
                         }
 
@@ -306,7 +319,10 @@ class MainActivity : ComponentActivity() {
                             )
                             FlaggedScreen(
                                 viewModel = flaggedVm,
-                                onMessageClick = { id -> navController.navigate("detail/$id") }
+                                onMessageClick = { id ->
+                                    AppContainer.telemetry.logMessageOpen("flagged")
+                                    navController.navigate("detail/$id")
+                                }
                             )
                         }
                         

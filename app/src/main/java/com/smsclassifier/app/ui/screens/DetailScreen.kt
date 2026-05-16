@@ -192,6 +192,7 @@ fun DetailScreen(
                     FilledTonalButton(
                         onClick = {
                             clipboardManager.setText(AnnotatedString(otpCode))
+                            AppContainer.telemetry.logOtpCopied("detail")
                             coroutineScope.launch {
                                 snackbarHostState.showSnackbar("OTP copied to clipboard")
                             }
@@ -248,7 +249,10 @@ fun DetailScreen(
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Button(
-                                onClick = { viewModel.retryClassification() },
+                                onClick = {
+                                    AppContainer.telemetry.logCtaTap("detail", "retry_classification")
+                                    viewModel.retryClassification()
+                                },
                                 enabled = !isRetrying,
                                 modifier = Modifier.fillMaxWidth()
                             ) {
@@ -285,6 +289,10 @@ fun DetailScreen(
                 // Report as wrong button
                 Button(
                     onClick = {
+                        AppContainer.telemetry.logEvent(
+                            "feedback_started",
+                            mapOf("surface" to "detail")
+                        )
                         reportNote = ""
                         showReportDialog = true
                     },
@@ -406,7 +414,11 @@ fun DetailScreen(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { 
+                TextButton(onClick = {
+                    AppContainer.telemetry.logEvent(
+                        "feedback_cancelled",
+                        mapOf("surface" to "detail")
+                    )
                     showReportDialog = false
                     reportNote = ""
                     reportType = null

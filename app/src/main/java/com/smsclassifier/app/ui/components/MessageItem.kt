@@ -32,6 +32,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.ui.badges.ClassificationBadge
 import com.smsclassifier.app.ui.badges.SensitivityBadge
@@ -173,6 +174,7 @@ private fun CopyOtpPill(code: String) {
         contentColor = MaterialTheme.colorScheme.onPrimary,
         modifier = Modifier.clickable {
             clipboard.setText(AnnotatedString(code))
+            AppContainer.telemetry.logOtpCopied("message_item")
             Toast.makeText(context, "OTP copied", Toast.LENGTH_SHORT).show()
         }
     ) {

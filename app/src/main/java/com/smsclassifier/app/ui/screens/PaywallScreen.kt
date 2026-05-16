@@ -133,6 +133,7 @@ fun PaywallScreen(
             if (trialAvailable && state != EntitlementState.PRO) {
                 Button(
                     onClick = {
+                        AppContainer.telemetry.logCtaTap("paywall", "start_trial")
                         if (entitlementManager.startTrialIfAvailable()) {
                             AppContainer.telemetry.logEvent(
                                 "trial_started_from_paywall",
@@ -153,7 +154,10 @@ fun PaywallScreen(
                 Spacer(modifier = Modifier.height(4.dp))
             }
             Button(
-                onClick = { AppContainer.billingRepository.launchBillingFlow(activity) },
+                onClick = {
+                    AppContainer.telemetry.logCtaTap("paywall", "unlock_pro")
+                    AppContainer.billingRepository.launchBillingFlow(activity)
+                },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = state != EntitlementState.PRO && !billingInFlight
             ) {
@@ -180,6 +184,7 @@ fun PaywallScreen(
             }
             TextButton(
                 onClick = {
+                    AppContainer.telemetry.logCtaTap("paywall", "restore_purchase")
                     AppContainer.billingRepository.restorePurchases()
                 },
                 modifier = Modifier.fillMaxWidth()

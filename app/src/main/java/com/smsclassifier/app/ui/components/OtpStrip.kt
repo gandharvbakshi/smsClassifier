@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.util.ClassificationUtils
 import com.smsclassifier.app.util.SenderNameResolver
@@ -75,7 +76,10 @@ fun OtpStrip(
                         color = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.clickable {
-                            code?.let { clipboard.setText(AnnotatedString(it)) }
+                            code?.let {
+                                clipboard.setText(AnnotatedString(it))
+                                AppContainer.telemetry.logOtpCopied("otp_strip")
+                            }
                         }
                     ) {
                         Row(

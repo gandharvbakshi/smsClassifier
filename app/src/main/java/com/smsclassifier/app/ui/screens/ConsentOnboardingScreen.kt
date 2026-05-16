@@ -63,10 +63,13 @@ fun ConsentOnboardingScreen(
     var entitlementState by remember { mutableStateOf(entitlementManager.currentState()) }
     val trialDaysRemaining = remember { entitlementManager.trialDaysRemaining() }
     val trialAvailable = !entitlementManager.hasTrialStarted()
+    val onboardingAlreadySeen = remember { consent.onboardingSeenNow() }
 
-    var analyticsOn by rememberSaveable { mutableStateOf(consent.analyticsEnabledNow()) }
+    var analyticsOn by rememberSaveable {
+        mutableStateOf(if (onboardingAlreadySeen) consent.analyticsEnabledNow() else true)
+    }
     var crashOn by rememberSaveable { mutableStateOf(consent.crashlyticsEnabledNow()) }
-    var privacySaved by rememberSaveable { mutableStateOf(consent.onboardingSeenNow()) }
+    var privacySaved by rememberSaveable { mutableStateOf(onboardingAlreadySeen) }
 
     Column(
         modifier = Modifier
@@ -136,7 +139,7 @@ fun ConsentOnboardingScreen(
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 ConsentToggleRow(
-                    title = "Anonymous usage analytics",
+                    title = "Anonymous usage analytics (recommended)",
                     subtitle = "Helps us see what gets used. No message content.",
                     checked = analyticsOn,
                     onCheckedChange = { analyticsOn = it }
@@ -165,6 +168,7 @@ fun ConsentOnboardingScreen(
                                 analyticsOn = analyticsOn,
                                 crashOn = crashOn
                             )
+                            AppContainer.telemetry.logCtaTap("onboarding", "save_privacy")
                             privacySaved = true
                         }
                     },
@@ -205,6 +209,7 @@ fun ConsentOnboardingScreen(
                                 analyticsOn = analyticsOn,
                                 crashOn = crashOn
                             )
+                            AppContainer.telemetry.logCtaTap("onboarding", "continue_free")
                             onContinueFree()
                         }
                     }
@@ -229,6 +234,7 @@ fun ConsentOnboardingScreen(
                                 analyticsOn = analyticsOn,
                                 crashOn = crashOn
                             )
+                            AppContainer.telemetry.logCtaTap("onboarding", "start_trial")
                             if (entitlementManager.startTrialIfAvailable()) {
                                 AppContainer.telemetry.logEvent("trial_started_from_onboarding")
                                 entitlementState = entitlementManager.currentState()
@@ -252,6 +258,7 @@ fun ConsentOnboardingScreen(
                                 analyticsOn = analyticsOn,
                                 crashOn = crashOn
                             )
+                            AppContainer.telemetry.logCtaTap("onboarding", "unlock_pro")
                             onUnlockPro()
                         }
                     }

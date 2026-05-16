@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.smsclassifier.app.AppContainer
 
 private data class TopLevelDestination(
     val route: String,
@@ -42,6 +43,7 @@ fun MainBottomBar(navController: NavHostController) {
                 selected = currentRoute == dest.route,
                 onClick = {
                     if (currentRoute == dest.route) return@NavigationBarItem
+                    AppContainer.telemetry.logCtaTap("bottom_nav", dest.route)
                     navController.navigate(dest.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true

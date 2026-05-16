@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.ui.viewmodel.FilterType
 
 /**
@@ -55,7 +56,10 @@ fun FilterChips(
 
             FilterChip(
                 selected = selectedFilter == filter,
-                onClick = { onFilterSelected(filter) },
+                onClick = {
+                    AppContainer.telemetry.logFilterChanged(filter.name)
+                    onFilterSelected(filter)
+                },
                 label = {
                     Text(
                         text = label,

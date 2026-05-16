@@ -20,6 +20,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.ui.badges.ClassificationBadge
 import com.smsclassifier.app.util.ClassificationUtils
@@ -78,6 +79,7 @@ fun MessageBubble(
                         body = message.body,
                         onTapCopy = {
                             clipboardManager.setText(AnnotatedString(otpCode))
+                            AppContainer.telemetry.logOtpCopied("message_bubble")
                             onCopy?.invoke()
                         }
                     )
@@ -109,6 +111,7 @@ fun MessageBubble(
                         leadingIcon = { Icon(Icons.Default.ContentCopy, null) },
                         onClick = {
                             clipboardManager.setText(AnnotatedString(otpCode))
+                            AppContainer.telemetry.logOtpCopied("message_menu")
                             onCopy?.invoke()
                             showMenu = false
                         }
@@ -134,7 +137,14 @@ fun MessageBubble(
                     DropdownMenuItem(
                         text = { Text("Report classification") },
                         leadingIcon = { Icon(Icons.Default.Report, null) },
-                        onClick = { onReport(); showMenu = false }
+                        onClick = {
+                            AppContainer.telemetry.logEvent(
+                                "feedback_started",
+                                mapOf("surface" to "message_menu")
+                            )
+                            onReport()
+                            showMenu = false
+                        }
                     )
                 }
                 if (onDelete != null) {

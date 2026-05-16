@@ -42,6 +42,33 @@ class Telemetry(
         analytics.logEvent(name, bundle)
     }
 
+    fun logScreenView(route: String) {
+        logEvent("screen_view", mapOf("screen_name" to screenName(route)))
+    }
+
+    fun logCtaTap(surface: String, action: String) {
+        logEvent(
+            "cta_tap",
+            mapOf("surface" to safeLabel(surface), "action" to safeLabel(action))
+        )
+    }
+
+    fun logMessageOpen(surface: String) {
+        logEvent("message_open", mapOf("surface" to safeLabel(surface)))
+    }
+
+    fun logOtpCopied(surface: String) {
+        logEvent("otp_copied", mapOf("surface" to safeLabel(surface)))
+    }
+
+    fun logFilterChanged(filter: String) {
+        logEvent("filter_changed", mapOf("filter" to safeLabel(filter)))
+    }
+
+    fun logSearchUsed(surface: String) {
+        logEvent("search_used", mapOf("surface" to safeLabel(surface)))
+    }
+
     fun setUserProperty(name: String, value: String?) {
         if (!consentManager.analyticsEnabledNow()) return
         analytics.setUserProperty(name, value)
@@ -107,6 +134,24 @@ class Telemetry(
         )
     }
 
+    private fun safeLabel(value: String): String {
+        return value
+            .lowercase()
+            .replace(Regex("[^a-z0-9_]+"), "_")
+            .trim('_')
+            .take(40)
+            .ifBlank { "unknown" }
+    }
+
+    private fun screenName(route: String): String {
+        return when {
+            route == "detail/{messageId}" || route.startsWith("detail/") -> "detail"
+            route == "thread/{threadId}" || route.startsWith("thread/") -> "thread"
+            route == "paywall/{trigger}" || route.startsWith("paywall/") -> "paywall"
+            else -> safeLabel(route)
+        }
+    }
+
     private fun validateParams(params: Map<String, Any?>) {
         val digitRun = Regex("\\d{4,}")
         val phoneish = Regex("\\+?\\d{10,}")
@@ -115,7 +160,10 @@ class Telemetry(
             "seconds_since_first_open",
             "app_install_age_days",
             "score",
-            "value"
+            "value",
+            "dau_date",
+            "uploaded",
+            "failed"
         )
         for ((k, v) in params) {
             if (k in allowedDigitHeavyKeys) continue

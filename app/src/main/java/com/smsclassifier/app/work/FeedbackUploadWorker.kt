@@ -9,6 +9,7 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.SettingsRepository
@@ -46,6 +47,8 @@ class FeedbackUploadWorker(
             val now = System.currentTimeMillis()
             val versionCode = BuildConfig.VERSION_CODE
             val versionName = BuildConfig.VERSION_NAME
+            var uploadedCount = 0
+            var failedCount = 0
             for (row in pending) {
                 val bodyLimited = row.body.take(BODY_MAX_LEN)
                 val redactedBody = SmsRedactor.redactForTraining(bodyLimited, installId)
@@ -68,11 +71,21 @@ class FeedbackUploadWorker(
                 val result = uploader.upload(req)
                 if (result.isSuccess) {
                     dao.markUploaded(row.id, now)
+                    uploadedCount++
                 } else {
                     dao.markUploadAttempt(row.id, now)
+                    failedCount++
                     anyFailure = true
                 }
             }
+            AppContainer.telemetry.logEvent(
+                "feedback_upload_result",
+                mapOf(
+                    "success" to (!anyFailure).toString(),
+                    "uploaded" to uploadedCount,
+                    "failed" to failedCount
+                )
+            )
             if (anyFailure) Result.retry() else Result.success()
         } catch (e: Exception) {
             AppLog.e(TAG, "Feedback upload worker failed", e)

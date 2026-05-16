@@ -358,7 +358,12 @@ private fun InboxHeader(
                 )
                 BasicTextField(
                     value = searchQuery,
-                    onValueChange = onSearchChange,
+                    onValueChange = { next ->
+                        if (searchQuery.isBlank() && next.isNotBlank()) {
+                            AppContainer.telemetry.logSearchUsed("inbox")
+                        }
+                        onSearchChange(next)
+                    },
                     singleLine = true,
                     textStyle = MaterialTheme.typography.bodyLarge.copy(
                         color = MaterialTheme.colorScheme.onSurface
@@ -402,6 +407,7 @@ private fun InboxHeader(
                 DropdownMenuItem(
                     text = { Text("View as messages") },
                     onClick = {
+                        AppContainer.telemetry.logCtaTap("inbox", "view_messages")
                         onViewModeChange(ViewMode.MESSAGES)
                         menuExpanded = false
                     },
@@ -412,6 +418,7 @@ private fun InboxHeader(
                 DropdownMenuItem(
                     text = { Text("Group by sender (threads)") },
                     onClick = {
+                        AppContainer.telemetry.logCtaTap("inbox", "view_threads")
                         onViewModeChange(ViewMode.THREADS)
                         menuExpanded = false
                     },
