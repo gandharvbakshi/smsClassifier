@@ -158,10 +158,10 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
             
             Prediction(
                 isOtp = isOtp,
-                otpIntent = otpIntent,
-                isPhishing = isPhishing,
-                phishScore = phishScore,
-                reasons = reasons,
+                otpIntent = null,
+                isPhishing = null,
+                phishScore = 0f,
+                reasons = emptyList(),
                 inferenceTimeMs = inferenceTime
             )
         } catch (e: Exception) {

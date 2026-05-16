@@ -162,13 +162,18 @@ fun DetailScreen(
                 
                 Divider()
                 
-                // Classification badges
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    ClassificationBadge(type = ClassificationUtils.riskBadgeType(msg))
-                    SensitivityBadge(type = ClassificationUtils.sensitivityType(msg))
+                val hasCloudRiskResult = msg.isPhishing != null || msg.phishScore != null
+                val sensitivity = ClassificationUtils.sensitivityType(msg)
+                if (hasCloudRiskResult || sensitivity != com.smsclassifier.app.ui.badges.SensitivityType.NONE) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (hasCloudRiskResult) {
+                            ClassificationBadge(type = ClassificationUtils.riskBadgeType(msg))
+                        }
+                        SensitivityBadge(type = sensitivity)
+                    }
                 }
                 
                 // OTP Intent

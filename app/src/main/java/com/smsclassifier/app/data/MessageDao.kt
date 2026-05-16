@@ -61,7 +61,7 @@ interface MessageDao {
     @Query("SELECT COUNT(DISTINCT threadId) FROM messages WHERE (isOtp IS NULL OR isOtp = 0) AND (isPhishing IS NULL OR isPhishing = 0)")
     suspend fun getGeneralThreadCount(): Int
 
-    @Query("SELECT * FROM messages WHERE isOtp IS NULL OR isPhishing IS NULL ORDER BY ts DESC LIMIT :limit")
+    @Query("SELECT * FROM messages WHERE isOtp IS NULL OR (reviewed = 0 AND (isPhishing IS NULL OR phishScore IS NULL)) ORDER BY ts DESC LIMIT :limit")
     suspend fun getUnclassified(limit: Int): List<MessageEntity>
 
     @Query("SELECT * FROM messages ORDER BY ts DESC")

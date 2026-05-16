@@ -51,6 +51,7 @@ object ClassificationUtils {
 
     fun sensitivityType(message: MessageEntity): SensitivityType {
         if (!isOtpEffective(message)) return SensitivityType.NONE
+        if (message.otpIntent == null) return SensitivityType.NONE
         return when (message.otpIntent) {
             "BANK_OR_CARD_TXN_OTP",
             "FINANCIAL_LOGIN_OTP",

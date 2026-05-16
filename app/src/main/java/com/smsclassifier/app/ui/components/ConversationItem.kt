@@ -165,9 +165,10 @@ fun ConversationItem(
 
                 thread.latestMessage?.let { message ->
                     val sensitivity = ClassificationUtils.sensitivityType(message)
+                    val hasCloudRiskResult = message.isPhishing != null || message.phishScore != null
                     val showRiskBadge = message.isPhishing == true ||
                         (message.phishScore ?: 0f) >= 0.3f ||
-                        message.isOtp == true
+                        (hasCloudRiskResult && message.isOtp == true)
                     if (showRiskBadge || sensitivity != SensitivityType.NONE) {
                         Spacer(modifier = Modifier.height(4.dp))
                         Row(

@@ -56,8 +56,10 @@ class ClassificationWorker(
                         AppLog.w(TAG, "Skipping empty message ${message.id}")
                         val emptyMessage = message.copy(
                             isOtp = false,
-                            isPhishing = false,
-                            reasonsJson = "[\"Empty message\"]",
+                            otpIntent = null,
+                            isPhishing = null,
+                            phishScore = null,
+                            reasonsJson = null,
                             reviewed = true
                         )
                         database.messageDao().update(emptyMessage)
@@ -71,6 +73,7 @@ class ClassificationWorker(
                     val useServer = AppContainer.entitlementManager
                         .shouldUseServerForMessage(hPred.isOtp == true)
 
+                    var usedServerResult = false
                     val prediction = if (useServer) {
                         if (!hasInternet()) {
                             AppLog.d(TAG, "Skipping server classify (offline); using heuristic for message ${message.id}")
@@ -78,7 +81,10 @@ class ClassificationWorker(
                             hPred
                         } else {
                         try {
-                            ServerClassifier().predict(features)
+                            ServerClassifier().predict(features).also { serverPrediction ->
+                                usedServerResult = serverPrediction.isOtp != null ||
+                                    serverPrediction.isPhishing != null
+                            }
                         } catch (e: Exception) {
                             AppLog.e(TAG, "Server classify failed for ${message.id}: ${e.message}", e)
                             SafeError.report(TAG, e)
@@ -105,10 +111,15 @@ class ClassificationWorker(
 
                     val updatedMessage = message.copy(
                         isOtp = prediction.isOtp,
-                        otpIntent = prediction.otpIntent,
-                        isPhishing = if (useServer) prediction.isPhishing else null,
-                        phishScore = if (useServer) prediction.phishScore else null,
-                        reasonsJson = prediction.reasons.joinToString(",") { "\"$it\"" }.let { "[$it]" }
+                        otpIntent = if (usedServerResult) prediction.otpIntent else null,
+                        isPhishing = if (usedServerResult) prediction.isPhishing else null,
+                        phishScore = if (usedServerResult) prediction.phishScore else null,
+                        reasonsJson = if (useServer && prediction.reasons.isNotEmpty()) {
+                            prediction.reasons.joinToString(",") { "\"$it\"" }.let { "[$it]" }
+                        } else {
+                            null
+                        },
+                        reviewed = if (useServer) message.reviewed else true
                     )
 
                     database.messageDao().update(updatedMessage)

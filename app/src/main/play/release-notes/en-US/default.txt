@@ -1,7 +1,5 @@
-v1.1.0 — Cleaner Settings
-- Simplified Settings: removed redundant rows and engineering jargon.
-- Removed unused Meta Ads consent toggle and the Facebook SDK from the app.
-- Notifications screen now defers to Android system settings.
-- New "Export my data" produces a single zip with all your data.
-- Diagnostics moved into About (tap version 5 times to reveal).
-- Privacy & data: clearer wording on what we share and store.
+v1.1.1 - Pro trial controls
+- New setup lets you choose Free, 7-day Pro trial, or Pro.
+- Free keeps OTP intent, warning badges, phishing detection, and risk scores locked.
+- Trial/Pro enable cloud OTP intent and phishing risk checks.
+- Clearer upgrade prompts in Inbox, Detail, and Paywall.

@@ -131,7 +131,8 @@ fun MessageItem(
                 )
 
                 val sensitivity = ClassificationUtils.sensitivityType(message)
-                val showRisk = isPhish || message.isOtp == true
+                val hasCloudRiskResult = message.isPhishing != null || message.phishScore != null
+                val showRisk = isPhish || (hasCloudRiskResult && message.isOtp == true)
                 val otpCode = ClassificationUtils.extractOtpForCopy(
                     message.body,
                     message.sender,
