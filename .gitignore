@@ -1,0 +1,60 @@
+# OS / tooling
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+
+# Secrets - NEVER COMMIT THESE
+.env
+.env.*
+!.env.example
+*.env
+keystore.properties
+*.jks
+*.keystore
+**/release-keystore.jks
+**/test-keystore.jks
+**/upload-keystore.jks
+# Deploy scripts that may contain inlined credentials
+backend_push_commands
+*_push_commands
+deploy_*.local.*
+# Service account JSON keys
+play-publisher.json
+*-service-account*.json
+gcp-key*.json
+
+# IDE settings
+.idea/
+.vscode/
+*.iml
+
+# Build artifacts
+**/build/
+**/.gradle/
+.gradle/
+android_sms_classifier/local.properties
+android_sms_classifier/.cxx/
+android_sms_classifier/.externalNativeBuild/
+app/build/
+*.apk
+*.zip
+
+# Android Studio caches
+android_sms_classifier/.idea/
+android_sms_classifier/.DS_Store
+
+# Generated outputs (optional, regenerate as needed)
+android_model_exports/
+baseline_results/
+model_comparison_results/
+synthetic_test_results/
+trained_models/
+

@@ -1,0 +1,28 @@
+{
+  "accuracy": 0.18887641539506328,
+  "precision": 1.0,
+  "recall": 0.18887641539506328,
+  "f1_score": 0.3177393595318311,
+  "confusion_matrix": [
+    [
+      0,
+      0
+    ],
+    [
+      58525,
+      13628
+    ]
+  ],
+  "total_otps": 72153,
+  "caught_by_heuristics": 13628,
+  "percentage_caught": 18.887641539506326,
+  "high_confidence_caught": 3101,
+  "high_confidence_percentage": 4.2978115948054825,
+  "confidence_distribution": {
+    "high_confidence_gt_80": 3101,
+    "medium_confidence_50_80": 10527,
+    "low_confidence_0_50": 0,
+    "ml_needed_0": 58525
+  },
+  "total_messages": 72153
+}
