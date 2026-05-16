@@ -43,3 +43,6 @@ sms classifier log*.csv
 # Gradle Play Publisher upload log (regenerated on every release, no value in git)
 publish-release.log
 
+# Local screenshot staging folder; curated Play assets live under app/src/main/play.
+App screen shots*/
+
