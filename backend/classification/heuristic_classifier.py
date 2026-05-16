@@ -245,8 +245,8 @@ class HeuristicOtpClassifier:
                 "confidence": 0.0,
                 "suggestedIntent": None,
                 "reasons": reasons + [
-                    f"Transaction/marketing/delivery context detected "
-                    f"({negative_matches} negative indicators), no strong OTP keyword"
+                    f"Heuristic OTP veto: transaction/marketing/delivery/status context detected "
+                    f"({negative_matches} negative indicators) with no strong OTP signal"
                 ],
             }
 

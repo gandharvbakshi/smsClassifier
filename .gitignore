@@ -10,6 +10,8 @@ __pycache__/
 
 # Virtual environments
 .venv/
+.venv-win/
+.tmp_feedback/
 
 # Secrets - NEVER COMMIT THESE
 .env
@@ -57,4 +59,3 @@ baseline_results/
 model_comparison_results/
 synthetic_test_results/
 trained_models/
-
