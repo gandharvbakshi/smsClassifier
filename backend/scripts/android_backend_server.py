@@ -244,7 +244,8 @@ DANGER_PATTERNS = [
             r"kyc|account blocked|blocked account|account will be blocked|"
             r"account suspended|suspended|freeze|deactivate|limited access|"
             r"verify immediately|verify now|urgent action|expires soon|"
-            r"within \d+\s*(hours?|days?)"
+            r"within \d+\s*(hours?|days?)|parcel is on hold|shipment is on hold|"
+            r"redelivery fee|release (?:it|shipment|parcel|package)"
             r")\b",
             re.IGNORECASE,
         ),

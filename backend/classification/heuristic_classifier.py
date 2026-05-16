@@ -369,7 +369,9 @@ class HeuristicOtpClassifier:
             return "UPI_TXN_OR_PIN_OTP"
 
         if re.search(r"\b(password.*reset|change.*password|update.*profile|change.*phone|"
-                     r"change.*email|account.*change)\b", text, re.IGNORECASE):
+                     r"change.*email|account.*change|new\s+phone\s+number|"
+                     r"phone\s+number\s+(?:change|verify|verification)|change\s+number)\b",
+                     text, re.IGNORECASE):
             reasons.append("Intent: APP_ACCOUNT_CHANGE_OTP")
             return "APP_ACCOUNT_CHANGE_OTP"
 

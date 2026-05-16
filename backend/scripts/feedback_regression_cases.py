@@ -92,6 +92,18 @@ FEEDBACK_REGRESSION_CASES: List[FeedbackRegressionCase] = [
         category="legit_otp",
     ),
     FeedbackRegressionCase(
+        case_id="otp_whatsapp_phone_change",
+        sender="WHATSAPP",
+        text=(
+            "Your WhatsApp code is 482917. Do not share this code with anyone. "
+            "Use it to verify your new phone number."
+        ),
+        expected_is_otp=True,
+        expected_is_phishing=False,
+        expected_otp_intent="APP_ACCOUNT_CHANGE_OTP",
+        category="legit_otp",
+    ),
+    FeedbackRegressionCase(
         case_id="otp_delivery_code_01",
         sender="DELHIVRY",
         text=(
@@ -165,6 +177,17 @@ FEEDBACK_REGRESSION_CASES: List[FeedbackRegressionCase] = [
         text=(
             "Your parcel is on hold. Pay a redelivery fee at "
             "https://bit.ly/redeliver-now to release it."
+        ),
+        expected_is_otp=False,
+        expected_is_phishing=True,
+        category="synthetic_phishing",
+    ),
+    FeedbackRegressionCase(
+        case_id="phish_brand_redelivery_fee",
+        sender="BLUEDART",
+        text=(
+            "Your parcel is on hold. Pay Rs 29 redelivery fee at "
+            "https://bit.ly/bluedart-redeliver to release shipment."
         ),
         expected_is_otp=False,
         expected_is_phishing=True,
