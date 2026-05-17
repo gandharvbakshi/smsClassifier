@@ -3,7 +3,8 @@ FastAPI service that exposes the ensemble classification logic to Android client
 
 The service combines:
   - LightGBM models (trained offline) for `is_otp` and `is_phishing`
-  - Groq's `llama-3.1-8b-instant` for OTP intent classification when an OTP is detected
+  - Groq's `llama-3.1-8b-instant` for OTP intent when an OTP is detected but intent is unknown
+  - Optional Groq second opinion for phishing via `GROQ_PHISHING_MODE` (`off` default, `veto`, `gray`)
 
 Run locally for testing:
     uvicorn backend.scripts.android_backend_server:app --host 0.0.0.0 --port 8001 --reload
@@ -11,20 +12,24 @@ Run locally for testing:
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import os
 import re
+import threading
 import time
+import uuid
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+from urllib.parse import urlparse
 
 import numpy as np
 import pickle
 import requests
 from dotenv import load_dotenv
-from fastapi import APIRouter, FastAPI, HTTPException
+from fastapi import APIRouter, FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 from scipy.sparse import csr_matrix, hstack
 
@@ -42,6 +47,11 @@ LGB_PHISH_PATH = MODEL_DIR / "model_phishing_lgb.pkl"
 
 OTP_THRESHOLD = float(os.getenv("OTP_THRESHOLD", "0.5"))
 PHISH_THRESHOLD = float(os.getenv("PHISH_THRESHOLD", "0.5"))
+# Optional second opinion for phishing (default off). Eval on merged jury sample (n=100):
+# LightGBM baseline beat veto/gray on F1; Groq-only was much worse than ML.
+GROQ_PHISHING_MODE = os.getenv("GROQ_PHISHING_MODE", "off").strip().lower()
+PHISH_GRAY_LOW = float(os.getenv("PHISH_GRAY_LOW", "0.35"))
+PHISH_GRAY_HIGH = float(os.getenv("PHISH_GRAY_HIGH", "0.72"))
 GROQ_MODEL = os.getenv("GROQ_INTENT_MODEL", "llama-3.1-8b-instant")
 GROQ_TIMEOUT = float(os.getenv("GROQ_TIMEOUT", "45"))
 
@@ -134,6 +144,142 @@ SENDER_PATTERNS = [
     re.compile(r"^\d{10,12}$"),
 ]
 
+URL_PATTERN = re.compile(r"https?://[^\s<>)\]]+|www\.[^\s<>)\]]+", re.IGNORECASE)
+SHORT_URL_HOSTS = {
+    "bit.ly",
+    "bitly.com",
+    "cutt.ly",
+    "goo.gl",
+    "is.gd",
+    "lnkd.in",
+    "rb.gy",
+    "shorturl.at",
+    "tinyurl.com",
+    "t.co",
+}
+BRAND_TOKEN_PATTERN = re.compile(
+    r"\b(ICICI|HDFC|SBI|AXIS|KOTAK|ZERODHA|GROWW|UPSTOX|PAYTM|PHONEPE|GPAY|"
+    r"SWIGGY|ZOMATO|AMAZON|FLIPKART|DELHIVERY|BLUEDART|NETFLIX|SPOTIFY|"
+    r"INSTAGRAM|FACEBOOK|TWITTER|GODADDY|BSE|VI)\b",
+    re.IGNORECASE,
+)
+
+LEGIT_CONTEXT_PATTERNS = [
+    (
+        "bank transaction / standing-instruction notice",
+        0.15,
+        re.compile(
+            r"\b("
+            r"debit(?:ed)?|credit(?:ed)?|transaction|txn|standing instruction|"
+            r"auto[- ]debit|auto[- ]?pay|mandate|ecs|nach|account statement|statement|"
+            r"emi|scheduled payment|payment received|processed|refund(?:ed)?"
+            r"|payment (?:of )?(?:rs\.?\s*)?\d+(?:[.,]\d+)? (?:was )?successful|receipt"
+            r")\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "delivery / order confirmation",
+        0.15,
+        re.compile(
+            r"\b("
+            r"order (?:has )?(?:confirmed|placed|shipped|dispatched)|"
+            r"received your .* order|shipment|tracking|"
+            r"delivery(?: update| status)?|out for delivery|courier|package|delivered"
+            r")\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "bill / data alert",
+        0.18,
+        re.compile(
+            r"\b("
+            r"bill due|due date|invoice|recharge|data balance|data pack|plan validity|"
+            r"validity|usage alert|postpaid|prepaid|mobile data|broadband|"
+            r"electricity bill|gas bill|internet bill"
+            r")\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "brand unsubscribe / preference link",
+        0.25,
+        re.compile(r"\b(unsubscribe|opt[- ]?out|sms preferences?|email preferences?)\b", re.IGNORECASE),
+    ),
+    (
+        "security education / investor awareness",
+        0.20,
+        re.compile(
+            r"\b(beware|unsolicited tips|take informed decision|attention investors?|security education)\b",
+            re.IGNORECASE,
+        ),
+    ),
+]
+
+LEGIT_OTP_PATTERNS = [
+    re.compile(
+        r"\b(otp|verification code|verify code|login code|sign in code|"
+        r"one[- ]time password|authentication code|auth code|passcode|code\s*[:#]\s*\d{4,8})\b",
+        re.IGNORECASE,
+    )
+]
+
+DANGER_PATTERNS = [
+    (
+        "credential / password collection",
+        re.compile(
+            r"\b("
+            r"cvv|card details|bank details|account details|login details|"
+            r"share otp|send otp|enter otp|confirm credentials|verify credentials|"
+            r"reset password|change password|re[- ]?enter (?:your )?(?:details|credentials|password)"
+            r")\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "KYC / account-blocked urgency",
+        re.compile(
+            r"\b("
+            r"kyc|account blocked|blocked account|account will be blocked|"
+            r"account suspended|suspended|freeze|deactivate|limited access|"
+            r"verify immediately|verify now|urgent action|expires soon|"
+            r"within \d+\s*(hours?|days?)|parcel is on hold|shipment is on hold|"
+            r"redelivery fee|release (?:it|shipment|parcel|package)"
+            r")\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "APK / install lure",
+        re.compile(
+            r"\b(apk|install app|download app|sideload|unknown sources|update app)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "UPI / payment trap",
+        re.compile(
+            r"\b("
+            r"upi|unified payments|pay request|collect request|scan qr|request money|"
+            r"send money|transfer money|payment link|refund link"
+            r")\b",
+            re.IGNORECASE,
+        ),
+    ),
+]
+
+PAYMENT_TRAP_PATTERN = re.compile(
+    r"\b(upi|pay request|pay now|transfer money|send money|request money|"
+    r"collect request|scan qr|qr code|payment link|refund link)\b",
+    re.IGNORECASE,
+)
+SHORT_URL_DANGER_PATTERN = re.compile(
+    r"\b(login|verify|update|password|pin|cvv|kyc|install|apk|upi|payment|transfer|"
+    r"send money|request money|collect request|urgent)\b",
+    re.IGNORECASE,
+)
+
 
 class ClassifyRequest(BaseModel):
     text: str = Field(..., description="SMS text body")
@@ -155,8 +301,9 @@ class HealthResponse(BaseModel):
 
 
 @dataclass
-class GroqIntentResult:
+class GroqSmsFullResult:
     intent: str
+    is_phishing: bool
     latency_ms: float
     raw_response: Dict[str, Any]
 
@@ -180,6 +327,473 @@ REQUEST_SESSION = requests.Session()
 
 app = FastAPI(title="SMS Ensemble Backend", version="0.1.0")
 api_router = APIRouter(prefix="/api")
+
+
+# ---------------------------------------------------------------------------
+# Misclassification feedback ingestion
+#
+# Endpoint:   POST /api/feedback
+# Schema:     mirrors `FeedbackRequest` in the Android app
+#             (com.smsclassifier.app.feedback.FeedbackUploader.kt)
+#
+# Storage:    JSON Lines file. By default writes to
+#             `${FEEDBACK_LOG_DIR}/feedback.jsonl` (default
+#             `/tmp/sms_feedback`). On Cloud Run the local FS is ephemeral, so
+#             for persistence either:
+#               (a) mount a Cloud Storage volume and point FEEDBACK_LOG_DIR at
+#                   it (`gcsfuse` mount or Cloud Run volume mount), or
+#               (b) set FEEDBACK_GCS_BUCKET (and optionally
+#                   FEEDBACK_GCS_PREFIX) to upload each row as a small object,
+#                   or
+#               (c) replace `_persist_feedback` with a BigQuery streaming
+#                   insert.
+#
+# Privacy:    Body content is never logged in full at INFO. We log only its
+#             length and a SHA-1 hash for dedup observability.
+# ---------------------------------------------------------------------------
+
+FEEDBACK_GCS_BUCKET = os.getenv("FEEDBACK_GCS_BUCKET")
+FEEDBACK_GCS_PREFIX = os.getenv("FEEDBACK_GCS_PREFIX", "misclassification/")
+ENTITLEMENT_GCS_PREFIX = os.getenv("ENTITLEMENT_GCS_PREFIX", "entitlements/")
+PLAY_PACKAGE_NAME = os.getenv("PLAY_PACKAGE_NAME", "com.smsclassifier.app")
+ANDROID_PUBLISHER_SCOPE = "https://www.googleapis.com/auth/androidpublisher"
+TRIAL_MS = 7 * 24 * 60 * 60 * 1000
+FEEDBACK_LOG_DIR_RAW = os.getenv("FEEDBACK_LOG_DIR")
+# When GCS is configured, the local JSONL file is just a debug fallback.
+# When GCS is NOT configured, we still write a local JSONL for development.
+# Default to /tmp on Cloud Run-style targets — that's wiped on restart, which
+# is fine because if no GCS_BUCKET is set the operator hasn't asked for
+# durability anyway.
+FEEDBACK_LOG_DIR = Path(FEEDBACK_LOG_DIR_RAW) if FEEDBACK_LOG_DIR_RAW else Path("/tmp/sms_feedback")
+try:
+    FEEDBACK_LOG_DIR.mkdir(parents=True, exist_ok=True)
+    FEEDBACK_LOG_FILE: Optional[Path] = FEEDBACK_LOG_DIR / "feedback.jsonl"
+except Exception as _exc:  # noqa: BLE001
+    logger.warning("Could not create feedback log dir %s: %s", FEEDBACK_LOG_DIR, _exc)
+    FEEDBACK_LOG_FILE = None
+FEEDBACK_BODY_MAX_LEN = int(os.getenv("FEEDBACK_BODY_MAX_LEN", "4000"))
+FEEDBACK_REJECT_NON_OKHTTP = os.getenv("FEEDBACK_REJECT_NON_OKHTTP", "true").lower() in {"1", "true", "yes"}
+FEEDBACK_LOCK = threading.Lock()
+ENTITLEMENT_LOCK = threading.Lock()
+
+_GCS_CLIENT = None
+
+
+def _gcs_client():
+    global _GCS_CLIENT
+    if _GCS_CLIENT is not None:
+        return _GCS_CLIENT
+    if not FEEDBACK_GCS_BUCKET:
+        return None
+    try:
+        from google.cloud import storage  # type: ignore
+
+        _GCS_CLIENT = storage.Client()
+        return _GCS_CLIENT
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("GCS client unavailable; feedback will only be written locally: %s", exc)
+        return None
+
+
+class FeedbackRequest(BaseModel):
+    installId: str = Field(..., min_length=8, max_length=128)
+    appVersionCode: int
+    appVersionName: str
+    sender: str = Field(..., max_length=256)
+    body: str
+    predictedIsOtp: Optional[bool] = None
+    predictedOtpIntent: Optional[str] = None
+    predictedIsPhishing: Optional[bool] = None
+    predictedPhishScore: Optional[float] = None
+    userCorrection: Optional[str] = None
+    userNote: Optional[str] = None
+    clientCreatedAt: int
+
+
+class FeedbackResponse(BaseModel):
+    ok: bool
+    id: Optional[str] = None
+    error: Optional[str] = None
+
+
+def _persist_feedback(record: Dict[str, Any]) -> None:
+    line = json.dumps(record, ensure_ascii=False)
+    gcs_ok = False
+    client = _gcs_client()
+    if client is not None and FEEDBACK_GCS_BUCKET:
+        try:
+            bucket = client.bucket(FEEDBACK_GCS_BUCKET)
+            blob_name = (
+                f"{FEEDBACK_GCS_PREFIX.rstrip('/')}/"
+                f"{record['received_at']}_{record['id']}.json"
+            )
+            bucket.blob(blob_name).upload_from_string(
+                line, content_type="application/json"
+            )
+            gcs_ok = True
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("GCS upload of feedback row failed: %s", exc)
+    # Always also write local file when no GCS, or when GCS upload failed,
+    # so we don't silently drop the row.
+    if FEEDBACK_LOG_FILE is not None and (not FEEDBACK_GCS_BUCKET or not gcs_ok):
+        try:
+            with FEEDBACK_LOCK:
+                with open(FEEDBACK_LOG_FILE, "a", encoding="utf-8") as fh:
+                    fh.write(line + "\n")
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Local feedback append failed: %s", exc)
+
+
+@api_router.post("/feedback", response_model=FeedbackResponse)
+def post_feedback(request: FeedbackRequest, http_request: Request) -> FeedbackResponse:
+    if FEEDBACK_REJECT_NON_OKHTTP:
+        ua = http_request.headers.get("user-agent", "")
+        if "okhttp" not in ua.lower():
+            raise HTTPException(status_code=403, detail="Forbidden")
+    body = request.body or ""
+    if not body.strip():
+        raise HTTPException(status_code=400, detail="body must not be empty")
+    if len(body) > FEEDBACK_BODY_MAX_LEN:
+        raise HTTPException(status_code=413, detail="body too long")
+    received_at = int(time.time() * 1000)
+    record_id = str(uuid.uuid4())
+    body_hash = hashlib.sha1(body.encode("utf-8")).hexdigest()[:16]
+    record = {
+        "id": record_id,
+        "received_at": received_at,
+        "client_user_agent": http_request.headers.get("user-agent", "")[:200],
+        "body_hash": body_hash,
+        **request.model_dump(),
+    }
+    _persist_feedback(record)
+    logger.info(
+        "feedback stored",
+        extra={
+            "id": record_id,
+            "install_id": request.installId,
+            "app_version_code": request.appVersionCode,
+            "predicted_is_otp": request.predictedIsOtp,
+            "predicted_otp_intent": request.predictedOtpIntent,
+            "predicted_is_phishing": request.predictedIsPhishing,
+            "predicted_phish_score": request.predictedPhishScore,
+            "body_len": len(body),
+            "body_hash": body_hash,
+        },
+    )
+    return FeedbackResponse(ok=True, id=record_id)
+
+
+# ---------------------------------------------------------------------------
+# User-data deletion
+#
+# Endpoint:   DELETE /api/users/me
+# Contract:   mirrors DeleteAccountClient.kt in the Android app.
+#             Idempotent — returns 204 even when no rows exist for the id.
+# ---------------------------------------------------------------------------
+
+def _delete_local_feedback(install_id: str) -> int:
+    """Rewrite the local JSONL dropping rows whose installId matches.
+
+    Uses an atomic tmp-file + os.replace so a partial write never corrupts
+    the live file. Holds FEEDBACK_LOCK for the full read-rewrite cycle.
+    Returns the number of rows deleted.
+    """
+    if FEEDBACK_LOG_FILE is None or not FEEDBACK_LOG_FILE.exists():
+        return 0
+    deleted = 0
+    tmp_path = FEEDBACK_LOG_FILE.with_suffix(".tmp")
+    with FEEDBACK_LOCK:
+        kept: list[str] = []
+        with open(FEEDBACK_LOG_FILE, "r", encoding="utf-8") as fh:
+            for raw in fh:
+                raw = raw.rstrip("\n")
+                if not raw:
+                    continue
+                try:
+                    row = json.loads(raw)
+                except json.JSONDecodeError:
+                    kept.append(raw)
+                    continue
+                if row.get("installId") == install_id:
+                    deleted += 1
+                else:
+                    kept.append(raw)
+        with open(tmp_path, "w", encoding="utf-8") as fh:
+            for line in kept:
+                fh.write(line + "\n")
+        os.replace(str(tmp_path), str(FEEDBACK_LOG_FILE))
+    return deleted
+
+
+def _delete_gcs_feedback(install_id: str) -> int:
+    """Delete GCS feedback blobs whose JSON body contains a matching installId.
+
+    Each blob is a single-row JSON object written by _persist_feedback.
+    Downloads, checks, and deletes matching blobs one at a time.
+    If GCS is not configured or any call fails, logs a warning and returns 0
+    without raising.
+    """
+    client = _gcs_client()
+    if client is None or not FEEDBACK_GCS_BUCKET:
+        return 0
+    deleted = 0
+    try:
+        bucket = client.bucket(FEEDBACK_GCS_BUCKET)
+        blobs = list(bucket.list_blobs(prefix=FEEDBACK_GCS_PREFIX))
+        for blob in blobs:
+            try:
+                content = blob.download_as_text(encoding="utf-8")
+                row = json.loads(content)
+                if row.get("installId") == install_id:
+                    blob.delete()
+                    deleted += 1
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("GCS blob deletion failed for %s: %s", blob.name, exc)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("GCS feedback deletion listing failed: %s", exc)
+    return deleted
+
+
+def _subject_hash(kind: str, value: Optional[str]) -> Optional[str]:
+    if not value:
+        return None
+    raw = f"{kind}:{value}".encode("utf-8")
+    return hashlib.sha256(raw).hexdigest()
+
+
+def _entitlement_blob_names(install_id: str, firebase_uid: Optional[str]) -> List[str]:
+    names: List[str] = []
+    for kind, value in (("uid", firebase_uid), ("install", install_id)):
+        digest = _subject_hash(kind, value)
+        if digest:
+            names.append(f"{ENTITLEMENT_GCS_PREFIX.rstrip('/')}/{kind}_{digest}.json")
+    return names
+
+
+def _local_entitlement_path(blob_name: str) -> Path:
+    safe_name = blob_name.replace("/", "_")
+    return FEEDBACK_LOG_DIR / safe_name
+
+
+def _read_entitlement_blob(blob_name: str) -> Optional[Dict[str, Any]]:
+    client = _gcs_client()
+    if client is not None and FEEDBACK_GCS_BUCKET:
+        try:
+            bucket = client.bucket(FEEDBACK_GCS_BUCKET)
+            blob = bucket.blob(blob_name)
+            if blob.exists():
+                return json.loads(blob.download_as_text(encoding="utf-8"))
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("GCS entitlement read failed for %s: %s", blob_name, exc)
+    path = _local_entitlement_path(blob_name)
+    if path.exists():
+        try:
+            return json.loads(path.read_text(encoding="utf-8"))
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Local entitlement read failed for %s: %s", path, exc)
+    return None
+
+
+def _load_entitlement(install_id: str, firebase_uid: Optional[str]) -> Dict[str, Any]:
+    records = [
+        row
+        for name in _entitlement_blob_names(install_id, firebase_uid)
+        for row in [_read_entitlement_blob(name)]
+        if row
+    ]
+    now = int(time.time() * 1000)
+    merged: Dict[str, Any] = {
+        "installId": install_id,
+        "firebaseUid": firebase_uid,
+        "trialStartedAt": None,
+        "trialExpiresAt": None,
+        "proActive": False,
+        "updatedAt": now,
+    }
+    for row in records:
+        started = row.get("trialStartedAt")
+        if isinstance(started, int):
+            current = merged.get("trialStartedAt")
+            merged["trialStartedAt"] = min(current, started) if isinstance(current, int) else started
+            merged["trialExpiresAt"] = merged["trialStartedAt"] + TRIAL_MS
+        merged["proActive"] = bool(merged["proActive"] or row.get("proActive"))
+        for key in ("purchaseProductId", "purchaseTokenHash", "lastValidationStatus"):
+            if row.get(key):
+                merged[key] = row[key]
+    return merged
+
+
+def _write_entitlement(record: Dict[str, Any]) -> None:
+    line = json.dumps(record, ensure_ascii=False)
+    blob_names = _entitlement_blob_names(
+        str(record.get("installId") or ""),
+        record.get("firebaseUid"),
+    )
+    client = _gcs_client()
+    with ENTITLEMENT_LOCK:
+        for blob_name in blob_names:
+            wrote_gcs = False
+            if client is not None and FEEDBACK_GCS_BUCKET:
+                try:
+                    client.bucket(FEEDBACK_GCS_BUCKET).blob(blob_name).upload_from_string(
+                        line,
+                        content_type="application/json",
+                    )
+                    wrote_gcs = True
+                except Exception as exc:  # noqa: BLE001
+                    logger.warning("GCS entitlement write failed for %s: %s", blob_name, exc)
+            if not wrote_gcs:
+                path = _local_entitlement_path(blob_name)
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(line, encoding="utf-8")
+
+
+def _entitlement_response(record: Dict[str, Any], status: str = "ok") -> Dict[str, Any]:
+    now = int(time.time() * 1000)
+    trial_started = record.get("trialStartedAt")
+    trial_expires = record.get("trialExpiresAt")
+    trial_active = isinstance(trial_expires, int) and now < trial_expires
+    return {
+        "ok": True,
+        "status": status,
+        "trialStartedAt": trial_started,
+        "trialExpiresAt": trial_expires,
+        "trialActive": trial_active,
+        "trialUsed": isinstance(trial_started, int),
+        "proActive": bool(record.get("proActive")),
+    }
+
+
+def _delete_entitlements(install_id: str, firebase_uid: Optional[str]) -> int:
+    deleted = 0
+    client = _gcs_client()
+    for blob_name in _entitlement_blob_names(install_id, firebase_uid):
+        if client is not None and FEEDBACK_GCS_BUCKET:
+            try:
+                blob = client.bucket(FEEDBACK_GCS_BUCKET).blob(blob_name)
+                if blob.exists():
+                    blob.delete()
+                    deleted += 1
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("GCS entitlement delete failed for %s: %s", blob_name, exc)
+        path = _local_entitlement_path(blob_name)
+        if path.exists():
+            path.unlink()
+            deleted += 1
+    return deleted
+
+
+class EntitlementRequest(BaseModel):
+    installId: str = Field(..., min_length=8, max_length=128)
+    firebaseUid: Optional[str] = Field(None, max_length=128)
+
+
+class EntitlementResponse(BaseModel):
+    ok: bool
+    status: str = "ok"
+    trialStartedAt: Optional[int] = None
+    trialExpiresAt: Optional[int] = None
+    trialActive: bool = False
+    trialUsed: bool = False
+    proActive: bool = False
+
+
+class PurchaseVerifyRequest(EntitlementRequest):
+    packageName: str = PLAY_PACKAGE_NAME
+    productId: str
+    purchaseToken: str = Field(..., min_length=8)
+
+
+class PurchaseVerifyResponse(EntitlementResponse):
+    validationStatus: str
+
+
+@api_router.get("/entitlements/me", response_model=EntitlementResponse)
+def get_entitlement(installId: str, firebaseUid: Optional[str] = None) -> Dict[str, Any]:
+    return _entitlement_response(_load_entitlement(installId, firebaseUid))
+
+
+@api_router.post("/trial/start", response_model=EntitlementResponse)
+def start_trial(request: EntitlementRequest) -> Dict[str, Any]:
+    record = _load_entitlement(request.installId, request.firebaseUid)
+    now = int(time.time() * 1000)
+    if not isinstance(record.get("trialStartedAt"), int):
+        record["trialStartedAt"] = now
+        record["trialExpiresAt"] = now + TRIAL_MS
+        record["updatedAt"] = now
+        _write_entitlement(record)
+        logger.info("trial started", extra={"installId": request.installId, "has_uid": bool(request.firebaseUid)})
+    return _entitlement_response(record)
+
+
+def _validate_play_purchase(req: PurchaseVerifyRequest) -> tuple[str, Optional[bool]]:
+    try:
+        import google.auth  # type: ignore
+        from googleapiclient.discovery import build  # type: ignore
+
+        creds, _ = google.auth.default(scopes=[ANDROID_PUBLISHER_SCOPE])
+        service = build("androidpublisher", "v3", credentials=creds, cache_discovery=False)
+        result = service.purchases().products().get(
+            packageName=req.packageName or PLAY_PACKAGE_NAME,
+            productId=req.productId,
+            token=req.purchaseToken,
+        ).execute()
+        state = result.get("purchaseState", 0)
+        return ("verified", state == 0)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("Play purchase validation unavailable: %s", exc)
+        return ("unavailable", None)
+
+
+@api_router.post("/purchases/verify", response_model=PurchaseVerifyResponse)
+def verify_purchase(request: PurchaseVerifyRequest) -> Dict[str, Any]:
+    status, valid = _validate_play_purchase(request)
+    record = _load_entitlement(request.installId, request.firebaseUid)
+    if valid is False:
+        response = _entitlement_response(record)
+        response["validationStatus"] = "invalid"
+        return response
+    if valid is True:
+        now = int(time.time() * 1000)
+        record["proActive"] = True
+        record["purchaseProductId"] = request.productId
+        record["purchaseTokenHash"] = hashlib.sha256(request.purchaseToken.encode("utf-8")).hexdigest()
+        record["lastValidationStatus"] = status
+        record["updatedAt"] = now
+        _write_entitlement(record)
+    response = _entitlement_response(record)
+    response["validationStatus"] = status
+    return response
+
+
+@api_router.delete("/users/me", status_code=204)
+def delete_user_me(
+    installId: str,
+    uid: Optional[str] = None,
+    authorization: Optional[str] = Header(default=None),
+) -> None:
+    if not installId:
+        raise HTTPException(status_code=400, detail="installId is required")
+    raw_token = (authorization or "").strip()
+    if raw_token.startswith("Bearer "):
+        raw_token = raw_token[len("Bearer "):]
+    if not raw_token or raw_token != installId:
+        raise HTTPException(status_code=401, detail="bearer mismatch")
+
+    local_count = _delete_local_feedback(installId)
+    gcs_count = _delete_gcs_feedback(installId)
+    entitlement_count = _delete_entitlements(installId, uid)
+
+    logger.info(
+        "user data deleted",
+        extra={
+            "installId": installId,
+            "uid": uid,
+            "rows_local": local_count,
+            "rows_gcs": gcs_count,
+            "entitlements": entitlement_count,
+        },
+    )
 
 
 def extract_heuristic_features(text: str, sender: Optional[str]) -> np.ndarray:
@@ -218,6 +832,139 @@ def normalize_intent(intent: Optional[str], is_otp: bool) -> str:
     candidate = intent.strip().upper().replace(" ", "_")
     candidate = INTENT_ALIASES.get(candidate, candidate)
     return candidate if candidate in INTENT_LABELS else "NOT_OTP"
+
+
+def _extract_url_hosts(text: str) -> List[str]:
+    hosts: List[str] = []
+    for match in URL_PATTERN.finditer(text or ""):
+        raw_url = match.group(0).rstrip(").,;:!?]")
+        if raw_url.startswith("www."):
+            raw_url = f"http://{raw_url}"
+        parsed = urlparse(raw_url)
+        host = (parsed.netloc or parsed.path).lower().strip(".")
+        if host.startswith("www."):
+            host = host[4:]
+        if host:
+            hosts.append(host)
+    return hosts
+
+
+def _extract_brand_tokens(text: str, sender: Optional[str]) -> List[str]:
+    haystack = f"{sender or ''} {text or ''}"
+    return sorted({match.group(1).upper() for match in BRAND_TOKEN_PATTERN.finditer(haystack)})
+
+
+def _has_strong_phishing_danger_signal(text: str, sender: Optional[str]) -> List[str]:
+    normalized = f"{sender or ''} {text or ''}"
+    lowered = normalized.lower()
+    signals: List[str] = []
+
+    for label, pattern in DANGER_PATTERNS:
+        if pattern.search(normalized):
+            signals.append(label)
+
+    hosts = _extract_url_hosts(text)
+    brand_tokens = _extract_brand_tokens(text, sender)
+    if hosts and brand_tokens:
+        for host in hosts:
+            if host in SHORT_URL_HOSTS:
+                if SHORT_URL_DANGER_PATTERN.search(normalized):
+                    signals.append("suspicious shortened link in dangerous context")
+                continue
+            if any(token.lower() in host for token in brand_tokens):
+                continue
+            if SHORT_URL_DANGER_PATTERN.search(normalized) or "login" in lowered or "verify" in lowered:
+                signals.append(f"brand-domain mismatch ({host})")
+                break
+
+    if PAYMENT_TRAP_PATTERN.search(normalized) and re.search(r"\b(link|url|http|www)\b", lowered):
+        signals.append("payment trap with link")
+
+    return list(dict.fromkeys(signals))
+
+
+def _detect_legit_low_risk_context(
+    text: str,
+    sender: Optional[str],
+    is_otp: bool,
+    otp_intent: str,
+) -> Optional[Dict[str, Any]]:
+    normalized = text or ""
+    reasons: List[str] = []
+    if is_otp and otp_intent in {"APP_LOGIN_OTP", "APP_ACCOUNT_CHANGE_OTP", "GENERIC_APP_ACTION_OTP", "DELIVERY_OR_SERVICE_OTP"}:
+        if LEGIT_OTP_PATTERNS[0].search(normalized):
+            reasons.append("app OTP verification")
+            return {"label": "app OTP verification", "cap": 0.08, "reasons": reasons}
+
+    for label, cap, pattern in LEGIT_CONTEXT_PATTERNS:
+        if pattern.search(normalized):
+            reasons.append(label)
+            return {"label": label, "cap": cap, "reasons": reasons}
+
+    return None
+
+
+def _apply_phishing_policy(
+    text: str,
+    sender: Optional[str],
+    is_otp: bool,
+    otp_intent: str,
+    raw_phish_prob: float,
+    is_phishing_ml: bool,
+) -> tuple[bool, float, List[str]]:
+    danger_signals = _has_strong_phishing_danger_signal(text, sender)
+    if danger_signals:
+        if is_phishing_ml:
+            return True, raw_phish_prob, [f"raw phishScore={raw_phish_prob:.3f}"] + [
+                f"phishing calibration skipped: {', '.join(danger_signals)}"
+            ]
+        boosted = max(raw_phish_prob, PHISH_THRESHOLD)
+        return True, boosted, [f"raw phishScore={raw_phish_prob:.3f}"] + [
+            f"phishing promoted by high-risk signals: {', '.join(danger_signals)}"
+        ]
+
+    if not is_phishing_ml:
+        return False, raw_phish_prob, [f"raw phishScore={raw_phish_prob:.3f}"]
+
+    low_risk_context = _detect_legit_low_risk_context(text, sender, is_otp, otp_intent)
+    if not low_risk_context:
+        return True, raw_phish_prob, [f"raw phishScore={raw_phish_prob:.3f}"]
+
+    calibrated_phish_prob = min(raw_phish_prob, float(low_risk_context["cap"]))
+    if calibrated_phish_prob >= PHISH_THRESHOLD:
+        return True, raw_phish_prob, [
+            f"raw phishScore={raw_phish_prob:.3f}",
+            f"legit context matched ({low_risk_context['label']}) but calibrated score stayed above threshold",
+        ]
+
+    return False, calibrated_phish_prob, [
+        f"raw phishScore={raw_phish_prob:.3f}",
+        (
+            f"phishing downgraded by context calibration ({low_risk_context['label']}); "
+            f"calibrated phishScore={calibrated_phish_prob:.3f}"
+        ),
+    ]
+
+
+def heuristic_confident_veto(heuristic_result: Dict[str, Any]) -> bool:
+    """Return True when heuristics explicitly block OTP classification."""
+    if heuristic_result.get("isOtp"):
+        return False
+    if float(heuristic_result.get("confidence", 0.0) or 0.0) > 0.0:
+        return False
+    reasons = heuristic_result.get("reasons") or []
+    return any(
+        str(reason).lower().startswith("heuristic otp veto:")
+        for reason in reasons
+    )
+
+
+def _should_suppress_otp_for_phishing(danger_signals: List[str]) -> bool:
+    return any(
+        signal.startswith("KYC / account-blocked urgency")
+        or signal.startswith("brand-domain mismatch")
+        for signal in danger_signals
+    )
 
 
 def build_messages(sender: Optional[str], sms_text: str) -> List[Dict[str, str]]:
@@ -261,7 +1008,7 @@ def extract_prediction(raw: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         return None
 
 
-def classify_intent_with_groq(text: str, sender: Optional[str]) -> GroqIntentResult:
+def call_groq_full_classification(text: str, sender: Optional[str]) -> GroqSmsFullResult:
     messages = build_messages(sender or "UNKNOWN", text)
     start = time.time()
     raw_response = call_groq(messages)
@@ -271,7 +1018,38 @@ def classify_intent_with_groq(text: str, sender: Optional[str]) -> GroqIntentRes
         raise ValueError("Groq response missing valid JSON content.")
     is_otp_flag = normalize_bool(parsed.get("is_otp", True))
     intent = normalize_intent(parsed.get("otp_intent"), is_otp_flag)
-    return GroqIntentResult(intent=intent, latency_ms=latency_ms, raw_response=raw_response)
+    is_phishing = normalize_bool(parsed.get("is_phishing", False))
+    return GroqSmsFullResult(
+        intent=intent,
+        is_phishing=is_phishing,
+        latency_ms=latency_ms,
+        raw_response=raw_response,
+    )
+
+
+def call_groq_phishing_light(text: str, sender: Optional[str]) -> GroqSmsFullResult:
+    """Smaller prompt when only a phishing verdict is needed (no intent labels)."""
+    sender_str = (sender or "UNKNOWN").strip()
+    sms_str = (text or "").replace("\r\n", "\n").strip()
+    system = (
+        "You classify SMS for phishing/scam (credential theft, fake bank links, "
+        "malicious shortened URLs, impersonation). Legitimate bank marketing or "
+        "security education from known banks is NOT phishing.\n"
+        'Reply ONLY with JSON: {"is_phishing": <true|false>}. No other keys.'
+    )
+    user = f"Sender: {sender_str}\nSMS: {sms_str}\nReturn JSON now."
+    messages = [{"role": "system", "content": system}, {"role": "user", "content": user}]
+    start = time.time()
+    raw_response = call_groq(messages)
+    parsed = extract_prediction(raw_response) or {}
+    latency_ms = (time.time() - start) * 1000
+    is_phishing = normalize_bool(parsed.get("is_phishing", False))
+    return GroqSmsFullResult(
+        intent="NOT_OTP",
+        is_phishing=is_phishing,
+        latency_ms=latency_ms,
+        raw_response=raw_response,
+    )
 
 
 @api_router.get("/health", response_model=HealthResponse)
@@ -288,57 +1066,162 @@ def classify(request: ClassifyRequest) -> ClassifyResponse:
     if not request.text or not request.text.strip():
         raise HTTPException(status_code=400, detail="Request text must not be empty.")
 
+    reasons = []
+
+    # Heuristics-first approach: Run heuristics before ML
+    try:
+        import sys
+        from pathlib import Path
+        # Add parent directory to path to import classification module
+        sys.path.insert(0, str(Path(__file__).parent.parent))
+        from classification.heuristic_classifier import HeuristicOtpClassifier
+        heuristic_result = HeuristicOtpClassifier.classify(request.text, request.sender)
+    except ImportError as e:
+        # Fallback if module not available
+        logger.warning(f"Heuristic classifier not available: {e}")
+        heuristic_result = {"isOtp": False, "confidence": 0.0, "suggestedIntent": None, "reasons": []}
+
+    # Build feature matrix for ML (sparse; LightGBM accepts CSR)
     feature_matrix = build_feature_matrix(request.text, request.sender)
-    dense_features = feature_matrix.toarray()
 
-    isotp_probs = LGB_ISOTP.predict_proba(dense_features)[0]
-    isotp_prob = float(isotp_probs[1])
-    is_otp = isotp_prob >= OTP_THRESHOLD
-
-    phish_probs = LGB_PHISH.predict_proba(dense_features)[0]
+    phish_probs = LGB_PHISH.predict_proba(feature_matrix)[0]
     phish_prob = float(phish_probs[1])
-    is_phishing = phish_prob >= PHISH_THRESHOLD
+    is_phishing_ml = phish_prob >= PHISH_THRESHOLD
+    is_phishing = is_phishing_ml
 
-    reasons = [
-        f"is_otp LightGBM prob={isotp_prob:.3f} (threshold={OTP_THRESHOLD})",
-        f"is_phishing LightGBM prob={phish_prob:.3f} (threshold={PHISH_THRESHOLD})",
-    ]
-
+    # OTP detection: Use heuristics if high confidence, otherwise use ML
+    is_otp = False
     otp_intent = "NOT_OTP"
+    isotp_prob = None  # Initialize to None, will be set if ML is used
+    heuristic_veto = heuristic_confident_veto(heuristic_result)
+
+    if heuristic_veto:
+        reasons.extend(heuristic_result.get("reasons", []))
+        reasons.append("Heuristic veto blocked ML is_otp override")
+        reasons.append("Intent skipped because heuristic veto classified the message as NOT_OTP")
+        logger.info("Heuristic OTP veto suppressed ML override")
+    elif heuristic_result.get("isOtp") and heuristic_result.get("confidence", 0.0) > 0.8:
+        # High confidence heuristic match - use it
+        is_otp = True
+        otp_intent = heuristic_result.get("suggestedIntent") or "NOT_OTP"
+        reasons.extend(heuristic_result.get("reasons", []))
+        reasons.append(f"OTP detected by heuristics (confidence: {heuristic_result.get('confidence', 0.0):.2f})")
+        logger.info("Using heuristic classification (high confidence)")
+    else:
+        # Low confidence or no heuristic match - use ML
+        reasons.append("Heuristics inconclusive; falling back to ML is_otp score")
+        isotp_probs = LGB_ISOTP.predict_proba(feature_matrix)[0]
+        isotp_prob = float(isotp_probs[1])
+        is_otp = isotp_prob >= OTP_THRESHOLD
+        reasons.append(f"is_otp LightGBM prob={isotp_prob:.3f} (threshold={OTP_THRESHOLD})")
+
+        # If ML says no but heuristics suggest yes with medium confidence - trust heuristics
+        if not is_otp and heuristic_result.get("isOtp") and heuristic_result.get("confidence", 0.0) > 0.5:
+            is_otp = True
+            otp_intent = heuristic_result.get("suggestedIntent") or "NOT_OTP"
+            reasons.extend(heuristic_result.get("reasons", []))
+            reasons.append(f"ML negative but heuristics positive (confidence: {heuristic_result.get('confidence', 0.0):.2f})")
+            logger.info("Using heuristic classification (ML disagreed)")
+
+    groq_full: Optional[GroqSmsFullResult] = None
+
+    # Intent classification (only if OTP)
     if is_otp:
-        try:
-            groq_result = classify_intent_with_groq(request.text, request.sender)
-            otp_intent = groq_result.intent
-            reasons.append(f"Groq intent={otp_intent} ({groq_result.latency_ms:.0f} ms)")
-            if otp_intent == "BANK_OR_CARD_TXN_OTP":
-                reasons.append("Bank/card OTP – approve only if you just initiated the transaction. Never share this code.")
-            elif otp_intent in {"FINANCIAL_LOGIN_OTP", "APP_ACCOUNT_CHANGE_OTP", "UPI_TXN_OR_PIN_OTP"}:
-                reasons.append("Sensitive account OTP – only enter inside your trusted app/site. Do not share with anyone.")
-            elif otp_intent in {"DELIVERY_OR_SERVICE_OTP"}:
-                reasons.append("Delivery OTP – share only with the delivery agent in person.")
-        except Exception as exc:  # noqa: BLE001
-            reasons.append(f"Groq intent failed: {exc}")
+        # Use heuristic intent if available, otherwise use Groq
+        if otp_intent == "NOT_OTP" or not otp_intent:
+            try:
+                groq_full = call_groq_full_classification(request.text, request.sender)
+                otp_intent = groq_full.intent
+                reasons.append(f"Groq intent={otp_intent} ({groq_full.latency_ms:.0f} ms)")
+            except Exception as exc:  # noqa: BLE001
+                reasons.append(f"Groq intent failed: {exc}")
+                # Fallback to heuristic intent if available
+                if heuristic_result.get("suggestedIntent"):
+                    otp_intent = heuristic_result.get("suggestedIntent")
+
+        # Add security warnings based on intent
+        if otp_intent == "BANK_OR_CARD_TXN_OTP":
+            reasons.append("Bank/card OTP – approve only if you just initiated the transaction. Never share this code.")
+        elif otp_intent in {"FINANCIAL_LOGIN_OTP", "APP_ACCOUNT_CHANGE_OTP", "UPI_TXN_OR_PIN_OTP"}:
+            reasons.append("Sensitive account OTP – only enter inside your trusted app/site. Do not share with anyone.")
+        elif otp_intent in {"DELIVERY_OR_SERVICE_OTP"}:
+            reasons.append("Delivery OTP – share only with the delivery agent in person.")
     else:
         reasons.append("Intent skipped because message classified as NOT_OTP")
 
-    logger.info(
-        "classified message",
-        extra={
-            "text": request.text if LOG_MESSAGE_BODY else request.text[:32] + ("…" if len(request.text) > 32 else ""),
-            "sender": request.sender,
-            "is_otp_true": is_otp,
-            "is_phishing": is_phishing,
-            "otp_intent": otp_intent,
-            "phish_prob": phish_prob,
-            "isotp_prob": isotp_prob,
-        },
+    is_phishing, final_phish_prob, phish_policy_reasons = _apply_phishing_policy(
+        request.text,
+        request.sender,
+        is_otp,
+        otp_intent,
+        phish_prob,
+        is_phishing_ml,
     )
+    reasons.append(f"is_phishing LightGBM prob={phish_prob:.3f} (threshold={PHISH_THRESHOLD})")
+    reasons.extend(phish_policy_reasons)
+
+    phishing_danger_signals = _has_strong_phishing_danger_signal(request.text, request.sender)
+    if is_phishing and is_otp and _should_suppress_otp_for_phishing(phishing_danger_signals):
+        is_otp = False
+        otp_intent = "NOT_OTP"
+        reasons.append(
+            "OTP suppressed because high-risk phishing signals indicate a credential-capture flow"
+        )
+
+    # Optional Groq phishing (off by default)
+    if GROQ_PHISHING_MODE == "gray":
+        in_band = PHISH_GRAY_LOW <= phish_prob < PHISH_GRAY_HIGH
+        if in_band:
+            try:
+                if groq_full is not None:
+                    is_phishing = groq_full.is_phishing
+                    final_phish_prob = phish_prob if is_phishing else min(final_phish_prob, PHISH_GRAY_LOW)
+                    reasons.append(f"Groq gray-band phishing={is_phishing} (from intent call)")
+                else:
+                    g2 = call_groq_phishing_light(request.text, request.sender)
+                    is_phishing = g2.is_phishing
+                    final_phish_prob = phish_prob if is_phishing else min(final_phish_prob, PHISH_GRAY_LOW)
+                    reasons.append(f"Groq gray-band phishing={is_phishing} ({g2.latency_ms:.0f} ms)")
+            except Exception as exc:  # noqa: BLE001
+                reasons.append(f"Groq phishing (gray) failed: {exc}; kept ML")
+                is_phishing = is_phishing_ml
+                final_phish_prob = phish_prob
+    elif GROQ_PHISHING_MODE == "veto" and is_phishing_ml:
+        try:
+            if groq_full is not None:
+                is_phishing = is_phishing_ml and groq_full.is_phishing
+                final_phish_prob = phish_prob if is_phishing else min(final_phish_prob, PHISH_GRAY_LOW)
+                reasons.append(f"Groq phishing veto groq_phish={groq_full.is_phishing}")
+            else:
+                g2 = call_groq_phishing_light(request.text, request.sender)
+                is_phishing = is_phishing_ml and g2.is_phishing
+                final_phish_prob = phish_prob if is_phishing else min(final_phish_prob, PHISH_GRAY_LOW)
+                reasons.append(f"Groq phishing veto groq_phish={g2.is_phishing} ({g2.latency_ms:.0f} ms)")
+        except Exception as exc:  # noqa: BLE001
+            reasons.append(f"Groq phishing veto failed: {exc}; kept ML")
+            is_phishing = is_phishing_ml
+            final_phish_prob = phish_prob
+
+    # Build log extra dict, conditionally include isotp_prob if it was computed
+    log_extra = {
+        "text": request.text if LOG_MESSAGE_BODY else request.text[:32] + ("…" if len(request.text) > 32 else ""),
+        "sender": request.sender,
+        "is_otp_true": is_otp,
+        "is_phishing": is_phishing,
+        "otp_intent": otp_intent,
+        "phish_prob_raw": phish_prob,
+        "phish_prob_final": final_phish_prob,
+    }
+    if isotp_prob is not None:
+        log_extra["isotp_prob"] = isotp_prob
+
+    logger.info("classified message", extra=log_extra)
 
     return ClassifyResponse(
         isOtp=is_otp,
         otpIntent=otp_intent,
         isPhishing=is_phishing,
-        phishScore=phish_prob,
+        phishScore=final_phish_prob,
         reasons=reasons,
     )
 
@@ -349,5 +1232,3 @@ app.include_router(api_router)
 @app.get("/")
 def index():
     return {"status": "ok", "docs": "/docs"}
-
-

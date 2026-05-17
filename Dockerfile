@@ -17,10 +17,13 @@ COPY backend/scripts/android_backend_requirements.txt /tmp/requirements.txt
 RUN python -m pip install --upgrade pip && \
     pip install --no-cache-dir -r /tmp/requirements.txt
 
-# Copy backend code, trained models, and environment variables
+# Copy backend code and trained models.
+# IMPORTANT: do NOT bake .env (or any secrets) into the image. Pass them at
+# deploy time via `gcloud run deploy --set-env-vars` or, preferably,
+# `--set-secrets` against Google Secret Manager. Anyone with pull access to
+# the container registry can extract files baked into the image.
 COPY backend ./backend
 COPY trained_models ./backend/trained_models
-COPY .env ./.env
 
 EXPOSE 8000
 
