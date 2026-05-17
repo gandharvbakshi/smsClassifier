@@ -59,7 +59,8 @@ fun DetailScreen(
 
     var showReportDialog by remember { mutableStateOf(false) }
     var reportNote by remember { mutableStateOf("") }
-    var reportType by remember { mutableStateOf<String?>(null) }
+    var reportType by remember { mutableStateOf<ReportIssueOption?>(null) }
+    val reportSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -294,6 +295,7 @@ fun DetailScreen(
                             mapOf("surface" to "detail")
                         )
                         reportNote = ""
+                        reportType = null
                         showReportDialog = true
                     },
                     modifier = Modifier.fillMaxWidth()
@@ -309,124 +311,193 @@ fun DetailScreen(
     }
 
     if (showReportDialog) {
-        AlertDialog(
-            onDismissRequest = { 
-                showReportDialog = false
-                reportNote = ""
-                reportType = null
+        val closeSheet = {
+            showReportDialog = false
+            reportNote = ""
+            reportType = null
+        }
+        ModalBottomSheet(
+            onDismissRequest = {
+                AppContainer.telemetry.logEvent(
+                    "feedback_cancelled",
+                    mapOf("surface" to "detail")
+                )
+                closeSheet()
             },
-            title = { Text("Report Classification Issue") },
-            text = {
-                val previewMsg = message
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    if (previewMsg != null) {
-                        val ctx = LocalContext.current
-                        val installId = SettingsRepository(ctx).installId
-                        val redactedBody = SmsRedactor.redactForTraining(previewMsg.body, installId)
-                        Text(
-                            text = "Upload preview (digits redacted like server upload):",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                        Text(
-                            text = redactedBody,
-                            style = MaterialTheme.typography.bodySmall,
-                            maxLines = 4,
-                            overflow = TextOverflow.Ellipsis,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                    Text(
-                        text = "What's wrong with the classification?",
-                        style = MaterialTheme.typography.titleSmall
-                    )
-
-                    // Report type options
-                    val reportTypes = listOf(
-                        "Should be OTP" to "This message should be classified as OTP",
-                        "Should not be OTP" to "This message should NOT be classified as OTP",
-                        "Wrong OTP intent" to "The OTP intent category is incorrect",
-                        "Should be phishing" to "This message should be flagged as phishing",
-                        "Should not be phishing" to "This message should NOT be flagged as phishing"
-                    )
-                    
-                    reportTypes.forEach { (type, description) ->
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
-                                selected = reportType == type,
-                                onClick = { 
-                                    reportType = type
-                                    // Pre-fill note based on type
-                                    reportNote = description
-                                }
-                            )
-                            Text(
-                                text = type,
-                                modifier = Modifier.weight(1f),
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
-                    }
-                    
-                    Spacer(modifier = Modifier.height(8.dp))
-                    
-                    OutlinedTextField(
-                        value = reportNote,
-                        onValueChange = { reportNote = it },
-                        label = { Text("Additional details (optional)") },
-                        placeholder = { Text("Provide more context if needed...") },
-                        modifier = Modifier.fillMaxWidth(),
-                        minLines = 2,
-                        maxLines = 4
-                    )
-                }
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        val finalNote = if (reportType != null) {
-                            "$reportType. $reportNote".trim()
-                        } else {
-                            reportNote
-                        }
-                        val correctionKind = when (reportType) {
-                            "Should be OTP" -> "actually_otp"
-                            "Should not be OTP" -> "not_otp"
-                            "Wrong OTP intent" -> "other"
-                            "Should be phishing" -> "phishing"
-                            "Should not be phishing" -> "not_phishing"
-                            else -> "other"
-                        }
-                        viewModel.reportAsWrong(correctionKind, finalNote)
-                        showReportDialog = false
-                        reportNote = ""
-                        reportType = null
-                    },
-                    enabled = reportType != null || reportNote.isNotBlank()
-                ) {
-                    Text("Submit")
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = {
+            sheetState = reportSheetState
+        ) {
+            ReportClassificationSheet(
+                redactedPreview = message?.let { previewMsg ->
+                    val installId = SettingsRepository(LocalContext.current).installId
+                    SmsRedactor.redactForTraining(previewMsg.body, installId)
+                },
+                selectedOption = reportType,
+                note = reportNote,
+                onOptionSelected = { reportType = it },
+                onNoteChange = { reportNote = it },
+                onCancel = {
                     AppContainer.telemetry.logEvent(
                         "feedback_cancelled",
                         mapOf("surface" to "detail")
                     )
-                    showReportDialog = false
-                    reportNote = ""
-                    reportType = null
-                }) {
-                    Text("Cancel")
+                    closeSheet()
+                },
+                onSubmit = {
+                    val selected = reportType
+                    val finalNote = buildString {
+                        selected?.let { append(it.title).append(". ").append(it.description) }
+                        if (reportNote.isNotBlank()) {
+                            if (isNotBlank()) append(" ")
+                            append(reportNote.trim())
+                        }
+                    }.trim()
+                    viewModel.reportAsWrong(selected?.correctionKind ?: "other", finalNote)
+                    closeSheet()
+                }
+            )
+        }
+    }
+}
+
+private data class ReportIssueOption(
+    val title: String,
+    val description: String,
+    val correctionKind: String
+)
+
+private val reportIssueOptions = listOf(
+    ReportIssueOption(
+        title = "Should be OTP",
+        description = "This message should be classified as OTP.",
+        correctionKind = "actually_otp"
+    ),
+    ReportIssueOption(
+        title = "Should not be OTP",
+        description = "This message should not be classified as OTP.",
+        correctionKind = "not_otp"
+    ),
+    ReportIssueOption(
+        title = "Wrong OTP intent",
+        description = "The OTP category or purpose is incorrect.",
+        correctionKind = "other"
+    ),
+    ReportIssueOption(
+        title = "Should be phishing",
+        description = "This message should be flagged as phishing.",
+        correctionKind = "phishing"
+    ),
+    ReportIssueOption(
+        title = "Should not be phishing",
+        description = "This message should not be flagged as phishing.",
+        correctionKind = "not_phishing"
+    )
+)
+
+@Composable
+private fun ReportClassificationSheet(
+    redactedPreview: String?,
+    selectedOption: ReportIssueOption?,
+    note: String,
+    onOptionSelected: (ReportIssueOption) -> Unit,
+    onNoteChange: (String) -> Unit,
+    onCancel: () -> Unit,
+    onSubmit: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .navigationBarsPadding()
+            .padding(horizontal = 20.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(
+                text = "Report classification",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = "Tell us what looked wrong. This helps improve OTP and phishing detection.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+
+        if (!redactedPreview.isNullOrBlank()) {
+            Surface(
+                shape = MaterialTheme.shapes.medium,
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Text(
+                        text = "Upload preview",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(
+                        text = redactedPreview,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 4,
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             }
+        }
+
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = "What should be corrected?",
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold
+            )
+            reportIssueOptions.forEach { option ->
+                FilterChip(
+                    selected = selectedOption == option,
+                    onClick = { onOptionSelected(option) },
+                    label = {
+                        Column(modifier = Modifier.padding(vertical = 4.dp)) {
+                            Text(option.title, style = MaterialTheme.typography.bodyMedium)
+                            Text(
+                                option.description,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+
+        OutlinedTextField(
+            value = note,
+            onValueChange = onNoteChange,
+            label = { Text("Any feedback for the developer? (optional)") },
+            placeholder = { Text("Add context, expected label, or why this felt wrong.") },
+            modifier = Modifier.fillMaxWidth(),
+            minLines = 3,
+            maxLines = 5
         )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TextButton(onClick = onCancel) {
+                Text("Cancel")
+            }
+            Button(
+                onClick = onSubmit,
+                enabled = selectedOption != null || note.isNotBlank()
+            ) {
+                Text("Submit")
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
