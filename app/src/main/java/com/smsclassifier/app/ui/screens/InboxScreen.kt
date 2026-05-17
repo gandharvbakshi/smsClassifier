@@ -131,7 +131,6 @@ fun InboxScreen(
                 .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            InboxEntitlementBanners(ui = entitlementUi)
             InboxHeader(
                 searchQuery = searchQuery,
                 onSearchChange = viewModel::setSearchQuery,
@@ -159,6 +158,8 @@ fun InboxScreen(
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
+
+            InboxEntitlementBanners(ui = entitlementUi)
 
             when (viewMode) {
                 ViewMode.THREADS -> {
@@ -447,10 +448,17 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                     containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
             ) {
-                Column(modifier = Modifier.padding(12.dp)) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
                     Text(
                         text = "You've unlocked a 7-day free trial of Pro features — OTP classification, phishing detection, and intent.",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.weight(1f)
                     )
                     TextButton(onClick = ui.onTrialWelcomeDismiss) {
                         Text("Got it", fontWeight = FontWeight.SemiBold)
@@ -464,18 +472,20 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                     containerColor = MaterialTheme.colorScheme.secondaryContainer
                 )
             ) {
-                Column(modifier = Modifier.padding(12.dp)) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
                     Text(
                         text = "Trial ends in ${ui.trialDaysRemaining} day(s). Keep Pro for ${ui.formattedPrice ?: "Play price"}.",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.weight(1f)
                     )
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.padding(top = 8.dp)
-                    ) {
-                        TextButton(onClick = ui.onTrialEndingBuy) { Text("Buy") }
-                        TextButton(onClick = ui.onTrialEndingDismiss) { Text("Dismiss") }
-                    }
+                    TextButton(onClick = ui.onTrialEndingBuy) { Text("Buy") }
+                    TextButton(onClick = ui.onTrialEndingDismiss) { Text("Dismiss") }
                 }
             }
         }
@@ -485,14 +495,21 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             ) {
-                Column(modifier = Modifier.padding(12.dp)) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
                     Text(
                         text = if (trialAvailable) {
                             "Cloud phishing risk is unavailable here. Start the 7-day Pro trial or unlock Pro for full cloud classification."
                         } else {
                             "Cloud phishing risk is unavailable here. Unlock Pro for full cloud classification."
                         },
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.weight(1f)
                     )
                     TextButton(onClick = ui.onUnlockPro) {
                         Text(if (trialAvailable) "Start trial / Unlock Pro" else "Unlock Pro")

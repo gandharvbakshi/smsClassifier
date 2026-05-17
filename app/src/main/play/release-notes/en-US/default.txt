@@ -1,4 +1,4 @@
-v1.1.2 - Privacy-safe usage analytics
-- Anonymous analytics is now recommended during setup, but only starts after consent.
-- Added tracking for app usage, Pro trial/purchase, OTP copy, and feedback flows.
-- No SMS content, sender, OTP, search text, or phone number is sent in analytics.
+v1.1.3 - Refreshed UI and onboarding
+- Refreshed the UI for a cleaner, more modern experience.
+- Clarified onboarding and paywall screens.
+- Polished Settings, Feedback, and Inbox flows.

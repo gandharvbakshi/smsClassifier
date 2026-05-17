@@ -6,6 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.data.ThreadInfo
@@ -104,6 +105,12 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     }
 
     fun setViewMode(mode: ViewMode) {
+        if (_viewMode.value != mode) {
+            AppContainer.telemetry.logEvent(
+                "inbox_view_mode_changed",
+                mapOf("mode" to mode.name.lowercase())
+            )
+        }
         _viewMode.value = mode
     }
 

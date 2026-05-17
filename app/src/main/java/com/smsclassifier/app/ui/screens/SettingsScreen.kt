@@ -59,6 +59,8 @@ import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.R
+import com.smsclassifier.app.ui.components.AppScaffold
+import com.smsclassifier.app.ui.theme.Spacing
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
 import kotlinx.coroutines.launch
 
@@ -110,33 +112,19 @@ fun SettingsScreen(
     }
 
     Box(modifier = modifier.fillMaxSize()) {
-    Scaffold(
+    AppScaffold(
+        title = "Settings",
+        onBack = onBack,
+        snackbarHostState = snackbarHostState,
         modifier = Modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text("Settings", fontWeight = FontWeight.SemiBold)
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
-            )
-        },
-        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+                .padding(horizontal = Spacing.xl, vertical = Spacing.lg),
+            verticalArrangement = Arrangement.spacedBy(Spacing.xl)
         ) {
             SettingsSection(title = "General") {
                 SettingsRow(
@@ -182,8 +170,8 @@ fun SettingsScreen(
 
             SettingsSection(title = "Privacy & data") {
                 ToggleRow(
-                    title = "Anonymous usage analytics",
-                    subtitle = "Helps us see which features are used (no message content).",
+                    title = "Help us improve the app",
+                    subtitle = "Share feature usage only. Message content is never included.",
                     checked = analyticsConsent,
                     onCheckedChange = { on ->
                     coroutineScope.launch {
@@ -207,7 +195,7 @@ fun SettingsScreen(
                 SectionDivider()
                 SettingsRow(
                     icon = Icons.Default.CloudUpload,
-                    title = "Help improve classification",
+                    title = "Improve wrong-label fixes",
                     subtitle = "Optional wrong-label details; off by default.",
                     trailing = {
                         Switch(
@@ -278,7 +266,7 @@ fun SettingsScreen(
                 SettingsRow(
                     icon = Icons.Default.Star,
                     title = "Upgrade to Pro",
-                    subtitle = "One-time purchase for full online sorting",
+                    subtitle = "One-time purchase for scam warnings and risk scores",
                     trailing = {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,

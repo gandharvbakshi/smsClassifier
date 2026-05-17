@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -42,6 +43,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.auth.PhoneAuthUiState
+import com.smsclassifier.app.ui.components.AppScaffold
+import com.smsclassifier.app.ui.components.HeroIcon
+import com.smsclassifier.app.ui.components.InfoCard
+import com.smsclassifier.app.ui.components.PrimaryButton
+import com.smsclassifier.app.ui.components.SecondaryButton
+import com.smsclassifier.app.ui.theme.Spacing
 import com.smsclassifier.app.util.CrashlyticsBootstrap
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -128,37 +135,32 @@ fun PhoneAuthScreen(
         }
     }
 
-    Scaffold(
+    AppScaffold(
+        title = "Link phone",
+        onBack = onBack,
+        snackbarHostState = snackbarHostState,
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("Link phone (optional)", fontWeight = FontWeight.SemiBold) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
-            )
-        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .padding(horizontal = Spacing.xl, vertical = Spacing.xl),
+            verticalArrangement = Arrangement.spacedBy(Spacing.lg)
         ) {
+            HeroIcon(icon = Icons.Default.Phone)
             Text(
-                text = "Add your phone for account recovery and support. You can skip anytime.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                text = "Optional account link",
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = "Add your phone for account recovery and support. You can skip this and keep using the app.",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
+            InfoCard {
             when (state) {
                 is PhoneAuthUiState.AwaitingCode -> {
                     OutlinedTextField(
@@ -168,9 +170,11 @@ fun PhoneAuthScreen(
                         },
                         label = { Text("6-digit code") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        textStyle = MaterialTheme.typography.headlineMedium,
                         modifier = Modifier.fillMaxWidth()
                     )
-                    TextButton(
+                    PrimaryButton(
+                        text = "Verify code",
                         onClick = {
                             scope.launch {
                                 if (otp.length == 6) repo.verifySmsCode(otp)
@@ -178,8 +182,9 @@ fun PhoneAuthScreen(
                             }
                         },
                         modifier = Modifier.fillMaxWidth()
-                    ) { Text("Verify") }
-                    TextButton(
+                    )
+                    SecondaryButton(
+                        text = if (resendSeconds > 0) "Resend in ${resendSeconds}s" else "Resend code",
                         onClick = {
                             if (resendSeconds == 0) {
                                 val dial = TOP_COUNTRIES[countryIndex].dialDigits
@@ -189,9 +194,7 @@ fun PhoneAuthScreen(
                         },
                         enabled = resendSeconds == 0,
                         modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(if (resendSeconds > 0) "Resend in ${resendSeconds}s" else "Resend code")
-                    }
+                    )
                 }
                 else -> {
                     Box(modifier = Modifier.fillMaxWidth()) {
@@ -223,9 +226,11 @@ fun PhoneAuthScreen(
                         },
                         label = { Text("Phone number (no country code)") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                        textStyle = MaterialTheme.typography.titleLarge,
                         modifier = Modifier.fillMaxWidth()
                     )
-                    TextButton(
+                    PrimaryButton(
+                        text = "Send code",
                         onClick = {
                             val dial = TOP_COUNTRIES[countryIndex].dialDigits
                             val nat = nationalNumber.filter { it.isDigit() }
@@ -233,18 +238,19 @@ fun PhoneAuthScreen(
                                 scope.launch {
                                     snackbarHostState.showSnackbar("Enter a valid phone number.")
                                 }
-                                return@TextButton
+                            } else {
+                                val e164 = "+$dial$nat"
+                                repo.sendCode(activity, e164)
                             }
-                            val e164 = "+$dial$nat"
-                            repo.sendCode(activity, e164)
                         },
                         modifier = Modifier.fillMaxWidth()
-                    ) { Text("Send code") }
+                    )
                 }
             }
-
-            Spacer(modifier = Modifier.height(8.dp))
-            TextButton(
+            }
+            Spacer(modifier = Modifier.height(Spacing.md))
+            SecondaryButton(
+                text = "Skip for now",
                 onClick = {
                     AppContainer.telemetry.logEvent(
                         "phone_auth_completed",
@@ -253,7 +259,7 @@ fun PhoneAuthScreen(
                     onDoneSkip()
                 },
                 modifier = Modifier.fillMaxWidth()
-            ) { Text("Skip for now") }
+            )
         }
     }
 }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,6 +42,12 @@ import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.billing.PlayBillingRepository
 import com.smsclassifier.app.entitlement.EntitlementState
+import com.smsclassifier.app.ui.components.AppScaffold
+import com.smsclassifier.app.ui.components.HeroIcon
+import com.smsclassifier.app.ui.components.InfoCard
+import com.smsclassifier.app.ui.components.PrimaryButton
+import com.smsclassifier.app.ui.components.SecondaryButton
+import com.smsclassifier.app.ui.theme.Spacing
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,32 +88,24 @@ fun PaywallScreen(
     val trialDays = remember(entitlementRefresh) { entitlementManager.trialDaysRemaining() }
     val trialAvailable = remember(entitlementRefresh) { !entitlementManager.hasTrialStarted() }
 
-    Scaffold(
+    AppScaffold(
+        title = "SMS Classifier Pro",
+        onBack = onClose,
+        snackbarHostState = snackbarHostState,
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("SMS Classifier Pro", fontWeight = FontWeight.SemiBold) },
-                navigationIcon = {
-                    IconButton(onClick = onClose) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
-            )
-        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
-                .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .padding(horizontal = Spacing.xl, vertical = Spacing.xl),
+            verticalArrangement = Arrangement.spacedBy(Spacing.lg)
         ) {
+            HeroIcon(
+                icon = Icons.Default.Star,
+                modifier = Modifier.padding(top = Spacing.sm)
+            )
             Text(
                 text = if (trialAvailable && state != EntitlementState.PRO) {
                     "Try Pro before you buy"
@@ -117,22 +116,24 @@ fun PaywallScreen(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Pro is where cloud OTP intent, do-not-share warnings, phishing detection, and risk scoring run. Free keeps basic local classification only.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                text = "Pro adds scam warnings, risk scores, and clearer explanations for sensitive OTP codes. Free keeps basic local sorting on this phone.",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface
             )
-            ProBenefitLine(
-                title = "OTP intent",
-                body = "Shows whether a code looks like login, payment, account change, delivery, or another action."
-            )
-            ProBenefitLine(
-                title = "Phishing risk",
-                body = "Checks links, urgency, sender patterns, and credential or OTP-sharing requests."
-            )
-            ProBenefitLine(
-                title = "Risk score and warnings",
-                body = "Adds context such as \"do not share\" when a message looks sensitive."
-            )
+            InfoCard {
+                ProBenefitLine(
+                    title = "Know why a code came",
+                    body = "See if a code looks like login, payment, account change, delivery, or another action."
+                )
+                ProBenefitLine(
+                    title = "Spot risky messages",
+                    body = "Checks suspicious links, urgency, sender patterns, and requests for passwords or OTPs."
+                )
+                ProBenefitLine(
+                    title = "Warnings on sensitive codes",
+                    body = "Adds context when a code should stay private."
+                )
+            }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = when (state) {
@@ -149,7 +150,8 @@ fun PaywallScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
             if (trialAvailable && state != EntitlementState.PRO) {
-                Button(
+                PrimaryButton(
+                    text = "Start 7-day free trial",
                     onClick = {
                         AppContainer.telemetry.logCtaTap("paywall", "start_trial")
                         scope.launch {
@@ -168,52 +170,60 @@ fun PaywallScreen(
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Start 7-day Pro trial")
-                }
+                )
                 Text(
                     text = "No payment method required. No auto-charge during the trial.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(4.dp))
             }
-            Button(
-                onClick = {
-                    AppContainer.telemetry.logCtaTap("paywall", "unlock_pro")
-                    AppContainer.billingRepository.launchBillingFlow(activity)
-                },
-                modifier = Modifier.fillMaxWidth(),
-                enabled = state != EntitlementState.PRO && !billingInFlight
-            ) {
-                Text("Unlock Pro — $priceLabel")
+            val buyAction = {
+                AppContainer.telemetry.logCtaTap("paywall", "unlock_pro")
+                AppContainer.billingRepository.launchBillingFlow(activity)
+            }
+            if (trialAvailable && state != EntitlementState.PRO) {
+                SecondaryButton(
+                    text = "Unlock Pro - $priceLabel",
+                    onClick = buyAction,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !billingInFlight
+                )
+            } else {
+                PrimaryButton(
+                    text = "Unlock Pro - $priceLabel",
+                    onClick = buyAction,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = state != EntitlementState.PRO && !billingInFlight
+                )
             }
             if (!BuildConfig.DEBUG && productDetails == null) {
                 Text(
                     text = "Price loads when the Play product \"${PlayBillingRepository.SKU_PRO_LIFETIME}\" is active in Play Console.",
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.error
                 )
             }
             Text(
                 text = "One-time purchase. No subscription.",
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             if (trialAvailable && state != EntitlementState.PRO) {
                 Text(
-                    text = "If you start the trial, you can test cloud phishing risk first, and nothing auto-charges when the trial ends.",
-                    style = MaterialTheme.typography.bodySmall,
+                    text = "You can try scam warnings first. Nothing auto-charges when the trial ends.",
+                    style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            TextButton(
+            SecondaryButton(
+                text = "Restore purchase",
                 onClick = {
                     AppContainer.telemetry.logCtaTap("paywall", "restore_purchase")
                     AppContainer.billingRepository.restorePurchases()
                 },
                 modifier = Modifier.fillMaxWidth()
-            ) { Text("Restore purchase") }
+            )
             if (BuildConfig.DEBUG) {
                 FilledTonalButton(
                     onClick = {

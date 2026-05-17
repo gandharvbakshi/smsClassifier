@@ -102,11 +102,18 @@ class EntitlementManager(private val context: Context) {
             return false
         }
 
-        AppLog.w(TAG, "Play purchase verification unavailable: ${result.exceptionOrNull()?.message}")
-        if (BuildConfig.DEBUG) {
+        val fallbackReason = when {
+            state?.validationStatus == "unavailable" -> "backend-unavailable"
+            result.exceptionOrNull() != null -> "network-error"
+            else -> null
+        }
+        if (fallbackReason != null) {
+            AppLog.w(TAG, "Play purchase verification unavailable ($fallbackReason): ${result.exceptionOrNull()?.message}")
             markPurchasedFromPlay(purchaseToken, sku)
             return true
         }
+
+        AppLog.w(TAG, "Play purchase verification failed for sku=$sku")
         return false
     }
 

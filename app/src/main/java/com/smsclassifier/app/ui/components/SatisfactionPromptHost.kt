@@ -1,12 +1,18 @@
 package com.smsclassifier.app.ui.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -22,14 +28,17 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.feedback.SatisfactionPromptKind
 import com.smsclassifier.app.feedback.SatisfactionPromptManager
+import com.smsclassifier.app.ui.theme.Spacing
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -101,49 +110,95 @@ fun SatisfactionPromptHost(
 
     if (prompt != null) {
         val kind = prompt!!
-        val faceNames = listOf("angry", "unhappy", "neutral", "smiling", "loving")
         BasicAlertDialog(
             onDismissRequest = { finish(kind) },
             modifier = modifier
         ) {
             Surface(shape = MaterialTheme.shapes.large) {
-                Column(modifier = Modifier.padding(24.dp)) {
+                Column(modifier = Modifier.padding(Spacing.xl)) {
                     Text(
-                        text = if (kind == SatisfactionPromptKind.D1) "How's it going?"
-                        else "Quick check-in",
-                        style = MaterialTheme.typography.headlineSmall
+                        text = if (kind == SatisfactionPromptKind.D1) "How's it going so far?"
+                        else "How's the app feeling?",
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(Spacing.sm))
                     Text(
-                        text = "Tap an emoji (1 = lowest, 5 = best)",
-                        style = MaterialTheme.typography.bodyMedium
+                        text = "Tap a face. Tap 1 if it's bad, 5 if you love it.",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(Spacing.xl))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        val faces = listOf("😡", "😕", "😐", "🙂", "😍")
+                        val faces = listOf("😡", "🙁", "😐", "🙂", "😍")
+                        val labels = listOf("Bad", "Meh", "OK", "Good", "Love it")
                         faces.forEachIndexed { index, face ->
                             val n = index + 1
-                            val desc = "Rate $n of 5: ${faceNames[index]}"
-                            TextButton(
-                                onClick = { onEmoji(n) },
-                                modifier = Modifier.semantics { contentDescription = desc }
-                            ) {
-                                Text(face)
-                            }
+                            FaceButton(
+                                emoji = face,
+                                label = labels[index],
+                                ratingValue = n,
+                                onTap = { onEmoji(n) }
+                            )
                         }
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(Spacing.lg))
                     TextButton(
                         onClick = { finish(kind) },
                         modifier = Modifier.align(Alignment.End)
                     ) {
-                        Text("Skip")
+                        Text(
+                            text = "Maybe later",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun FaceButton(
+    emoji: String,
+    label: String,
+    ratingValue: Int,
+    onTap: () -> Unit
+) {
+    val desc = "Rate $ratingValue of 5: $label"
+    Column(
+        modifier = Modifier
+            .clip(MaterialTheme.shapes.medium)
+            .clickable(onClick = onTap)
+            .heightIn(min = 72.dp)
+            .padding(horizontal = Spacing.sm, vertical = Spacing.sm)
+            .semantics { contentDescription = desc },
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .size(48.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surfaceVariant),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = emoji,
+                style = MaterialTheme.typography.headlineSmall,
+                textAlign = TextAlign.Center
+            )
+        }
+        Spacer(modifier = Modifier.height(Spacing.xs))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
+        )
     }
 }

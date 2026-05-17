@@ -8,6 +8,7 @@ package com.smsclassifier.app.util
  *   "VM-ICICIT-S"  → "ICICI Bank"
  *   "AX-ICICIT-S"  → "ICICI Bank"
  *   "JD-AMAZON-S"  → "Amazon"
+ *   "VM-ICICIT-S1" → "ICICI Bank"
  *   "+919876543210" → "+91 98765 43210"
  *   "John"         → "John"  (already friendly)
  */
@@ -73,11 +74,11 @@ object SenderNameResolver {
             core = core.substring(firstDash + 1)
         }
 
-        // Strip trailing entity suffix like "-S" / "-P" / "-T" / "-G"
-        val lastDash = core.lastIndexOf('-')
-        if (lastDash > 0 && core.length - lastDash <= 2) {
-            core = core.substring(0, lastDash)
-        }
+        // Strip trailing entity suffix like "-S" / "-P" / "-T" / "-G" and numeric variants.
+        core = core.replace(Regex("-(?:[A-Z]{1,4}\\d*|\\d+)$"), "")
+
+        // Strip any trailing numeric entity/route suffix such as "S1" / "1234"
+        core = core.replace(Regex("\\d+$"), "")
 
         // Look up known brand; otherwise return cleaned-up core
         return brandMap[core] ?: core

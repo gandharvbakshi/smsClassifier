@@ -10,17 +10,27 @@ import android.os.Bundle
 import android.provider.Telephony
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PrivacyTip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -28,6 +38,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.AppContainer
 import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
@@ -63,6 +75,7 @@ import com.smsclassifier.app.ui.screens.FlaggedScreen
 import com.smsclassifier.app.ui.screens.MainBottomBar
 import com.smsclassifier.app.ui.screens.OtpInboxScreen
 import com.smsclassifier.app.ui.theme.SMSClassifierTheme
+import com.smsclassifier.app.ui.theme.Spacing
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
 import com.smsclassifier.app.ui.viewmodel.LogsViewModel
@@ -112,10 +125,37 @@ class MainActivity : ComponentActivity() {
                 ) {
                     if (!gateReady) {
                         Box(
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.background),
                             contentAlignment = Alignment.Center
                         ) {
-                            CircularProgressIndicator()
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(Spacing.lg)
+                            ) {
+                                Surface(
+                                    shape = androidx.compose.foundation.shape.CircleShape,
+                                    color = MaterialTheme.colorScheme.primaryContainer,
+                                    tonalElevation = 1.dp
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.PrivacyTip,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.primary,
+                                        modifier = Modifier
+                                            .size(80.dp)
+                                            .padding(20.dp)
+                                    )
+                                }
+                                Text(
+                                    text = "SMS Classifier",
+                                    style = MaterialTheme.typography.headlineMedium,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                                CircularProgressIndicator(modifier = Modifier.size(28.dp))
+                                Spacer(modifier = Modifier.height(Spacing.xs))
+                            }
                         }
                     } else {
                     Box(modifier = Modifier.fillMaxSize()) {
