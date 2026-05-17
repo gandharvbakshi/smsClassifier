@@ -32,6 +32,7 @@ import com.smsclassifier.app.AppContainer
 import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -73,6 +74,7 @@ import com.smsclassifier.app.ui.viewmodel.ComposeViewModel
 import com.smsclassifier.app.ui.viewmodel.OtpInboxViewModel
 import com.smsclassifier.app.util.NotificationHelper
 import com.smsclassifier.app.util.CrashlyticsBootstrap
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private lateinit var database: AppDatabase
@@ -485,6 +487,9 @@ class MainActivity : ComponentActivity() {
         val def = isDefaultSmsAppNow()
         AppContainer.telemetry.onMainActivityResume(def)
         CrashlyticsBootstrap.refresh(this, def)
+        lifecycleScope.launch {
+            AppContainer.entitlementManager.refreshFromServer()
+        }
         AppContainer.billingRepository.restorePurchases()
     }
 

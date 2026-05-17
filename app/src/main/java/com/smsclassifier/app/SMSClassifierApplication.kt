@@ -49,6 +49,7 @@ class SMSClassifierApplication : Application() {
             } catch (e: Exception) {
                 AppLog.e("SMSClassifierApplication", "Firebase Installations id failed: ${e.message}", e)
             }
+            AppContainer.entitlementManager.refreshFromServer()
         }
 
         // Initialize notification channel early at app startup

@@ -29,7 +29,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -38,6 +41,7 @@ import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.billing.PlayBillingRepository
 import com.smsclassifier.app.entitlement.EntitlementState
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,6 +57,8 @@ fun PaywallScreen(
     val billingInFlight by AppContainer.billingRepository.isLaunchingFlow.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     val entitlementManager = AppContainer.entitlementManager
+    val scope = rememberCoroutineScope()
+    var entitlementRefresh by remember { mutableStateOf(0) }
 
     LaunchedEffect(Unit) {
         AppContainer.billingRepository.purchaseError.collect { msg ->
@@ -71,9 +77,9 @@ fun PaywallScreen(
         }
     }
 
-    val state = entitlementManager.currentState()
-    val trialDays = entitlementManager.trialDaysRemaining()
-    val trialAvailable = !entitlementManager.hasTrialStarted()
+    val state = remember(entitlementRefresh) { entitlementManager.currentState() }
+    val trialDays = remember(entitlementRefresh) { entitlementManager.trialDaysRemaining() }
+    val trialAvailable = remember(entitlementRefresh) { !entitlementManager.hasTrialStarted() }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -103,7 +109,7 @@ fun PaywallScreen(
         ) {
             Text(
                 text = if (trialAvailable && state != EntitlementState.PRO) {
-                    "Choose your 7-day Pro trial or one-time purchase"
+                    "Try Pro before you buy"
                 } else {
                     "Unlock full classification"
                 },
@@ -111,9 +117,21 @@ fun PaywallScreen(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "• Cloud OTP classification & intent\n• Cloud phishing detection & risk score\n• Start the trial first, or buy Pro once through Play Billing",
+                text = "Pro is where cloud OTP intent, do-not-share warnings, phishing detection, and risk scoring run. Free keeps basic local classification only.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            ProBenefitLine(
+                title = "OTP intent",
+                body = "Shows whether a code looks like login, payment, account change, delivery, or another action."
+            )
+            ProBenefitLine(
+                title = "Phishing risk",
+                body = "Checks links, urgency, sender patterns, and credential or OTP-sharing requests."
+            )
+            ProBenefitLine(
+                title = "Risk score and warnings",
+                body = "Adds context such as \"do not share\" when a message looks sensitive."
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -134,12 +152,19 @@ fun PaywallScreen(
                 Button(
                     onClick = {
                         AppContainer.telemetry.logCtaTap("paywall", "start_trial")
-                        if (entitlementManager.startTrialIfAvailable()) {
-                            AppContainer.telemetry.logEvent(
-                                "trial_started_from_paywall",
-                                mapOf("trigger" to telemetryTrigger)
-                            )
-                            onPurchaseFinishedNavigateNext()
+                        scope.launch {
+                            if (entitlementManager.startTrialIfAvailableRemote()) {
+                                entitlementRefresh++
+                                AppContainer.telemetry.logEvent(
+                                    "trial_started_from_paywall",
+                                    mapOf("trigger" to telemetryTrigger)
+                                )
+                                onPurchaseFinishedNavigateNext()
+                            } else {
+                                snackbarHostState.showSnackbar(
+                                    "Trial could not start. Check your connection and try again."
+                                )
+                            }
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
@@ -199,5 +224,21 @@ fun PaywallScreen(
                 ) { Text("Debug: grant Pro") }
             }
         }
+    }
+}
+
+@Composable
+private fun ProBenefitLine(title: String, body: String) {
+    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold
+        )
+        Text(
+            text = body,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }

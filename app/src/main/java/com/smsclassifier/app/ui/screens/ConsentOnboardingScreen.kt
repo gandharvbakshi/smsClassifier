@@ -70,6 +70,7 @@ fun ConsentOnboardingScreen(
     }
     var crashOn by rememberSaveable { mutableStateOf(consent.crashlyticsEnabledNow()) }
     var privacySaved by rememberSaveable { mutableStateOf(onboardingAlreadySeen) }
+    var trialStartFailed by rememberSaveable { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -108,6 +109,38 @@ fun ConsentOnboardingScreen(
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f)
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Text(
+                    text = "What it helps with",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold
+                )
+                ExplainerRow(
+                    icon = Icons.Default.Inbox,
+                    title = "Organized OTP inbox",
+                    body = "Keeps codes easier to find without turning every message into an alert."
+                )
+                ExplainerRow(
+                    icon = Icons.Default.CloudUpload,
+                    title = "OTP intent in Pro",
+                    body = "Explains why a code arrived, such as login, payment, account change, or delivery."
+                )
+                ExplainerRow(
+                    icon = Icons.Default.PrivacyTip,
+                    title = "Phishing risk in Pro",
+                    body = "Adds warnings for suspicious links, urgency, and requests for passwords or OTPs."
+                )
+            }
+        }
         if (entitlementState == EntitlementState.PRO || entitlementState == EntitlementState.TRIAL_ACTIVE) {
             Text(
                 text = when (entitlementState) {
@@ -190,7 +223,7 @@ fun ConsentOnboardingScreen(
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "Free keeps classification on-device. Trial and Pro add cloud classification for OTP intent and phishing detection.",
+                    text = "Free keeps basic local classification on-device. Trial and Pro add cloud OTP intent, do-not-share warnings, phishing detection, and risk scoring.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -218,7 +251,7 @@ fun ConsentOnboardingScreen(
                 PlanChoiceCard(
                     icon = Icons.Default.CloudUpload,
                     title = "Start 7-day Pro trial",
-                    subtitle = "Turns on cloud classification for OTP intent, phishing detection, and fuller results. No payment method, no auto-charge.",
+                    subtitle = "Turns on cloud OTP intent, phishing warnings, and risk scoring. No payment method, no auto-charge.",
                     buttonText = when (entitlementState) {
                         EntitlementState.TRIAL_ACTIVE -> "Trial already active"
                         EntitlementState.PRO -> "Pro already active"
@@ -235,14 +268,25 @@ fun ConsentOnboardingScreen(
                                 crashOn = crashOn
                             )
                             AppContainer.telemetry.logCtaTap("onboarding", "start_trial")
-                            if (entitlementManager.startTrialIfAvailable()) {
+                            if (entitlementManager.startTrialIfAvailableRemote()) {
+                                trialStartFailed = false
                                 AppContainer.telemetry.logEvent("trial_started_from_onboarding")
                                 entitlementState = entitlementManager.currentState()
+                                onContinueFree()
+                            } else {
+                                trialStartFailed = true
                             }
-                            onContinueFree()
                         }
                     }
                 )
+
+                if (trialStartFailed) {
+                    Text(
+                        text = "Could not start the trial right now. You can continue free and try again from Pro later.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
 
                 PlanChoiceCard(
                     icon = Icons.Default.Star,
@@ -264,6 +308,46 @@ fun ConsentOnboardingScreen(
                     }
                 )
             }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ExplainerRow(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    title: String,
+    body: String
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.Top
+    ) {
+        Surface(
+            shape = androidx.compose.foundation.shape.CircleShape,
+            color = MaterialTheme.colorScheme.secondaryContainer
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                modifier = Modifier.padding(8.dp)
+            )
+        }
+        Column(
+            modifier = Modifier.padding(start = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = body,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }

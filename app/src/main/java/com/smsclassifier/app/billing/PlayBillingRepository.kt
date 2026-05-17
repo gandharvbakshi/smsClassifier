@@ -14,12 +14,16 @@ import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.util.AppLog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 /**
  * Play Billing 7 — INAPP SKU [SKU_PRO_LIFETIME]. Connect from [SMSClassifierApplication].
@@ -33,6 +37,7 @@ class PlayBillingRepository(private val context: Context) {
 
     private val appContext = context.applicationContext
     private var billingClient: BillingClient? = null
+    private val billingScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     private val _productDetails = MutableStateFlow<ProductDetails?>(null)
     val productDetails: StateFlow<ProductDetails?> = _productDetails.asStateFlow()
@@ -137,25 +142,40 @@ class PlayBillingRepository(private val context: Context) {
             purchase.purchaseState == Purchase.PurchaseState.PURCHASED
         if (!valid) return
 
-        val wasPaidPro = AppContainer.entitlementManager.isPaidPro()
-        AppContainer.entitlementManager.markPurchasedFromPlay(purchase.purchaseToken, SKU_PRO_LIFETIME)
-        acknowledgeIfNeeded(purchase)
-
-        if (!wasPaidPro) {
-            val micros = _productDetails.value?.oneTimePurchaseOfferDetails?.priceAmountMicros ?: 0L
-            val currency = _productDetails.value?.oneTimePurchaseOfferDetails?.priceCurrencyCode ?: ""
-            AppContainer.telemetry.logEvent(
-                "purchase_completed",
-                mapOf(
-                    "sku" to SKU_PRO_LIFETIME,
-                    "value" to (micros / 1_000_000.0),
-                    "currency" to currency.ifBlank { "XXX" }
-                )
+        billingScope.launch {
+            val wasPaidPro = AppContainer.entitlementManager.isPaidPro()
+            val verified = AppContainer.entitlementManager.verifyPlayPurchase(
+                purchaseToken = purchase.purchaseToken,
+                sku = SKU_PRO_LIFETIME,
+                packageName = appContext.packageName
             )
-        }
+            if (!verified) {
+                AppLog.w(TAG, "Purchase verification failed for $SKU_PRO_LIFETIME")
+                AppContainer.telemetry.logEvent(
+                    "purchase_verification_failed",
+                    mapOf("sku" to SKU_PRO_LIFETIME)
+                )
+                if (fromUserFlow) {
+                    _purchaseError.tryEmit("Purchase could not be verified. Restore again in a few minutes.")
+                }
+                return@launch
+            }
 
-        if (!wasPaidPro && fromUserFlow) {
-            _purchaseSuccess.tryEmit(Unit)
+            acknowledgeIfNeeded(purchase)
+
+            if (!wasPaidPro) {
+                val micros = _productDetails.value?.oneTimePurchaseOfferDetails?.priceAmountMicros ?: 0L
+                val currency = _productDetails.value?.oneTimePurchaseOfferDetails?.priceCurrencyCode ?: ""
+                AppContainer.telemetry.logPurchaseCompleted(
+                    sku = SKU_PRO_LIFETIME,
+                    value = micros / 1_000_000.0,
+                    currency = currency
+                )
+            }
+
+            if (!wasPaidPro && fromUserFlow) {
+                _purchaseSuccess.tryEmit(Unit)
+            }
         }
     }
 
@@ -179,7 +199,7 @@ class PlayBillingRepository(private val context: Context) {
             AppLog.w(TAG, "Billing not ready or product missing — open Play Console and ensure SKU exists")
             return
         }
-        AppContainer.telemetry.logEvent("purchase_started", mapOf("sku" to SKU_PRO_LIFETIME))
+        AppContainer.telemetry.logBeginCheckout(SKU_PRO_LIFETIME)
         _isLaunchingFlow.value = true
         val detailsParams = BillingFlowParams.ProductDetailsParams.newBuilder()
             .setProductDetails(pd)

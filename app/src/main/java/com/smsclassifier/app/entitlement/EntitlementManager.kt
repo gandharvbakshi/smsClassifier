@@ -1,9 +1,13 @@
 package com.smsclassifier.app.entitlement
 
 import android.content.Context
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.analytics.Telemetry
 import com.smsclassifier.app.data.MessageEntity
+import com.smsclassifier.app.data.SettingsRepository
+import com.smsclassifier.app.util.AppLog
 
 enum class EntitlementState {
     FREE,
@@ -15,6 +19,8 @@ enum class EntitlementState {
 class EntitlementManager(private val context: Context) {
 
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val settingsRepository = SettingsRepository(context)
+    private val syncClient = EntitlementSyncClient()
 
     fun isPro(now: Long = System.currentTimeMillis()): Boolean {
         if (prefs.getBoolean(KEY_PRO, false)) return true
@@ -42,9 +48,66 @@ class EntitlementManager(private val context: Context) {
         if (hasTrialStarted()) return false
 
         prefs.edit().putLong(KEY_TRIAL_START, now).apply()
-        Telemetry.instance?.logEvent("trial_started")
+        Telemetry.instance?.logTrialStarted("local")
         refreshCrashlyticsMode()
         return true
+    }
+
+    suspend fun refreshFromServer(): Boolean {
+        val result = syncClient.fetch(settingsRepository.installId, firebaseUid())
+        val state = result.getOrElse { return false }
+        if (!state.ok) return false
+        applyServerState(state)
+        return true
+    }
+
+    suspend fun startTrialIfAvailableRemote(): Boolean {
+        if (prefs.getBoolean(KEY_PRO, false)) return false
+        if (hasTrialStarted()) return false
+
+        val result = syncClient.startTrial(settingsRepository.installId, firebaseUid())
+        val state = result.getOrNull()
+        if (state?.ok == true) {
+            applyServerState(state)
+            if (state.trialActive && state.trialStartedAt != null) {
+                Telemetry.instance?.logTrialStarted("server")
+                return true
+            }
+            return false
+        }
+
+        AppLog.w(TAG, "Trial start server sync failed: ${result.exceptionOrNull()?.message}")
+        return if (BuildConfig.DEBUG) startTrial() else false
+    }
+
+    suspend fun verifyPlayPurchase(
+        purchaseToken: String,
+        sku: String,
+        packageName: String = BuildConfig.APPLICATION_ID
+    ): Boolean {
+        val result = syncClient.verifyPurchase(
+            installId = settingsRepository.installId,
+            firebaseUid = firebaseUid(),
+            packageName = packageName,
+            productId = sku,
+            purchaseToken = purchaseToken
+        )
+        val state = result.getOrNull()
+        if (state?.ok == true && state.proActive) {
+            applyServerPurchaseState(state, purchaseToken, sku)
+            return true
+        }
+        if (state?.validationStatus == "invalid") {
+            AppLog.w(TAG, "Play purchase rejected by backend for sku=$sku")
+            return false
+        }
+
+        AppLog.w(TAG, "Play purchase verification unavailable: ${result.exceptionOrNull()?.message}")
+        if (BuildConfig.DEBUG) {
+            markPurchasedFromPlay(purchaseToken, sku)
+            return true
+        }
+        return false
     }
 
     /** Calendar days left in trial, or 0 if not in trial. */
@@ -169,6 +232,33 @@ class EntitlementManager(private val context: Context) {
             .setCustomKey("inference_mode", crashlyticsInferenceLabel())
     }
 
+    private fun firebaseUid(): String? =
+        FirebaseAuth.getInstance().currentUser?.uid
+
+    private fun applyServerState(state: EntitlementSyncResponse) {
+        val editor = prefs.edit()
+        if (state.proActive) {
+            editor.putBoolean(KEY_PRO, true)
+        }
+        state.trialStartedAt?.let { editor.putLong(KEY_TRIAL_START, it) }
+        editor.apply()
+        refreshCrashlyticsMode()
+    }
+
+    private fun applyServerPurchaseState(
+        state: PurchaseVerifyResponse,
+        purchaseToken: String,
+        sku: String
+    ) {
+        val editor = prefs.edit()
+            .putBoolean(KEY_PRO, state.proActive)
+            .putString(KEY_PURCHASE_TOKEN, purchaseToken)
+            .putString(KEY_PURCHASE_SKU, sku)
+        state.trialStartedAt?.let { editor.putLong(KEY_TRIAL_START, it) }
+        editor.apply()
+        refreshCrashlyticsMode()
+    }
+
     init {
         refreshCrashlyticsMode()
     }
@@ -183,5 +273,6 @@ class EntitlementManager(private val context: Context) {
         private const val KEY_PURCHASE_TOKEN = "pro_purchase_token"
         private const val KEY_PURCHASE_SKU = "pro_sku"
         private val TRIAL_MS = 7L * 24 * 60 * 60 * 1000
+        private const val TAG = "EntitlementManager"
     }
 }

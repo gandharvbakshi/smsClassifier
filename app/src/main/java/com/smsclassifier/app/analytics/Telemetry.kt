@@ -61,6 +61,50 @@ class Telemetry(
         logEvent("otp_copied", mapOf("surface" to safeLabel(surface)))
     }
 
+    fun logBeginCheckout(sku: String) {
+        val itemId = safeLabel(sku)
+        logEvent(
+            FirebaseAnalytics.Event.BEGIN_CHECKOUT,
+            mapOf(
+                FirebaseAnalytics.Param.ITEM_ID to itemId,
+                FirebaseAnalytics.Param.ITEM_NAME to itemId
+            )
+        )
+        logEvent("purchase_started", mapOf("sku" to itemId))
+    }
+
+    fun logTrialStarted(source: String) {
+        val safeSource = safeLabel(source)
+        logEvent("trial_started", mapOf("source" to safeSource))
+        logEvent(
+            "generate_lead",
+            mapOf(
+                "method" to "trial",
+                "source" to safeSource
+            )
+        )
+    }
+
+    fun logPurchaseCompleted(sku: String, value: Double, currency: String) {
+        val itemId = safeLabel(sku)
+        val normalizedCurrency = currency.ifBlank { "XXX" }
+        val params = mapOf(
+            FirebaseAnalytics.Param.ITEM_ID to itemId,
+            FirebaseAnalytics.Param.ITEM_NAME to itemId,
+            FirebaseAnalytics.Param.VALUE to value,
+            FirebaseAnalytics.Param.CURRENCY to normalizedCurrency
+        )
+        logEvent(FirebaseAnalytics.Event.PURCHASE, params)
+        logEvent(
+            "purchase_completed",
+            mapOf(
+                "sku" to itemId,
+                "value" to value,
+                "currency" to normalizedCurrency
+            )
+        )
+    }
+
     fun logFilterChanged(filter: String) {
         logEvent("filter_changed", mapOf("filter" to safeLabel(filter)))
     }
