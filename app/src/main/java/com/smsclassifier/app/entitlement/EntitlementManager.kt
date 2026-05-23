@@ -372,7 +372,7 @@ class EntitlementManager(private val context: Context) {
         val explicit = prefs.getLong(KEY_TRIAL_EXPIRES_AT, -1L)
         if (explicit > 0L) return explicit
         val started = prefs.getLong(KEY_TRIAL_START, -1L)
-        return if (started > 0L) started + DEFAULT_TRIAL_MS else -1L
+        return if (started > 0L) started + LEGACY_TRIAL_MS else -1L
     }
 
     private fun trialDurationDaysFromPrefs(): Int {
@@ -384,6 +384,7 @@ class EntitlementManager(private val context: Context) {
             val ms = expiresAt - started
             return ((ms + 86_400_000L - 1) / 86_400_000L).toInt().coerceAtLeast(1)
         }
+        if (started > 0L) return LEGACY_TRIAL_DAYS
         return DEFAULT_TRIAL_DAYS
     }
 
@@ -406,10 +407,12 @@ class EntitlementManager(private val context: Context) {
         private const val KEY_PURCHASE_POLICY_VERSION = "purchase_policy_version"
         private const val KEY_PRO_EXPIRES_AT = "pro_expires_at_ms"
         private const val PRODUCT_TYPE_SUBS = "subs"
-        private const val DEFAULT_TRIAL_DAYS = 7
-        private const val DEFAULT_TRIAL_POLICY_VERSION = "trial_7d_v1"
+        private const val DEFAULT_TRIAL_DAYS = 14
+        private const val DEFAULT_TRIAL_POLICY_VERSION = "trial_14d_v1"
         private const val DEFAULT_PURCHASE_POLICY_VERSION = "play_pro_yearly_annual_v1"
         private val DEFAULT_TRIAL_MS = DEFAULT_TRIAL_DAYS * 24L * 60 * 60 * 1000
+        private const val LEGACY_TRIAL_DAYS = 7
+        private val LEGACY_TRIAL_MS = LEGACY_TRIAL_DAYS * 24L * 60 * 60 * 1000
         private val PROVISIONAL_SUBSCRIPTION_MS = 3L * 24 * 60 * 60 * 1000
         private const val TAG = "EntitlementManager"
     }

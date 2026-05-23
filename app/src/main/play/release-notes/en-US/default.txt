@@ -1,4 +1,4 @@
-v1.2.3 - Trial policy and classifier tuning
-- Pro trial length now follows the policy active when the trial starts.
-- Pro and trial messages now reflect the active trial period instead of fixed wording.
-- Backend phishing checks reduce false positives on normal bank UPI transaction alerts.
+v1.2.4 - 14-day trial
+- New Pro trials now use the 14-day trial policy.
+- Trial terms are remembered from the policy active when the trial starts.
+- Classifier and entitlement reliability improvements.
