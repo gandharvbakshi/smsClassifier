@@ -21,6 +21,7 @@ import threading
 import time
 import uuid
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from urllib.parse import urlparse
@@ -308,6 +309,14 @@ class GroqSmsFullResult:
     raw_response: Dict[str, Any]
 
 
+@dataclass
+class PlayValidationResult:
+    status: str
+    valid: Optional[bool]
+    product_type: Optional[str] = None
+    expires_at_ms: Optional[int] = None
+
+
 def _load_pickle(path: Path, label: str):
     if not path.exists():
         raise FileNotFoundError(f"{label} not found at {path}")
@@ -357,6 +366,8 @@ FEEDBACK_GCS_PREFIX = os.getenv("FEEDBACK_GCS_PREFIX", "misclassification/")
 ENTITLEMENT_GCS_PREFIX = os.getenv("ENTITLEMENT_GCS_PREFIX", "entitlements/")
 PLAY_PACKAGE_NAME = os.getenv("PLAY_PACKAGE_NAME", "com.smsclassifier.app")
 ANDROID_PUBLISHER_SCOPE = "https://www.googleapis.com/auth/androidpublisher"
+PRO_YEARLY_PRODUCT_ID = "pro_yearly"
+PRO_LIFETIME_PRODUCT_ID = "pro_lifetime"
 TRIAL_MS = 7 * 24 * 60 * 60 * 1000
 FEEDBACK_LOG_DIR_RAW = os.getenv("FEEDBACK_LOG_DIR")
 # When GCS is configured, the local JSONL file is just a debug fallback.
@@ -668,8 +679,15 @@ def _load_entitlement(install_id: str, firebase_uid: Optional[str]) -> Dict[str,
             current = merged.get("trialStartedAt")
             merged["trialStartedAt"] = min(current, started) if isinstance(current, int) else started
             merged["trialExpiresAt"] = merged["trialStartedAt"] + TRIAL_MS
-        merged["proActive"] = bool(merged["proActive"] or row.get("proActive"))
-        for key in ("purchaseProductId", "purchaseTokenHash", "lastValidationStatus"):
+        row_expires = row.get("proExpiresAt")
+        row_active = bool(row.get("proActive")) and (
+            not isinstance(row_expires, int) or now < row_expires
+        )
+        merged["proActive"] = bool(merged["proActive"] or row_active)
+        if isinstance(row_expires, int):
+            current_expires = merged.get("proExpiresAt")
+            merged["proExpiresAt"] = max(current_expires, row_expires) if isinstance(current_expires, int) else row_expires
+        for key in ("purchaseProductId", "purchaseProductType", "purchaseTokenHash", "lastValidationStatus"):
             if row.get(key):
                 merged[key] = row[key]
     return merged
@@ -704,7 +722,11 @@ def _entitlement_response(record: Dict[str, Any], status: str = "ok") -> Dict[st
     now = int(time.time() * 1000)
     trial_started = record.get("trialStartedAt")
     trial_expires = record.get("trialExpiresAt")
+    pro_expires = record.get("proExpiresAt")
     trial_active = isinstance(trial_expires, int) and now < trial_expires
+    pro_active = bool(record.get("proActive")) and (
+        not isinstance(pro_expires, int) or now < pro_expires
+    )
     return {
         "ok": True,
         "status": status,
@@ -712,7 +734,8 @@ def _entitlement_response(record: Dict[str, Any], status: str = "ok") -> Dict[st
         "trialExpiresAt": trial_expires,
         "trialActive": trial_active,
         "trialUsed": isinstance(trial_started, int),
-        "proActive": bool(record.get("proActive")),
+        "proActive": pro_active,
+        "proExpiresAt": pro_expires,
     }
 
 
@@ -748,12 +771,14 @@ class EntitlementResponse(BaseModel):
     trialActive: bool = False
     trialUsed: bool = False
     proActive: bool = False
+    proExpiresAt: Optional[int] = None
 
 
 class PurchaseVerifyRequest(EntitlementRequest):
     packageName: str = PLAY_PACKAGE_NAME
     productId: str
     purchaseToken: str = Field(..., min_length=8)
+    productType: Optional[str] = None
 
 
 class PurchaseVerifyResponse(EntitlementResponse):
@@ -778,7 +803,79 @@ def start_trial(request: EntitlementRequest) -> Dict[str, Any]:
     return _entitlement_response(record)
 
 
-def _validate_play_purchase(req: PurchaseVerifyRequest) -> tuple[str, Optional[bool]]:
+def _parse_play_timestamp_ms(value: Optional[str]) -> Optional[int]:
+    if not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return int(parsed.timestamp() * 1000)
+    except ValueError:
+        logger.warning("Could not parse Play timestamp: %s", value)
+        return None
+
+
+def _play_validation_error(exc: Exception) -> PlayValidationResult:
+    try:
+        from googleapiclient.errors import HttpError  # type: ignore
+    except Exception:  # noqa: BLE001
+        HttpError = ()  # type: ignore
+    if HttpError and isinstance(exc, HttpError):
+        status = getattr(getattr(exc, "resp", None), "status", None)
+        if status in {400, 404}:
+            logger.info("Play purchase token invalid: status=%s", status)
+            return PlayValidationResult(status="invalid", valid=False)
+        if status in {401, 403}:
+            logger.warning("Play purchase validation permission/config failure: status=%s", status)
+            return PlayValidationResult(status="unavailable", valid=None)
+        if isinstance(status, int) and status >= 500:
+            logger.warning("Play purchase validation service failure: status=%s", status)
+            return PlayValidationResult(status="unavailable", valid=None)
+    logger.warning("Play purchase validation unavailable: %s", exc)
+    return PlayValidationResult(status="unavailable", valid=None)
+
+
+def _validate_subscription_purchase(req: PurchaseVerifyRequest) -> PlayValidationResult:
+    try:
+        result = _android_publisher_service().purchases().subscriptionsv2().get(
+            packageName=req.packageName or PLAY_PACKAGE_NAME,
+            token=req.purchaseToken,
+        ).execute()
+        matching_items = [
+            item
+            for item in result.get("lineItems", [])
+            if item.get("productId") == req.productId
+        ]
+        if not matching_items:
+            logger.info("Play subscription token does not include productId=%s", req.productId)
+            return PlayValidationResult(status="invalid", valid=False, product_type="subs")
+        expires_at = max(
+            (
+                parsed
+                for item in matching_items
+                for parsed in [_parse_play_timestamp_ms(item.get("expiryTime"))]
+                if isinstance(parsed, int)
+            ),
+            default=None,
+        )
+        if expires_at is None:
+            logger.info("Play subscription token has no expiryTime for productId=%s", req.productId)
+            return PlayValidationResult(status="invalid", valid=False, product_type="subs")
+        now = int(time.time() * 1000)
+        return PlayValidationResult(
+            status="verified",
+            valid=expires_at > now,
+            product_type="subs",
+            expires_at_ms=expires_at,
+        )
+    except Exception as exc:  # noqa: BLE001
+        result = _play_validation_error(exc)
+        result.product_type = "subs"
+        return result
+
+
+def _validate_one_time_purchase(req: PurchaseVerifyRequest) -> PlayValidationResult:
     try:
         result = _android_publisher_service().purchases().products().get(
             packageName=req.packageName or PLAY_PACKAGE_NAME,
@@ -786,45 +883,42 @@ def _validate_play_purchase(req: PurchaseVerifyRequest) -> tuple[str, Optional[b
             token=req.purchaseToken,
         ).execute()
         state = result.get("purchaseState", 0)
-        return ("verified", state == 0)
+        return PlayValidationResult(status="verified", valid=state == 0, product_type="inapp")
     except Exception as exc:  # noqa: BLE001
-        try:
-            from googleapiclient.errors import HttpError  # type: ignore
-        except Exception:  # noqa: BLE001
-            HttpError = ()  # type: ignore
-        if HttpError and isinstance(exc, HttpError):
-            status = getattr(getattr(exc, "resp", None), "status", None)
-            if status in {400, 404}:
-                logger.info("Play purchase token invalid: status=%s", status)
-                return ("invalid", False)
-            if status in {401, 403}:
-                logger.warning("Play purchase validation permission/config failure: status=%s", status)
-                return ("unavailable", None)
-            if isinstance(status, int) and status >= 500:
-                logger.warning("Play purchase validation service failure: status=%s", status)
-                return ("unavailable", None)
-        logger.warning("Play purchase validation unavailable: %s", exc)
-        return ("unavailable", None)
+        result = _play_validation_error(exc)
+        result.product_type = "inapp"
+        return result
+
+
+def _validate_play_purchase(req: PurchaseVerifyRequest) -> PlayValidationResult:
+    if req.productType == "subs" or req.productId == PRO_YEARLY_PRODUCT_ID:
+        return _validate_subscription_purchase(req)
+    return _validate_one_time_purchase(req)
 
 
 @api_router.post("/purchases/verify", response_model=PurchaseVerifyResponse)
 def verify_purchase(request: PurchaseVerifyRequest) -> Dict[str, Any]:
-    status, valid = _validate_play_purchase(request)
+    validation = _validate_play_purchase(request)
     record = _load_entitlement(request.installId, request.firebaseUid)
-    if valid is False:
+    if validation.valid is False:
         response = _entitlement_response(record)
         response["validationStatus"] = "invalid"
         return response
-    if valid is True:
+    if validation.valid is True:
         now = int(time.time() * 1000)
         record["proActive"] = True
         record["purchaseProductId"] = request.productId
+        record["purchaseProductType"] = validation.product_type
         record["purchaseTokenHash"] = hashlib.sha256(request.purchaseToken.encode("utf-8")).hexdigest()
-        record["lastValidationStatus"] = status
+        record["lastValidationStatus"] = validation.status
+        if validation.expires_at_ms is not None:
+            record["proExpiresAt"] = validation.expires_at_ms
+        else:
+            record.pop("proExpiresAt", None)
         record["updatedAt"] = now
         _write_entitlement(record)
     response = _entitlement_response(record)
-    response["validationStatus"] = status
+    response["validationStatus"] = validation.status
     return response
 
 
