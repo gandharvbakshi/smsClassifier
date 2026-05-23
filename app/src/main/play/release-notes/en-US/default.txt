@@ -1,4 +1,4 @@
-v1.2.4 - 14-day trial
-- New Pro trials now use the 14-day trial policy.
-- Trial terms are remembered from the policy active when the trial starts.
-- Classifier and entitlement reliability improvements.
+v1.2.5 - Clearer Pro and safer reports
+- Shorter first-run setup with clearer 14-day trial and Pro messaging.
+- Wrong-label uploads now mask links, long numbers, phone-number senders, and emails before upload.
+- Refreshed Play Store screenshots with populated Indian SMS examples.

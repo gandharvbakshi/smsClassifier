@@ -377,9 +377,9 @@ fun DetailScreen(
                                 if (!saved) {
                                     "Report could not be saved. Try again."
                                 } else if (uploadsEnabled) {
-                                    "Report saved and queued for upload."
+                                    "Report saved and queued for redacted upload."
                                 } else {
-                                    "Report saved on this phone. Turn on wrong-label uploads to send it."
+                                    "Report saved on this phone. Turn on redacted uploads to send it."
                                     }
                                 )
                             }

@@ -2,6 +2,7 @@ package com.smsclassifier.app.feedback
 
 import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.util.AppLog
+import com.smsclassifier.app.util.SmsRedactor
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +29,7 @@ data class FeedbackRequest(
     val appVersionName: String,
     val sender: String,
     val body: String,
-    val bodyRedactionScheme: String = "digits_v1",
+    val bodyRedactionScheme: String = SmsRedactor.TRAINING_REDACTION_SCHEME,
     val predictedIsOtp: Boolean? = null,
     val predictedOtpIntent: String? = null,
     val predictedIsPhishing: Boolean? = null,

@@ -226,7 +226,7 @@ fun SettingsScreen(
                 SettingsRow(
                     icon = Icons.Default.CloudUpload,
                     title = "Improve wrong-label fixes",
-                    subtitle = "Optional wrong-label details; off by default.",
+                    subtitle = "Upload redacted wrong-label reports to improve the classifier.",
                     trailing = {
                         Switch(
                             checked = feedbackUploadEnabled,
@@ -355,8 +355,9 @@ fun SettingsScreen(
                     title = { Text("Improve wrong-label fixes?") },
                     text = {
                         Text(
-                            "Send the text and sender of misclassified messages over HTTPS so we can improve the classifier. " +
-                                "Stored on our servers — see Privacy policy. Off by default."
+                            "Send misclassified-message reports over HTTPS so we can improve the classifier. " +
+                                "OTP codes, long numbers, phone-number senders, links, and emails are masked before upload. " +
+                                "Stored on our servers; see Privacy policy. Off by default."
                         )
                     },
                     confirmButton = {

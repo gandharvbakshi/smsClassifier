@@ -52,14 +52,15 @@ class FeedbackUploadWorker(
             for (row in pending) {
                 val bodyLimited = row.body.take(BODY_MAX_LEN)
                 val redactedBody = SmsRedactor.redactForTraining(bodyLimited, installId)
+                val redactedSender = SmsRedactor.redactSenderForTraining(row.sender, installId)
                 val req = FeedbackRequest(
                     installId = installId,
                     firebaseUid = null,
                     appVersionCode = versionCode,
                     appVersionName = versionName,
-                    sender = row.sender,
+                    sender = redactedSender,
                     body = redactedBody,
-                    bodyRedactionScheme = "digits_v1",
+                    bodyRedactionScheme = SmsRedactor.TRAINING_REDACTION_SCHEME,
                     predictedIsOtp = row.predictedIsOtp,
                     predictedOtpIntent = row.predictedOtpIntent,
                     predictedIsPhishing = row.predictedIsPhishing,
