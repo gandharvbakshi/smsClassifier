@@ -60,6 +60,7 @@ import com.smsclassifier.app.ui.screens.InboxScreen
 import com.smsclassifier.app.ui.screens.PaywallScreen
 import com.smsclassifier.app.ui.screens.PhoneAuthScreen
 import com.smsclassifier.app.BuildConfig
+import com.smsclassifier.app.billing.PlayBillingRepository
 import com.smsclassifier.app.ui.screens.LogsScreen
 import com.smsclassifier.app.ui.screens.NotificationDebugScreen
 import com.smsclassifier.app.ui.screens.AboutSubScreen
@@ -165,7 +166,7 @@ class MainActivity : ComponentActivity() {
 
                     var entitlementRefresh by remember { mutableStateOf(0) }
                     val productDetails by AppContainer.billingRepository.productDetails.collectAsState(initial = null)
-                    val formattedPrice = productDetails?.oneTimePurchaseOfferDetails?.formattedPrice
+                    val formattedPrice = PlayBillingRepository.formattedAnnualPrice(productDetails)?.let { "$it/year" }
 
                     LaunchedEffect(Unit) {
                         AppContainer.billingRepository.purchaseSuccess.collect {

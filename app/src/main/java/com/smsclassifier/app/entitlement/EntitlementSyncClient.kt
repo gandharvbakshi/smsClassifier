@@ -35,7 +35,8 @@ data class EntitlementSyncResponse(
     val trialExpiresAt: Long? = null,
     val trialActive: Boolean = false,
     val trialUsed: Boolean = false,
-    val proActive: Boolean = false
+    val proActive: Boolean = false,
+    val proExpiresAt: Long? = null
 )
 
 @Serializable
@@ -44,7 +45,8 @@ data class PurchaseVerifyRequest(
     val firebaseUid: String? = null,
     val packageName: String,
     val productId: String,
-    val purchaseToken: String
+    val purchaseToken: String,
+    val productType: String? = null
 )
 
 @Serializable
@@ -56,7 +58,8 @@ data class PurchaseVerifyResponse(
     val trialExpiresAt: Long? = null,
     val trialActive: Boolean = false,
     val trialUsed: Boolean = false,
-    val proActive: Boolean = false
+    val proActive: Boolean = false,
+    val proExpiresAt: Long? = null
 )
 
 class EntitlementSyncClient(
@@ -102,7 +105,8 @@ class EntitlementSyncClient(
         firebaseUid: String?,
         packageName: String,
         productId: String,
-        purchaseToken: String
+        purchaseToken: String,
+        productType: String? = null
     ): Result<PurchaseVerifyResponse> =
         post(
             path = "purchases/verify",
@@ -111,7 +115,8 @@ class EntitlementSyncClient(
                 firebaseUid = firebaseUid,
                 packageName = packageName,
                 productId = productId,
-                purchaseToken = purchaseToken
+                purchaseToken = purchaseToken,
+                productType = productType
             )
         )
 

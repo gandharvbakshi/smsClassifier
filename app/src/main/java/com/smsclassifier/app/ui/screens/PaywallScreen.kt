@@ -60,7 +60,7 @@ fun PaywallScreen(
 ) {
     val activity = LocalContext.current as Activity
     val productDetails by AppContainer.billingRepository.productDetails.collectAsState(initial = null)
-    val priceLabel = productDetails?.oneTimePurchaseOfferDetails?.formattedPrice ?: "…"
+    val annualPriceLabel = PlayBillingRepository.formattedAnnualPrice(productDetails)?.let { "$it/year" } ?: "..."
     val billingInFlight by AppContainer.billingRepository.isLaunchingFlow.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     val entitlementManager = AppContainer.entitlementManager
@@ -108,7 +108,7 @@ fun PaywallScreen(
             )
             Text(
                 text = if (trialAvailable && state != EntitlementState.PRO) {
-                    "Try Pro before you buy"
+                    "Try Pro before you subscribe"
                 } else {
                     "Unlock full classification"
                 },
@@ -172,7 +172,7 @@ fun PaywallScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
-                    text = "No payment method required. No auto-charge during the trial.",
+                    text = "No payment method required. The trial does not start the paid subscription automatically.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -184,14 +184,14 @@ fun PaywallScreen(
             }
             if (trialAvailable && state != EntitlementState.PRO) {
                 SecondaryButton(
-                    text = "Unlock Pro - $priceLabel",
+                    text = "Subscribe - $annualPriceLabel",
                     onClick = buyAction,
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !billingInFlight
                 )
             } else {
                 PrimaryButton(
-                    text = "Unlock Pro - $priceLabel",
+                    text = "Subscribe - $annualPriceLabel",
                     onClick = buyAction,
                     modifier = Modifier.fillMaxWidth(),
                     enabled = state != EntitlementState.PRO && !billingInFlight
@@ -199,25 +199,25 @@ fun PaywallScreen(
             }
             if (!BuildConfig.DEBUG && productDetails == null) {
                 Text(
-                    text = "Price loads when the Play product \"${PlayBillingRepository.SKU_PRO_LIFETIME}\" is active in Play Console.",
+                    text = "Price loads when the Play subscription \"${PlayBillingRepository.SKU_PRO_YEARLY}\" is active in Play Console.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.error
                 )
             }
             Text(
-                text = "One-time purchase. No subscription.",
+                text = "Annual Google Play subscription. Renews yearly unless canceled in Play Store.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             if (trialAvailable && state != EntitlementState.PRO) {
                 Text(
-                    text = "You can try scam warnings first. Nothing auto-charges when the trial ends.",
+                    text = "You can try scam warnings first. Subscribe only if Pro is useful.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             SecondaryButton(
-                text = "Restore purchase",
+                text = "Restore Pro",
                 onClick = {
                     AppContainer.telemetry.logCtaTap("paywall", "restore_purchase")
                     AppContainer.billingRepository.restorePurchases()

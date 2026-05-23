@@ -480,11 +480,11 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        text = "Trial ends in ${ui.trialDaysRemaining} day(s). Keep Pro for ${ui.formattedPrice ?: "Play price"}.",
+                        text = "Trial ends in ${ui.trialDaysRemaining} day(s). Keep Pro for ${ui.formattedPrice ?: "Play price/year"}.",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.weight(1f)
                     )
-                    TextButton(onClick = ui.onTrialEndingBuy) { Text("Buy") }
+                    TextButton(onClick = ui.onTrialEndingBuy) { Text("Subscribe") }
                     TextButton(onClick = ui.onTrialEndingDismiss) { Text("Dismiss") }
                 }
             }
@@ -504,15 +504,15 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                 ) {
                     Text(
                         text = if (trialAvailable) {
-                            "Cloud phishing risk is unavailable here. Start the 7-day Pro trial or unlock Pro for full cloud classification."
+                            "Cloud phishing risk is unavailable here. Start the 7-day Pro trial or subscribe for full cloud classification."
                         } else {
-                            "Cloud phishing risk is unavailable here. Unlock Pro for full cloud classification."
+                            "Cloud phishing risk is unavailable here. Subscribe to Pro for full cloud classification."
                         },
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.weight(1f)
                     )
                     TextButton(onClick = ui.onUnlockPro) {
-                        Text(if (trialAvailable) "Start trial / Unlock Pro" else "Unlock Pro")
+                        Text(if (trialAvailable) "Start trial / Subscribe" else "Subscribe")
                     }
                 }
             }

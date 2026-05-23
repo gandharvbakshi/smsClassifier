@@ -27,7 +27,7 @@ What it helps with
 
 Free, trial, and Pro
 
-SMS Classifier includes local OTP detection for basic use. You can choose to start a 7-day Pro trial from setup or the paywall. During the trial, and after you unlock Pro with the one-time Google Play purchase, the app can use cloud classification for OTP intent, warning badges, and phishing/risk analysis. Pro is a one-time purchase, not a subscription.
+SMS Classifier includes local OTP detection for basic use. You can choose to start a 7-day Pro trial from setup or the paywall. During the trial, and while your Pro subscription is active, the app can use cloud classification for OTP intent, warning badges, and phishing/risk analysis. Pro is an annual Google Play subscription priced at ₹199/year in India and renews yearly unless you cancel in Play Store.
 
 Privacy notes
 
@@ -44,6 +44,6 @@ Character count: 1,843 / 4,000
 - Removed old claims about encrypted local storage.
 - Removed old claims that messages never leave the device.
 - Removed broad "no data sharing with third parties" language.
-- Pro is described as a one-time Google Play purchase, not a subscription.
+- Pro is described as an annual Google Play subscription priced at ₹199/year in India.
 - Cloud OTP intent, warning badges, phishing detection, and risk scores are described as trial/Pro functionality.
 - Screenshots should continue to be real app screenshots only.

@@ -266,7 +266,7 @@ fun SettingsScreen(
                 SettingsRow(
                     icon = Icons.Default.Star,
                     title = "Upgrade to Pro",
-                    subtitle = "One-time purchase for scam warnings and risk scores",
+                    subtitle = "Annual subscription for scam warnings and risk scores",
                     trailing = {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,

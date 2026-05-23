@@ -27,13 +27,47 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * Play Billing 7 — INAPP SKU [SKU_PRO_LIFETIME]. Connect from [SMSClassifierApplication].
+ * Play Billing 7 for the annual Pro subscription.
+ *
+ * New purchases use [SKU_PRO_YEARLY]. The legacy lifetime SKU is still queried
+ * during restore so earlier buyers keep access.
  */
 class PlayBillingRepository(private val context: Context) {
 
     companion object {
+        const val SKU_PRO_YEARLY = "pro_yearly"
         const val SKU_PRO_LIFETIME = "pro_lifetime"
+        private const val BASE_PLAN_ANNUAL = "annual"
         private const val TAG = "PlayBilling"
+
+        fun formattedAnnualPrice(productDetails: ProductDetails?): String? =
+            recurringPricingPhase(productDetails)?.formattedPrice
+
+        private fun annualPriceAmountMicros(productDetails: ProductDetails?): Long =
+            recurringPricingPhase(productDetails)?.priceAmountMicros ?: 0L
+
+        private fun annualPriceCurrency(productDetails: ProductDetails?): String =
+            recurringPricingPhase(productDetails)?.priceCurrencyCode.orEmpty()
+
+        private fun selectedAnnualOffer(
+            productDetails: ProductDetails
+        ): ProductDetails.SubscriptionOfferDetails? =
+            productDetails.subscriptionOfferDetails
+                ?.firstOrNull { offer ->
+                    offer.basePlanId == BASE_PLAN_ANNUAL && offer.offerId.isNullOrBlank()
+                }
+                ?: productDetails.subscriptionOfferDetails
+                    ?.firstOrNull { offer -> offer.basePlanId == BASE_PLAN_ANNUAL }
+                ?: productDetails.subscriptionOfferDetails?.firstOrNull()
+
+        private fun recurringPricingPhase(
+            productDetails: ProductDetails?
+        ): ProductDetails.PricingPhase? =
+            productDetails
+                ?.let(::selectedAnnualOffer)
+                ?.pricingPhases
+                ?.pricingPhaseList
+                ?.lastOrNull()
     }
 
     private val appContext = context.applicationContext
@@ -115,8 +149,8 @@ class PlayBillingRepository(private val context: Context) {
             .setProductList(
                 listOf(
                     QueryProductDetailsParams.Product.newBuilder()
-                        .setProductId(SKU_PRO_LIFETIME)
-                        .setProductType(BillingClient.ProductType.INAPP)
+                        .setProductId(SKU_PRO_YEARLY)
+                        .setProductType(BillingClient.ProductType.SUBS)
                         .build()
                 )
             ).build()
@@ -134,13 +168,18 @@ class PlayBillingRepository(private val context: Context) {
 
     fun restorePurchases() {
         val client = billingClient ?: return
+        restorePurchasesFor(client, BillingClient.ProductType.SUBS)
+        restorePurchasesFor(client, BillingClient.ProductType.INAPP)
+    }
+
+    private fun restorePurchasesFor(client: BillingClient, productType: String) {
         client.queryPurchasesAsync(
             QueryPurchasesParams.newBuilder()
-                .setProductType(BillingClient.ProductType.INAPP)
+                .setProductType(productType)
                 .build()
         ) { result, purchases ->
             if (result.responseCode != BillingResponseCode.OK) {
-                AppLog.w(TAG, "Restore failed code=${result.responseCode} msg=${result.debugMessage}")
+                AppLog.w(TAG, "Restore $productType failed code=${result.responseCode} msg=${result.debugMessage}")
                 return@queryPurchasesAsync
             }
             purchases.forEach { handlePurchase(it, fromUserFlow = false) }
@@ -148,22 +187,31 @@ class PlayBillingRepository(private val context: Context) {
     }
 
     private fun handlePurchase(purchase: Purchase, fromUserFlow: Boolean) {
-        val valid = purchase.products.contains(SKU_PRO_LIFETIME) &&
-            purchase.purchaseState == Purchase.PurchaseState.PURCHASED
-        if (!valid) return
+        if (purchase.purchaseState != Purchase.PurchaseState.PURCHASED) return
+
+        val productId = when {
+            purchase.products.contains(SKU_PRO_YEARLY) -> SKU_PRO_YEARLY
+            purchase.products.contains(SKU_PRO_LIFETIME) -> SKU_PRO_LIFETIME
+            else -> return
+        }
+        val productType = when (productId) {
+            SKU_PRO_YEARLY -> BillingClient.ProductType.SUBS
+            else -> BillingClient.ProductType.INAPP
+        }
 
         billingScope.launch {
             val wasPaidPro = AppContainer.entitlementManager.isPaidPro()
             val verified = AppContainer.entitlementManager.verifyPlayPurchase(
                 purchaseToken = purchase.purchaseToken,
-                sku = SKU_PRO_LIFETIME,
-                packageName = appContext.packageName
+                sku = productId,
+                packageName = appContext.packageName,
+                productType = productType
             )
             if (!verified) {
-                AppLog.w(TAG, "Purchase verification failed for $SKU_PRO_LIFETIME")
+                AppLog.w(TAG, "Purchase verification failed for $productId")
                 AppContainer.telemetry.logEvent(
                     "purchase_verification_failed",
-                    mapOf("sku" to SKU_PRO_LIFETIME)
+                    mapOf("sku" to productId, "product_type" to productType)
                 )
                 if (fromUserFlow) {
                     _purchaseError.tryEmit("Purchase could not be verified. Restore again in a few minutes.")
@@ -174,10 +222,18 @@ class PlayBillingRepository(private val context: Context) {
             acknowledgeIfNeeded(purchase)
 
             if (!wasPaidPro) {
-                val micros = _productDetails.value?.oneTimePurchaseOfferDetails?.priceAmountMicros ?: 0L
-                val currency = _productDetails.value?.oneTimePurchaseOfferDetails?.priceCurrencyCode ?: ""
+                val micros = if (productId == SKU_PRO_YEARLY) {
+                    annualPriceAmountMicros(_productDetails.value)
+                } else {
+                    0L
+                }
+                val currency = if (productId == SKU_PRO_YEARLY) {
+                    annualPriceCurrency(_productDetails.value)
+                } else {
+                    ""
+                }
                 AppContainer.telemetry.logPurchaseCompleted(
-                    sku = SKU_PRO_LIFETIME,
+                    sku = productId,
                     value = micros / 1_000_000.0,
                     currency = currency
                 )
@@ -217,10 +273,19 @@ class PlayBillingRepository(private val context: Context) {
             return
         }
 
-        AppContainer.telemetry.logBeginCheckout(SKU_PRO_LIFETIME)
+        val offer = selectedAnnualOffer(pd)
+        if (offer == null) {
+            querySkuDetails()
+            AppLog.w(TAG, "No subscription offer token for $SKU_PRO_YEARLY")
+            _purchaseError.tryEmit("Subscription price is still loading. Check your connection and try again.")
+            return
+        }
+
+        AppContainer.telemetry.logBeginCheckout(SKU_PRO_YEARLY)
         _isLaunchingFlow.value = true
         val detailsParams = BillingFlowParams.ProductDetailsParams.newBuilder()
             .setProductDetails(pd)
+            .setOfferToken(offer.offerToken)
             .build()
         val flowParams = BillingFlowParams.newBuilder()
             .setProductDetailsParamsList(listOf(detailsParams))
@@ -244,7 +309,7 @@ class PlayBillingRepository(private val context: Context) {
         AppContainer.telemetry.logEvent(
             "purchase_failed",
             mapOf(
-                "sku" to SKU_PRO_LIFETIME,
+                "sku" to SKU_PRO_YEARLY,
                 "error_code" to billingResult.responseCode.toString(),
                 "error_message" to sanitizeDebugMessage(billingResult.debugMessage)
             )

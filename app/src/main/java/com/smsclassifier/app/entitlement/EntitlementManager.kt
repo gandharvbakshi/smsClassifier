@@ -23,14 +23,14 @@ class EntitlementManager(private val context: Context) {
     private val syncClient = EntitlementSyncClient()
 
     fun isPro(now: Long = System.currentTimeMillis()): Boolean {
-        if (prefs.getBoolean(KEY_PRO, false)) return true
+        if (isPaidProAt(now)) return true
         val started = prefs.getLong(KEY_TRIAL_START, -1L)
         if (started <= 0L) return false
         return now - started < TRIAL_MS
     }
 
     fun currentState(now: Long = System.currentTimeMillis()): EntitlementState {
-        if (prefs.getBoolean(KEY_PRO, false)) return EntitlementState.PRO
+        if (isPaidProAt(now)) return EntitlementState.PRO
         val trialStart = prefs.getLong(KEY_TRIAL_START, -1L)
         if (trialStart <= 0L) return EntitlementState.FREE
         return if (now - trialStart < TRIAL_MS) EntitlementState.TRIAL_ACTIVE
@@ -44,7 +44,7 @@ class EntitlementManager(private val context: Context) {
     fun startTrialIfAvailable(): Boolean = startTrial()
 
     fun startTrial(now: Long = System.currentTimeMillis()): Boolean {
-        if (prefs.getBoolean(KEY_PRO, false)) return false
+        if (isPaidProAt(now)) return false
         if (hasTrialStarted()) return false
 
         prefs.edit().putLong(KEY_TRIAL_START, now).apply()
@@ -62,7 +62,7 @@ class EntitlementManager(private val context: Context) {
     }
 
     suspend fun startTrialIfAvailableRemote(): Boolean {
-        if (prefs.getBoolean(KEY_PRO, false)) return false
+        if (isPaidProAt()) return false
         if (hasTrialStarted()) return false
 
         val result = syncClient.startTrial(settingsRepository.installId, firebaseUid())
@@ -83,14 +83,16 @@ class EntitlementManager(private val context: Context) {
     suspend fun verifyPlayPurchase(
         purchaseToken: String,
         sku: String,
-        packageName: String = BuildConfig.APPLICATION_ID
+        packageName: String = BuildConfig.APPLICATION_ID,
+        productType: String? = null
     ): Boolean {
         val result = syncClient.verifyPurchase(
             installId = settingsRepository.installId,
             firebaseUid = firebaseUid(),
             packageName = packageName,
             productId = sku,
-            purchaseToken = purchaseToken
+            purchaseToken = purchaseToken,
+            productType = productType
         )
         val state = result.getOrNull()
         if (state?.ok == true && state.proActive) {
@@ -109,7 +111,12 @@ class EntitlementManager(private val context: Context) {
         }
         if (fallbackReason != null) {
             AppLog.w(TAG, "Play purchase verification unavailable ($fallbackReason): ${result.exceptionOrNull()?.message}")
-            markPurchasedFromPlay(purchaseToken, sku)
+            val provisionalExpiry = if (productType == PRODUCT_TYPE_SUBS) {
+                System.currentTimeMillis() + PROVISIONAL_SUBSCRIPTION_MS
+            } else {
+                null
+            }
+            markPurchasedFromPlay(purchaseToken, sku, provisionalExpiry)
             return true
         }
 
@@ -119,7 +126,7 @@ class EntitlementManager(private val context: Context) {
 
     /** Calendar days left in trial, or 0 if not in trial. */
     fun trialDaysRemaining(now: Long = System.currentTimeMillis()): Int {
-        if (prefs.getBoolean(KEY_PRO, false)) return 0
+        if (isPaidProAt(now)) return 0
         val trialStart = prefs.getLong(KEY_TRIAL_START, -1L)
         if (trialStart <= 0L) return 0
         val end = trialStart + TRIAL_MS
@@ -143,16 +150,29 @@ class EntitlementManager(private val context: Context) {
     }
 
     fun setProPurchased(purchased: Boolean) {
-        prefs.edit().putBoolean(KEY_PRO, purchased).apply()
+        val editor = prefs.edit().putBoolean(KEY_PRO, purchased)
+        if (purchased) {
+            editor.remove(KEY_PRO_EXPIRES_AT)
+        }
+        editor.apply()
         refreshCrashlyticsMode()
     }
 
     fun markPurchasedFromPlay(purchaseToken: String, sku: String) {
-        prefs.edit()
+        markPurchasedFromPlay(purchaseToken, sku, proExpiresAt = null)
+    }
+
+    private fun markPurchasedFromPlay(purchaseToken: String, sku: String, proExpiresAt: Long?) {
+        val editor = prefs.edit()
             .putBoolean(KEY_PRO, true)
             .putString(KEY_PURCHASE_TOKEN, purchaseToken)
             .putString(KEY_PURCHASE_SKU, sku)
-            .apply()
+        if (proExpiresAt != null) {
+            editor.putLong(KEY_PRO_EXPIRES_AT, proExpiresAt)
+        } else {
+            editor.remove(KEY_PRO_EXPIRES_AT)
+        }
+        editor.apply()
         refreshCrashlyticsMode()
     }
 
@@ -167,12 +187,12 @@ class EntitlementManager(private val context: Context) {
         refreshCrashlyticsMode()
     }
 
-    /** True only for lifetime Play purchase (not trial). */
-    fun isPaidPro(): Boolean = prefs.getBoolean(KEY_PRO, false)
+    /** True only for active paid Play access (not trial). */
+    fun isPaidPro(): Boolean = isPaidProAt()
 
     @Suppress("UNUSED_PARAMETER")
     fun shouldUseServerForMessage(heuristicSaysOtp: Boolean): Boolean {
-        if (prefs.getBoolean(KEY_PRO, false)) return true
+        if (isPaidProAt()) return true
         val trialStart = prefs.getLong(KEY_TRIAL_START, -1L)
         val now = System.currentTimeMillis()
         if (trialStart > 0L) {
@@ -184,7 +204,7 @@ class EntitlementManager(private val context: Context) {
 
     /** One-shot welcome after trial starts (first OTP). */
     fun shouldShowTrialStartedBanner(): Boolean {
-        if (prefs.getBoolean(KEY_PRO, false)) return false
+        if (isPaidProAt()) return false
         if (prefs.getLong(KEY_TRIAL_START, -1L) <= 0L) return false
         return !prefs.getBoolean(KEY_TRIAL_ACK, false)
     }
@@ -194,7 +214,7 @@ class EntitlementManager(private val context: Context) {
     }
 
     fun shouldShowTrialEndingBanner(now: Long = System.currentTimeMillis()): Boolean {
-        if (prefs.getBoolean(KEY_PRO, false)) return false
+        if (isPaidProAt(now)) return false
         if (currentState(now) != EntitlementState.TRIAL_ACTIVE) return false
         val days = trialDaysRemaining(now)
         if (days > 2 || days == 0) return false
@@ -207,7 +227,7 @@ class EntitlementManager(private val context: Context) {
     }
 
     fun showInboxUnlockProCta(): Boolean {
-        if (prefs.getBoolean(KEY_PRO, false)) return false
+        if (isPaidProAt()) return false
         return currentState() == EntitlementState.TRIAL_EXPIRED
     }
 
@@ -219,7 +239,7 @@ class EntitlementManager(private val context: Context) {
     }
 
     fun telemetryEntitlementLabel(): String = when {
-        prefs.getBoolean(KEY_PRO, false) -> "pro"
+        isPaidProAt() -> "pro"
         isPro() -> "trial"
         prefs.getLong(KEY_TRIAL_START, -1L) > 0L -> "trial_expired"
         else -> "free"
@@ -227,7 +247,7 @@ class EntitlementManager(private val context: Context) {
 
     fun crashlyticsInferenceLabel(): String {
         val mode = when {
-            prefs.getBoolean(KEY_PRO, false) -> "pro"
+            isPaidProAt() -> "pro"
             isPro() -> "trial"
             else -> "free"
         }
@@ -246,6 +266,14 @@ class EntitlementManager(private val context: Context) {
         val editor = prefs.edit()
         if (state.proActive) {
             editor.putBoolean(KEY_PRO, true)
+            if (state.proExpiresAt != null) {
+                editor.putLong(KEY_PRO_EXPIRES_AT, state.proExpiresAt)
+            } else {
+                editor.remove(KEY_PRO_EXPIRES_AT)
+            }
+        } else if (state.proExpiresAt != null) {
+            editor.remove(KEY_PRO)
+            editor.remove(KEY_PRO_EXPIRES_AT)
         }
         state.trialStartedAt?.let { editor.putLong(KEY_TRIAL_START, it) }
         editor.apply()
@@ -261,9 +289,20 @@ class EntitlementManager(private val context: Context) {
             .putBoolean(KEY_PRO, state.proActive)
             .putString(KEY_PURCHASE_TOKEN, purchaseToken)
             .putString(KEY_PURCHASE_SKU, sku)
+        if (state.proExpiresAt != null) {
+            editor.putLong(KEY_PRO_EXPIRES_AT, state.proExpiresAt)
+        } else {
+            editor.remove(KEY_PRO_EXPIRES_AT)
+        }
         state.trialStartedAt?.let { editor.putLong(KEY_TRIAL_START, it) }
         editor.apply()
         refreshCrashlyticsMode()
+    }
+
+    private fun isPaidProAt(now: Long = System.currentTimeMillis()): Boolean {
+        if (!prefs.getBoolean(KEY_PRO, false)) return false
+        val expiresAt = prefs.getLong(KEY_PRO_EXPIRES_AT, -1L)
+        return expiresAt <= 0L || now < expiresAt
     }
 
     init {
@@ -279,7 +318,10 @@ class EntitlementManager(private val context: Context) {
         private const val KEY_TRIAL_END_DISMISS_UNTIL = "trial_end_banner_dismiss_until_ms"
         private const val KEY_PURCHASE_TOKEN = "pro_purchase_token"
         private const val KEY_PURCHASE_SKU = "pro_sku"
+        private const val KEY_PRO_EXPIRES_AT = "pro_expires_at_ms"
+        private const val PRODUCT_TYPE_SUBS = "subs"
         private val TRIAL_MS = 7L * 24 * 60 * 60 * 1000
+        private val PROVISIONAL_SUBSCRIPTION_MS = 3L * 24 * 60 * 60 * 1000
         private const val TAG = "EntitlementManager"
     }
 }

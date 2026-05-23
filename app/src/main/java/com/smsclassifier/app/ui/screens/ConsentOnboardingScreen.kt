@@ -93,7 +93,7 @@ fun ConsentOnboardingScreen(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Set privacy preferences first, then continue free, start the 7-day trial, or unlock Pro.",
+                text = "Set privacy preferences first, then continue free, start the 7-day trial, or subscribe to Pro.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -189,7 +189,7 @@ fun ConsentOnboardingScreen(
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        text = "Free keeps basic local classification on-device. Trial and Pro add cloud OTP intent, do-not-share warnings, phishing detection, and risk scoring.",
+                        text = "Free keeps basic local classification on-device. Trial and annual Pro add cloud OTP intent, do-not-share warnings, phishing detection, and risk scoring.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -248,7 +248,7 @@ fun ConsentOnboardingScreen(
                     }
 
                     SecondaryButton(
-                        text = "Open paywall",
+                        text = "Subscribe to Pro",
                         onClick = {
                             scope.launch {
                                 persistConsent(

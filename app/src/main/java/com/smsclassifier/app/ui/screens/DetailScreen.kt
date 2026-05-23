@@ -131,9 +131,9 @@ fun DetailScreen(
                             )
                             Text(
                                 text = if (trialAvailable) {
-                                    "Cloud phishing risk is unavailable here. Start the 7-day Pro trial or unlock Pro for phishing scores, cloud OTP intent, and full server classification."
+                                    "Cloud phishing risk is unavailable here. Start the 7-day Pro trial or subscribe to Pro for phishing scores, cloud OTP intent, and full server classification."
                                 } else {
-                                    "Cloud phishing risk is unavailable here. Unlock Pro for phishing scores, cloud OTP intent, and full server classification."
+                                    "Cloud phishing risk is unavailable here. Subscribe to Pro for phishing scores, cloud OTP intent, and full server classification."
                                 },
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -148,7 +148,7 @@ fun DetailScreen(
                                 },
                                 modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text(if (trialAvailable) "Start trial / Unlock Pro" else "Unlock Pro")
+                                Text(if (trialAvailable) "Start trial / Subscribe" else "Subscribe")
                             }
                         }
                     }
