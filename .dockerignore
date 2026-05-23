@@ -20,6 +20,8 @@ backend_push_commands
 *_push_commands
 *.jks
 *.keystore
+play-publisher.json
+*play-publisher*.json
 *-service-account*.json
 gcp-key*.json
 

@@ -377,6 +377,7 @@ FEEDBACK_LOCK = threading.Lock()
 ENTITLEMENT_LOCK = threading.Lock()
 
 _GCS_CLIENT = None
+_ANDROID_PUBLISHER_SERVICE = None
 
 
 def _gcs_client():
@@ -393,6 +394,57 @@ def _gcs_client():
     except Exception as exc:  # noqa: BLE001
         logger.warning("GCS client unavailable; feedback will only be written locally: %s", exc)
         return None
+
+
+def _android_publisher_credentials():
+    """Load Android Publisher credentials without requiring Cloud Run's runtime SA.
+
+    Preferred production config is a Secret Manager-backed env var:
+    ANDROID_PUBLISHER_CREDENTIALS_JSON=<service-account-json>.
+    Local/dev can instead set ANDROID_PUBLISHER_CREDENTIALS_FILE.
+    If neither is set, purchase validation is intentionally unavailable.
+    """
+    raw_json = os.getenv("ANDROID_PUBLISHER_CREDENTIALS_JSON", "").strip()
+    file_path = os.getenv("ANDROID_PUBLISHER_CREDENTIALS_FILE", "").strip()
+
+    if raw_json:
+        from google.oauth2 import service_account  # type: ignore
+
+        try:
+            info = json.loads(raw_json)
+        except json.JSONDecodeError as exc:
+            raise RuntimeError("ANDROID_PUBLISHER_CREDENTIALS_JSON is not valid JSON") from exc
+        return service_account.Credentials.from_service_account_info(
+            info,
+            scopes=[ANDROID_PUBLISHER_SCOPE],
+        )
+
+    if file_path:
+        from google.oauth2 import service_account  # type: ignore
+
+        return service_account.Credentials.from_service_account_file(
+            file_path,
+            scopes=[ANDROID_PUBLISHER_SCOPE],
+        )
+
+    raise RuntimeError(
+        "Set ANDROID_PUBLISHER_CREDENTIALS_JSON or "
+        "ANDROID_PUBLISHER_CREDENTIALS_FILE for Play purchase validation"
+    )
+
+
+def _android_publisher_service():
+    global _ANDROID_PUBLISHER_SERVICE
+    if _ANDROID_PUBLISHER_SERVICE is None:
+        from googleapiclient.discovery import build  # type: ignore
+
+        _ANDROID_PUBLISHER_SERVICE = build(
+            "androidpublisher",
+            "v3",
+            credentials=_android_publisher_credentials(),
+            cache_discovery=False,
+        )
+    return _ANDROID_PUBLISHER_SERVICE
 
 
 class FeedbackRequest(BaseModel):
@@ -728,12 +780,7 @@ def start_trial(request: EntitlementRequest) -> Dict[str, Any]:
 
 def _validate_play_purchase(req: PurchaseVerifyRequest) -> tuple[str, Optional[bool]]:
     try:
-        import google.auth  # type: ignore
-        from googleapiclient.discovery import build  # type: ignore
-
-        creds, _ = google.auth.default(scopes=[ANDROID_PUBLISHER_SCOPE])
-        service = build("androidpublisher", "v3", credentials=creds, cache_discovery=False)
-        result = service.purchases().products().get(
+        result = _android_publisher_service().purchases().products().get(
             packageName=req.packageName or PLAY_PACKAGE_NAME,
             productId=req.productId,
             token=req.purchaseToken,
@@ -741,6 +788,21 @@ def _validate_play_purchase(req: PurchaseVerifyRequest) -> tuple[str, Optional[b
         state = result.get("purchaseState", 0)
         return ("verified", state == 0)
     except Exception as exc:  # noqa: BLE001
+        try:
+            from googleapiclient.errors import HttpError  # type: ignore
+        except Exception:  # noqa: BLE001
+            HttpError = ()  # type: ignore
+        if HttpError and isinstance(exc, HttpError):
+            status = getattr(getattr(exc, "resp", None), "status", None)
+            if status in {400, 404}:
+                logger.info("Play purchase token invalid: status=%s", status)
+                return ("invalid", False)
+            if status in {401, 403}:
+                logger.warning("Play purchase validation permission/config failure: status=%s", status)
+                return ("unavailable", None)
+            if isinstance(status, int) and status >= 500:
+                logger.warning("Play purchase validation service failure: status=%s", status)
+                return ("unavailable", None)
         logger.warning("Play purchase validation unavailable: %s", exc)
         return ("unavailable", None)
 
