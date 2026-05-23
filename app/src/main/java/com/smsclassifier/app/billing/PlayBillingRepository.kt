@@ -6,6 +6,7 @@ import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
+import com.android.billingclient.api.BillingClient.BillingResponseCode
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
@@ -57,24 +58,14 @@ class PlayBillingRepository(private val context: Context) {
     private val listener = PurchasesUpdatedListener { billingResult, purchases ->
         _isLaunchingFlow.value = false
         when (billingResult.responseCode) {
-            BillingClient.BillingResponseCode.OK ->
+            BillingResponseCode.OK ->
                 purchases?.forEach { handlePurchase(it, fromUserFlow = true) }
-            BillingClient.BillingResponseCode.USER_CANCELED ->
+            BillingResponseCode.USER_CANCELED ->
                 AppLog.d(TAG, "User canceled purchase flow")
-            else ->
+            else -> {
                 AppLog.w(TAG, "Purchase update ${billingResult.responseCode} ${billingResult.debugMessage}")
-        }
-        if (billingResult.responseCode != BillingClient.BillingResponseCode.OK &&
-            billingResult.responseCode != BillingClient.BillingResponseCode.USER_CANCELED
-        ) {
-            _purchaseError.tryEmit("Purchase couldn't complete — try again or restore.")
-            AppContainer.telemetry.logEvent(
-                "purchase_failed",
-                mapOf(
-                    "sku" to SKU_PRO_LIFETIME,
-                    "error_code" to (billingResult.responseCode.toString())
-                )
-            )
+                emitPurchaseFailure(billingResult)
+            }
         }
     }
 
@@ -84,25 +75,36 @@ class PlayBillingRepository(private val context: Context) {
             restorePurchases()
             return
         }
+        val existing = billingClient
+        if (existing != null && !existing.isReady) {
+            existing.endConnection()
+            billingClient = null
+            _connected.value = false
+        }
         if (billingClient != null) return
+
         billingClient = BillingClient.newBuilder(appContext)
             .setListener(listener)
             .enablePendingPurchases()
             .build()
         billingClient!!.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                if (billingResult.responseCode == BillingResponseCode.OK) {
                     _connected.value = true
                     querySkuDetails()
                     restorePurchases()
                 } else {
                     AppLog.w(TAG, "Billing setup failed: ${billingResult.debugMessage}")
                     _connected.value = false
+                    billingClient?.endConnection()
+                    billingClient = null
                 }
             }
 
             override fun onBillingServiceDisconnected() {
                 _connected.value = false
+                billingClient?.endConnection()
+                billingClient = null
             }
         })
     }
@@ -119,8 +121,13 @@ class PlayBillingRepository(private val context: Context) {
                 )
             ).build()
         client.queryProductDetailsAsync(params) { result, list ->
-            if (result.responseCode == BillingClient.BillingResponseCode.OK && list.isNotEmpty()) {
+            if (result.responseCode == BillingResponseCode.OK && list.isNotEmpty()) {
                 _productDetails.value = list.firstOrNull()
+            } else {
+                AppLog.w(
+                    TAG,
+                    "SKU query failed code=${result.responseCode} msg=${result.debugMessage} count=${list.size}"
+                )
             }
         }
     }
@@ -132,7 +139,10 @@ class PlayBillingRepository(private val context: Context) {
                 .setProductType(BillingClient.ProductType.INAPP)
                 .build()
         ) { result, purchases ->
-            if (result.responseCode != BillingClient.BillingResponseCode.OK) return@queryPurchasesAsync
+            if (result.responseCode != BillingResponseCode.OK) {
+                AppLog.w(TAG, "Restore failed code=${result.responseCode} msg=${result.debugMessage}")
+                return@queryPurchasesAsync
+            }
             purchases.forEach { handlePurchase(it, fromUserFlow = false) }
         }
     }
@@ -185,7 +195,7 @@ class PlayBillingRepository(private val context: Context) {
             .setPurchaseToken(purchase.purchaseToken)
             .build()
         billingClient?.acknowledgePurchase(params) { result ->
-            if (result.responseCode != BillingClient.BillingResponseCode.OK) {
+            if (result.responseCode != BillingResponseCode.OK) {
                 AppLog.w(TAG, "Acknowledge failed: ${result.debugMessage}")
             }
         }
@@ -196,9 +206,17 @@ class PlayBillingRepository(private val context: Context) {
         val pd = _productDetails.value
         if (client == null || !client.isReady || pd == null) {
             querySkuDetails()
-            AppLog.w(TAG, "Billing not ready or product missing — open Play Console and ensure SKU exists")
+            if (client == null || !client.isReady) startConnection()
+            val reason = when {
+                client == null || !client.isReady -> "Billing is not ready yet. Wait a moment and try again."
+                pd == null -> "Product price is still loading. Check your connection and try again."
+                else -> "Purchase could not start. Try again."
+            }
+            AppLog.w(TAG, "Billing not ready or product missing — $reason")
+            _purchaseError.tryEmit(reason)
             return
         }
+
         AppContainer.telemetry.logBeginCheckout(SKU_PRO_LIFETIME)
         _isLaunchingFlow.value = true
         val detailsParams = BillingFlowParams.ProductDetailsParams.newBuilder()
@@ -207,7 +225,11 @@ class PlayBillingRepository(private val context: Context) {
         val flowParams = BillingFlowParams.newBuilder()
             .setProductDetailsParamsList(listOf(detailsParams))
             .build()
-        client.launchBillingFlow(activity, flowParams)
+        val launchResult = client.launchBillingFlow(activity, flowParams)
+        if (launchResult.responseCode != BillingResponseCode.OK) {
+            _isLaunchingFlow.value = false
+            emitPurchaseFailure(launchResult)
+        }
     }
 
     fun endConnection() {
@@ -215,4 +237,42 @@ class PlayBillingRepository(private val context: Context) {
         billingClient = null
         _connected.value = false
     }
+
+    private fun emitPurchaseFailure(billingResult: BillingResult) {
+        val message = userFacingPurchaseError(billingResult)
+        _purchaseError.tryEmit(message)
+        AppContainer.telemetry.logEvent(
+            "purchase_failed",
+            mapOf(
+                "sku" to SKU_PRO_LIFETIME,
+                "error_code" to billingResult.responseCode.toString(),
+                "error_message" to sanitizeDebugMessage(billingResult.debugMessage)
+            )
+        )
+    }
+
+    private fun userFacingPurchaseError(billingResult: BillingResult): String {
+        val debug = billingResult.debugMessage?.trim().orEmpty()
+        return when (billingResult.responseCode) {
+            BillingResponseCode.BILLING_UNAVAILABLE ->
+                "Google Play Billing is unavailable on this device."
+            BillingResponseCode.ITEM_UNAVAILABLE ->
+                "This purchase is not available in your Play Store region."
+            BillingResponseCode.DEVELOPER_ERROR ->
+                "Purchase could not start (app billing configuration). Try again later."
+            BillingResponseCode.SERVICE_DISCONNECTED ->
+                "Lost connection to Google Play. Try again."
+            BillingResponseCode.NETWORK_ERROR ->
+                "Network error during purchase. Check your connection and try again."
+            else -> if (debug.isNotEmpty()) {
+                "Purchase couldn't complete: $debug"
+            } else {
+                "Purchase couldn't complete — try again or restore."
+            }
+        }
+    }
+
+    /** Keep telemetry params free of long/noisy strings while preserving useful Play hints. */
+    private fun sanitizeDebugMessage(message: String?): String =
+        message?.trim()?.take(180).orEmpty()
 }

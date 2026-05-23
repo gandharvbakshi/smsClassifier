@@ -56,8 +56,8 @@ import kotlinx.coroutines.launch
 private data class DialCountry(val label: String, val dialDigits: String)
 
 private val TOP_COUNTRIES = listOf(
-    DialCountry("United States +1", "1"),
     DialCountry("India +91", "91"),
+    DialCountry("United States +1", "1"),
     DialCountry("United Kingdom +44", "44"),
     DialCountry("Canada +1", "1"),
     DialCountry("Australia +61", "61"),
