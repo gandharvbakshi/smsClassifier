@@ -102,11 +102,11 @@
         <h3>SMS Messages</h3>
         <ul>
             <li><strong>What we collect:</strong> The content of SMS messages received on your device, including message text and sender phone numbers.</li>
-            <li><strong>Why we collect it:</strong> To classify messages as OTP, phishing, or general, and to extract OTP codes for one-tap copy.</li>
+            <li><strong>Why we collect it:</strong> To classify messages as OTP, likely scam, or general, and to extract OTP codes for one-tap copy.</li>
             <li><strong>How we use it:</strong>
                 <ul>
                     <li><strong>Free tier (after trial expires):</strong> classification runs entirely on your device. Raw SMS content does not leave your device.</li>
-                    <li><strong>Trial tier (first 14 days after first OTP) and Pro tier:</strong> SMS bodies and senders are sent over HTTPS to our classification API for higher-accuracy cloud classification. They are processed in real time and are not retained after the response is returned.</li>
+                    <li><strong>Trial tier (active 14-day Pro trial) and Pro tier:</strong> SMS bodies and senders are sent over HTTPS to our classification API for higher-accuracy cloud classification. They are processed in real time and are not retained after the response is returned.</li>
                 </ul>
             </li>
         </ul>
@@ -114,7 +114,7 @@
         <h3>Phone Numbers (Senders)</h3>
         <ul>
             <li><strong>What we collect:</strong> The sender phone number or alphanumeric sender id of each incoming SMS we classify.</li>
-            <li><strong>Why we collect it:</strong> Sender shape (numeric vs alphanumeric, length, country code) is a strong feature for OTP and phishing detection.</li>
+            <li><strong>Why we collect it:</strong> Sender shape (numeric vs alphanumeric, length, country code) is a strong feature for OTP detection and scam warnings.</li>
             <li><strong>How we use it:</strong> Stored locally; transmitted to our classification API only during the trial / Pro window. Not shared with any third party other than the cloud-classification call described above.</li>
         </ul>
 
@@ -256,9 +256,9 @@
             <li>Google's privacy policy applies to their infrastructure: <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a>.</li>
         </ul>
 
-        <h3>Groq API (for OTP Intent Classification)</h3>
+        <h3>Groq API (for explaining what a code is for)</h3>
         <ul>
-            <li>When an OTP is detected during a cloud-classification request, our backend may call Groq's <code>llama-3.1-8b-instant</code> to predict the OTP intent (e.g. "login", "transaction", "delivery").</li>
+            <li>When an OTP is detected during a cloud-classification request, our backend may call Groq's <code>llama-3.1-8b-instant</code> to predict what the code is for (e.g. "login", "transaction", "delivery").</li>
             <li>Only the OTP message text is forwarded to Groq, and only inside the cloud-classification flow. Groq states it does not retain prompts for training.</li>
             <li>Groq's privacy policy applies: <a href="https://groq.com/privacy-policy" target="_blank">Groq Privacy Policy</a>.</li>
         </ul>

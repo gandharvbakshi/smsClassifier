@@ -142,12 +142,12 @@ fun PaywallScreen(
             Text(
                 text = when (state) {
                     EntitlementState.PRO -> "You already have Pro."
-                    EntitlementState.TRIAL_ACTIVE -> "Trial active — about $trialDays day(s) left."
+                    EntitlementState.TRIAL_ACTIVE -> "Trial active - about $trialDays day(s) left."
                     EntitlementState.TRIAL_EXPIRED -> "Your trial has ended."
                     EntitlementState.FREE -> if (trialAvailable) {
-                        "You have not used your $trialLabel Pro trial yet."
+                        "You have not used your Pro trial ($trialLabel) yet."
                     } else {
-                        "You already used your $trialLabel Pro trial."
+                        "You already used your Pro trial ($trialLabel)."
                     }
                 },
                 style = MaterialTheme.typography.bodyMedium
@@ -155,7 +155,7 @@ fun PaywallScreen(
             Spacer(modifier = Modifier.height(16.dp))
             if (trialAvailable && state != EntitlementState.PRO) {
                 PrimaryButton(
-                    text = "Start $trialLabel free trial",
+                    text = "Start free trial ($trialLabel)",
                     onClick = {
                         AppContainer.telemetry.logCtaTap("paywall", "start_trial")
                         scope.launch {
@@ -251,7 +251,7 @@ private fun ProBenefitLine(title: String, body: String) {
         )
         Text(
             text = body,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }

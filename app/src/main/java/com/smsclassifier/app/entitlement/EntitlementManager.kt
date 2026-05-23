@@ -147,7 +147,7 @@ class EntitlementManager(private val context: Context) {
 
     fun trialDurationLabel(): String {
         val days = trialDurationDays()
-        return if (days == 1) "1-day" else "$days-day"
+        return if (days == 1) "1 day" else "$days days"
     }
 
     fun onWorkerDetectedOtp() {

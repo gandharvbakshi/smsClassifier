@@ -22,6 +22,7 @@ import com.smsclassifier.app.ui.badges.SensitivityBadge
 import com.smsclassifier.app.ui.components.ReasonChips
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.SenderNameResolver
 import com.smsclassifier.app.util.SmsRedactor
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -89,6 +90,7 @@ fun DetailScreen(
         }
     ) { padding ->
         message?.let { msg ->
+            val friendlySender = SenderNameResolver.resolve(msg.sender)
             Column(
                 modifier = modifier
                     .fillMaxSize()
@@ -102,11 +104,20 @@ fun DetailScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
-                        text = msg.sender,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
-                    )
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = friendlySender,
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold
+                        )
+                        if (friendlySender != msg.sender) {
+                            Text(
+                                text = msg.sender,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
                     Text(
                         text = formatTimestamp(msg.ts),
                         style = MaterialTheme.typography.bodySmall,
@@ -134,9 +145,9 @@ fun DetailScreen(
                             )
                             Text(
                                 text = if (trialAvailable) {
-                                    "Cloud phishing risk is unavailable here. Start the $trialLabel Pro trial or subscribe to Pro for phishing scores, cloud OTP intent, and full server classification."
+                                    "Scam warnings are unavailable here. Start a Pro trial ($trialLabel) or subscribe to Pro for scam warnings, code purpose, and full server classification."
                                 } else {
-                                    "Cloud phishing risk is unavailable here. Subscribe to Pro for phishing scores, cloud OTP intent, and full server classification."
+                                    "Scam warnings are unavailable here. Subscribe to Pro for scam warnings, code purpose, and full server classification."
                                 },
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -183,7 +194,7 @@ fun DetailScreen(
                 // OTP Intent
                 if (msg.otpIntent != null) {
                     Text(
-                        text = "OTP Intent: ${msg.otpIntent}",
+                        text = "What this code is for: ${msg.otpIntent}",
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium
                     )
@@ -210,7 +221,7 @@ fun DetailScreen(
                 // Phishing score
                 if (msg.phishScore != null) {
                     Text(
-                        text = "Phishing Score: ${String.format("%.2f", msg.phishScore)}",
+                        text = "Scam warning score: ${String.format("%.2f", msg.phishScore)}",
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -398,18 +409,18 @@ private val reportIssueOptions = listOf(
         correctionKind = "not_otp"
     ),
     ReportIssueOption(
-        title = "Wrong OTP intent",
-        description = "The OTP category or purpose is incorrect.",
+        title = "Wrong code purpose",
+        description = "The code type or purpose is incorrect.",
         correctionKind = "other"
     ),
     ReportIssueOption(
-        title = "Should be phishing",
-        description = "This message should be flagged as phishing.",
+        title = "Should be scam",
+        description = "This message should be marked as a scam.",
         correctionKind = "phishing"
     ),
     ReportIssueOption(
-        title = "Should not be phishing",
-        description = "This message should not be flagged as phishing.",
+        title = "Should not be scam",
+        description = "This message should not be marked as a scam.",
         correctionKind = "not_phishing"
     )
 )
@@ -447,7 +458,7 @@ private fun ReportClassificationSheet(
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "Tell us what looked wrong. This helps improve OTP and phishing detection.",
+                    text = "Tell us what looked wrong. This helps improve OTPs and scam warnings.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -468,7 +479,7 @@ private fun ReportClassificationSheet(
                         Spacer(modifier = Modifier.height(6.dp))
                         Text(
                             text = redactedPreview,
-                            style = MaterialTheme.typography.bodySmall,
+                            style = MaterialTheme.typography.bodyMedium,
                             maxLines = 4,
                             overflow = TextOverflow.Ellipsis,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -492,7 +503,7 @@ private fun ReportClassificationSheet(
                                 Text(option.title, style = MaterialTheme.typography.bodyMedium)
                                 Text(
                                     option.description,
-                                    style = MaterialTheme.typography.bodySmall,
+                                    style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }

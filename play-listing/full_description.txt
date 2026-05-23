@@ -6,14 +6,14 @@ What it helps with
 
 - OTP inbox: identifies one-time passwords and makes them easier to find.
 - Message labels: helps separate OTP, general, suspicious, and review-needed messages.
-- OTP details: shows intent and sensitivity hints when cloud checks are available.
-- Scam awareness: highlights phishing signals and risky links when classification data supports it.
+- OTP details: explains what a code is for when cloud checks are available.
+- Scam awareness: highlights scam signals and risky links when classification data supports it.
 - One-tap actions: copy OTPs, search messages, and manage conversations.
 - Data controls: export your data or delete local app data from Settings.
 
 Free, trial, and Pro
 
-SMS Classifier includes local OTP detection for basic use. You can choose to start a 7-day Pro trial from setup or the paywall. During the trial, and while your Pro subscription is active, the app can use cloud classification for OTP intent, warning badges, and phishing/risk analysis. Pro is an annual Google Play subscription priced at ₹199/year in India and renews yearly unless you cancel in Play Store.
+SMS Classifier includes local OTP detection for basic use. You can choose to start a 14-day Pro trial from setup or the paywall. During the trial, and while your Pro subscription is active, the app can use cloud classification to explain what codes are for, show scam warnings, and surface 'Do not share' alerts. Pro is an annual Google Play subscription priced at ₹199/year in India and renews yearly unless you cancel in Play Store.
 
 Privacy notes
 

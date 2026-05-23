@@ -314,6 +314,11 @@ private fun EmptyInboxState(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+            Text(
+                text = "Your messages stay on this phone. We never upload them.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
             TextButton(onClick = onSetDefaultSms) {
                 Text("Set as default SMS app")
             }
@@ -457,7 +462,7 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        text = "You've unlocked a $trialLabel free trial of Pro features — OTP classification, phishing detection, and intent.",
+                        text = "Pro is unlocked for $trialLabel: scam warnings, code purpose, and 'Do not share' alerts.",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.weight(1f)
                     )
@@ -505,15 +510,15 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                 ) {
                     Text(
                         text = if (trialAvailable) {
-                            "Cloud phishing risk is unavailable here. Start the $trialLabel Pro trial or subscribe for full cloud classification."
+                            "Scam warnings are unavailable here. Start a Pro trial ($trialLabel) or subscribe for scam warnings."
                         } else {
-                            "Cloud phishing risk is unavailable here. Subscribe to Pro for full cloud classification."
+                            "Scam warnings are unavailable here. Subscribe to Pro for scam warnings."
                         },
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.weight(1f)
                     )
                     TextButton(onClick = ui.onUnlockPro) {
-                        Text(if (trialAvailable) "Start trial / Subscribe" else "Subscribe")
+                        Text(if (trialAvailable) "Start trial" else "Subscribe")
                     }
                 }
             }

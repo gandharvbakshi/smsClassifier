@@ -103,7 +103,7 @@ fun ConsentOnboardingScreen(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Set privacy preferences first, then continue free, start the $trialLabel trial, or subscribe to Pro.",
+                text = "Set privacy preferences first, then continue free, start your Pro trial ($trialLabel), or subscribe to Pro.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -121,12 +121,12 @@ fun ConsentOnboardingScreen(
                 )
                 ExplainerRow(
                     icon = Icons.Default.CloudUpload,
-                    title = "OTP intent in Pro",
+                    title = "What this code is for",
                     body = "Explains why a code arrived, such as login, payment, account change, or delivery."
                 )
                 ExplainerRow(
                     icon = Icons.Default.PrivacyTip,
-                    title = "Phishing risk in Pro",
+                    title = "Scam warnings in Pro",
                     body = "Adds warnings for suspicious links, urgency, and requests for passwords or OTPs."
                 )
             }
@@ -150,12 +150,12 @@ fun ConsentOnboardingScreen(
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "You can change these later in Settings.",
+                    text = "Your messages stay on this phone. We never upload them. You can change these later in Settings.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 ConsentToggleRow(
-                    title = "Anonymous usage analytics (recommended)",
+                    title = "Help us improve the app",
                     subtitle = "Helps us see what gets used. No message content.",
                     checked = analyticsOn,
                     onCheckedChange = { analyticsOn = it }
@@ -199,7 +199,7 @@ fun ConsentOnboardingScreen(
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        text = "Free keeps basic local classification on-device. Trial and annual Pro add cloud OTP intent, do-not-share warnings, phishing detection, and risk scoring.",
+                        text = "Free sorts messages on this phone. Trial and annual Pro add scam warnings, explain what codes are for, and show 'Do not share' alerts.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -225,7 +225,7 @@ fun ConsentOnboardingScreen(
                             EntitlementState.TRIAL_ACTIVE -> "Trial already active"
                             EntitlementState.PRO -> "Pro already active"
                             EntitlementState.TRIAL_EXPIRED -> "Trial already used"
-                            else -> "Start $trialLabel Pro trial"
+                            else -> "Start Pro trial ($trialLabel)"
                         },
                         onClick = {
                             scope.launch {
@@ -253,7 +253,7 @@ fun ConsentOnboardingScreen(
                     if (trialStartFailed) {
                         Text(
                             text = "Could not start the trial right now. You can continue free and try again from Pro later.",
-                            style = MaterialTheme.typography.bodySmall,
+                            style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.error
                         )
                     }
@@ -313,7 +313,7 @@ private fun ExplainerRow(
             )
             Text(
                 text = body,
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -331,7 +331,7 @@ private fun ConsentToggleRow(
     ListItem(
         modifier = Modifier.fillMaxWidth(),
         headlineContent = { Text(title, fontWeight = FontWeight.Medium) },
-        supportingContent = { Text(subtitle, style = MaterialTheme.typography.bodySmall) },
+        supportingContent = { Text(subtitle, style = MaterialTheme.typography.bodyMedium) },
         trailingContent = {
             Switch(checked = checked, onCheckedChange = onCheckedChange)
         }

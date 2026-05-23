@@ -193,6 +193,12 @@ fun SettingsScreen(
             }
 
             SettingsSection(title = "Privacy & data") {
+                Text(
+                    text = "Your messages stay on this phone. We never upload them.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                SectionDivider()
                 ToggleRow(
                     title = "Help us improve the app",
                     subtitle = "Share feature usage only. Message content is never included.",
@@ -294,7 +300,7 @@ fun SettingsScreen(
                     subtitle = if (proActive) {
                         "Annual Pro is active on this device"
                     } else {
-                        "Annual subscription for scam warnings and risk scores"
+                        "Annual subscription for scam warnings and code details"
                     },
                     trailing = {
                         if (proActive) {

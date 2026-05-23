@@ -94,7 +94,7 @@ object NotificationHelper {
         renderNotification(
             context = context,
             messageId = messageId,
-            displayName = sender,
+            displayName = SenderNameResolver.resolve(sender),
             sender = sender,
             body = body,
             threadId = threadId,
