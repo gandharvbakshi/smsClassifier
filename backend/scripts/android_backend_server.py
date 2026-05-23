@@ -39,6 +39,17 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("sms_backend_server")
 LOG_MESSAGE_BODY = os.getenv("LOG_RAW_MESSAGES", "").lower() in {"1", "true", "yes"}
 
+
+def _int_env(name: str, default: int) -> int:
+    raw = os.getenv(name)
+    if not raw:
+        return default
+    try:
+        return int(raw.strip())
+    except ValueError:
+        logger.warning("Invalid integer env %s=%r; using default %s", name, raw, default)
+        return default
+
 ROOT_DIR = Path(__file__).resolve().parents[1]
 MODEL_DIR = ROOT_DIR / "trained_models"
 
@@ -377,7 +388,7 @@ PLAY_PACKAGE_NAME = os.getenv("PLAY_PACKAGE_NAME", "com.smsclassifier.app")
 ANDROID_PUBLISHER_SCOPE = "https://www.googleapis.com/auth/androidpublisher"
 PRO_YEARLY_PRODUCT_ID = "pro_yearly"
 PRO_LIFETIME_PRODUCT_ID = "pro_lifetime"
-DEFAULT_TRIAL_DAYS = int(os.getenv("TRIAL_DAYS", "7"))
+DEFAULT_TRIAL_DAYS = _int_env("TRIAL_DAYS", 14)
 TRIAL_MS = DEFAULT_TRIAL_DAYS * 24 * 60 * 60 * 1000
 TRIAL_POLICY_VERSION = os.getenv("TRIAL_POLICY_VERSION", f"trial_{DEFAULT_TRIAL_DAYS}d_v1")
 PURCHASE_POLICY_VERSION = os.getenv("PURCHASE_POLICY_VERSION", "play_pro_yearly_annual_v1")
