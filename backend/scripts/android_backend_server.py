@@ -262,7 +262,7 @@ DANGER_PATTERNS = [
         "UPI / payment trap",
         re.compile(
             r"\b("
-            r"upi|unified payments|pay request|collect request|scan qr|request money|"
+            r"pay request|collect request|scan qr|request money|"
             r"send money|transfer money|payment link|refund link"
             r")\b",
             re.IGNORECASE,
@@ -273,6 +273,15 @@ DANGER_PATTERNS = [
 PAYMENT_TRAP_PATTERN = re.compile(
     r"\b(upi|pay request|pay now|transfer money|send money|request money|"
     r"collect request|scan qr|qr code|payment link|refund link)\b",
+    re.IGNORECASE,
+)
+PAYMENT_ACTION_LURE_PATTERN = re.compile(
+    r"\b("
+    r"pay request|pay now|transfer money|send money|request money|collect request|"
+    r"scan qr|qr code|payment link|refund link|claim (?:your )?refund|"
+    r"approve (?:the )?(?:request|payment|collect)|accept (?:the )?collect|"
+    r"authorize (?:payment|upi|mandate)|verify (?:upi|payment)"
+    r")\b",
     re.IGNORECASE,
 )
 SHORT_URL_DANGER_PATTERN = re.compile(
@@ -368,7 +377,10 @@ PLAY_PACKAGE_NAME = os.getenv("PLAY_PACKAGE_NAME", "com.smsclassifier.app")
 ANDROID_PUBLISHER_SCOPE = "https://www.googleapis.com/auth/androidpublisher"
 PRO_YEARLY_PRODUCT_ID = "pro_yearly"
 PRO_LIFETIME_PRODUCT_ID = "pro_lifetime"
-TRIAL_MS = 7 * 24 * 60 * 60 * 1000
+DEFAULT_TRIAL_DAYS = int(os.getenv("TRIAL_DAYS", "7"))
+TRIAL_MS = DEFAULT_TRIAL_DAYS * 24 * 60 * 60 * 1000
+TRIAL_POLICY_VERSION = os.getenv("TRIAL_POLICY_VERSION", f"trial_{DEFAULT_TRIAL_DAYS}d_v1")
+PURCHASE_POLICY_VERSION = os.getenv("PURCHASE_POLICY_VERSION", "play_pro_yearly_annual_v1")
 FEEDBACK_LOG_DIR_RAW = os.getenv("FEEDBACK_LOG_DIR")
 # When GCS is configured, the local JSONL file is just a debug fallback.
 # When GCS is NOT configured, we still write a local JSONL for development.
@@ -676,6 +688,24 @@ def _read_entitlement_blob(blob_name: str) -> Optional[Dict[str, Any]]:
     return None
 
 
+def _trial_duration_ms_from_record(row: Dict[str, Any], started: int) -> int:
+    duration_ms = row.get("trialDurationMs")
+    if isinstance(duration_ms, int) and duration_ms > 0:
+        return duration_ms
+    duration_days = row.get("trialDurationDays")
+    if isinstance(duration_days, int) and duration_days > 0:
+        return duration_days * 24 * 60 * 60 * 1000
+    expires = row.get("trialExpiresAt")
+    if isinstance(expires, int) and expires > started:
+        return expires - started
+    return TRIAL_MS
+
+
+def _trial_duration_days(duration_ms: int) -> int:
+    day_ms = 24 * 60 * 60 * 1000
+    return max(1, (duration_ms + day_ms - 1) // day_ms)
+
+
 def _load_entitlement(install_id: str, firebase_uid: Optional[str]) -> Dict[str, Any]:
     records = [
         row
@@ -689,15 +719,30 @@ def _load_entitlement(install_id: str, firebase_uid: Optional[str]) -> Dict[str,
         "firebaseUid": firebase_uid,
         "trialStartedAt": None,
         "trialExpiresAt": None,
+        "trialPolicyVersion": TRIAL_POLICY_VERSION,
+        "trialDurationDays": DEFAULT_TRIAL_DAYS,
+        "trialDurationMs": TRIAL_MS,
         "proActive": False,
+        "purchasePolicyVersion": PURCHASE_POLICY_VERSION,
         "updatedAt": now,
     }
     for row in records:
         started = row.get("trialStartedAt")
         if isinstance(started, int):
-            current = merged.get("trialStartedAt")
-            merged["trialStartedAt"] = min(current, started) if isinstance(current, int) else started
-            merged["trialExpiresAt"] = merged["trialStartedAt"] + TRIAL_MS
+            duration_ms = _trial_duration_ms_from_record(row, started)
+            row_expires = row.get("trialExpiresAt")
+            if not isinstance(row_expires, int):
+                row_expires = started + duration_ms
+            current_started = merged.get("trialStartedAt")
+            merged["trialStartedAt"] = (
+                min(current_started, started) if isinstance(current_started, int) else started
+            )
+            current_expires = merged.get("trialExpiresAt")
+            if not isinstance(current_expires, int) or row_expires > current_expires:
+                merged["trialExpiresAt"] = row_expires
+                merged["trialDurationMs"] = duration_ms
+                merged["trialDurationDays"] = int(row.get("trialDurationDays") or _trial_duration_days(duration_ms))
+                merged["trialPolicyVersion"] = row.get("trialPolicyVersion") or TRIAL_POLICY_VERSION
         row_expires = row.get("proExpiresAt")
         row_active = bool(row.get("proActive")) and (
             not isinstance(row_expires, int) or now < row_expires
@@ -709,6 +754,8 @@ def _load_entitlement(install_id: str, firebase_uid: Optional[str]) -> Dict[str,
         for key in ("purchaseProductId", "purchaseProductType", "purchaseTokenHash", "lastValidationStatus"):
             if row.get(key):
                 merged[key] = row[key]
+        if row.get("purchasePolicyVersion"):
+            merged["purchasePolicyVersion"] = row["purchasePolicyVersion"]
     return merged
 
 
@@ -753,8 +800,11 @@ def _entitlement_response(record: Dict[str, Any], status: str = "ok") -> Dict[st
         "trialExpiresAt": trial_expires,
         "trialActive": trial_active,
         "trialUsed": isinstance(trial_started, int),
+        "trialPolicyVersion": record.get("trialPolicyVersion") or TRIAL_POLICY_VERSION,
+        "trialDurationDays": int(record.get("trialDurationDays") or DEFAULT_TRIAL_DAYS),
         "proActive": pro_active,
         "proExpiresAt": pro_expires,
+        "purchasePolicyVersion": record.get("purchasePolicyVersion") or PURCHASE_POLICY_VERSION,
     }
 
 
@@ -789,8 +839,11 @@ class EntitlementResponse(BaseModel):
     trialExpiresAt: Optional[int] = None
     trialActive: bool = False
     trialUsed: bool = False
+    trialPolicyVersion: str = TRIAL_POLICY_VERSION
+    trialDurationDays: int = DEFAULT_TRIAL_DAYS
     proActive: bool = False
     proExpiresAt: Optional[int] = None
+    purchasePolicyVersion: str = PURCHASE_POLICY_VERSION
 
 
 class PurchaseVerifyRequest(EntitlementRequest):
@@ -816,6 +869,9 @@ def start_trial(request: EntitlementRequest) -> Dict[str, Any]:
     if not isinstance(record.get("trialStartedAt"), int):
         record["trialStartedAt"] = now
         record["trialExpiresAt"] = now + TRIAL_MS
+        record["trialPolicyVersion"] = TRIAL_POLICY_VERSION
+        record["trialDurationDays"] = DEFAULT_TRIAL_DAYS
+        record["trialDurationMs"] = TRIAL_MS
         record["updatedAt"] = now
         _write_entitlement(record)
         logger.info("trial started", extra={"installId": request.installId, "has_uid": bool(request.firebaseUid)})
@@ -928,6 +984,7 @@ def verify_purchase(request: PurchaseVerifyRequest) -> Dict[str, Any]:
         record["proActive"] = True
         record["purchaseProductId"] = request.productId
         record["purchaseProductType"] = validation.product_type
+        record["purchasePolicyVersion"] = PURCHASE_POLICY_VERSION
         record["purchaseTokenHash"] = hashlib.sha256(request.purchaseToken.encode("utf-8")).hexdigest()
         record["lastValidationStatus"] = validation.status
         if validation.expires_at_ms is not None:
@@ -1029,9 +1086,34 @@ def _extract_brand_tokens(text: str, sender: Optional[str]) -> List[str]:
     return sorted({match.group(1).upper() for match in BRAND_TOKEN_PATTERN.finditer(haystack)})
 
 
+def _looks_like_low_risk_payment_notice(text: str, sender: Optional[str]) -> bool:
+    normalized = f"{sender or ''} {text or ''}"
+    bank_notice_pattern = LEGIT_CONTEXT_PATTERNS[0][2]
+    if not bank_notice_pattern.search(normalized):
+        return False
+    if PAYMENT_ACTION_LURE_PATTERN.search(normalized):
+        return False
+    if re.search(
+        r"\b(click|open|login|verify now|kyc|blocked|suspended|freeze|deactivate|"
+        r"urgent action|expires soon|install|apk)\b",
+        normalized,
+        re.IGNORECASE,
+    ):
+        return False
+    return bool(
+        re.search(
+            r"\b(upi|card|acct|account|debit(?:ed)?|credit(?:ed)?|txn|transaction|"
+            r"ref|available|avl|balance|bal)\b",
+            normalized,
+            re.IGNORECASE,
+        )
+    )
+
+
 def _has_strong_phishing_danger_signal(text: str, sender: Optional[str]) -> List[str]:
     normalized = f"{sender or ''} {text or ''}"
     lowered = normalized.lower()
+    has_link_reference = bool(URL_PATTERN.search(text or "")) or bool(re.search(r"\b(link|url)\b", lowered))
     signals: List[str] = []
 
     for label, pattern in DANGER_PATTERNS:
@@ -1052,7 +1134,14 @@ def _has_strong_phishing_danger_signal(text: str, sender: Optional[str]) -> List
                 signals.append(f"brand-domain mismatch ({host})")
                 break
 
-    if PAYMENT_TRAP_PATTERN.search(normalized) and re.search(r"\b(link|url|http|www)\b", lowered):
+    if (
+        PAYMENT_TRAP_PATTERN.search(normalized)
+        and has_link_reference
+        and (
+            PAYMENT_ACTION_LURE_PATTERN.search(normalized)
+            or not _looks_like_low_risk_payment_notice(text, sender)
+        )
+    ):
         signals.append("payment trap with link")
 
     return list(dict.fromkeys(signals))
