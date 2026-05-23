@@ -1,4 +1,4 @@
-v1.2.2 - Pro and feedback polish
-- Settings now clearly shows when Pro is active.
-- Report-as-wrong now keeps the submit action visible and confirms when a report is saved.
-- Feedback uploads now include the selected correction type for better review.
+v1.2.3 - Trial policy and classifier tuning
+- Pro trial length now follows the policy active when the trial starts.
+- Pro and trial messages now reflect the active trial period instead of fixed wording.
+- Backend phishing checks reduce false positives on normal bank UPI transaction alerts.

@@ -26,14 +26,16 @@ class EntitlementManager(private val context: Context) {
         if (isPaidProAt(now)) return true
         val started = prefs.getLong(KEY_TRIAL_START, -1L)
         if (started <= 0L) return false
-        return now - started < TRIAL_MS
+        val expiresAt = trialExpiresAtFromPrefs()
+        return expiresAt > 0L && now < expiresAt
     }
 
     fun currentState(now: Long = System.currentTimeMillis()): EntitlementState {
         if (isPaidProAt(now)) return EntitlementState.PRO
         val trialStart = prefs.getLong(KEY_TRIAL_START, -1L)
         if (trialStart <= 0L) return EntitlementState.FREE
-        return if (now - trialStart < TRIAL_MS) EntitlementState.TRIAL_ACTIVE
+        val expiresAt = trialExpiresAtFromPrefs()
+        return if (expiresAt > 0L && now < expiresAt) EntitlementState.TRIAL_ACTIVE
         else EntitlementState.TRIAL_EXPIRED
     }
 
@@ -47,7 +49,12 @@ class EntitlementManager(private val context: Context) {
         if (isPaidProAt(now)) return false
         if (hasTrialStarted()) return false
 
-        prefs.edit().putLong(KEY_TRIAL_START, now).apply()
+        prefs.edit()
+            .putLong(KEY_TRIAL_START, now)
+            .putLong(KEY_TRIAL_EXPIRES_AT, now + DEFAULT_TRIAL_MS)
+            .putInt(KEY_TRIAL_DURATION_DAYS, DEFAULT_TRIAL_DAYS)
+            .putString(KEY_TRIAL_POLICY_VERSION, DEFAULT_TRIAL_POLICY_VERSION)
+            .apply()
         Telemetry.instance?.logTrialStarted("local")
         refreshCrashlyticsMode()
         return true
@@ -129,10 +136,18 @@ class EntitlementManager(private val context: Context) {
         if (isPaidProAt(now)) return 0
         val trialStart = prefs.getLong(KEY_TRIAL_START, -1L)
         if (trialStart <= 0L) return 0
-        val end = trialStart + TRIAL_MS
+        val end = trialExpiresAtFromPrefs()
+        if (end <= 0L) return 0
         if (now >= end) return 0
         val msLeft = end - now
         return ((msLeft + 86_400_000L - 1) / 86_400_000L).toInt().coerceAtLeast(0)
+    }
+
+    fun trialDurationDays(): Int = trialDurationDaysFromPrefs()
+
+    fun trialDurationLabel(): String {
+        val days = trialDurationDays()
+        return if (days == 1) "1-day" else "$days-day"
     }
 
     fun onWorkerDetectedOtp() {
@@ -167,6 +182,7 @@ class EntitlementManager(private val context: Context) {
             .putBoolean(KEY_PRO, true)
             .putString(KEY_PURCHASE_TOKEN, purchaseToken)
             .putString(KEY_PURCHASE_SKU, sku)
+            .putString(KEY_PURCHASE_POLICY_VERSION, DEFAULT_PURCHASE_POLICY_VERSION)
         if (proExpiresAt != null) {
             editor.putLong(KEY_PRO_EXPIRES_AT, proExpiresAt)
         } else {
@@ -180,6 +196,9 @@ class EntitlementManager(private val context: Context) {
     fun clearTrialAndBannerStatePreservingPurchase() {
         prefs.edit()
             .remove(KEY_TRIAL_START)
+            .remove(KEY_TRIAL_EXPIRES_AT)
+            .remove(KEY_TRIAL_DURATION_DAYS)
+            .remove(KEY_TRIAL_POLICY_VERSION)
             .remove(KEY_FIRST_OTP_EVENT)
             .remove(KEY_TRIAL_ACK)
             .remove(KEY_TRIAL_END_DISMISS_UNTIL)
@@ -196,7 +215,8 @@ class EntitlementManager(private val context: Context) {
         val trialStart = prefs.getLong(KEY_TRIAL_START, -1L)
         val now = System.currentTimeMillis()
         if (trialStart > 0L) {
-            val inTrial = now - trialStart < TRIAL_MS
+            val expiresAt = trialExpiresAtFromPrefs()
+            val inTrial = expiresAt > 0L && now < expiresAt
             return inTrial
         }
         return false
@@ -275,7 +295,14 @@ class EntitlementManager(private val context: Context) {
             editor.remove(KEY_PRO)
             editor.remove(KEY_PRO_EXPIRES_AT)
         }
-        state.trialStartedAt?.let { editor.putLong(KEY_TRIAL_START, it) }
+        applyTrialSnapshot(
+            editor = editor,
+            trialStartedAt = state.trialStartedAt,
+            trialExpiresAt = state.trialExpiresAt,
+            trialDurationDays = state.trialDurationDays,
+            trialPolicyVersion = state.trialPolicyVersion
+        )
+        applyPurchasePolicySnapshot(editor, state.purchasePolicyVersion)
         editor.apply()
         refreshCrashlyticsMode()
     }
@@ -294,15 +321,70 @@ class EntitlementManager(private val context: Context) {
         } else {
             editor.remove(KEY_PRO_EXPIRES_AT)
         }
-        state.trialStartedAt?.let { editor.putLong(KEY_TRIAL_START, it) }
+        applyTrialSnapshot(
+            editor = editor,
+            trialStartedAt = state.trialStartedAt,
+            trialExpiresAt = state.trialExpiresAt,
+            trialDurationDays = state.trialDurationDays,
+            trialPolicyVersion = state.trialPolicyVersion
+        )
+        applyPurchasePolicySnapshot(editor, state.purchasePolicyVersion)
         editor.apply()
         refreshCrashlyticsMode()
+    }
+
+    private fun applyTrialSnapshot(
+        editor: android.content.SharedPreferences.Editor,
+        trialStartedAt: Long?,
+        trialExpiresAt: Long?,
+        trialDurationDays: Int?,
+        trialPolicyVersion: String?
+    ) {
+        val durationDays = trialDurationDays?.takeIf { it > 0 }
+        durationDays?.let { editor.putInt(KEY_TRIAL_DURATION_DAYS, it) }
+        trialPolicyVersion?.takeIf { it.isNotBlank() }?.let {
+            editor.putString(KEY_TRIAL_POLICY_VERSION, it)
+        }
+        trialStartedAt?.let { startedAt ->
+            editor.putLong(KEY_TRIAL_START, startedAt)
+            val expiresAt = trialExpiresAt
+                ?: startedAt + (durationDays ?: DEFAULT_TRIAL_DAYS) * 86_400_000L
+            editor.putLong(KEY_TRIAL_EXPIRES_AT, expiresAt)
+        }
+    }
+
+    private fun applyPurchasePolicySnapshot(
+        editor: android.content.SharedPreferences.Editor,
+        purchasePolicyVersion: String?
+    ) {
+        purchasePolicyVersion?.takeIf { it.isNotBlank() }?.let {
+            editor.putString(KEY_PURCHASE_POLICY_VERSION, it)
+        }
     }
 
     private fun isPaidProAt(now: Long = System.currentTimeMillis()): Boolean {
         if (!prefs.getBoolean(KEY_PRO, false)) return false
         val expiresAt = prefs.getLong(KEY_PRO_EXPIRES_AT, -1L)
         return expiresAt <= 0L || now < expiresAt
+    }
+
+    private fun trialExpiresAtFromPrefs(): Long {
+        val explicit = prefs.getLong(KEY_TRIAL_EXPIRES_AT, -1L)
+        if (explicit > 0L) return explicit
+        val started = prefs.getLong(KEY_TRIAL_START, -1L)
+        return if (started > 0L) started + DEFAULT_TRIAL_MS else -1L
+    }
+
+    private fun trialDurationDaysFromPrefs(): Int {
+        val stored = prefs.getInt(KEY_TRIAL_DURATION_DAYS, -1)
+        if (stored > 0) return stored
+        val started = prefs.getLong(KEY_TRIAL_START, -1L)
+        val expiresAt = prefs.getLong(KEY_TRIAL_EXPIRES_AT, -1L)
+        if (started > 0L && expiresAt > started) {
+            val ms = expiresAt - started
+            return ((ms + 86_400_000L - 1) / 86_400_000L).toInt().coerceAtLeast(1)
+        }
+        return DEFAULT_TRIAL_DAYS
     }
 
     init {
@@ -313,14 +395,21 @@ class EntitlementManager(private val context: Context) {
         private const val PREFS_NAME = "entitlement_prefs"
         private const val KEY_PRO = "pro_purchased"
         private const val KEY_TRIAL_START = "trial_started_at_ms"
+        private const val KEY_TRIAL_EXPIRES_AT = "trial_expires_at_ms"
+        private const val KEY_TRIAL_DURATION_DAYS = "trial_duration_days"
+        private const val KEY_TRIAL_POLICY_VERSION = "trial_policy_version"
         private const val KEY_FIRST_OTP_EVENT = "first_otp_event_sent"
         private const val KEY_TRIAL_ACK = "trial_started_banner_ack"
         private const val KEY_TRIAL_END_DISMISS_UNTIL = "trial_end_banner_dismiss_until_ms"
         private const val KEY_PURCHASE_TOKEN = "pro_purchase_token"
         private const val KEY_PURCHASE_SKU = "pro_sku"
+        private const val KEY_PURCHASE_POLICY_VERSION = "purchase_policy_version"
         private const val KEY_PRO_EXPIRES_AT = "pro_expires_at_ms"
         private const val PRODUCT_TYPE_SUBS = "subs"
-        private val TRIAL_MS = 7L * 24 * 60 * 60 * 1000
+        private const val DEFAULT_TRIAL_DAYS = 7
+        private const val DEFAULT_TRIAL_POLICY_VERSION = "trial_7d_v1"
+        private const val DEFAULT_PURCHASE_POLICY_VERSION = "play_pro_yearly_annual_v1"
+        private val DEFAULT_TRIAL_MS = DEFAULT_TRIAL_DAYS * 24L * 60 * 60 * 1000
         private val PROVISIONAL_SUBSCRIPTION_MS = 3L * 24 * 60 * 60 * 1000
         private const val TAG = "EntitlementManager"
     }

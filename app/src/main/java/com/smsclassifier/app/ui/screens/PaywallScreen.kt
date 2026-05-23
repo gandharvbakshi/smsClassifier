@@ -76,6 +76,9 @@ fun PaywallScreen(
     LaunchedEffect(Unit) {
         AppContainer.telemetry.logEvent("paywall_shown", mapOf("trigger" to telemetryTrigger))
         AppContainer.billingRepository.querySkuDetails()
+        if (entitlementManager.refreshFromServer()) {
+            entitlementRefresh++
+        }
     }
 
     LaunchedEffect(Unit) {
@@ -86,6 +89,7 @@ fun PaywallScreen(
 
     val state = remember(entitlementRefresh) { entitlementManager.currentState() }
     val trialDays = remember(entitlementRefresh) { entitlementManager.trialDaysRemaining() }
+    val trialLabel = remember(entitlementRefresh) { entitlementManager.trialDurationLabel() }
     val trialAvailable = remember(entitlementRefresh) { !entitlementManager.hasTrialStarted() }
 
     AppScaffold(
@@ -141,9 +145,9 @@ fun PaywallScreen(
                     EntitlementState.TRIAL_ACTIVE -> "Trial active — about $trialDays day(s) left."
                     EntitlementState.TRIAL_EXPIRED -> "Your trial has ended."
                     EntitlementState.FREE -> if (trialAvailable) {
-                        "You have not used your 7-day Pro trial yet."
+                        "You have not used your $trialLabel Pro trial yet."
                     } else {
-                        "You already used your 7-day Pro trial."
+                        "You already used your $trialLabel Pro trial."
                     }
                 },
                 style = MaterialTheme.typography.bodyMedium
@@ -151,7 +155,7 @@ fun PaywallScreen(
             Spacer(modifier = Modifier.height(16.dp))
             if (trialAvailable && state != EntitlementState.PRO) {
                 PrimaryButton(
-                    text = "Start 7-day free trial",
+                    text = "Start $trialLabel free trial",
                     onClick = {
                         AppContainer.telemetry.logCtaTap("paywall", "start_trial")
                         scope.launch {

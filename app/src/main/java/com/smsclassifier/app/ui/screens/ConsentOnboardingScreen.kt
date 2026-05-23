@@ -24,6 +24,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -58,8 +59,10 @@ fun ConsentOnboardingScreen(
     val consent = AppContainer.consentManager
     val entitlementManager = AppContainer.entitlementManager
     var entitlementState by remember { mutableStateOf(entitlementManager.currentState()) }
-    val trialDaysRemaining = remember { entitlementManager.trialDaysRemaining() }
-    val trialAvailable = !entitlementManager.hasTrialStarted()
+    var entitlementRefresh by remember { mutableStateOf(0) }
+    val trialDaysRemaining = remember(entitlementRefresh, entitlementState) { entitlementManager.trialDaysRemaining() }
+    val trialLabel = remember(entitlementRefresh, entitlementState) { entitlementManager.trialDurationLabel() }
+    val trialAvailable = remember(entitlementRefresh, entitlementState) { !entitlementManager.hasTrialStarted() }
     val onboardingAlreadySeen = remember { consent.onboardingSeenNow() }
 
     var analyticsOn by rememberSaveable {
@@ -68,6 +71,13 @@ fun ConsentOnboardingScreen(
     var crashOn by rememberSaveable { mutableStateOf(consent.crashlyticsEnabledNow()) }
     var privacySaved by rememberSaveable { mutableStateOf(onboardingAlreadySeen) }
     var trialStartFailed by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        if (entitlementManager.refreshFromServer()) {
+            entitlementRefresh++
+            entitlementState = entitlementManager.currentState()
+        }
+    }
 
     AppScaffold(
         title = "Set up SMS Classifier",
@@ -93,7 +103,7 @@ fun ConsentOnboardingScreen(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Set privacy preferences first, then continue free, start the 7-day trial, or subscribe to Pro.",
+                text = "Set privacy preferences first, then continue free, start the $trialLabel trial, or subscribe to Pro.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -215,7 +225,7 @@ fun ConsentOnboardingScreen(
                             EntitlementState.TRIAL_ACTIVE -> "Trial already active"
                             EntitlementState.PRO -> "Pro already active"
                             EntitlementState.TRIAL_EXPIRED -> "Trial already used"
-                            else -> "Start 7-day Pro trial"
+                            else -> "Start $trialLabel Pro trial"
                         },
                         onClick = {
                             scope.launch {
@@ -230,6 +240,7 @@ fun ConsentOnboardingScreen(
                                     trialStartFailed = false
                                     AppContainer.telemetry.logEvent("trial_started_from_onboarding")
                                     entitlementState = entitlementManager.currentState()
+                                    entitlementRefresh++
                                     onContinueFree()
                                 } else {
                                     trialStartFailed = true

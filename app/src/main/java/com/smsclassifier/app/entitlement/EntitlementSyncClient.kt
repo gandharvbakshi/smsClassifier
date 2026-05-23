@@ -35,8 +35,11 @@ data class EntitlementSyncResponse(
     val trialExpiresAt: Long? = null,
     val trialActive: Boolean = false,
     val trialUsed: Boolean = false,
+    val trialPolicyVersion: String? = null,
+    val trialDurationDays: Int? = null,
     val proActive: Boolean = false,
-    val proExpiresAt: Long? = null
+    val proExpiresAt: Long? = null,
+    val purchasePolicyVersion: String? = null
 )
 
 @Serializable
@@ -58,8 +61,11 @@ data class PurchaseVerifyResponse(
     val trialExpiresAt: Long? = null,
     val trialActive: Boolean = false,
     val trialUsed: Boolean = false,
+    val trialPolicyVersion: String? = null,
+    val trialDurationDays: Int? = null,
     val proActive: Boolean = false,
-    val proExpiresAt: Long? = null
+    val proExpiresAt: Long? = null,
+    val purchasePolicyVersion: String? = null
 )
 
 class EntitlementSyncClient(

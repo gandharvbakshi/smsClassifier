@@ -435,6 +435,7 @@ private fun InboxHeader(
 @Composable
 private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
     val trialAvailable = !AppContainer.entitlementManager.hasTrialStarted()
+    val trialLabel = AppContainer.entitlementManager.trialDurationLabel()
 
     Column(
         modifier = Modifier
@@ -456,7 +457,7 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        text = "You've unlocked a 7-day free trial of Pro features — OTP classification, phishing detection, and intent.",
+                        text = "You've unlocked a $trialLabel free trial of Pro features — OTP classification, phishing detection, and intent.",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.weight(1f)
                     )
@@ -504,7 +505,7 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                 ) {
                     Text(
                         text = if (trialAvailable) {
-                            "Cloud phishing risk is unavailable here. Start the 7-day Pro trial or subscribe for full cloud classification."
+                            "Cloud phishing risk is unavailable here. Start the $trialLabel Pro trial or subscribe for full cloud classification."
                         } else {
                             "Cloud phishing risk is unavailable here. Subscribe to Pro for full cloud classification."
                         },

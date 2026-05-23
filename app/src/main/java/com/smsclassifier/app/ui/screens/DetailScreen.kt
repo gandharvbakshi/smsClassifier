@@ -57,6 +57,7 @@ fun DetailScreen(
     val context = LocalContext.current
     val entitlementManager = AppContainer.entitlementManager
     val trialAvailable = !entitlementManager.hasTrialStarted()
+    val trialLabel = entitlementManager.trialDurationLabel()
 
     var showReportDialog by remember { mutableStateOf(false) }
     var reportNote by remember { mutableStateOf("") }
@@ -133,7 +134,7 @@ fun DetailScreen(
                             )
                             Text(
                                 text = if (trialAvailable) {
-                                    "Cloud phishing risk is unavailable here. Start the 7-day Pro trial or subscribe to Pro for phishing scores, cloud OTP intent, and full server classification."
+                                    "Cloud phishing risk is unavailable here. Start the $trialLabel Pro trial or subscribe to Pro for phishing scores, cloud OTP intent, and full server classification."
                                 } else {
                                     "Cloud phishing risk is unavailable here. Subscribe to Pro for phishing scores, cloud OTP intent, and full server classification."
                                 },
