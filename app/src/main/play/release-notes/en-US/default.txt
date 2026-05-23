@@ -1,4 +1,4 @@
-v1.2.0 - Annual Pro subscription
-- Pro is now available as an annual Google Play subscription at ₹199/year in India.
-- Purchase and restore flows now support the annual subscription while preserving legacy Pro purchases.
-- Paywall, onboarding, store listing, and privacy copy now explain the annual plan clearly.
+v1.2.2 - Pro and feedback polish
+- Settings now clearly shows when Pro is active.
+- Report-as-wrong now keeps the submit action visible and confirms when a report is saved.
+- Feedback uploads now include the selected correction type for better review.

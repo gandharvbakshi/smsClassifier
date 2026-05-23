@@ -10,6 +10,7 @@ import com.smsclassifier.app.data.FeedbackEntity
 import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.data.MisclassificationLogEntity
 import com.smsclassifier.app.data.SettingsRepository
+import com.smsclassifier.app.util.AppLog
 import com.smsclassifier.app.work.ClassificationWorker
 import com.smsclassifier.app.work.FeedbackUploadWorker
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,40 +34,53 @@ class DetailViewModel(
         }
     }
 
-    fun reportAsWrong(correctionKind: String, correctionText: String) {
+    fun reportAsWrong(
+        correctionKind: String,
+        correctionText: String,
+        onComplete: (Boolean) -> Unit = {}
+    ) {
         viewModelScope.launch {
-            val msg = _message.value ?: return@launch
-            AppContainer.telemetry.logEvent(
-                "feedback_submitted",
-                mapOf("correction_kind" to correctionKind)
-            )
-            database.feedbackDao().insert(
-                FeedbackEntity(
-                    messageId = msg.id,
-                    originalIsOtp = msg.isOtp,
-                    originalOtpIntent = msg.otpIntent,
-                    originalIsPhishing = msg.isPhishing,
-                    originalPhishScore = msg.phishScore,
-                    userCorrection = correctionText
+            var saved = false
+            try {
+                val msg = _message.value ?: return@launch
+                AppContainer.telemetry.logEvent(
+                    "feedback_submitted",
+                    mapOf("correction_kind" to correctionKind)
                 )
-            )
-            database.messageDao().markReviewed(msg.id)
-            database.misclassificationLogDao().insert(
-                MisclassificationLogEntity(
-                    messageId = msg.id,
-                    sender = msg.sender,
-                    body = msg.body,
-                    predictedIsOtp = msg.isOtp,
-                    predictedOtpIntent = msg.otpIntent,
-                    predictedIsPhishing = msg.isPhishing,
-                    predictedPhishScore = msg.phishScore,
-                    userNote = correctionText.ifBlank { null }
+                database.feedbackDao().insert(
+                    FeedbackEntity(
+                        messageId = msg.id,
+                        originalIsOtp = msg.isOtp,
+                        originalOtpIntent = msg.otpIntent,
+                        originalIsPhishing = msg.isPhishing,
+                        originalPhishScore = msg.phishScore,
+                        userCorrection = correctionText
+                    )
                 )
-            )
-            context?.applicationContext?.let { appCtx ->
-                if (SettingsRepository(appCtx).feedbackUploadEnabled) {
-                    FeedbackUploadWorker.enqueue(appCtx)
+                database.messageDao().markReviewed(msg.id)
+                database.misclassificationLogDao().insert(
+                    MisclassificationLogEntity(
+                        messageId = msg.id,
+                        sender = msg.sender,
+                        body = msg.body,
+                        predictedIsOtp = msg.isOtp,
+                        predictedOtpIntent = msg.otpIntent,
+                        predictedIsPhishing = msg.isPhishing,
+                        predictedPhishScore = msg.phishScore,
+                        feedbackKind = correctionKind,
+                        userNote = correctionText.ifBlank { null }
+                    )
+                )
+                saved = true
+                context?.applicationContext?.let { appCtx ->
+                    if (SettingsRepository(appCtx).feedbackUploadEnabled) {
+                        FeedbackUploadWorker.enqueue(appCtx)
+                    }
                 }
+            } catch (e: Exception) {
+                AppLog.e(TAG, "Failed to save feedback report", e)
+            } finally {
+                onComplete(saved)
             }
         }
     }
@@ -100,6 +114,10 @@ class DetailViewModel(
                 _isRetrying.value = false
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "DetailViewModel"
     }
 }
 

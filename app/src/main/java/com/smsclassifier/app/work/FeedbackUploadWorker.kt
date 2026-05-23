@@ -66,7 +66,8 @@ class FeedbackUploadWorker(
                     predictedPhishScore = row.predictedPhishScore,
                     userCorrection = row.userNote,
                     userNote = null,
-                    clientCreatedAt = row.createdAt
+                    clientCreatedAt = row.createdAt,
+                    feedbackKind = row.feedbackKind
                 )
                 val result = uploader.upload(req)
                 if (result.isSuccess) {

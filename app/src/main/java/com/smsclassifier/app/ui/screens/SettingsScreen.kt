@@ -41,6 +41,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -51,6 +52,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -59,6 +63,7 @@ import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.R
+import com.smsclassifier.app.entitlement.EntitlementState
 import com.smsclassifier.app.ui.components.AppScaffold
 import com.smsclassifier.app.ui.theme.Spacing
 import com.smsclassifier.app.ui.viewmodel.SettingsViewModel
@@ -78,6 +83,7 @@ fun SettingsScreen(
 ) {
     val isDefaultSms by viewModel.isDefaultSmsApp.collectAsState()
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     val activity = remember(context) { context.findActivity() }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -85,6 +91,7 @@ fun SettingsScreen(
     var showFeedbackConsentDialog by remember { mutableStateOf(false) }
     var deleteConfirm by remember { mutableStateOf(false) }
     var deleteLoading by remember { mutableStateOf(false) }
+    var entitlementState by remember { mutableStateOf(AppContainer.entitlementManager.currentState()) }
 
     val analyticsConsent by AppContainer.consentManager.analyticsConsent.collectAsState(
         initial = AppContainer.consentManager.analyticsEnabledNow()
@@ -95,6 +102,23 @@ fun SettingsScreen(
 
     LaunchedEffect(Unit) {
         viewModel.refreshDefaultSmsStatus()
+        AppContainer.entitlementManager.refreshFromServer()
+        entitlementState = AppContainer.entitlementManager.currentState()
+    }
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                coroutineScope.launch {
+                    AppContainer.entitlementManager.refreshFromServer()
+                    entitlementState = AppContainer.entitlementManager.currentState()
+                }
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
     }
 
     val exportError by viewModel.lastExportError.collectAsState()
@@ -263,20 +287,32 @@ fun SettingsScreen(
             }
 
             SettingsSection(title = "Pro") {
+                val proActive = entitlementState == EntitlementState.PRO
                 SettingsRow(
                     icon = Icons.Default.Star,
-                    title = "Upgrade to Pro",
-                    subtitle = "Annual subscription for scam warnings and risk scores",
-                    trailing = {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                    title = if (proActive) "Pro active" else "Upgrade to Pro",
+                    subtitle = if (proActive) {
+                        "Annual Pro is active on this device"
+                    } else {
+                        "Annual subscription for scam warnings and risk scores"
                     },
-                    onClick = {
-                        onNavigateToPaywall()
-                    }
+                    trailing = {
+                        if (proActive) {
+                            Text(
+                                text = "Active",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.primary,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        } else {
+                            Icon(
+                                Icons.AutoMirrored.Filled.ArrowForward,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    },
+                    onClick = if (proActive) null else onNavigateToPaywall
                 )
             }
 

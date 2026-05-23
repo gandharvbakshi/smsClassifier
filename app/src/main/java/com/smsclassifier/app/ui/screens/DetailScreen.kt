@@ -54,12 +54,14 @@ fun DetailScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val clipboardManager = LocalClipboardManager.current
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
     val entitlementManager = AppContainer.entitlementManager
     val trialAvailable = !entitlementManager.hasTrialStarted()
 
     var showReportDialog by remember { mutableStateOf(false) }
     var reportNote by remember { mutableStateOf("") }
     var reportType by remember { mutableStateOf<ReportIssueOption?>(null) }
+    var reportSubmitting by remember { mutableStateOf(false) }
     val reportSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     Scaffold(
@@ -315,6 +317,7 @@ fun DetailScreen(
             showReportDialog = false
             reportNote = ""
             reportType = null
+            reportSubmitting = false
         }
         ModalBottomSheet(
             onDismissRequest = {
@@ -328,11 +331,12 @@ fun DetailScreen(
         ) {
             ReportClassificationSheet(
                 redactedPreview = message?.let { previewMsg ->
-                    val installId = SettingsRepository(LocalContext.current).installId
+                    val installId = SettingsRepository(context).installId
                     SmsRedactor.redactForTraining(previewMsg.body, installId)
                 },
                 selectedOption = reportType,
                 note = reportNote,
+                submitting = reportSubmitting,
                 onOptionSelected = { reportType = it },
                 onNoteChange = { reportNote = it },
                 onCancel = {
@@ -343,16 +347,32 @@ fun DetailScreen(
                     closeSheet()
                 },
                 onSubmit = {
-                    val selected = reportType
-                    val finalNote = buildString {
-                        selected?.let { append(it.title).append(". ").append(it.description) }
-                        if (reportNote.isNotBlank()) {
-                            if (isNotBlank()) append(" ")
-                            append(reportNote.trim())
+                    if (!reportSubmitting) {
+                        val selected = reportType
+                        val finalNote = buildString {
+                            selected?.let { append(it.title).append(". ").append(it.description) }
+                            if (reportNote.isNotBlank()) {
+                                if (isNotBlank()) append(" ")
+                                append(reportNote.trim())
+                            }
+                        }.trim()
+                        reportSubmitting = true
+                        val uploadsEnabled = SettingsRepository(context).feedbackUploadEnabled
+                    viewModel.reportAsWrong(selected?.correctionKind ?: "other", finalNote) { saved ->
+                        closeSheet()
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar(
+                                if (!saved) {
+                                    "Report could not be saved. Try again."
+                                } else if (uploadsEnabled) {
+                                    "Report saved and queued for upload."
+                                } else {
+                                    "Report saved on this phone. Turn on wrong-label uploads to send it."
+                                    }
+                                )
+                            }
                         }
-                    }.trim()
-                    viewModel.reportAsWrong(selected?.correctionKind ?: "other", finalNote)
-                    closeSheet()
+                    }
                 }
             )
         }
@@ -398,6 +418,7 @@ private fun ReportClassificationSheet(
     redactedPreview: String?,
     selectedOption: ReportIssueOption?,
     note: String,
+    submitting: Boolean,
     onOptionSelected: (ReportIssueOption) -> Unit,
     onNoteChange: (String) -> Unit,
     onCancel: () -> Unit,
@@ -407,94 +428,114 @@ private fun ReportClassificationSheet(
         modifier = Modifier
             .fillMaxWidth()
             .navigationBarsPadding()
+            .imePadding()
             .padding(horizontal = 20.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(
-                text = "Report classification",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.SemiBold
-            )
-            Text(
-                text = "Tell us what looked wrong. This helps improve OTP and phishing detection.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(max = 560.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    text = "Report classification",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    text = "Tell us what looked wrong. This helps improve OTP and phishing detection.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
 
-        if (!redactedPreview.isNullOrBlank()) {
-            Surface(
-                shape = MaterialTheme.shapes.medium,
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(modifier = Modifier.padding(12.dp)) {
-                    Text(
-                        text = "Upload preview",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    Text(
-                        text = redactedPreview,
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 4,
-                        overflow = TextOverflow.Ellipsis,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+            if (!redactedPreview.isNullOrBlank()) {
+                Surface(
+                    shape = MaterialTheme.shapes.medium,
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(modifier = Modifier.padding(12.dp)) {
+                        Text(
+                            text = "Upload preview",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = redactedPreview,
+                            style = MaterialTheme.typography.bodySmall,
+                            maxLines = 4,
+                            overflow = TextOverflow.Ellipsis,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
+
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(
+                    text = "What should be corrected?",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold
+                )
+                reportIssueOptions.forEach { option ->
+                    FilterChip(
+                        selected = selectedOption == option,
+                        onClick = { if (!submitting) onOptionSelected(option) },
+                        label = {
+                            Column(modifier = Modifier.padding(vertical = 4.dp)) {
+                                Text(option.title, style = MaterialTheme.typography.bodyMedium)
+                                Text(
+                                    option.description,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = !submitting
                     )
                 }
             }
-        }
 
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(
-                text = "What should be corrected?",
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold
+            OutlinedTextField(
+                value = note,
+                onValueChange = onNoteChange,
+                label = { Text("Any feedback for the developer? (optional)") },
+                placeholder = { Text("Add context, expected label, or why this felt wrong.") },
+                modifier = Modifier.fillMaxWidth(),
+                minLines = 3,
+                maxLines = 5,
+                enabled = !submitting
             )
-            reportIssueOptions.forEach { option ->
-                FilterChip(
-                    selected = selectedOption == option,
-                    onClick = { onOptionSelected(option) },
-                    label = {
-                        Column(modifier = Modifier.padding(vertical = 4.dp)) {
-                            Text(option.title, style = MaterialTheme.typography.bodyMedium)
-                            Text(
-                                option.description,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
         }
-
-        OutlinedTextField(
-            value = note,
-            onValueChange = onNoteChange,
-            label = { Text("Any feedback for the developer? (optional)") },
-            placeholder = { Text("Add context, expected label, or why this felt wrong.") },
-            modifier = Modifier.fillMaxWidth(),
-            minLines = 3,
-            maxLines = 5
-        )
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            TextButton(onClick = onCancel) {
+            TextButton(onClick = onCancel, enabled = !submitting) {
                 Text("Cancel")
             }
             Button(
                 onClick = onSubmit,
-                enabled = selectedOption != null || note.isNotBlank()
+                enabled = !submitting && (selectedOption != null || note.isNotBlank())
             ) {
-                Text("Submit")
+                if (submitting) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(18.dp),
+                        strokeWidth = 2.dp
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Submitting")
+                } else {
+                    Text("Submit report")
+                }
             }
         }
         Spacer(modifier = Modifier.height(8.dp))

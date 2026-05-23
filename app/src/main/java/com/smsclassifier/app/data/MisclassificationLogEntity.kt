@@ -15,6 +15,7 @@ data class MisclassificationLogEntity(
     val predictedIsPhishing: Boolean?,
     val predictedPhishScore: Float? = null,
     val createdAt: Long = System.currentTimeMillis(),
+    val feedbackKind: String? = null,
     val userNote: String? = null,
     val uploaded: Boolean = false,
     val lastUploadAttemptAt: Long? = null,
