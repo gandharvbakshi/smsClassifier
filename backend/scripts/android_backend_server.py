@@ -464,6 +464,7 @@ class FeedbackRequest(BaseModel):
     appVersionName: str
     sender: str = Field(..., max_length=256)
     body: str
+    bodyRedactionScheme: str = "server_digits_v1"
     predictedIsOtp: Optional[bool] = None
     predictedOtpIntent: Optional[str] = None
     predictedIsPhishing: Optional[bool] = None
@@ -471,12 +472,27 @@ class FeedbackRequest(BaseModel):
     userCorrection: Optional[str] = None
     userNote: Optional[str] = None
     clientCreatedAt: int
+    feedbackKind: Optional[str] = None
+    satisfactionScore: Optional[int] = None
 
 
 class FeedbackResponse(BaseModel):
     ok: bool
     id: Optional[str] = None
     error: Optional[str] = None
+
+
+def _redact_feedback_body(body: str, install_id: str) -> str:
+    """Defensively redact long digit runs from feedback from old app builds."""
+
+    def repl(match: re.Match[str]) -> str:
+        raw = match.group(0)
+        length = min(len(raw), 32)
+        digest = hashlib.sha256(f"{install_id}:{raw}".encode("utf-8")).hexdigest()
+        digits = "".join(str(int(ch, 16) % 10) for ch in digest)
+        return digits[:length]
+
+    return re.sub(r"\d{4,}", repl, body or "")
 
 
 def _persist_feedback(record: Dict[str, Any]) -> None:
@@ -513,7 +529,7 @@ def post_feedback(request: FeedbackRequest, http_request: Request) -> FeedbackRe
         ua = http_request.headers.get("user-agent", "")
         if "okhttp" not in ua.lower():
             raise HTTPException(status_code=403, detail="Forbidden")
-    body = request.body or ""
+    body = _redact_feedback_body(request.body or "", request.installId)
     if not body.strip():
         raise HTTPException(status_code=400, detail="body must not be empty")
     if len(body) > FEEDBACK_BODY_MAX_LEN:
@@ -521,12 +537,15 @@ def post_feedback(request: FeedbackRequest, http_request: Request) -> FeedbackRe
     received_at = int(time.time() * 1000)
     record_id = str(uuid.uuid4())
     body_hash = hashlib.sha1(body.encode("utf-8")).hexdigest()[:16]
+    request_payload = request.model_dump()
+    request_payload["body"] = body
+    request_payload["bodyRedactionScheme"] = "server_digits_v1"
     record = {
         "id": record_id,
         "received_at": received_at,
         "client_user_agent": http_request.headers.get("user-agent", "")[:200],
         "body_hash": body_hash,
-        **request.model_dump(),
+        **request_payload,
     }
     _persist_feedback(record)
     logger.info(
