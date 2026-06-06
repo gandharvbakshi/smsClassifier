@@ -31,6 +31,7 @@ data class MessageEntity(
     val phishScore: Float? = null, // 0.0 to 1.0
     val reasonsJson: String? = null, // JSON array of reason strings
     val reviewed: Boolean = false,
+    val userCorrected: Boolean = false,
     val version: Int = 1 // Schema version for migrations
 )
 

@@ -23,6 +23,7 @@ object ClassificationUtils {
     }
 
     fun isOtpEffective(message: MessageEntity): Boolean {
+        if (message.userCorrected) return message.isOtp == true
         if (message.isOtp != true) return false
         // Even if the model says yes, trust an explicit heuristic veto.
         if (isHeuristicVeto(message.body, message.sender)) return false
@@ -37,6 +38,37 @@ object ClassificationUtils {
             isOtpEffective(message) && phishScore < 0.3f -> BadgeType.SAFE
             else -> BadgeType.SAFE
         }
+    }
+
+    fun riskSummary(message: MessageEntity): String {
+        val phishScore = message.phishScore ?: 0f
+        return when {
+            message.isPhishing == true || phishScore >= 0.6f -> "High risk - likely scam"
+            phishScore >= 0.3f -> "Be careful"
+            else -> "No scam signs"
+        }
+    }
+
+    fun humanizeIntent(intent: String?): String? = when (intent) {
+        "BANK_OR_CARD_TXN_OTP" -> "Bank / card payment"
+        "UPI_TXN_OR_PIN_OTP" -> "UPI payment or PIN"
+        "FINANCIAL_LOGIN_OTP" -> "Bank login"
+        "APP_ACCOUNT_CHANGE_OTP" -> "Account change"
+        "APP_LOGIN_OTP" -> "App login"
+        "KYC_OR_ESIGN_OTP" -> "KYC / e-sign"
+        "DELIVERY_OR_SERVICE_OTP" -> "Delivery confirmation"
+        "GENERIC_APP_ACTION_OTP" -> "App action"
+        "NOT_OTP", null -> null
+        else -> intent
+            .lowercase()
+            .split("_")
+            .filter { it.isNotBlank() && it != "otp" }
+            .joinToString(" ") { part ->
+                part.replaceFirstChar { first ->
+                    if (first.isLowerCase()) first.titlecase() else first.toString()
+                }
+            }
+            .takeIf { it.isNotBlank() }
     }
 
     enum class RiskLevel { NONE, LOW, MEDIUM, HIGH }
@@ -94,5 +126,46 @@ object ClassificationUtils {
         if (isOtp == true && heuristic.confidence >= 0.6f) return code
 
         return null
+    }
+
+    fun extractOtpForCopy(message: MessageEntity): String? {
+        val code = extractOtpCode(message.body) ?: return null
+        if (message.userCorrected) return if (message.isOtp == true) code else null
+        return extractOtpForCopy(message.body, message.sender, message.isOtp)
+    }
+
+    fun applyUserCorrection(message: MessageEntity, correctionKind: String): MessageEntity {
+        return when (correctionKind) {
+            "actually_otp" -> message.copy(
+                isOtp = true,
+                otpIntent = message.otpIntent?.takeUnless { it == "NOT_OTP" }
+                    ?: "GENERIC_APP_ACTION_OTP",
+                reasonsJson = null,
+                reviewed = true,
+                userCorrected = true
+            )
+            "not_otp" -> message.copy(
+                isOtp = false,
+                otpIntent = null,
+                reasonsJson = null,
+                reviewed = true,
+                userCorrected = true
+            )
+            "phishing" -> message.copy(
+                isPhishing = true,
+                phishScore = maxOf(message.phishScore ?: 0f, 0.8f),
+                reasonsJson = null,
+                reviewed = true,
+                userCorrected = true
+            )
+            "not_phishing" -> message.copy(
+                isPhishing = false,
+                phishScore = 0f,
+                reasonsJson = null,
+                reviewed = true,
+                userCorrected = true
+            )
+            else -> message.copy(reasonsJson = null, reviewed = true, userCorrected = true)
+        }
     }
 }

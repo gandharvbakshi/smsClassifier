@@ -41,8 +41,8 @@ fun MessageBubble(
     val clipboardManager = LocalClipboardManager.current
     val isSent = message.type == 2
 
-    val otpCode = remember(message.body, message.sender, message.isOtp) {
-        ClassificationUtils.extractOtpForCopy(message.body, message.sender, message.isOtp)
+    val otpCode = remember(message.id, message.body, message.sender, message.isOtp, message.userCorrected) {
+        ClassificationUtils.extractOtpForCopy(message)
     }
 
     Row(
@@ -94,7 +94,7 @@ fun MessageBubble(
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = formatTimestamp(message.ts),
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.labelMedium,
                     color = if (isSent) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.75f)
                     else MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.align(Alignment.End)
@@ -176,8 +176,8 @@ private fun OtpHighlight(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Verification code",
-                style = MaterialTheme.typography.labelMedium,
+                text = "Verification OTP",
+                style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -186,7 +186,7 @@ private fun OtpHighlight(
             text = otpCode,
             fontSize = 36.sp,
             fontWeight = FontWeight.Bold,
-            letterSpacing = 4.sp,
+            letterSpacing = 0.sp,
             color = MaterialTheme.colorScheme.primary
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -200,7 +200,7 @@ private fun OtpHighlight(
                 modifier = Modifier.size(16.dp)
             )
             Spacer(modifier = Modifier.width(6.dp))
-            Text("Copy code", style = MaterialTheme.typography.labelLarge)
+            Text("Copy OTP", style = MaterialTheme.typography.labelLarge)
         }
         Spacer(modifier = Modifier.height(10.dp))
         Text(

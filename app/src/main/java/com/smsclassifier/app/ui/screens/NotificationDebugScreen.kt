@@ -111,7 +111,7 @@ private fun DebugCard(log: NotificationDebugLogEntity) {
                         Text(
                             text = "OTP ${log.otpCode ?: "?"}",
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
-                            style = MaterialTheme.typography.labelSmall,
+                            style = MaterialTheme.typography.labelMedium,
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
@@ -120,7 +120,7 @@ private fun DebugCard(log: NotificationDebugLogEntity) {
                 Text(
                     text = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
                         .format(Date(log.createdAt)),
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -158,7 +158,7 @@ private fun kvLine(label: String, value: String) {
         Text(
             text = label,
             modifier = Modifier.width(112.dp),
-            style = MaterialTheme.typography.labelSmall,
+            style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(

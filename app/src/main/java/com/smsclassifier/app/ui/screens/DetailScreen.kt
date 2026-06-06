@@ -16,9 +16,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextOverflow
 import com.smsclassifier.app.AppContainer
+import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.data.SettingsRepository
+import com.smsclassifier.app.ui.badges.SensitivityType
 import com.smsclassifier.app.ui.badges.ClassificationBadge
 import com.smsclassifier.app.ui.badges.SensitivityBadge
+import com.smsclassifier.app.ui.components.OtpHeroCard
 import com.smsclassifier.app.ui.components.ReasonChips
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.util.ClassificationUtils
@@ -91,6 +94,12 @@ fun DetailScreen(
     ) { padding ->
         message?.let { msg ->
             val friendlySender = SenderNameResolver.resolve(msg.sender)
+            val sensitivity = ClassificationUtils.sensitivityType(msg)
+            val hasCloudRiskResult = msg.isPhishing != null || msg.phishScore != null
+            val intentLabel = ClassificationUtils.humanizeIntent(msg.otpIntent)
+            val otpCode = remember(msg.id, msg.body, msg.sender, msg.isOtp, msg.userCorrected) {
+                ClassificationUtils.extractOtpForCopy(msg)
+            }
             Column(
                 modifier = modifier
                     .fillMaxSize()
@@ -124,7 +133,22 @@ fun DetailScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-                
+
+                if (otpCode != null) {
+                    OtpHeroCard(
+                        code = otpCode,
+                        intentLabel = intentLabel,
+                        sensitivity = sensitivity,
+                        onCopy = {
+                            clipboardManager.setText(AnnotatedString(otpCode))
+                            AppContainer.telemetry.logOtpCopied("detail")
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar("OTP copied to clipboard")
+                            }
+                        }
+                    )
+                }
+
                 Divider()
 
                 if (AppContainer.entitlementManager.shouldShowDetailUnlockPlaceholder(msg)) {
@@ -145,9 +169,9 @@ fun DetailScreen(
                             )
                             Text(
                                 text = if (trialAvailable) {
-                                    "Scam warnings are unavailable here. Start a Pro trial ($trialLabel) or subscribe to Pro for scam warnings, code purpose, and full server classification."
+                                    "Scam warnings are unavailable here. Start a Pro trial ($trialLabel) or subscribe for cloud scam warnings and OTP purpose. Cloud checks send message text and sender over HTTPS."
                                 } else {
-                                    "Scam warnings are unavailable here. Subscribe to Pro for scam warnings, code purpose, and full server classification."
+                                    "Scam warnings are unavailable here. Subscribe to Pro for cloud scam warnings and OTP purpose. Cloud checks send message text and sender over HTTPS."
                                 },
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -176,10 +200,8 @@ fun DetailScreen(
                 )
                 
                 Divider()
-                
-                val hasCloudRiskResult = msg.isPhishing != null || msg.phishScore != null
-                val sensitivity = ClassificationUtils.sensitivityType(msg)
-                if (hasCloudRiskResult || sensitivity != com.smsclassifier.app.ui.badges.SensitivityType.NONE) {
+
+                if (hasCloudRiskResult || sensitivity != SensitivityType.NONE) {
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
@@ -191,39 +213,26 @@ fun DetailScreen(
                     }
                 }
                 
-                // OTP Intent
-                if (msg.otpIntent != null) {
+                if (otpCode == null && intentLabel != null) {
                     Text(
-                        text = "What this code is for: ${msg.otpIntent}",
+                        text = "This OTP is for: $intentLabel",
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium
                     )
                 }
 
-                val otpCode = remember(msg.body, msg.sender, msg.isOtp) {
-                    ClassificationUtils.extractOtpForCopy(msg.body, msg.sender, msg.isOtp)
-                }
-                if (otpCode != null) {
-                    FilledTonalButton(
-                        onClick = {
-                            clipboardManager.setText(AnnotatedString(otpCode))
-                            AppContainer.telemetry.logOtpCopied("detail")
-                            coroutineScope.launch {
-                                snackbarHostState.showSnackbar("OTP copied to clipboard")
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text("Copy OTP ($otpCode)")
-                    }
-                }
-                
-                // Phishing score
-                if (msg.phishScore != null) {
+                if (hasCloudRiskResult) {
                     Text(
-                        text = "Scam warning score: ${String.format("%.2f", msg.phishScore)}",
+                        text = "Scam risk: ${ClassificationUtils.riskSummary(msg)}",
                         style = MaterialTheme.typography.bodyMedium
                     )
+                    if (BuildConfig.DEBUG && msg.phishScore != null) {
+                        Text(
+                            text = "Debug score: ${String.format("%.2f", msg.phishScore)}",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
                 
                 // Check if classification failed (all null and error in reasons)
@@ -314,7 +323,7 @@ fun DetailScreen(
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Report as Wrong")
+                    Text("Report a mistake")
                 }
             }
         } ?: run {
@@ -409,8 +418,8 @@ private val reportIssueOptions = listOf(
         correctionKind = "not_otp"
     ),
     ReportIssueOption(
-        title = "Wrong code purpose",
-        description = "The code type or purpose is incorrect.",
+        title = "Wrong OTP purpose",
+        description = "The OTP type or purpose is incorrect.",
         correctionKind = "other"
     ),
     ReportIssueOption(
@@ -453,7 +462,7 @@ private fun ReportClassificationSheet(
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
-                    text = "Report classification",
+                    text = "Report a mistake",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold
                 )

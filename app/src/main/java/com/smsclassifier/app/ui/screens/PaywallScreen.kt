@@ -3,16 +3,20 @@ package com.smsclassifier.app.ui.screens
 import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Shield
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,12 +38,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.BuildConfig
+import com.smsclassifier.app.R
 import com.smsclassifier.app.billing.PlayBillingRepository
 import com.smsclassifier.app.entitlement.EntitlementState
 import com.smsclassifier.app.ui.components.AppScaffold
@@ -107,35 +114,43 @@ fun PaywallScreen(
             verticalArrangement = Arrangement.spacedBy(Spacing.lg)
         ) {
             HeroIcon(
-                icon = Icons.Default.Star,
+                icon = Icons.Default.Shield,
                 modifier = Modifier.padding(top = Spacing.sm)
             )
             Text(
                 text = if (trialAvailable && state != EntitlementState.PRO) {
-                    "Try Pro before you subscribe"
+                    "Protect OTPs from scam messages"
                 } else {
-                    "Unlock full classification"
+                    "Keep scam warnings ready"
                 },
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Pro adds scam warnings, risk scores, and clearer explanations for sensitive OTP codes. Free keeps basic local sorting on this phone.",
+                text = "Pro adds cloud scam warnings, risk levels, and clearer explanations for sensitive OTPs. It is designed to help older family members and everyday users in India spot suspicious links, urgent pressure, and sender tricks.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
+            Text(
+                text = stringResource(R.string.privacy_cloud_checks_summary),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
             InfoCard {
                 ProBenefitLine(
-                    title = "Know why a code came",
-                    body = "See if a code looks like login, payment, account change, delivery, or another action."
-                )
-                ProBenefitLine(
+                    icon = Icons.Default.Warning,
                     title = "Spot risky messages",
                     body = "Checks suspicious links, urgency, sender patterns, and requests for passwords or OTPs."
                 )
                 ProBenefitLine(
-                    title = "Warnings on sensitive codes",
-                    body = "Adds context when a code should stay private."
+                    icon = Icons.Default.Shield,
+                    title = "Know why an OTP came",
+                    body = "See if an OTP looks like login, payment, account change, delivery, or another action."
+                )
+                ProBenefitLine(
+                    icon = Icons.Default.Lock,
+                    title = "Warnings on sensitive OTPs",
+                    body = "Adds context when an OTP should stay private."
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -176,7 +191,7 @@ fun PaywallScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
-                    text = "No payment method required. The trial does not start the paid subscription automatically.",
+                    text = "No payment method required. You will not be charged during the trial, and you can cancel anytime in Play Store.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -242,17 +257,25 @@ fun PaywallScreen(
 }
 
 @Composable
-private fun ProBenefitLine(title: String, body: String) {
-    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.SemiBold
+private fun ProBenefitLine(icon: androidx.compose.ui.graphics.vector.ImageVector, title: String, body: String) {
+    Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.Top) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(18.dp)
         )
-        Text(
-            text = body,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = body,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
     }
 }

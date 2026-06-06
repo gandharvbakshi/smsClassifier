@@ -27,7 +27,7 @@ A complete Android app (Kotlin, Jetpack Compose) for SMS classification with the
   - Combines TF-IDF + heuristic features
 - ✅ **ServerClassifier** (`ServerClassifier.kt`)
   - HTTP client with exponential backoff
-  - PII hashing for privacy
+  - HTTPS cloud classification; optional feedback uploads use redaction separately
   - 2s timeout
 - ✅ **FeatureExtractor** (`FeatureExtractor.kt`)
   - Extracts 19 pattern-based features
@@ -48,7 +48,7 @@ A complete Android app (Kotlin, Jetpack Compose) for SMS classification with the
   - Reason chips (explainability)
   - "Report as Wrong" button
 - ✅ **SettingsScreen**
-  - Toggle on-device vs server inference
+  - Privacy controls, feedback upload controls, and Pro access
   - Export labels button
 
 ### 5. **Background Processing**
@@ -144,7 +144,7 @@ if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
 
 - ✅ New SMS appears in inbox within 1-2 seconds with badges
 - ✅ Filters work and counts update correctly
-- ✅ Toggle on-device vs server inference (via Settings)
+- ✅ Basic local sorting with gated trial/Pro cloud checks
 - ✅ "Report as Wrong" writes feedback row
 - ⚠️ Cold start model load: Need to test (< 300ms TFLite, < 800ms ONNX)
 

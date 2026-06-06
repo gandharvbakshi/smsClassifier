@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -116,7 +117,7 @@ fun MessageItem(
                     }
                     Text(
                         text = formatTimestamp(message.ts),
-                        style = MaterialTheme.typography.labelSmall,
+                        style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -134,11 +135,7 @@ fun MessageItem(
                 val sensitivity = ClassificationUtils.sensitivityType(message)
                 val hasCloudRiskResult = message.isPhishing != null || message.phishScore != null
                 val showRisk = isPhish || (hasCloudRiskResult && message.isOtp == true)
-                val otpCode = ClassificationUtils.extractOtpForCopy(
-                    message.body,
-                    message.sender,
-                    message.isOtp
-                )
+                val otpCode = ClassificationUtils.extractOtpForCopy(message)
 
                 if (showRisk || sensitivity != SensitivityType.NONE || otpCode != null) {
                     Spacer(modifier = Modifier.height(6.dp))
@@ -172,25 +169,27 @@ private fun CopyOtpPill(code: String) {
         shape = RoundedCornerShape(50),
         color = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,
-        modifier = Modifier.clickable {
-            clipboard.setText(AnnotatedString(code))
-            AppContainer.telemetry.logOtpCopied("message_item")
-            Toast.makeText(context, "OTP copied", Toast.LENGTH_SHORT).show()
-        }
+        modifier = Modifier
+            .heightIn(min = 44.dp)
+            .clickable(onClickLabel = "Copy OTP") {
+                clipboard.setText(AnnotatedString(code))
+                AppContainer.telemetry.logOtpCopied("message_item")
+                Toast.makeText(context, "OTP copied", Toast.LENGTH_SHORT).show()
+            }
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Icon(
                 Icons.Default.ContentCopy,
-                contentDescription = null,
-                modifier = Modifier.size(12.dp)
+                contentDescription = "Copy OTP",
+                modifier = Modifier.size(18.dp)
             )
             Text(
                 text = code,
-                style = MaterialTheme.typography.labelSmall,
+                style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
         }

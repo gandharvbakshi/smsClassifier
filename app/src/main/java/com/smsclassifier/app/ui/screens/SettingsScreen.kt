@@ -53,6 +53,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.compose.ui.text.SpanStyle
@@ -194,7 +195,7 @@ fun SettingsScreen(
 
             SettingsSection(title = "Privacy & data") {
                 Text(
-                    text = "Your messages stay on this phone. We never upload them.",
+                    text = stringResource(R.string.privacy_cloud_checks_summary),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -300,7 +301,7 @@ fun SettingsScreen(
                     subtitle = if (proActive) {
                         "Annual Pro is active on this device"
                     } else {
-                        "Annual subscription for scam warnings and code details"
+                        "Annual subscription for scam warnings and OTP details"
                     },
                     trailing = {
                         if (proActive) {
@@ -356,7 +357,7 @@ fun SettingsScreen(
                     text = {
                         Text(
                             "Send misclassified-message reports over HTTPS so we can improve the classifier. " +
-                                "OTP codes, long numbers, phone-number senders, links, and emails are masked before upload. " +
+                                "OTPs, long numbers, phone-number senders, links, and emails are masked before upload. " +
                                 "Stored on our servers; see Privacy policy. Off by default."
                         )
                     },

@@ -1,4 +1,5 @@
-v1.2.5 - Clearer Pro and safer reports
-- Shorter first-run setup with clearer 14-day trial and Pro messaging.
-- Wrong-label uploads now mask links, long numbers, phone-number senders, and emails before upload.
-- Refreshed Play Store screenshots with populated Indian SMS examples.
+v1.2.7 - Easier OTPs and safer setup
+- Larger OTP display with easier one-tap copy.
+- Clearer scam-risk and OTP-purpose labels for everyday use.
+- Default SMS setup appears before runtime permission prompts.
+- Wrong-label reports now update the message on this phone immediately.

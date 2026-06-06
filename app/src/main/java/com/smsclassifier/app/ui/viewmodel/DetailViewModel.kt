@@ -11,6 +11,7 @@ import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.data.MisclassificationLogEntity
 import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.util.AppLog
+import com.smsclassifier.app.util.ClassificationUtils
 import com.smsclassifier.app.work.ClassificationWorker
 import com.smsclassifier.app.work.FeedbackUploadWorker
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -57,7 +58,6 @@ class DetailViewModel(
                         userCorrection = correctionText
                     )
                 )
-                database.messageDao().markReviewed(msg.id)
                 database.misclassificationLogDao().insert(
                     MisclassificationLogEntity(
                         messageId = msg.id,
@@ -71,6 +71,9 @@ class DetailViewModel(
                         userNote = correctionText.ifBlank { null }
                     )
                 )
+                val correctedMessage = ClassificationUtils.applyUserCorrection(msg, correctionKind)
+                database.messageDao().update(correctedMessage)
+                _message.value = database.messageDao().getById(msg.id) ?: correctedMessage
                 saved = true
                 context?.applicationContext?.let { appCtx ->
                     if (SettingsRepository(appCtx).feedbackUploadEnabled) {

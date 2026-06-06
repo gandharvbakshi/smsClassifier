@@ -50,12 +50,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.smsclassifier.app.AppContainer
+import com.smsclassifier.app.R
 import com.smsclassifier.app.ui.components.ConversationItem
 import com.smsclassifier.app.ui.components.FilterChips
 import com.smsclassifier.app.ui.components.MessageItem
@@ -315,7 +317,7 @@ private fun EmptyInboxState(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
-                text = "Your messages stay on this phone. We never upload them.",
+                text = stringResource(R.string.privacy_cloud_checks_summary),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -462,7 +464,7 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        text = "Pro is unlocked for $trialLabel: scam warnings, code purpose, and 'Do not share' alerts.",
+                        text = "Pro is unlocked for $trialLabel: scam warnings, OTP purpose, and 'Do not share' alerts.",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.weight(1f)
                     )

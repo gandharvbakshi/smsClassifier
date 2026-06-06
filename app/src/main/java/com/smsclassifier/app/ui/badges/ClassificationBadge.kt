@@ -24,9 +24,9 @@ enum class BadgeType(
     val color: Color,
     val backgroundColor: Color
 ) {
-    SAFE("Safe", SafeGreen, SafeGreenSoft),
+    SAFE("No scam signs", SafeGreen, SafeGreenSoft),
     SUSPICIOUS("Suspicious", SuspiciousAmber, SuspiciousAmberSoft),
-    PHISHING("Phishing", PhishingRed, PhishingRedSoft),
+    PHISHING("Scam", PhishingRed, PhishingRedSoft),
     OTP("OTP", OTPBlue, OTPBlueSoft)
 }
 
@@ -42,7 +42,7 @@ fun ClassificationBadge(
     ) {
         Text(
             text = type.label,
-            style = MaterialTheme.typography.labelSmall,
+            style = MaterialTheme.typography.labelLarge,
             color = type.color,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)

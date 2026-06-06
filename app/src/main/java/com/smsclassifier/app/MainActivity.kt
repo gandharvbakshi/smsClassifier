@@ -99,18 +99,10 @@ class MainActivity : ComponentActivity() {
         
         database = AppDatabase.getDatabase(this)
         handleIntent(intent)
-        
-        // Request SMS permissions first (needed before default SMS handler)
-        requestSmsPermissionsIfNeeded()
-        
-        // Request notification permission for Android 13+ (API 33+)
-        requestNotificationPermissionIfNeeded()
-        
+
         // Ensure notification channel is created
         NotificationHelper.createNotificationChannel(this)
-        
-        promptForDefaultSmsIfNeeded()
-        
+
         setContent {
             var gateReady by remember { mutableStateOf(false) }
             var needsConsent by remember { mutableStateOf(false) }
@@ -252,7 +244,8 @@ class MainActivity : ComponentActivity() {
                                 onUnlockPro = {
                                     needsConsent = false
                                     navController.navigate("paywall/onboarding")
-                                }
+                                },
+                                onSetDefaultSms = { startDefaultSmsAndPermissionFlow() }
                             )
                         }
                         // Conversation list (home screen)
@@ -338,7 +331,7 @@ class MainActivity : ComponentActivity() {
                                     AppContainer.telemetry.logCtaTap("inbox", "new_message")
                                     navController.navigate("compose")
                                 },
-                                onSetDefaultSms = { promptForDefaultSmsIfNeeded() },
+                                onSetDefaultSms = { startDefaultSmsAndPermissionFlow() },
                                 entitlementUi = inboxEntitlementUi
                             )
                         }
@@ -521,6 +514,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        if (AppContainer.consentManager.onboardingSeenNow()) {
+            startDefaultSmsAndPermissionFlow()
+        }
     }
 
     override fun onResume() {
@@ -551,7 +547,16 @@ class MainActivity : ComponentActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_DEFAULT_SMS) {
-            // no-op; Settings screen observes state and will refresh
+            if (isDefaultSmsAppNow()) {
+                window.decorView.post {
+                    requestSmsPermissionsIfNeeded()
+                }
+            } else {
+                com.smsclassifier.app.util.AppLog.w(
+                    "MainActivity",
+                    "Default SMS role not granted; delaying runtime permission prompts"
+                )
+            }
         }
     }
     
@@ -580,6 +585,7 @@ class MainActivity : ComponentActivity() {
                     com.smsclassifier.app.util.AppLog.w("MainActivity", "SMS permissions denied")
                     // Show rationale or link to settings
                 }
+                requestNotificationPermissionIfNeeded()
             }
         }
     }
@@ -609,6 +615,14 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun requestNotificationPermissionIfNeeded() {
+        if (!isDefaultSmsAppNow()) {
+            com.smsclassifier.app.util.AppLog.w(
+                "MainActivity",
+                "Default SMS role not held; delaying notification permission prompt"
+            )
+            return
+        }
+
         // POST_NOTIFICATIONS permission is required for Android 13+ (API 33+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             when {
@@ -649,6 +663,14 @@ class MainActivity : ComponentActivity() {
     }
     
     private fun requestSmsPermissionsIfNeeded() {
+        if (!isDefaultSmsAppNow()) {
+            com.smsclassifier.app.util.AppLog.w(
+                "MainActivity",
+                "Default SMS role not held; delaying SMS permission prompt"
+            )
+            return
+        }
+
         // Check if we already have SMS permissions
         val hasReadSms = ContextCompat.checkSelfPermission(
             this,
@@ -662,6 +684,7 @@ class MainActivity : ComponentActivity() {
         
         if (hasReadSms && hasReceiveSms) {
             com.smsclassifier.app.util.AppLog.d("MainActivity", "SMS permissions already granted")
+            requestNotificationPermissionIfNeeded()
             return
         }
         
@@ -698,32 +721,44 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-    
-    private fun promptForDefaultSmsIfNeeded() {
-        // Check if already default SMS handler
-        val isDefault = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val roleManager = getSystemService(RoleManager::class.java)
-            roleManager?.isRoleHeld(RoleManager.ROLE_SMS) ?: false
-        } else {
-            Telephony.Sms.getDefaultSmsPackage(this) == packageName
+
+    private fun startDefaultSmsAndPermissionFlow() {
+        if (isDefaultSmsAppNow()) {
+            requestSmsPermissionsIfNeeded()
+            return
         }
-        
-        if (!isDefault) {
-            // Show prompt after a short delay to let UI load
-            window.decorView.postDelayed({
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    val roleManager = getSystemService(RoleManager::class.java)
-                    if (roleManager?.isRoleAvailable(RoleManager.ROLE_SMS) == true) {
-                        val intent = roleManager.createRequestRoleIntent(RoleManager.ROLE_SMS)
-                        startActivityForResult(intent, REQUEST_DEFAULT_SMS)
-                    }
-                } else {
-                    val intent = Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT).apply {
-                        putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, packageName)
-                    }
-                    startActivityForResult(intent, REQUEST_DEFAULT_SMS)
-                }
-            }, 1000) // 1 second delay
+
+        if (!launchDefaultSmsPrompt()) {
+            com.smsclassifier.app.util.AppLog.w(
+                "MainActivity",
+                "Default SMS prompt unavailable; runtime permission prompts delayed"
+            )
+        }
+    }
+
+    private fun launchDefaultSmsPrompt(): Boolean {
+        val intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val roleManager = getSystemService(RoleManager::class.java)
+            if (roleManager?.isRoleAvailable(RoleManager.ROLE_SMS) == true) {
+                roleManager.createRequestRoleIntent(RoleManager.ROLE_SMS)
+            } else {
+                return false
+            }
+        } else {
+            Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT).apply {
+                putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, packageName)
+            }
+        }
+
+        return runCatching {
+            startActivityForResult(intent, REQUEST_DEFAULT_SMS)
+            true
+        }.getOrElse { throwable ->
+            com.smsclassifier.app.util.AppLog.w(
+                "MainActivity",
+                "Unable to launch default SMS prompt: ${throwable.message}"
+            )
+            false
         }
     }
 

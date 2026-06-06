@@ -10,14 +10,15 @@
     <!-- Filters -->
     <string name="filter_all">All</string>
     <string name="filter_otp">OTP</string>
-    <string name="filter_phishing">Phishing</string>
+    <string name="filter_phishing">Scam</string>
     <string name="filter_needs_review">Needs Review</string>
     
     <!-- Badges -->
-    <string name="badge_safe">Safe</string>
+    <string name="badge_safe">No scam signs</string>
     <string name="badge_suspicious">Suspicious</string>
-    <string name="badge_phishing">Phishing</string>
+    <string name="badge_phishing">Scam</string>
     <string name="badge_otp">OTP</string>
+    <string name="privacy_cloud_checks_summary">Free sorting runs on this phone. Trial/Pro cloud checks send message text and sender over HTTPS to classify them. Optional improvement reports are masked before upload and are off by default.</string>
     
     <!-- Settings -->
     <string name="settings_inference_mode">Inference Mode</string>
