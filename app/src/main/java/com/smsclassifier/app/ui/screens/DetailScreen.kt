@@ -16,13 +16,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextOverflow
 import com.smsclassifier.app.AppContainer
-import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.ui.badges.SensitivityType
-import com.smsclassifier.app.ui.badges.ClassificationBadge
-import com.smsclassifier.app.ui.badges.SensitivityBadge
+import com.smsclassifier.app.ui.components.DeleteMessageButton
+import com.smsclassifier.app.ui.components.MessageSenderCard
+import com.smsclassifier.app.ui.components.MessageVerdictBand
+import com.smsclassifier.app.ui.components.MessageVerdictTone
 import com.smsclassifier.app.ui.components.OtpHeroCard
-import com.smsclassifier.app.ui.components.ReasonChips
+import com.smsclassifier.app.ui.components.ReportWrongButton
+import com.smsclassifier.app.ui.components.ScamRiskMeter
+import com.smsclassifier.app.ui.components.WhyList
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.util.ClassificationUtils
 import com.smsclassifier.app.util.SenderNameResolver
@@ -95,11 +98,36 @@ fun DetailScreen(
         message?.let { msg ->
             val friendlySender = SenderNameResolver.resolve(msg.sender)
             val sensitivity = ClassificationUtils.sensitivityType(msg)
-            val hasCloudRiskResult = msg.isPhishing != null || msg.phishScore != null
             val intentLabel = ClassificationUtils.humanizeIntent(msg.otpIntent)
             val otpCode = remember(msg.id, msg.body, msg.sender, msg.isOtp, msg.userCorrected) {
                 ClassificationUtils.extractOtpForCopy(msg)
             }
+            val reasons = parseReasons(msg.reasonsJson)
+            val hasError = msg.isOtp == null && msg.isPhishing == null &&
+                reasons.any { it.contains("error", ignoreCase = true) ||
+                             it.contains("unable", ignoreCase = true) ||
+                             it.contains("failed", ignoreCase = true) ||
+                             it.contains("timeout", ignoreCase = true) }
+            val riskLevel = ClassificationUtils.detailRiskLevel(msg)
+            val riskLabel = ClassificationUtils.riskSummary(msg)
+            val scamLikely = ClassificationUtils.isScamLikely(msg)
+            val showOtpHero = otpCode != null && !scamLikely
+            val verdictTone = when {
+                scamLikely -> MessageVerdictTone.SCAM
+                showOtpHero -> MessageVerdictTone.OTP
+                else -> MessageVerdictTone.SAFE
+            }
+            val verdictTitle = when (verdictTone) {
+                MessageVerdictTone.SCAM -> "This looks like a scam"
+                MessageVerdictTone.OTP -> "OTP found"
+                MessageVerdictTone.SAFE -> "Looks safe"
+            }
+            val verdictBody = when (verdictTone) {
+                MessageVerdictTone.SCAM -> "Do not tap links or share private details from this message."
+                MessageVerdictTone.OTP -> "Use this OTP only for the action you requested."
+                MessageVerdictTone.SAFE -> "This reads like a normal message. No scam signs found."
+            }
+            val plainReasons = ClassificationUtils.plainReasons(msg, reasons)
             Column(
                 modifier = modifier
                     .fillMaxSize()
@@ -108,48 +136,12 @@ fun DetailScreen(
                     .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // Sender and timestamp
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = friendlySender,
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
-                        )
-                        if (friendlySender != msg.sender) {
-                            Text(
-                                text = msg.sender,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    }
-                    Text(
-                        text = formatTimestamp(msg.ts),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-
-                if (otpCode != null) {
-                    OtpHeroCard(
-                        code = otpCode,
-                        intentLabel = intentLabel,
-                        sensitivity = sensitivity,
-                        onCopy = {
-                            clipboardManager.setText(AnnotatedString(otpCode))
-                            AppContainer.telemetry.logOtpCopied("detail")
-                            coroutineScope.launch {
-                                snackbarHostState.showSnackbar("OTP copied to clipboard")
-                            }
-                        }
-                    )
-                }
-
-                Divider()
+                MessageSenderCard(
+                    friendlySender = friendlySender,
+                    rawSender = msg.sender,
+                    timestamp = formatTimestamp(msg.ts),
+                    body = msg.body
+                )
 
                 if (AppContainer.entitlementManager.shouldShowDetailUnlockPlaceholder(msg)) {
                     Card(
@@ -190,61 +182,9 @@ fun DetailScreen(
                             }
                         }
                     }
-                    Divider()
                 }
-
-                // Message body
-                Text(
-                    text = msg.body,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-                
-                Divider()
-
-                if (hasCloudRiskResult || sensitivity != SensitivityType.NONE) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        if (hasCloudRiskResult) {
-                            ClassificationBadge(type = ClassificationUtils.riskBadgeType(msg))
-                        }
-                        SensitivityBadge(type = sensitivity)
-                    }
-                }
-                
-                if (otpCode == null && intentLabel != null) {
-                    Text(
-                        text = "This OTP is for: $intentLabel",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-
-                if (hasCloudRiskResult) {
-                    Text(
-                        text = "Scam risk: ${ClassificationUtils.riskSummary(msg)}",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    if (BuildConfig.DEBUG && msg.phishScore != null) {
-                        Text(
-                            text = "Debug score: ${String.format("%.2f", msg.phishScore)}",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
-                
-                // Check if classification failed (all null and error in reasons)
-                val reasons = parseReasons(msg.reasonsJson)
-                val hasError = msg.isOtp == null && msg.isPhishing == null && 
-                    reasons.any { it.contains("error", ignoreCase = true) || 
-                                 it.contains("unable", ignoreCase = true) ||
-                                 it.contains("failed", ignoreCase = true) ||
-                                 it.contains("timeout", ignoreCase = true) }
                 
                 if (hasError) {
-                    // Show error state
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         colors = CardDefaults.cardColors(
@@ -297,21 +237,52 @@ fun DetailScreen(
                             }
                         }
                     }
-                } else if (reasons.isNotEmpty()) {
-                    // Show classification reasons
-                    Column {
-                        Text(
-                            text = "Reasons:",
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.Bold
+                } else {
+                    if (showOtpHero && otpCode != null) {
+                        OtpHeroCard(
+                            code = otpCode,
+                            intentLabel = intentLabel,
+                            sensitivity = sensitivity,
+                            onCopy = {
+                                clipboardManager.setText(AnnotatedString(otpCode))
+                                AppContainer.telemetry.logOtpCopied("detail")
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar("OTP copied to clipboard")
+                                }
+                            }
                         )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        ReasonChips(reasons = reasons)
+                    } else {
+                        MessageVerdictBand(
+                            tone = verdictTone,
+                            title = verdictTitle,
+                            body = verdictBody
+                        )
+                        ScamRiskMeter(
+                            level = riskLevel,
+                            label = riskLabel
+                        )
+                    }
+
+                    WhyList(
+                        title = if (scamLikely) "Why it looks risky" else "Why we think this",
+                        reasons = plainReasons
+                    )
+
+                    if (scamLikely) {
+                        DeleteMessageButton(
+                            onClick = {
+                                viewModel.deleteMessage {
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar("Message deleted")
+                                    }
+                                    onBack()
+                                }
+                            }
+                        )
                     }
                 }
                 
-                // Report as wrong button
-                Button(
+                ReportWrongButton(
                     onClick = {
                         AppContainer.telemetry.logEvent(
                             "feedback_started",
@@ -320,11 +291,8 @@ fun DetailScreen(
                         reportNote = ""
                         reportType = null
                         showReportDialog = true
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Report a mistake")
-                }
+                    }
+                )
             }
         } ?: run {
             Box(modifier = Modifier.fillMaxSize()) {

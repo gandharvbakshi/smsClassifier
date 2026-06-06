@@ -53,4 +53,15 @@
         android:maxLines="6"
         android:ellipsize="end"
         android:text="Message body" />
+
+    <TextView
+        android:id="@+id/notif_otp_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.Compat.Notification.Line2"
+        android:textColor="@color/suspicious_amber"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:text="Do not share this OTP with anyone." />
 </LinearLayout>

@@ -208,6 +208,8 @@ class MainActivity : ComponentActivity() {
                     val composeMessage = intent?.getStringExtra("compose_message")
                     val openThreadId = intent?.getLongExtra("threadId", -1L)
                     val shouldOpenThread = intent?.getBooleanExtra("openThread", false) == true
+                    val openMessageId = intent?.getLongExtra("messageId", -1L)
+                    val shouldOpenDetail = intent?.getBooleanExtra("openDetail", false) == true
 
                     LaunchedEffect(composePhone, composeMessage) {
                         if (composePhone != null || composeMessage != null) {
@@ -218,6 +220,12 @@ class MainActivity : ComponentActivity() {
                     LaunchedEffect(openThreadId, shouldOpenThread) {
                         if (shouldOpenThread && openThreadId != -1L) {
                             navController.navigate("thread/$openThreadId")
+                        }
+                    }
+
+                    LaunchedEffect(openMessageId, shouldOpenDetail) {
+                        if (shouldOpenDetail && openMessageId != -1L) {
+                            navController.navigate("detail/$openMessageId")
                         }
                     }
 

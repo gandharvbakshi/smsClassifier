@@ -1,5 +1,5 @@
-v1.2.7 - Easier OTPs and safer setup
-- Larger OTP display with easier one-tap copy.
-- Clearer scam-risk and OTP-purpose labels for everyday use.
-- Default SMS setup appears before runtime permission prompts.
-- Wrong-label reports now update the message on this phone immediately.
+v1.2.8 - Clearer message details and OTP notifications
+- Message details now use plain-language scam risk and OTP explanations.
+- Raw classifier labels and scores are hidden from user-facing screens.
+- OTP notifications now have Copy OTP and Open actions.
+- OTP copy now avoids picking transaction amounts when the OTP appears later.

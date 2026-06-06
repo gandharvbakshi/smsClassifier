@@ -12,7 +12,7 @@ class ClassificationUtilsTest {
     @Test
     fun humanizeIntent_knownIntent_returnsPlainOtpPurpose() {
         assertEquals(
-            "Bank / card payment",
+            "Bank payment login",
             ClassificationUtils.humanizeIntent("BANK_OR_CARD_TXN_OTP")
         )
         assertNull(ClassificationUtils.humanizeIntent("NOT_OTP"))
@@ -48,6 +48,17 @@ class ClassificationUtilsTest {
     }
 
     @Test
+    fun extractOtpForCopy_amountBeforeOtp_usesActualOtp() {
+        val message = baseMessage(
+            body = "OTP for txn of INR 4200 at AMAZON is 482917. Valid for 10 min. Do not share with anyone.",
+            sender = "VK-SBIOTP",
+            otpIntent = "BANK_OR_CARD_TXN_OTP"
+        )
+
+        assertEquals("482917", ClassificationUtils.extractOtpForCopy(message))
+    }
+
+    @Test
     fun applyUserCorrection_notPhishing_clearsScamRisk() {
         val corrected = ClassificationUtils.applyUserCorrection(
             baseMessage(isPhishing = true, phishScore = 0.93f),
@@ -58,11 +69,75 @@ class ClassificationUtilsTest {
         assertFalse(corrected.isPhishing ?: true)
         assertEquals(0f, corrected.phishScore ?: -1f, 0f)
         assertNull(corrected.reasonsJson)
-        assertEquals("No scam signs", ClassificationUtils.riskSummary(corrected))
+        assertEquals("Very low", ClassificationUtils.riskSummary(corrected))
+    }
+
+    @Test
+    fun riskSummary_highRisk_returnsPlainWordLabel() {
+        val message = baseMessage(isPhishing = true, phishScore = 0.91f)
+
+        assertEquals(ClassificationUtils.RiskLevel.HIGH, ClassificationUtils.detailRiskLevel(message))
+        assertEquals("High", ClassificationUtils.riskSummary(message))
+    }
+
+    @Test
+    fun plainReasons_mapsRawClassifierReasonsToUserLanguage() {
+        val reasons = ClassificationUtils.plainReasons(
+            baseMessage(),
+            listOf(
+                "Numeric code found (4-8 digits)",
+                "Heuristic OTP vetting",
+                "Known bank sender ID"
+            )
+        )
+
+        assertTrue(reasons.contains("Contains a short OTP that expires soon"))
+        assertTrue(reasons.contains("Wording matches a login or payment OTP"))
+        assertTrue(reasons.contains("Sent from a registered sender ID"))
+    }
+
+    @Test
+    fun plainReasons_safeMessageProvidesDefaultUserReasons() {
+        val reasons = ClassificationUtils.plainReasons(
+            baseMessage(
+                body = "USD 11.80 spent using ICICI Bank Card XX7007.",
+                isOtp = false,
+                otpIntent = "NOT_OTP",
+                isPhishing = false,
+                phishScore = 0.01f
+            ),
+            emptyList()
+        )
+
+        assertTrue(reasons.contains("Reads like a normal transaction alert"))
+        assertTrue(reasons.contains("Does not look like an OTP request"))
+    }
+
+    @Test
+    fun plainReasons_safeMessageDoesNotShowOtpReasonsFromRawClassifier() {
+        val reasons = ClassificationUtils.plainReasons(
+            baseMessage(
+                body = "USD 11.80 spent using ICICI Bank Card XX7007.",
+                isOtp = false,
+                otpIntent = "NOT_OTP",
+                isPhishing = false,
+                phishScore = 0.01f
+            ),
+            listOf(
+                "Numeric code found (4-8 digits)",
+                "Heuristic OTP vetting",
+                "Transaction/marketing context"
+            )
+        )
+
+        assertFalse(reasons.contains("Contains a short OTP that expires soon"))
+        assertFalse(reasons.contains("Wording matches a login or payment OTP"))
+        assertTrue(reasons.contains("Reads like a normal transaction alert"))
     }
 
     private fun baseMessage(
         body: String = "Your OTP is 847291. Do not share it.",
+        sender: String = "VM-TEST",
         isOtp: Boolean? = true,
         otpIntent: String? = "APP_LOGIN_OTP",
         isPhishing: Boolean? = false,
@@ -70,7 +145,7 @@ class ClassificationUtilsTest {
         userCorrected: Boolean = false,
         reasonsJson: String? = """["Old classifier reason"]"""
     ) = MessageEntity(
-        sender = "VM-TEST",
+        sender = sender,
         body = body,
         ts = 1L,
         isOtp = isOtp,

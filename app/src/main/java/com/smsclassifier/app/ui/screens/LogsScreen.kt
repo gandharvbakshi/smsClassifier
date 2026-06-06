@@ -26,6 +26,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.smsclassifier.app.data.MisclassificationLogEntity
 import com.smsclassifier.app.ui.viewmodel.LogsViewModel
+import com.smsclassifier.app.util.ClassificationUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -264,9 +265,12 @@ private fun LogCard(
                     modifier = Modifier.padding(10.dp),
                     verticalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
-                    PredictionLine("Predicted OTP", log.predictedIsOtp?.toString() ?: "—")
-                    PredictionLine("Predicted intent", log.predictedOtpIntent ?: "—")
-                    PredictionLine("Predicted scam", log.predictedIsPhishing?.toString() ?: "—")
+                    PredictionLine("Predicted OTP", formatBoolean(log.predictedIsOtp))
+                    PredictionLine(
+                        "Predicted intent",
+                        ClassificationUtils.humanizeIntent(log.predictedOtpIntent) ?: "Not an OTP"
+                    )
+                    PredictionLine("Predicted scam", formatBoolean(log.predictedIsPhishing))
                     PredictionLine(
                         "Scam risk",
                         formatLogScamRisk(log.predictedIsPhishing, log.predictedPhishScore)
@@ -323,6 +327,12 @@ private fun PredictionLine(label: String, value: String) {
 
 private fun formatLogDate(ts: Long): String =
     SimpleDateFormat("MMM d, h:mm a", Locale.getDefault()).format(Date(ts))
+
+private fun formatBoolean(value: Boolean?): String = when (value) {
+    true -> "Yes"
+    false -> "No"
+    null -> "—"
+}
 
 private fun formatLogScamRisk(isScam: Boolean?, score: Float?): String {
     val value = score ?: 0f

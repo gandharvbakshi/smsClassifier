@@ -37,6 +37,7 @@ fun OtpHeroCard(
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -50,29 +51,23 @@ fun OtpHeroCard(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "OTP",
+                text = if (intentLabel.isNullOrBlank()) "OTP" else "This OTP is for: $intentLabel",
                 style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center
             )
             Text(
                 text = code,
-                fontSize = 40.sp,
-                lineHeight = 48.sp,
+                fontSize = 44.sp,
+                lineHeight = 52.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 0.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
-            if (!intentLabel.isNullOrBlank()) {
-                Text(
-                    text = "This OTP is for: $intentLabel",
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center
-                )
-            }
             if (sensitivity == SensitivityType.DO_NOT_SHARE) {
                 Text(
-                    text = "Never share this OTP",
+                    text = "Never share this OTP with anyone",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.error,

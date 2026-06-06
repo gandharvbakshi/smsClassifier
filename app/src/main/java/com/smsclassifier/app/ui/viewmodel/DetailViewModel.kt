@@ -119,6 +119,19 @@ class DetailViewModel(
         }
     }
 
+    fun deleteMessage(onComplete: () -> Unit = {}) {
+        viewModelScope.launch {
+            try {
+                val msg = _message.value ?: return@launch
+                database.messageDao().delete(msg.id)
+                _message.value = null
+                onComplete()
+            } catch (e: Exception) {
+                AppLog.e(TAG, "Failed to delete message", e)
+            }
+        }
+    }
+
     companion object {
         private const val TAG = "DetailViewModel"
     }

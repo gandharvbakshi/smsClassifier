@@ -22,6 +22,7 @@ object SenderNameResolver {
         "ICICIB" to "ICICI Bank",
         "ICICI" to "ICICI Bank",
         "SBIINB" to "SBI",
+        "SBIOTP" to "SBI",
         "SBIPSG" to "SBI",
         "SBI" to "SBI",
         "HDFCBK" to "HDFC Bank",
@@ -48,8 +49,9 @@ object SenderNameResolver {
 
     // Common Indian DLT route prefixes (2 letters, then dash)
     private val routePrefixes = setOf(
-        "VD", "VM", "VK", "AX", "AD", "JD", "JM", "JK",
-        "BP", "BT", "BX", "BV", "TX", "DM", "MD", "PM", "PD"
+        "AD", "AX", "BP", "BT", "BV", "BX", "CP", "DM",
+        "JD", "JK", "JM", "JX", "MD", "PD", "PM", "TX",
+        "VD", "VK", "VM"
     )
 
     fun resolve(rawSender: String): String {
