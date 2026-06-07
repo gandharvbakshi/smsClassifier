@@ -1,5 +1,3 @@
-v1.2.8 - Clearer message details and OTP notifications
-- Message details now use plain-language scam risk and OTP explanations.
-- Raw classifier labels and scores are hidden from user-facing screens.
-- OTP notifications now have Copy OTP and Open actions.
-- OTP copy now avoids picking transaction amounts when the OTP appears later.
+v1.2.9 - New app icon
+- Refreshed the app launcher icon with the new SMS trust mark.
+- Updated Play Store icon and feature graphic assets.
