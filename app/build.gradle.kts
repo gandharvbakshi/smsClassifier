@@ -28,8 +28,8 @@ android {
         applicationId = "com.smsclassifier.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 34
-        versionName = "1.2.9"
+        versionCode = 35
+        versionName = "1.2.10"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -134,6 +134,7 @@ dependencies {
 
     // Core Android
     implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.fragment:fragment:1.8.9")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.1")
 

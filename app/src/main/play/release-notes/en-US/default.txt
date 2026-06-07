@@ -1,3 +1,4 @@
-v1.2.9 - New app icon
-- Refreshed the app launcher icon with the new SMS trust mark.
-- Updated Play Store icon and feature graphic assets.
+v1.2.10 - Import existing SMS
+- Imports existing SMS after the app is made the default SMS app and SMS permission is granted.
+- Clarifies onboarding so users know default SMS setup brings existing SMS into the inbox.
+- Updates AndroidX Fragment to address the Play SDK warning.
