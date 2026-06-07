@@ -1,0 +1,14 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SMS Classifier icon">
+  <title>SMS Classifier — message verified safe</title>
+  
+  <rect width="1024" height="1024" rx="230" fill="#E3F0FB"></rect>
+  
+  <rect x="11.5" y="11.5" width="1001" height="1001" rx="224" fill="none" stroke="#BBD7F2" stroke-width="22.5"></rect>
+  
+  <g fill="#0067C0">
+    <rect x="248.52" y="248.52" width="526.95" height="380.93" rx="142.85"></rect>
+    <path d="M375.5 616.75 L527.87 616.75 Q388.2 756.43 375.5 756.43 Q362.8 629.45 375.5 616.75 Z"></path>
+  </g>
+  
+  <path d="M372.35 446.6 L477.74 515.17 L656.91 362.8" fill="none" stroke="#FFFFFF" stroke-width="47.62" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
