@@ -39,9 +39,10 @@ except ImportError:
 RANDOM_SEED = 2025
 ROOT_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT_DIR / "data"
-TRAIN_FILE = DATA_DIR / "classification_results_with_phishing_llm_balanced_with_sender.csv"
+TRAIN_FILE_DEFAULT = DATA_DIR / "classification_results_with_phishing_llm_balanced_with_sender.csv"
 TEST_FILE = DATA_DIR / "synthetic_test_set_200_verified.csv"
 OUTPUT_DIR = ROOT_DIR / "synthetic_test_results"
+MODEL_DIR = ROOT_DIR / "trained_models"
 
 
 def ensure_output_dir():
@@ -144,11 +145,9 @@ def build_heuristic_features(text_series: pd.Series, sender_series: pd.Series = 
     return csr_matrix(np.array(rows, dtype=np.float32))
 
 
-def load_or_train_models(train_df: pd.DataFrame, model_dir: Path = None):
+def load_or_train_models(train_df: pd.DataFrame, model_dir: Path | None = None, *, force_retrain: bool = False):
     """Load pre-trained models if available, otherwise train new ones."""
-    if model_dir is None:
-        model_dir = Path("trained_models")
-    
+    model_dir = model_dir or MODEL_DIR
     model_dir.mkdir(parents=True, exist_ok=True)
     
     # Check if models exist
@@ -168,8 +167,8 @@ def load_or_train_models(train_df: pd.DataFrame, model_dir: Path = None):
     
     # Try to load existing models
     all_exist = all(f.exists() for f in model_files.values())
-    
-    if all_exist:
+
+    if all_exist and not force_retrain:
         print("Loading pre-trained models...")
         import pickle
         
@@ -198,6 +197,10 @@ def load_or_train_models(train_df: pd.DataFrame, model_dir: Path = None):
         return models
     
     # Train new models
+    if force_retrain and all_exist:
+        print("  --force-retrain: overwriting existing pickles.")
+    elif not all_exist:
+        print("  Some pickles missing → training...")
     print("Training new models (this may take a few minutes)...")
     models = train_models(train_df)
     
@@ -269,7 +272,7 @@ def train_models(train_df: pd.DataFrame):
             n_estimators=100,
             learning_rate=0.1,
         )
-        lgb_phishing.fit(X_train_full.toarray(), y_train_phishing)
+        lgb_phishing.fit(X_train_full, y_train_phishing)
         models["lgb_phishing"] = lgb_phishing
     
     # Is OTP - LR
@@ -294,7 +297,7 @@ def train_models(train_df: pd.DataFrame):
             n_estimators=100,
             learning_rate=0.1,
         )
-        lgb_isotp.fit(X_train_full.toarray(), y_train_isotp)
+        lgb_isotp.fit(X_train_full, y_train_isotp)
         models["lgb_isotp"] = lgb_isotp
     
     # Intent - LR
@@ -357,28 +360,45 @@ def evaluate_model(y_true, y_pred, labels=None, task_name=""):
 
 
 def main():
+    import argparse
+
+    ap = argparse.ArgumentParser(description="Evaluate / optionally retrain ONNX-path models on synthetic hold-out.")
+    ap.add_argument(
+        "--train-csv",
+        type=Path,
+        default=TRAIN_FILE_DEFAULT,
+        help="Supervised corpus (classification_results*_with_sender schema).",
+    )
+    ap.add_argument(
+        "--force-retrain",
+        action="store_true",
+        help="Always fit fresh models & overwrite trained_models/*.pkl (needed after merged CSV replaces labels).",
+    )
+    args = ap.parse_args()
+    train_path = args.train_csv
+
     ensure_output_dir()
-    
+
     print("=" * 80)
     print("TESTING MODELS ON SYNTHETIC TEST SET")
     print("=" * 80)
-    
+
     # Load training data
-    print(f"\n1. Loading training data: {TRAIN_FILE}...")
-    train_df = load_dataset(TRAIN_FILE)
+    print(f"\n1. Loading training data: {train_path}...")
+    train_df = load_dataset(str(train_path))
     print(f"   Loaded {len(train_df)} training rows")
-    
+
     # Load test data
     print(f"\n2. Loading test data: {TEST_FILE}...")
     if not Path(TEST_FILE).exists():
-        raise FileNotFoundError(f"{TEST_FILE} not found. Run generate_verified_test_set.py first.")
-    
+        raise FileNotFoundError(f"{TEST_FILE} not found.")
+
     test_df = load_dataset(TEST_FILE)
     print(f"   Loaded {len(test_df)} test rows")
-    
+
     # Load or train models
     print("\n3. Loading or training models...")
-    models = load_or_train_models(train_df)
+    models = load_or_train_models(train_df, force_retrain=args.force_retrain)
     
     # Prepare test features
     print("\n4. Preparing test features...")
@@ -408,7 +428,7 @@ def main():
     results["phishing"] = {"lr": lr_metrics_phishing}
     
     if HAS_LIGHTGBM:
-        lgb_pred_phishing = models["lgb_phishing"].predict(X_test_full.toarray())
+        lgb_pred_phishing = models["lgb_phishing"].predict(X_test_full)
         lgb_metrics_phishing = evaluate_model(y_test_phishing, lgb_pred_phishing)
         print("\nLightGBM:")
         print(json.dumps(lgb_metrics_phishing, indent=2))
@@ -426,7 +446,7 @@ def main():
     results["is_otp"] = {"lr": lr_metrics_isotp}
     
     if HAS_LIGHTGBM:
-        lgb_pred_isotp = models["lgb_isotp"].predict(X_test_full.toarray())
+        lgb_pred_isotp = models["lgb_isotp"].predict(X_test_full)
         lgb_metrics_isotp = evaluate_model(y_test_isotp, lgb_pred_isotp)
         print("\nLightGBM:")
         print(json.dumps(lgb_metrics_isotp, indent=2))

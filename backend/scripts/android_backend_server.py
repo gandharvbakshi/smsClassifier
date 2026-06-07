@@ -13,6 +13,7 @@ Run locally for testing:
 from __future__ import annotations
 
 import hashlib
+import hmac
 import json
 import logging
 import os
@@ -386,6 +387,10 @@ FEEDBACK_GCS_PREFIX = os.getenv("FEEDBACK_GCS_PREFIX", "misclassification/")
 ENTITLEMENT_GCS_PREFIX = os.getenv("ENTITLEMENT_GCS_PREFIX", "entitlements/")
 PLAY_PACKAGE_NAME = os.getenv("PLAY_PACKAGE_NAME", "com.smsclassifier.app")
 ANDROID_PUBLISHER_SCOPE = "https://www.googleapis.com/auth/androidpublisher"
+ADMIN_API_TOKEN = (
+    os.getenv("ADMIN_API_TOKEN", "").strip()
+    or os.getenv("SMS_ADMIN_TOKEN", "").strip()
+)
 PRO_YEARLY_PRODUCT_ID = "pro_yearly"
 PRO_LIFETIME_PRODUCT_ID = "pro_lifetime"
 DEFAULT_TRIAL_DAYS = _int_env("TRIAL_DAYS", 14)
@@ -838,6 +843,125 @@ def _delete_entitlements(install_id: str, firebase_uid: Optional[str]) -> int:
     return deleted
 
 
+def _bearer_value(authorization: Optional[str]) -> str:
+    raw = (authorization or "").strip()
+    if raw.lower().startswith("bearer "):
+        return raw[7:].strip()
+    return raw
+
+
+def _require_admin(
+    authorization: Optional[str],
+    x_admin_token: Optional[str],
+) -> None:
+    if not ADMIN_API_TOKEN:
+        raise HTTPException(status_code=503, detail="admin API disabled")
+    provided = (x_admin_token or "").strip() or _bearer_value(authorization)
+    if not provided or not hmac.compare_digest(provided, ADMIN_API_TOKEN):
+        raise HTTPException(status_code=401, detail="invalid admin token")
+
+
+def _require_admin_subject(install_id: Optional[str], firebase_uid: Optional[str]) -> None:
+    if not (install_id or firebase_uid):
+        raise HTTPException(status_code=400, detail="installId or firebaseUid is required")
+
+
+def _record_pro_active(record: Dict[str, Any], now: Optional[int] = None) -> bool:
+    now = now if now is not None else int(time.time() * 1000)
+    pro_expires = record.get("proExpiresAt")
+    return bool(record.get("proActive")) and (
+        not isinstance(pro_expires, int) or now < pro_expires
+    )
+
+
+def _record_trial_active(record: Dict[str, Any], now: Optional[int] = None) -> bool:
+    now = now if now is not None else int(time.time() * 1000)
+    trial_expires = record.get("trialExpiresAt")
+    return isinstance(trial_expires, int) and now < trial_expires
+
+
+def _admin_public_entitlement(record: Dict[str, Any]) -> Dict[str, Any]:
+    response = _entitlement_response(record)
+    for key in (
+        "installId",
+        "firebaseUid",
+        "purchaseProductId",
+        "purchaseProductType",
+        "lastValidationStatus",
+        "grantSource",
+        "grantReason",
+        "giftGrantedAt",
+        "giftDurationDays",
+        "giftExpiresAt",
+        "updatedAt",
+    ):
+        if record.get(key) is not None:
+            response[key] = record[key]
+    response["hasPurchaseToken"] = bool(record.get("purchaseTokenHash"))
+    return response
+
+
+def _iter_local_entitlement_records() -> List[Dict[str, Any]]:
+    safe_prefix = ENTITLEMENT_GCS_PREFIX.rstrip("/").replace("/", "_")
+    records: List[Dict[str, Any]] = []
+    try:
+        for path in FEEDBACK_LOG_DIR.glob(f"{safe_prefix}_*.json"):
+            try:
+                records.append(json.loads(path.read_text(encoding="utf-8")))
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("Local entitlement stats read failed for %s: %s", path, exc)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("Local entitlement stats listing failed: %s", exc)
+    return records
+
+
+def _iter_gcs_entitlement_records() -> List[Dict[str, Any]]:
+    client = _gcs_client()
+    if client is None or not FEEDBACK_GCS_BUCKET:
+        return []
+    records: List[Dict[str, Any]] = []
+    prefix = ENTITLEMENT_GCS_PREFIX.rstrip("/") + "/"
+    try:
+        bucket = client.bucket(FEEDBACK_GCS_BUCKET)
+        for blob in bucket.list_blobs(prefix=prefix):
+            if not blob.name.endswith(".json"):
+                continue
+            try:
+                records.append(json.loads(blob.download_as_text(encoding="utf-8")))
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("GCS entitlement stats read failed for %s: %s", blob.name, exc)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("GCS entitlement stats listing failed: %s", exc)
+    return records
+
+
+def _entitlement_subject_key(record: Dict[str, Any]) -> str:
+    firebase_uid = str(record.get("firebaseUid") or "").strip()
+    install_id = str(record.get("installId") or "").strip()
+    if firebase_uid:
+        return f"uid:{firebase_uid}"
+    if install_id:
+        return f"install:{install_id}"
+    stable = json.dumps(record, sort_keys=True, ensure_ascii=False)
+    return "record:" + hashlib.sha256(stable.encode("utf-8")).hexdigest()
+
+
+def _entitlement_subject_hash(record: Dict[str, Any]) -> str:
+    return hashlib.sha256(_entitlement_subject_key(record).encode("utf-8")).hexdigest()[:16]
+
+
+def _all_entitlement_records() -> List[Dict[str, Any]]:
+    unique: Dict[str, Dict[str, Any]] = {}
+    for record in [*_iter_gcs_entitlement_records(), *_iter_local_entitlement_records()]:
+        if not isinstance(record, dict):
+            continue
+        key = _entitlement_subject_key(record)
+        current = unique.get(key)
+        if current is None or int(record.get("updatedAt") or 0) >= int(current.get("updatedAt") or 0):
+            unique[key] = record
+    return list(unique.values())
+
+
 class EntitlementRequest(BaseModel):
     installId: str = Field(..., min_length=8, max_length=128)
     firebaseUid: Optional[str] = Field(None, max_length=128)
@@ -868,6 +992,14 @@ class PurchaseVerifyResponse(EntitlementResponse):
     validationStatus: str
 
 
+class AdminGrantProRequest(BaseModel):
+    installId: Optional[str] = Field(None, min_length=8, max_length=128)
+    firebaseUid: Optional[str] = Field(None, min_length=4, max_length=128)
+    durationDays: int = Field(365, ge=1, le=3650)
+    reason: str = Field("gift", min_length=1, max_length=80)
+    note: Optional[str] = Field(None, max_length=240)
+
+
 @api_router.get("/entitlements/me", response_model=EntitlementResponse)
 def get_entitlement(installId: str, firebaseUid: Optional[str] = None) -> Dict[str, Any]:
     return _entitlement_response(_load_entitlement(installId, firebaseUid))
@@ -887,6 +1019,118 @@ def start_trial(request: EntitlementRequest) -> Dict[str, Any]:
         _write_entitlement(record)
         logger.info("trial started", extra={"installId": request.installId, "has_uid": bool(request.firebaseUid)})
     return _entitlement_response(record)
+
+
+@api_router.get("/admin/entitlements/lookup")
+def admin_lookup_entitlement(
+    installId: Optional[str] = None,
+    firebaseUid: Optional[str] = None,
+    authorization: Optional[str] = Header(default=None),
+    x_admin_token: Optional[str] = Header(default=None),
+) -> Dict[str, Any]:
+    _require_admin(authorization, x_admin_token)
+    _require_admin_subject(installId, firebaseUid)
+    record = _load_entitlement(installId or "", firebaseUid)
+    return {"ok": True, "entitlement": _admin_public_entitlement(record)}
+
+
+@api_router.post("/admin/entitlements/grant-pro")
+def admin_grant_pro(
+    request: AdminGrantProRequest,
+    authorization: Optional[str] = Header(default=None),
+    x_admin_token: Optional[str] = Header(default=None),
+) -> Dict[str, Any]:
+    _require_admin(authorization, x_admin_token)
+    _require_admin_subject(request.installId, request.firebaseUid)
+    record = _load_entitlement(request.installId or "", request.firebaseUid)
+    now = int(time.time() * 1000)
+    gift_expires_at = now + request.durationDays * 24 * 60 * 60 * 1000
+    existing_expires = record.get("proExpiresAt")
+    existing_indefinite_pro = bool(record.get("proActive")) and not isinstance(existing_expires, int)
+
+    record["installId"] = request.installId or record.get("installId") or ""
+    record["firebaseUid"] = request.firebaseUid or record.get("firebaseUid")
+    record["proActive"] = True
+    if not existing_indefinite_pro:
+        record["proExpiresAt"] = max(existing_expires, gift_expires_at) if isinstance(existing_expires, int) else gift_expires_at
+    record["purchasePolicyVersion"] = PURCHASE_POLICY_VERSION
+    record["grantSource"] = "gift"
+    record["grantReason"] = request.reason.strip()
+    record["giftGrantedAt"] = now
+    record["giftDurationDays"] = request.durationDays
+    record["giftExpiresAt"] = gift_expires_at
+    record["lastValidationStatus"] = "gift"
+    record["updatedAt"] = now
+    if request.note:
+        record["grantNote"] = request.note.strip()
+    _write_entitlement(record)
+    logger.info(
+        "admin gift pro granted",
+        extra={
+            "has_install": bool(request.installId),
+            "has_uid": bool(request.firebaseUid),
+            "duration_days": request.durationDays,
+            "reason": record["grantReason"],
+        },
+    )
+    return {"ok": True, "entitlement": _admin_public_entitlement(record)}
+
+
+@api_router.get("/admin/entitlements/stats")
+def admin_entitlement_stats(
+    authorization: Optional[str] = Header(default=None),
+    x_admin_token: Optional[str] = Header(default=None),
+) -> Dict[str, Any]:
+    _require_admin(authorization, x_admin_token)
+    now = int(time.time() * 1000)
+    records = _all_entitlement_records()
+    active_pro = [row for row in records if _record_pro_active(row, now)]
+    active_gift = [row for row in active_pro if row.get("grantSource") == "gift"]
+    active_paid = [row for row in active_pro if row.get("purchaseTokenHash")]
+    active_trial = [row for row in records if _record_trial_active(row, now)]
+    trial_used = [row for row in records if isinstance(row.get("trialStartedAt"), int)]
+    expired_pro = [
+        row
+        for row in records
+        if bool(row.get("proActive")) and isinstance(row.get("proExpiresAt"), int) and now >= row["proExpiresAt"]
+    ]
+    recent_gifts = sorted(
+        [row for row in records if row.get("grantSource") == "gift"],
+        key=lambda row: int(row.get("giftGrantedAt") or row.get("updatedAt") or 0),
+        reverse=True,
+    )[:10]
+    return {
+        "ok": True,
+        "generatedAt": now,
+        "storage": {
+            "gcsBucketConfigured": bool(FEEDBACK_GCS_BUCKET),
+            "entitlementPrefix": ENTITLEMENT_GCS_PREFIX,
+        },
+        "counts": {
+            "knownEntitlementSubjects": len(records),
+            "activePro": len(active_pro),
+            "activeGiftPro": len(active_gift),
+            "activePaidProKnownToBackend": len(active_paid),
+            "activeTrial": len(active_trial),
+            "trialUsed": len(trial_used),
+            "expiredPro": len(expired_pro),
+        },
+        "recentGiftGrants": [
+            {
+                "subjectHash": _entitlement_subject_hash(row),
+                "active": _record_pro_active(row, now),
+                "grantReason": row.get("grantReason"),
+                "giftGrantedAt": row.get("giftGrantedAt"),
+                "proExpiresAt": row.get("proExpiresAt"),
+                "giftDurationDays": row.get("giftDurationDays"),
+            }
+            for row in recent_gifts
+        ],
+        "notes": [
+            "Paid counts include only purchases that have reached this backend purchase verification endpoint.",
+            "Per-user classification usage is not available here because /api/classify does not currently receive installId or firebaseUid.",
+        ],
+    }
 
 
 def _parse_play_timestamp_ms(value: Optional[str]) -> Optional[int]:

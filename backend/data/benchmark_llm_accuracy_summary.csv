@@ -2,6 +2,6 @@
 llama-3.1-8b-instant,groq,ok,83.0,75.0,42.42,21.9
 llama-3.3-70b-versatile,groq,ok,96.0,86.46,78.0,31.72
 deepseek-chat,deepseek,ok,99.0,74.0,83.0,342.03
-gemini-2.5-flash-lite,google,smoke test error: 400 Client Error: Bad Request for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=AIzaSyDfAsRN9pTI9ijXRI0MpgLWmgo1s4slus8,,,,
-gemini-2.5-flash,google,smoke test error: 400 Client Error: Bad Request for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyDfAsRN9pTI9ijXRI0MpgLWmgo1s4slus8,,,,
+gemini-2.5-flash-lite,google,smoke test error: 400 Client Error: Bad Request for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=<REDACTED>,,,,
+gemini-2.5-flash,google,smoke test error: 400 Client Error: Bad Request for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=<REDACTED>,,,,
 gpt-4o-mini,openai,smoke test error: 400 Client Error: Bad Request for url: https://api.openai.com/v1/responses,,,,

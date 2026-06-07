@@ -49,7 +49,7 @@ except ImportError:
 RANDOM_SEED = 2025
 ROOT_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT_DIR / "data"
-SOURCE_FILE = DATA_DIR / "classification_results_with_phishing_llm_balanced_with_sender.csv"
+DEFAULT_SOURCE = DATA_DIR / "classification_results_with_phishing_llm_balanced_with_sender.csv"
 SYNTHETIC_EVAL_FILE = DATA_DIR / "synthetic_test_set_200_verified.csv"
 OUTPUT_DIR = ROOT_DIR / "model_comparison_results"
 
@@ -64,7 +64,7 @@ def ensure_output_dir() -> None:
 
 def load_dataset(path: str) -> pd.DataFrame:
     """Load dataset and normalize key columns."""
-    df = pd.read_csv(path)
+    df = pd.read_csv(path, low_memory=False)
     required_cols = [
         "original_index",
         "sms_text",
@@ -188,10 +188,18 @@ def train_multiclass_lr(X_train, y_train, intent_labels: List[str]) -> Tuple[Log
 
 
 def ensure_dense(X):
-    return X.toarray() if hasattr(X, "toarray") else X
+    """Dense float32 array — only use for models that cannot take CSR (XGBoost)."""
+    if hasattr(X, "toarray"):
+        return X.toarray().astype(np.float32, copy=False)
+    return np.asarray(X, dtype=np.float32)
 
 
-def train_binary_lightgbm(X_train_dense, y_train) -> "lgb.LGBMClassifier":
+def _matrix_too_large_for_dense(n_rows: int, n_cols: int, max_elements: int = 25_000_000) -> bool:
+    """Avoid allocating multi-GB dense matrices on merged 70k+ × 60k+ TF-IDF stacks."""
+    return n_rows * n_cols > max_elements
+
+
+def train_binary_lightgbm(X_train, y_train) -> "lgb.LGBMClassifier":
     if not HAS_LIGHTGBM:
         raise ImportError("lightgbm not installed")
     model = lgb.LGBMClassifier(
@@ -202,11 +210,12 @@ def train_binary_lightgbm(X_train_dense, y_train) -> "lgb.LGBMClassifier":
         n_estimators=200,
         learning_rate=0.08,
     )
-    model.fit(X_train_dense, y_train)
+    # scipy.sparse.csr_matrix hstack(TFIDF, heuristics) — LightGBM accepts CSR
+    model.fit(X_train, y_train)
     return model
 
 
-def train_multiclass_lightgbm(X_train_dense, y_train, intent_labels: List[str]) -> "lgb.LGBMClassifier":
+def train_multiclass_lightgbm(X_train, y_train, intent_labels: List[str]) -> "lgb.LGBMClassifier":
     if not HAS_LIGHTGBM:
         raise ImportError("lightgbm not installed")
     class_weights = {}
@@ -226,7 +235,7 @@ def train_multiclass_lightgbm(X_train_dense, y_train, intent_labels: List[str]) 
         learning_rate=0.08,
         num_class=len(intent_labels),
     )
-    model.fit(X_train_dense, y_train)
+    model.fit(X_train, y_train)
     return model
 
 
@@ -329,7 +338,12 @@ def predict_and_evaluate(
     metrics = {}
     preds = {} if return_preds else None
     for name, bundle in models.items():
-        X_mat = X_dense if bundle.requires_dense else X_sparse
+        if bundle.requires_dense:
+            if X_dense is None:
+                continue
+            X_mat = X_dense
+        else:
+            X_mat = X_sparse
         y_pred = np.asarray(bundle.model.predict(X_mat)).ravel()
         if y_pred.dtype.kind == "f":
             y_pred = np.rint(y_pred)
@@ -345,12 +359,24 @@ def predict_and_evaluate(
 # ---------------------------------------------------------------------------
 
 def main():
+    import argparse
+
+    ap = argparse.ArgumentParser(description="Train/eval LR + LightGBM (+optional XGB) on SMS corpus.")
+    ap.add_argument(
+        "--source",
+        type=Path,
+        default=DEFAULT_SOURCE,
+        help="Training CSV path (classification_results*_with_sender schema).",
+    )
+    args = ap.parse_args()
+    SOURCE_FILE = args.source
+
     if not HAS_LIGHTGBM:
         print("ERROR: lightgbm not installed. Install with: pip install lightgbm")
         return
 
     ensure_output_dir()
-    print("Loading training dataset...")
+    print(f"Loading training dataset: {SOURCE_FILE} ...")
     df = load_dataset(SOURCE_FILE)
 
     stratify_key = df["predicted_otp_intent"] + "_" + df["is_phishing_original"].astype(str)
@@ -376,8 +402,15 @@ def main():
 
     X_train_full = hstack([X_train_tfidf, heur_train])
     X_test_full = hstack([X_test_tfidf, heur_test])
-    X_train_dense = ensure_dense(X_train_full)
-    X_test_dense = ensure_dense(X_test_full)
+    n_rows, n_cols = X_train_full.shape
+    skip_xgb_dense = _matrix_too_large_for_dense(n_rows, n_cols)
+    if skip_xgb_dense and HAS_XGBOOST:
+        print(
+            f"[train] Skipping XGBoost (design matrix {n_rows}×{n_cols} too large for dense RAM). "
+            "LightGBM + LR run on sparse CSR."
+        )
+    X_train_dense = None if skip_xgb_dense else ensure_dense(X_train_full)
+    X_test_dense = None if skip_xgb_dense else ensure_dense(X_test_full)
 
     y_train_phishing = train_df["is_phishing_original"].values
     y_test_phishing = test_df["is_phishing_original"].values
@@ -398,8 +431,8 @@ def main():
     print("=" * 80)
     models_phishing: Dict[str, ModelBundle] = {}
     add_model(models_phishing, "logistic_regression", train_binary_lr(X_train_full, y_train_phishing), False)
-    add_model(models_phishing, "lightgbm", train_binary_lightgbm(X_train_dense, y_train_phishing), True)
-    if HAS_XGBOOST:
+    add_model(models_phishing, "lightgbm", train_binary_lightgbm(X_train_full, y_train_phishing), False)
+    if HAS_XGBOOST and not skip_xgb_dense:
         add_model(models_phishing, "xgboost", train_binary_xgboost(X_train_dense, y_train_phishing), True)
 
     phishing_metrics, phishing_preds = predict_and_evaluate(
@@ -414,8 +447,8 @@ def main():
     print("=" * 80)
     models_isotp: Dict[str, ModelBundle] = {}
     add_model(models_isotp, "logistic_regression", train_binary_lr(X_train_full, y_train_isotp), False)
-    add_model(models_isotp, "lightgbm", train_binary_lightgbm(X_train_dense, y_train_isotp), True)
-    if HAS_XGBOOST:
+    add_model(models_isotp, "lightgbm", train_binary_lightgbm(X_train_full, y_train_isotp), False)
+    if HAS_XGBOOST and not skip_xgb_dense:
         add_model(models_isotp, "xgboost", train_binary_xgboost(X_train_dense, y_train_isotp), True)
 
     isotp_metrics, isotp_preds = predict_and_evaluate(
@@ -431,8 +464,13 @@ def main():
     models_intent: Dict[str, ModelBundle] = {}
     lr_intent_model, _ = train_multiclass_lr(X_train_full, y_train_intent, le_intent.classes_.tolist())
     add_model(models_intent, "logistic_regression", lr_intent_model, False)
-    add_model(models_intent, "lightgbm", train_multiclass_lightgbm(X_train_dense, y_train_intent, le_intent.classes_), True)
-    if HAS_XGBOOST:
+    add_model(
+        models_intent,
+        "lightgbm",
+        train_multiclass_lightgbm(X_train_full, y_train_intent, le_intent.classes_),
+        False,
+    )
+    if HAS_XGBOOST and not skip_xgb_dense:
         add_model(
             models_intent,
             "xgboost",
@@ -457,7 +495,7 @@ def main():
     X_eval_tfidf = vectorizer.transform(synthetic_df["sms_text"])
     heur_eval = build_heuristic_features(synthetic_df["sms_text"], synthetic_df["sender"])
     X_eval_full = hstack([X_eval_tfidf, heur_eval])
-    X_eval_dense = ensure_dense(X_eval_full)
+    X_eval_dense = None if skip_xgb_dense else ensure_dense(X_eval_full)
 
     y_eval_phishing = synthetic_df["is_phishing_original"].values
     y_eval_isotp = synthetic_df["predicted_is_otp"].values
