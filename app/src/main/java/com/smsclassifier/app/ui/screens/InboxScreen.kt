@@ -312,7 +312,7 @@ private fun EmptyInboxState(
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = "Tap the New button below to start your first message.",
+                text = "Set this app as default SMS to import existing SMS and sort new messages.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

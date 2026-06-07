@@ -67,6 +67,12 @@ interface MessageDao {
     @Query("SELECT * FROM messages ORDER BY ts DESC")
     suspend fun getAllMessages(): List<MessageEntity>
 
+    @Query("SELECT COUNT(*) FROM messages WHERE sourceProviderId = :sourceProviderId")
+    suspend fun countBySourceProviderId(sourceProviderId: Long): Int
+
+    @Query("SELECT COUNT(*) FROM messages WHERE sender = :sender AND body = :body AND ts = :ts AND type = :type")
+    suspend fun countEquivalent(sender: String, body: String, ts: Long, type: Int): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(message: MessageEntity): Long
 

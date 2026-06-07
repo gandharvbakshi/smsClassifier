@@ -1,10 +1,14 @@
 package com.smsclassifier.app.data
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 
-@Entity(tableName = "messages")
+@Entity(
+    tableName = "messages",
+    indices = [Index(value = ["sourceProviderId"])]
+)
 @TypeConverters(Converters::class)
 data class MessageEntity(
     @PrimaryKey(autoGenerate = true)
@@ -21,6 +25,7 @@ data class MessageEntity(
     val status: Int? = null,  // For sent messages: -1=pending, 0=complete, etc.
     val serviceCenter: String? = null,
     val dateSent: Long? = null,  // For sent messages
+    val sourceProviderId: Long? = null, // Original Telephony provider row id when imported
     
     // Classification fields (existing)
     val language: String? = null,

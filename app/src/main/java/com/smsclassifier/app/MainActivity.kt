@@ -88,6 +88,7 @@ import com.smsclassifier.app.ui.viewmodel.ComposeViewModel
 import com.smsclassifier.app.ui.viewmodel.OtpInboxViewModel
 import com.smsclassifier.app.util.NotificationHelper
 import com.smsclassifier.app.util.CrashlyticsBootstrap
+import com.smsclassifier.app.work.SmsImportWorker
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -401,6 +402,7 @@ class MainActivity : ComponentActivity() {
                             SettingsScreen(
                                 viewModel = viewModel,
                                 onBack = { navController.popBackStack() },
+                                onDefaultSmsChanged = { startDefaultSmsAndPermissionFlow() },
                                 onNavigateToNotifications = {
                                     navController.navigate("settings_notifications")
                                 },
@@ -532,6 +534,7 @@ class MainActivity : ComponentActivity() {
         val def = isDefaultSmsAppNow()
         AppContainer.telemetry.onMainActivityResume(def)
         CrashlyticsBootstrap.refresh(this, def)
+        maybeEnqueueSmsImport()
         lifecycleScope.launch {
             AppContainer.entitlementManager.refreshFromServer()
         }
@@ -589,6 +592,7 @@ class MainActivity : ComponentActivity() {
                 val allGranted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
                 if (allGranted) {
                     com.smsclassifier.app.util.AppLog.d("MainActivity", "SMS permissions granted")
+                    maybeEnqueueSmsImport()
                 } else {
                     com.smsclassifier.app.util.AppLog.w("MainActivity", "SMS permissions denied")
                     // Show rationale or link to settings
@@ -692,6 +696,7 @@ class MainActivity : ComponentActivity() {
         
         if (hasReadSms && hasReceiveSms) {
             com.smsclassifier.app.util.AppLog.d("MainActivity", "SMS permissions already granted")
+            maybeEnqueueSmsImport()
             requestNotificationPermissionIfNeeded()
             return
         }
@@ -768,6 +773,10 @@ class MainActivity : ComponentActivity() {
             )
             false
         }
+    }
+
+    private fun maybeEnqueueSmsImport() {
+        SmsImportWorker.enqueue(this)
     }
 
     companion object {

@@ -148,12 +148,12 @@ fun ConsentOnboardingScreen(
 
             InfoCard {
                 Text(
-                    text = "Make this your messaging app",
+                    text = "Make this your SMS app",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "Set it as the default SMS app so it can sort your texts and show OTP alerts.",
+                    text = "Set it as the default SMS app so it can import existing SMS on this phone, sort new messages, and show OTP alerts.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

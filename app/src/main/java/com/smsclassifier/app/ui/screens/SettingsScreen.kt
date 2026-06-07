@@ -75,6 +75,7 @@ import kotlinx.coroutines.launch
 fun SettingsScreen(
     viewModel: SettingsViewModel,
     onBack: () -> Unit,
+    onDefaultSmsChanged: () -> Unit = {},
     onNavigateToNotifications: () -> Unit,
     onNavigateToExport: () -> Unit,
     onNavigateToAbout: () -> Unit,
@@ -134,6 +135,7 @@ fun SettingsScreen(
         ActivityResultContracts.StartActivityForResult()
     ) {
         viewModel.refreshDefaultSmsStatus()
+        onDefaultSmsChanged()
     }
 
     Box(modifier = modifier.fillMaxSize()) {
@@ -156,9 +158,9 @@ fun SettingsScreen(
                     icon = Icons.Default.Phone,
                     title = "Default SMS app",
                     subtitle = if (isDefaultSms)
-                        "Handles SMS for this phone"
+                        "Imports and sorts SMS on this phone"
                     else
-                        "Make this app your default to get SMS",
+                        "Make this app default to import existing SMS and sort new ones",
                     trailing = {
                         if (!isDefaultSms) {
                             FilledTonalButton(
