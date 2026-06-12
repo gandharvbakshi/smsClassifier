@@ -34,7 +34,7 @@ fun SensitivityBadge(
     ) {
         Text(
             text = type.label,
-            style = MaterialTheme.typography.labelSmall,
+            style = MaterialTheme.typography.labelLarge,
             color = type.color,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)

@@ -46,3 +46,6 @@ publish-release.log
 # Local screenshot staging folder; curated Play assets live under app/src/main/play.
 App screen shots*/
 
+# Local human notes for monetization planning
+monetization steps for humans.md
+

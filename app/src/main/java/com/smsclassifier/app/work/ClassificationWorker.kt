@@ -40,7 +40,7 @@ class ClassificationWorker(
             AppLog.d(TAG, "Database initialized")
 
             val featureExtractor = FeatureExtractor(applicationContext)
-            val unclassifiedMessages = database.messageDao().getUnclassified(limit = 10)
+            val unclassifiedMessages = database.messageDao().getUnclassified(limit = BATCH_LIMIT)
             AppLog.d(TAG, "Found ${unclassifiedMessages.size} unclassified messages")
 
             if (unclassifiedMessages.isEmpty()) {
@@ -138,6 +138,12 @@ class ClassificationWorker(
                 }
             }
 
+            val hasMore = database.messageDao().getUnclassified(limit = 1).isNotEmpty()
+            if (hasMore) {
+                AppLog.d(TAG, "More unclassified messages remain; queueing next classification batch")
+                enqueue(applicationContext)
+            }
+
             AppLog.d(TAG, "Classification completed successfully")
             Result.success()
         } catch (e: Exception) {
@@ -149,6 +155,7 @@ class ClassificationWorker(
     companion object {
         private const val TAG = "ClassificationWorker"
         private const val WORK_NAME = "classify_sms"
+        private const val BATCH_LIMIT = 50
 
         fun enqueue(context: Context) {
             AppLog.d(TAG, "Enqueuing classification work")
@@ -166,7 +173,7 @@ class ClassificationWorker(
 
             WorkManager.getInstance(context).enqueueUniqueWork(
                 WORK_NAME,
-                ExistingWorkPolicy.REPLACE,
+                ExistingWorkPolicy.APPEND_OR_REPLACE,
                 request
             )
             AppLog.d(TAG, "Work enqueued successfully with id=${request.id}")

@@ -26,6 +26,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.smsclassifier.app.data.MisclassificationLogEntity
 import com.smsclassifier.app.ui.viewmodel.LogsViewModel
+import com.smsclassifier.app.util.ClassificationUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -160,7 +161,7 @@ private fun EmptyLogsState(
             fontWeight = FontWeight.SemiBold
         )
         Text(
-            text = "When you tap \"Report as wrong\" on a message, it shows up here. Use it to track classifier mistakes.",
+            text = "When you tap \"Report a mistake\" on a message, it shows up here. Use it to track classifier mistakes.",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -213,7 +214,7 @@ private fun UploadStatusBadge(
         Text(
             text = label,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
-            style = MaterialTheme.typography.labelSmall,
+            style = MaterialTheme.typography.labelMedium,
             fontWeight = FontWeight.SemiBold,
             color = content
         )
@@ -251,7 +252,7 @@ private fun LogCard(
                 UploadStatusBadge(log, feedbackUploadEnabled)
                 Text(
                     text = formatLogDate(log.createdAt),
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -264,15 +265,16 @@ private fun LogCard(
                     modifier = Modifier.padding(10.dp),
                     verticalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
-                    PredictionLine("Predicted OTP", log.predictedIsOtp?.toString() ?: "—")
-                    PredictionLine("Predicted intent", log.predictedOtpIntent ?: "—")
-                    PredictionLine("Predicted phishing", log.predictedIsPhishing?.toString() ?: "—")
-                    if (log.predictedPhishScore != null) {
-                        PredictionLine(
-                            "Phishing score",
-                            String.format("%.2f", log.predictedPhishScore)
-                        )
-                    }
+                    PredictionLine("Predicted OTP", formatBoolean(log.predictedIsOtp))
+                    PredictionLine(
+                        "Predicted intent",
+                        ClassificationUtils.humanizeIntent(log.predictedOtpIntent) ?: "Not an OTP"
+                    )
+                    PredictionLine("Predicted scam", formatBoolean(log.predictedIsPhishing))
+                    PredictionLine(
+                        "Scam risk",
+                        formatLogScamRisk(log.predictedIsPhishing, log.predictedPhishScore)
+                    )
                 }
             }
             log.userNote?.takeIf { it.isNotBlank() }?.let {
@@ -325,6 +327,21 @@ private fun PredictionLine(label: String, value: String) {
 
 private fun formatLogDate(ts: Long): String =
     SimpleDateFormat("MMM d, h:mm a", Locale.getDefault()).format(Date(ts))
+
+private fun formatBoolean(value: Boolean?): String = when (value) {
+    true -> "Yes"
+    false -> "No"
+    null -> "—"
+}
+
+private fun formatLogScamRisk(isScam: Boolean?, score: Float?): String {
+    val value = score ?: 0f
+    return when {
+        isScam == true || value >= 0.6f -> "High risk - likely scam"
+        value >= 0.3f -> "Be careful"
+        else -> "No scam signs"
+    }
+}
 
 private fun shareLogs(
     context: android.content.Context,

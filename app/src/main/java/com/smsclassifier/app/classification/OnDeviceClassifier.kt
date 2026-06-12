@@ -93,7 +93,7 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
             val phishScore = if (phishingScores.size > 1) phishingScores[1] else 0f
             
             if (isPhishing) {
-                reasons.add("Phishing score: ${String.format("%.2f", phishScore)}")
+                reasons.add("High scam risk detected")
             }
             
             // Heuristics-first approach: Run heuristics before ML
@@ -109,7 +109,7 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
                 isOtp = true
                 otpIntent = heuristicResult.suggestedIntent
                 reasons.addAll(heuristicResult.reasons)
-                reasons.add("OTP detected by heuristics (confidence: ${String.format("%.2f", heuristicResult.confidence)})")
+                reasons.add("OTP wording detected")
                 AppLog.d("OnDeviceClassifier", "Using heuristic classification (high confidence)")
             } else {
                 // Low confidence or no heuristic match - use ML
@@ -129,10 +129,10 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
                     isOtp = true
                     otpIntent = heuristicResult.suggestedIntent
                     reasons.addAll(heuristicResult.reasons)
-                    reasons.add("ML negative but heuristics positive (confidence: ${String.format("%.2f", heuristicResult.confidence)})")
+                    reasons.add("OTP wording detected")
                     AppLog.d("OnDeviceClassifier", "Using heuristic classification (ML disagreed)")
                 } else if (isOtp) {
-                    reasons.add("OTP detected by ML (score: ${String.format("%.2f", isotpScores[1])})")
+                    reasons.add("OTP pattern detected")
                 }
             }
             
@@ -158,10 +158,10 @@ class OnDeviceClassifier(private val context: Context) : Classifier {
             
             Prediction(
                 isOtp = isOtp,
-                otpIntent = null,
-                isPhishing = null,
-                phishScore = 0f,
-                reasons = emptyList(),
+                otpIntent = otpIntent,
+                isPhishing = isPhishing,
+                phishScore = phishScore,
+                reasons = reasons,
                 inferenceTimeMs = inferenceTime
             )
         } catch (e: Exception) {

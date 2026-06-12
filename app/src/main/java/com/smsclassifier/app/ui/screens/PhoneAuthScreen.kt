@@ -168,23 +168,23 @@ fun PhoneAuthScreen(
                         onValueChange = { v ->
                             otp = v.filter { it.isDigit() }.take(6)
                         },
-                        label = { Text("6-digit code") },
+                        label = { Text("6-digit OTP") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         textStyle = MaterialTheme.typography.headlineMedium,
                         modifier = Modifier.fillMaxWidth()
                     )
                     PrimaryButton(
-                        text = "Verify code",
+                        text = "Verify OTP",
                         onClick = {
                             scope.launch {
                                 if (otp.length == 6) repo.verifySmsCode(otp)
-                                else snackbarHostState.showSnackbar("Enter the 6-digit code.")
+                                else snackbarHostState.showSnackbar("Enter the 6-digit OTP.")
                             }
                         },
                         modifier = Modifier.fillMaxWidth()
                     )
                     SecondaryButton(
-                        text = if (resendSeconds > 0) "Resend in ${resendSeconds}s" else "Resend code",
+                        text = if (resendSeconds > 0) "Resend in ${resendSeconds}s" else "Resend OTP",
                         onClick = {
                             if (resendSeconds == 0) {
                                 val dial = TOP_COUNTRIES[countryIndex].dialDigits
@@ -230,7 +230,7 @@ fun PhoneAuthScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     PrimaryButton(
-                        text = "Send code",
+                        text = "Send OTP",
                         onClick = {
                             val dial = TOP_COUNTRIES[countryIndex].dialDigits
                             val nat = nationalNumber.filter { it.isDigit() }

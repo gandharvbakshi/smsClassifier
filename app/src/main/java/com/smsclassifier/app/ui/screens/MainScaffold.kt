@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Pin
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -26,7 +27,7 @@ private data class TopLevelDestination(
 private val TopLevelDestinations = listOf(
     TopLevelDestination("inbox", "Inbox", Icons.Default.Inbox),
     TopLevelDestination("otp", "OTPs", Icons.Default.Pin),
-    TopLevelDestination("flagged", "Flagged", Icons.Default.Warning),
+    TopLevelDestination("flagged", "Scam alerts", Icons.Default.Warning),
     TopLevelDestination("settings", "Settings", Icons.Default.Settings)
 )
 
@@ -53,7 +54,7 @@ fun MainBottomBar(navController: NavHostController) {
                     }
                 },
                 icon = { Icon(dest.icon, contentDescription = dest.label) },
-                label = { Text(dest.label) }
+                label = { Text(dest.label, style = MaterialTheme.typography.labelLarge) }
             )
         }
     }

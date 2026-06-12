@@ -2,19 +2,25 @@ package com.smsclassifier.app.analytics
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
+import java.io.IOException
 
 private val Context.consentDataStore: DataStore<Preferences> by preferencesDataStore(
-    name = "consent_prefs"
+    name = "consent_prefs",
+    corruptionHandler = ReplaceFileCorruptionHandler { emptyPreferences() }
 )
 
 class ConsentManager(context: Context) {
@@ -33,21 +39,32 @@ class ConsentManager(context: Context) {
     @Volatile
     private var cacheOnboardingSeen: Boolean = false
 
+    private val safeData: Flow<Preferences> = dataStore.data.catch { throwable ->
+        if (throwable is IOException) {
+            emit(emptyPreferences())
+        } else {
+            throw throwable
+        }
+    }
+
     init {
         runBlocking {
-            cacheAnalytics = dataStore.data.first()[KEY_ANALYTICS] ?: false
-            cacheCrash = dataStore.data.first()[KEY_CRASH] ?: false
-            cacheMeta = dataStore.data.first()[KEY_META] ?: false
-            cacheOnboardingSeen = dataStore.data.first()[KEY_ONBOARDING] ?: false
+            val prefs = withTimeoutOrNull(DATASTORE_READ_TIMEOUT_MS) {
+                safeData.first()
+            } ?: emptyPreferences()
+            cacheAnalytics = prefs[KEY_ANALYTICS] ?: false
+            cacheCrash = prefs[KEY_CRASH] ?: false
+            cacheMeta = prefs[KEY_META] ?: false
+            cacheOnboardingSeen = prefs[KEY_ONBOARDING] ?: false
         }
         FirebaseAnalytics.getInstance(appContext).setAnalyticsCollectionEnabled(cacheAnalytics)
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(cacheCrash)
     }
 
-    val analyticsConsent: Flow<Boolean> = dataStore.data.map { it[KEY_ANALYTICS] ?: false }
-    val crashlyticsConsent: Flow<Boolean> = dataStore.data.map { it[KEY_CRASH] ?: false }
-    val metaAdsConsent: Flow<Boolean> = dataStore.data.map { it[KEY_META] ?: false }
-    val onboardingConsentSeen: Flow<Boolean> = dataStore.data.map { it[KEY_ONBOARDING] ?: false }
+    val analyticsConsent: Flow<Boolean> = safeData.map { it[KEY_ANALYTICS] ?: false }
+    val crashlyticsConsent: Flow<Boolean> = safeData.map { it[KEY_CRASH] ?: false }
+    val metaAdsConsent: Flow<Boolean> = safeData.map { it[KEY_META] ?: false }
+    val onboardingConsentSeen: Flow<Boolean> = safeData.map { it[KEY_ONBOARDING] ?: false }
 
     fun analyticsEnabledNow(): Boolean = cacheAnalytics
     fun crashlyticsEnabledNow(): Boolean = cacheCrash
@@ -80,7 +97,7 @@ class ConsentManager(context: Context) {
      * Removes all DataStore preferences except analytics / crash / meta / onboarding flags.
      */
     suspend fun clearAllDataStoreExceptConsent() {
-        val snap = dataStore.data.first()
+        val snap = safeData.first()
         val analytics = snap[KEY_ANALYTICS]
         val crash = snap[KEY_CRASH]
         val meta = snap[KEY_META]
@@ -95,6 +112,7 @@ class ConsentManager(context: Context) {
     }
 
     companion object {
+        private const val DATASTORE_READ_TIMEOUT_MS = 1_500L
         private val KEY_ANALYTICS = booleanPreferencesKey("analytics_consent")
         private val KEY_CRASH = booleanPreferencesKey("crashlytics_consent")
         private val KEY_META = booleanPreferencesKey("meta_ads_consent")

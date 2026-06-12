@@ -121,7 +121,7 @@ fun ConversationItem(
                     }
                     Text(
                         text = formatTimestamp(thread.lastMessageTime),
-                        style = MaterialTheme.typography.labelSmall,
+                        style = MaterialTheme.typography.labelMedium,
                         color = if (isUnread) MaterialTheme.colorScheme.primary
                         else MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = if (isUnread) FontWeight.SemiBold else FontWeight.Normal
@@ -155,7 +155,7 @@ fun ConversationItem(
                         ) {
                             Text(
                                 text = if (thread.unreadCount > 99) "99+" else thread.unreadCount.toString(),
-                                style = MaterialTheme.typography.labelSmall,
+                                style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.onPrimary,
                                 fontWeight = FontWeight.Bold
                             )

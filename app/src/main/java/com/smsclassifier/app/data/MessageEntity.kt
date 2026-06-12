@@ -1,10 +1,18 @@
 package com.smsclassifier.app.data
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 
-@Entity(tableName = "messages")
+@Entity(
+    tableName = "messages",
+    indices = [
+        Index(value = ["sourceProviderId"]),
+        Index(value = ["threadId", "ts"]),
+        Index(value = ["ts"])
+    ]
+)
 @TypeConverters(Converters::class)
 data class MessageEntity(
     @PrimaryKey(autoGenerate = true)
@@ -21,6 +29,7 @@ data class MessageEntity(
     val status: Int? = null,  // For sent messages: -1=pending, 0=complete, etc.
     val serviceCenter: String? = null,
     val dateSent: Long? = null,  // For sent messages
+    val sourceProviderId: Long? = null, // Original Telephony provider row id when imported
     
     // Classification fields (existing)
     val language: String? = null,
@@ -31,6 +40,7 @@ data class MessageEntity(
     val phishScore: Float? = null, // 0.0 to 1.0
     val reasonsJson: String? = null, // JSON array of reason strings
     val reviewed: Boolean = false,
+    val userCorrected: Boolean = false,
     val version: Int = 1 // Schema version for migrations
 )
 

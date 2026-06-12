@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -45,12 +46,13 @@ fun OtpStrip(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(items = messages, key = { it.id }) { msg ->
-            val code = ClassificationUtils.extractOtpForCopy(msg.body, msg.sender, msg.isOtp)
+            val code = ClassificationUtils.extractOtpForCopy(msg)
             Surface(
                 shape = RoundedCornerShape(20.dp),
                 color = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier
+                    .heightIn(min = 56.dp)
                     .clip(RoundedCornerShape(20.dp))
                     .clickable { onCardClick(msg.id) }
             ) {
@@ -62,12 +64,12 @@ fun OtpStrip(
                     Column {
                         Text(
                             text = SenderNameResolver.resolve(msg.sender),
-                            style = MaterialTheme.typography.labelSmall,
+                            style = MaterialTheme.typography.labelMedium,
                             maxLines = 1
                         )
                         Text(
                             text = code ?: "OTP",
-                            style = MaterialTheme.typography.titleLarge,
+                            style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.Bold
                         )
                     }
@@ -75,26 +77,28 @@ fun OtpStrip(
                         shape = RoundedCornerShape(50),
                         color = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.clickable {
-                            code?.let {
-                                clipboard.setText(AnnotatedString(it))
-                                AppContainer.telemetry.logOtpCopied("otp_strip")
+                        modifier = Modifier
+                            .heightIn(min = 44.dp)
+                            .clickable(onClickLabel = "Copy OTP") {
+                                code?.let {
+                                    clipboard.setText(AnnotatedString(it))
+                                    AppContainer.telemetry.logOtpCopied("otp_strip")
+                                }
                             }
-                        }
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             Icon(
                                 Icons.Default.ContentCopy,
                                 contentDescription = "Copy OTP",
-                                modifier = Modifier.size(14.dp)
+                                modifier = Modifier.size(20.dp)
                             )
                             Text(
-                                text = "Copy",
-                                style = MaterialTheme.typography.labelSmall,
+                                text = "Copy OTP",
+                                style = MaterialTheme.typography.labelLarge,
                                 fontWeight = FontWeight.SemiBold
                             )
                         }

@@ -163,12 +163,12 @@ private fun EmptyStateConversations(
         )
         when (isDefaultSmsHandler) {
             false -> Text(
-                text = "Set this app as your default SMS handler in Settings to start receiving messages.",
+                text = "Set this app as your default SMS app to import existing SMS and receive new messages here.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             true -> Text(
-                text = "Messages will appear here when you receive them.",
+                text = "Import may take a minute. New messages will appear here too.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

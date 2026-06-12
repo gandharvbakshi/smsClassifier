@@ -38,7 +38,7 @@ fun ReasonChips(
             }
             AssistChip(
                 onClick = { },
-                label = { Text(reason, style = MaterialTheme.typography.labelSmall) },
+                label = { Text(reason, style = MaterialTheme.typography.labelLarge) },
                 colors = colors
             )
         }
@@ -51,7 +51,7 @@ private fun determineReasonTone(reason: String): ReasonTone {
     val text = reason.lowercase()
     return when {
         text.contains("never share") || text.contains("do not share") -> ReasonTone.WARNING
-        text.contains("phishing") || text.contains("failed") -> ReasonTone.ALERT
+        text.contains("phishing") || text.contains("scam") || text.contains("failed") -> ReasonTone.ALERT
         else -> ReasonTone.INFO
     }
 }

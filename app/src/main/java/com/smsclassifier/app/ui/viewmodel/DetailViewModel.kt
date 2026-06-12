@@ -11,6 +11,7 @@ import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.data.MisclassificationLogEntity
 import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.util.AppLog
+import com.smsclassifier.app.util.ClassificationUtils
 import com.smsclassifier.app.work.ClassificationWorker
 import com.smsclassifier.app.work.FeedbackUploadWorker
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -57,7 +58,6 @@ class DetailViewModel(
                         userCorrection = correctionText
                     )
                 )
-                database.messageDao().markReviewed(msg.id)
                 database.misclassificationLogDao().insert(
                     MisclassificationLogEntity(
                         messageId = msg.id,
@@ -71,6 +71,9 @@ class DetailViewModel(
                         userNote = correctionText.ifBlank { null }
                     )
                 )
+                val correctedMessage = ClassificationUtils.applyUserCorrection(msg, correctionKind)
+                database.messageDao().update(correctedMessage)
+                _message.value = database.messageDao().getById(msg.id) ?: correctedMessage
                 saved = true
                 context?.applicationContext?.let { appCtx ->
                     if (SettingsRepository(appCtx).feedbackUploadEnabled) {
@@ -112,6 +115,19 @@ class DetailViewModel(
                 // Handle error
             } finally {
                 _isRetrying.value = false
+            }
+        }
+    }
+
+    fun deleteMessage(onComplete: () -> Unit = {}) {
+        viewModelScope.launch {
+            try {
+                val msg = _message.value ?: return@launch
+                database.messageDao().delete(msg.id)
+                _message.value = null
+                onComplete()
+            } catch (e: Exception) {
+                AppLog.e(TAG, "Failed to delete message", e)
             }
         }
     }

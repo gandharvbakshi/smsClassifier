@@ -5,7 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -13,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PrivacyTip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.R
@@ -42,7 +46,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun ConsentOnboardingScreen(
     onContinueFree: () -> Unit,
-    onUnlockPro: () -> Unit
+    onUnlockPro: () -> Unit,
+    onSetDefaultSms: () -> Unit
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -52,16 +57,14 @@ fun ConsentOnboardingScreen(
     var entitlementRefresh by remember { mutableStateOf(0) }
     val trialDaysRemaining = remember(entitlementRefresh, entitlementState) { entitlementManager.trialDaysRemaining() }
     val trialLabel = remember(entitlementRefresh, entitlementState) { entitlementManager.trialDurationLabel() }
-    val trialAvailable = remember(entitlementRefresh, entitlementState) { !entitlementManager.hasTrialStarted() }
     val onboardingAlreadySeen = remember { consent.onboardingSeenNow() }
 
-    val analyticsOn by rememberSaveable {
+    var analyticsOn by rememberSaveable {
         mutableStateOf(if (onboardingAlreadySeen) consent.analyticsEnabledNow() else true)
     }
-    val crashOn by rememberSaveable {
+    var crashOn by rememberSaveable {
         mutableStateOf(if (onboardingAlreadySeen) consent.crashlyticsEnabledNow() else true)
     }
-    var trialStartFailed by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         if (entitlementManager.refreshFromServer()) {
@@ -89,12 +92,12 @@ fun ConsentOnboardingScreen(
             )
 
             Text(
-                text = "Find codes and spot risky messages",
+                text = "Find OTPs and spot risky messages",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Use it free, start your Pro trial ($trialLabel), or subscribe to Pro.",
+                text = "This app shows your texts, makes OTPs easy to copy, and warns you about scams.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -118,9 +121,21 @@ fun ConsentOnboardingScreen(
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "Your messages stay on this phone. Feature usage and crash reports are on to help fix bugs; no message content is included. You can turn them off in Settings.",
+                    text = stringResource(R.string.privacy_cloud_checks_summary),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                ConsentToggleRow(
+                    title = "Usage diagnostics",
+                    subtitle = "Share feature usage only. Message content is not included.",
+                    checked = analyticsOn,
+                    onCheckedChange = { analyticsOn = it }
+                )
+                ConsentToggleRow(
+                    title = "Crash reports",
+                    subtitle = "Helps fix bugs. Message text is not included.",
+                    checked = crashOn,
+                    onCheckedChange = { crashOn = it }
                 )
                 SecondaryButton(
                     text = "Read privacy policy",
@@ -133,18 +148,39 @@ fun ConsentOnboardingScreen(
 
             InfoCard {
                 Text(
+                    text = "Make this your SMS app",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    text = "Set it as the default SMS app so it can import existing SMS on this phone, sort new messages, and show OTP alerts.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                SecondaryButton(
+                    text = "Set as default SMS app",
+                    onClick = onSetDefaultSms
+                )
+            }
+
+            InfoCard {
+                Text(
                     text = "Choose your mode",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "Free sorts messages on this phone. Trial and annual Pro add scam warnings, explain what codes are for, and show 'Do not share' alerts.",
+                    text = "Free sorts messages on this phone. Pro adds cloud scam warnings, OTP purpose, and 'Do not share' alerts. You can try Pro for $trialLabel from the Pro screen.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 PrimaryButton(
-                    text = if (entitlementState == EntitlementState.PRO) "Open app" else "Continue free",
+                    text = if (entitlementState == EntitlementState.PRO) {
+                        "Open app"
+                    } else {
+                        "Start free - I'll explore Pro later"
+                    },
                     onClick = {
                         scope.launch {
                             persistConsent(
@@ -160,12 +196,7 @@ fun ConsentOnboardingScreen(
                 )
 
                 SecondaryButton(
-                    text = when (entitlementState) {
-                        EntitlementState.TRIAL_ACTIVE -> "Trial already active"
-                        EntitlementState.PRO -> "Pro already active"
-                        EntitlementState.TRIAL_EXPIRED -> "Trial already used"
-                        else -> "Start Pro trial ($trialLabel)"
-                    },
+                    text = "See Pro features",
                     onClick = {
                         scope.launch {
                             persistConsent(
@@ -174,47 +205,44 @@ fun ConsentOnboardingScreen(
                                 analyticsOn = analyticsOn,
                                 crashOn = crashOn
                             )
-                            AppContainer.telemetry.logCtaTap("onboarding", "start_trial")
-                            if (entitlementManager.startTrialIfAvailableRemote()) {
-                                trialStartFailed = false
-                                AppContainer.telemetry.logEvent("trial_started_from_onboarding")
-                                entitlementState = entitlementManager.currentState()
-                                entitlementRefresh++
-                                onContinueFree()
-                            } else {
-                                trialStartFailed = true
-                            }
-                        }
-                    },
-                    enabled = trialAvailable && entitlementState == EntitlementState.FREE
-                )
-
-                if (trialStartFailed) {
-                    Text(
-                        text = "Could not start the trial right now. You can continue free and try again from Pro later.",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.error
-                    )
-                }
-
-                SecondaryButton(
-                    text = "Subscribe to Pro",
-                    onClick = {
-                        scope.launch {
-                            persistConsent(
-                                context = context,
-                                consent = consent,
-                                analyticsOn = analyticsOn,
-                                crashOn = crashOn
-                            )
-                            AppContainer.telemetry.logCtaTap("onboarding", "unlock_pro")
+                            AppContainer.telemetry.logCtaTap("onboarding", "see_pro_features")
                             onUnlockPro()
                         }
-                    },
-                    enabled = entitlementState != EntitlementState.PRO
+                    }
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun ConsentToggleRow(
+    title: String,
+    subtitle: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(Spacing.md),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+        Switch(
+            checked = checked,
+            onCheckedChange = onCheckedChange
+        )
     }
 }
 

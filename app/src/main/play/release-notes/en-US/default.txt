@@ -1,4 +1,4 @@
-v1.2.5 - Clearer Pro and safer reports
-- Shorter first-run setup with clearer 14-day trial and Pro messaging.
-- Wrong-label uploads now mask links, long numbers, phone-number senders, and emails before upload.
-- Refreshed Play Store screenshots with populated Indian SMS examples.
+v1.2.11 - Inbox loading hotfix
+- Fixes an inbox spinner issue on phones with very large SMS histories.
+- Speeds up conversation lookup and avoids duplicate startup database work.
+- Keeps Inbox on the selected filter instead of auto-switching after launch.

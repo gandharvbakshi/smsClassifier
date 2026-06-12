@@ -141,8 +141,9 @@ object NotificationHelper {
 
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra("messageId", messageId)
+            putExtra("openDetail", true)
             putExtra("threadId", threadId)
-            putExtra("openThread", true)
         }
         val pendingIntent = PendingIntent.getActivity(
             context,
@@ -153,7 +154,7 @@ object NotificationHelper {
 
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(android.R.drawable.ic_dialog_email)
-            .setContentTitle(if (otpCode != null) "$otpCode  •  OTP from $displayName" else displayName)
+            .setContentTitle(if (otpCode != null) "$displayName · OTP" else displayName)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -164,11 +165,11 @@ object NotificationHelper {
 
         if (otpCode != null) {
             val collapsed = RemoteViews(context.packageName, R.layout.notification_otp_collapsed)
-            collapsed.setTextViewText(R.id.notif_otp_sender, "OTP from $displayName")
+            collapsed.setTextViewText(R.id.notif_otp_sender, "$displayName · OTP")
             collapsed.setTextViewText(R.id.notif_otp_code, otpCode)
 
             val expanded = RemoteViews(context.packageName, R.layout.notification_otp_expanded)
-            expanded.setTextViewText(R.id.notif_otp_sender, "OTP from $displayName")
+            expanded.setTextViewText(R.id.notif_otp_sender, "$displayName · OTP")
             expanded.setTextViewText(R.id.notif_otp_code, otpCode)
             expanded.setTextViewText(R.id.notif_otp_body, body)
 
@@ -181,6 +182,7 @@ object NotificationHelper {
 
             val copyOtpIntent = Intent(context, CopyOtpReceiver::class.java).apply {
                 putExtra(CopyOtpReceiver.EXTRA_OTP_CODE, otpCode)
+                putExtra(CopyOtpReceiver.EXTRA_NOTIFICATION_ID, messageId.toInt())
             }
             val copyOtpPendingIntent = PendingIntent.getBroadcast(
                 context,
@@ -190,8 +192,13 @@ object NotificationHelper {
             )
             builder.addAction(
                 android.R.drawable.ic_menu_save,
-                "Copy $otpCode",
+                "Copy OTP",
                 copyOtpPendingIntent
+            )
+            builder.addAction(
+                android.R.drawable.ic_menu_view,
+                "Open",
+                pendingIntent
             )
         } else {
             builder

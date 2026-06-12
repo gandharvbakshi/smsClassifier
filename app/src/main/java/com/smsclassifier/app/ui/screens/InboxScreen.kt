@@ -50,12 +50,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.smsclassifier.app.AppContainer
+import com.smsclassifier.app.R
 import com.smsclassifier.app.ui.components.ConversationItem
 import com.smsclassifier.app.ui.components.FilterChips
 import com.smsclassifier.app.ui.components.MessageItem
@@ -100,8 +102,10 @@ fun InboxScreen(
     val needsReviewCount by viewModel.needsReviewCount.collectAsState(initial = 0)
     val generalCount by viewModel.generalCount.collectAsState(initial = 0)
 
-    LaunchedEffect(Unit) {
-        viewModel.loadConversations()
+    LaunchedEffect(viewMode) {
+        if (viewMode == ViewMode.THREADS) {
+            viewModel.loadConversations()
+        }
     }
 
     val filteredConversations = remember(conversations, searchQuery) {
@@ -220,22 +224,39 @@ fun InboxScreen(
 
                 ViewMode.MESSAGES -> {
                     val pagingItems = viewModel.messages.collectAsLazyPagingItems()
+                    val refreshState = pagingItems.loadState.refresh
                     when {
-                        pagingItems.loadState.refresh is LoadState.Loading &&
-                            pagingItems.itemCount == 0 -> {
+                        refreshState is LoadState.Error && pagingItems.itemCount == 0 -> {
+                            InboxLoadErrorState(
+                                onRetry = { pagingItems.retry() },
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(24.dp)
+                            )
+                        }
+
+                        refreshState is LoadState.Loading && pagingItems.itemCount == 0 -> {
                             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                                 CircularProgressIndicator()
                             }
                         }
 
-                        pagingItems.loadState.refresh is LoadState.NotLoading &&
-                            pagingItems.itemCount == 0 -> {
-                            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                                Text(
-                                    text = "No messages match this filter",
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                        refreshState is LoadState.NotLoading && pagingItems.itemCount == 0 -> {
+                            if (filter == FilterType.ALL && searchQuery.isBlank()) {
+                                EmptyInboxState(
+                                    onSetDefaultSms = onSetDefaultSms,
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(24.dp)
                                 )
+                            } else {
+                                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                                    Text(
+                                        text = "No messages match this filter",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
                             }
                         }
 
@@ -281,6 +302,33 @@ fun InboxScreen(
 }
 
 @Composable
+private fun InboxLoadErrorState(
+    onRetry: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.error_loading),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = "Try again. If this keeps happening, reopen the app.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            TextButton(onClick = onRetry) {
+                Text("Retry")
+            }
+        }
+    }
+}
+
+@Composable
 private fun EmptyInboxState(
     onSetDefaultSms: () -> Unit,
     modifier: Modifier = Modifier
@@ -310,12 +358,12 @@ private fun EmptyInboxState(
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = "Tap the New button below to start your first message.",
+                text = "Set this app as default SMS to import existing SMS and sort new messages.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
-                text = "Your messages stay on this phone. We never upload them.",
+                text = stringResource(R.string.privacy_cloud_checks_summary),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -462,7 +510,7 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        text = "Pro is unlocked for $trialLabel: scam warnings, code purpose, and 'Do not share' alerts.",
+                        text = "Pro is unlocked for $trialLabel: scam warnings, OTP purpose, and 'Do not share' alerts.",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.weight(1f)
                     )

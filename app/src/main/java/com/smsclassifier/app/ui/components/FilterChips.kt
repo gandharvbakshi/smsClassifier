@@ -87,7 +87,7 @@ fun FilterChips(
 
 private fun filterLabel(filter: FilterType): String = when (filter) {
     FilterType.OTP -> "OTP"
-    FilterType.PHISHING -> "Phishing"
+    FilterType.PHISHING -> "Scam"
     FilterType.NEEDS_REVIEW -> "Review"
     FilterType.GENERAL -> "Personal"
     FilterType.ALL -> "All"

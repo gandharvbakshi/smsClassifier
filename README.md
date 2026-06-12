@@ -1,49 +1,51 @@
 # SMS Classifier Android App
 
-A Kotlin/Jetpack Compose Android app for classifying SMS messages as OTP, phishing, or regular messages using on-device ML models.
+A Kotlin/Jetpack Compose Android SMS app that sorts messages, detects OTPs, and shows scam warnings when trial or Pro cloud checks are available.
+
+## Current Classification Path
+
+- **Free/basic mode:** local heuristic OTP sorting runs on the phone. SMS content is stored in the app database on the device.
+- **Trial/Pro mode:** cloud classification can be used for scam warnings, code purpose, risk scores, and explanation reasons. The app sends the SMS body and sender over HTTPS to the backend `/classify` API for real-time classification.
+- **Feedback uploads:** optional and off by default. When enabled, misclassification reports upload a redacted message body for model improvement.
+- **Links in SMS:** SMS bodies are rendered as plain text in the app; URL text is not directly clickable from the message body.
+
+Routine cloud-classification requests are intended for real-time processing and are not retained after the response. Optional feedback uploads are a separate flow and can be retained for review/model improvement.
 
 ## Setup
 
-1. **Copy ONNX models to assets:**
+1. Build and run:
+   ```bash
+   ./gradlew assembleDebug
+   ```
+
+2. Optional legacy ONNX assets:
    ```bash
    cp android_model_exports/model_phishing.onnx app/src/main/assets/
    cp android_model_exports/model_isotp.onnx app/src/main/assets/
    cp android_model_exports/model_intent.onnx app/src/main/assets/
    ```
 
-2. **Build and run:**
-   ```bash
-   ./gradlew assembleDebug
-   ```
-
 ## Features
 
-- **Inbox Screen**: Paginated list of SMS with search and filters (All, OTP, Phishing, Needs Review)
-- **Detail Screen**: Raw SMS, badges, reasons, share advice
-- **Settings Screen**: Toggle on-device vs server inference, export labels
-- **Background Classification**: WorkManager job processes new SMS automatically
-- **Privacy**: All processing on-device by default, PII hashing for server mode
+- **Inbox Screen:** Paginated list of SMS with search and filters.
+- **Detail Screen:** Raw SMS, OTP intent, risk badges, scam score, reasons, and correction reporting.
+- **Background Classification:** WorkManager processes new SMS automatically.
+- **Pro/Trial:** Cloud scam warnings and code-purpose explanations.
+- **Privacy Controls:** Analytics, crash reports, and redacted feedback uploads can be controlled from Settings.
 
 ## Architecture
 
-- **Room Database**: Local storage for messages and feedback
-- **ONNX Runtime**: On-device ML inference
-- **WorkManager**: Background classification jobs
-- **Jetpack Compose**: Modern UI framework
-- **Paging**: Efficient list rendering
+- **Room Database:** Local storage for messages and feedback.
+- **WorkManager:** Background classification jobs.
+- **Jetpack Compose:** Modern UI framework.
+- **Paging:** Efficient list rendering.
+- **Backend API:** Cloud classification and entitlement/feedback endpoints.
+- **ONNX Runtime:** Legacy on-device classifier code remains in the app, but the active worker path is local heuristics plus gated cloud classification.
 
 ## Testing
 
-The app includes dev build flags to show:
-- Raw features
-- Inference time per message
-- Heuristic-only mode toggle
-
-## Model Files
-
-Place these files in `app/src/main/assets/`:
-- `model_phishing.onnx`
-- `model_isotp.onnx`
-- `model_intent.onnx`
-- `feature_map.json`
+Run JVM unit tests:
+```bash
+./gradlew testDebugUnitTest
+```
 
