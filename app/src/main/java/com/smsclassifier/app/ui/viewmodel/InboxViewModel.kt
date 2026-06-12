@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
@@ -47,6 +48,8 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     val viewMode: StateFlow<ViewMode> = _viewMode.asStateFlow()
 
     private var lastAutoMessageId: Long? = null
+    private var conversationsLoadJob: Job? = null
+    private var countsLoadJob: Job? = null
 
     val messages: Flow<PagingData<MessageEntity>> =
         _filter.flatMapLatest { filterType ->
@@ -80,7 +83,7 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     val generalCount: StateFlow<Int> = _generalCount.asStateFlow()
 
     init {
-        loadConversations()
+        refreshCounts()
         viewModelScope.launch { refreshRecentOtps() }
 
         viewModelScope.launch {
@@ -88,8 +91,10 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
                 latest?.let { message ->
                     if (message.id != lastAutoMessageId) {
                         lastAutoMessageId = message.id
-                        _filter.value = determineFilterForMessage(message)
-                        loadConversations()
+                        refreshCounts()
+                        if (_viewMode.value == ViewMode.THREADS) {
+                            loadConversations()
+                        }
                         refreshRecentOtps()
                     }
                 }
@@ -112,20 +117,20 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
             )
         }
         _viewMode.value = mode
+        if (mode == ViewMode.THREADS && _conversations.value.isEmpty()) {
+            loadConversations()
+        }
     }
 
     fun loadConversations() {
-        viewModelScope.launch {
+        if (conversationsLoadJob?.isActive == true) return
+        conversationsLoadJob = viewModelScope.launch {
             _isLoading.value = true
             try {
                 val dao = database.messageDao()
                 val threadIds = dao.getAllThreadIds()
                 
-                // Update thread counts
-                _otpCount.value = dao.getOtpThreadCount()
-                _phishingCount.value = dao.getPhishingThreadCount()
-                _needsReviewCount.value = dao.getNeedsReviewThreadCount()
-                _generalCount.value = dao.getGeneralThreadCount()
+                updateCounts()
                 
                 val threadInfos = threadIds.mapNotNull { threadId ->
                     val messages = dao.getMessagesByThread(threadId)
@@ -192,20 +197,28 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
 
     fun setFilter(filter: FilterType) {
         _filter.value = filter
-        loadConversations() // Reload with new filter
+        refreshCounts()
+        if (_viewMode.value == ViewMode.THREADS) {
+            loadConversations()
+        }
     }
 
     fun setSearchQuery(query: String) {
         _searchQuery.value = query
     }
 
-    private fun determineFilterForMessage(message: MessageEntity): FilterType {
-        return when {
-            message.isPhishing == true -> FilterType.PHISHING
-            message.isOtp == true -> FilterType.OTP
-            !message.reviewed -> FilterType.NEEDS_REVIEW
-            else -> FilterType.ALL
+    private fun refreshCounts() {
+        if (countsLoadJob?.isActive == true) return
+        countsLoadJob = viewModelScope.launch {
+            updateCounts()
         }
     }
-}
 
+    private suspend fun updateCounts() {
+        val dao = database.messageDao()
+        _otpCount.value = dao.getOtpThreadCount()
+        _phishingCount.value = dao.getPhishingThreadCount()
+        _needsReviewCount.value = dao.getNeedsReviewThreadCount()
+        _generalCount.value = dao.getGeneralThreadCount()
+    }
+}

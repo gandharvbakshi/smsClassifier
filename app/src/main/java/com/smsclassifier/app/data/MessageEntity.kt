@@ -7,7 +7,11 @@ import androidx.room.TypeConverters
 
 @Entity(
     tableName = "messages",
-    indices = [Index(value = ["sourceProviderId"])]
+    indices = [
+        Index(value = ["sourceProviderId"]),
+        Index(value = ["threadId", "ts"]),
+        Index(value = ["ts"])
+    ]
 )
 @TypeConverters(Converters::class)
 data class MessageEntity(

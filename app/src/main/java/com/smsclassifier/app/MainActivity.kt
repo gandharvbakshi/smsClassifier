@@ -90,6 +90,7 @@ import com.smsclassifier.app.util.NotificationHelper
 import com.smsclassifier.app.util.CrashlyticsBootstrap
 import com.smsclassifier.app.work.SmsImportWorker
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 
 class MainActivity : ComponentActivity() {
     private lateinit var database: AppDatabase
@@ -108,7 +109,16 @@ class MainActivity : ComponentActivity() {
             var gateReady by remember { mutableStateOf(false) }
             var needsConsent by remember { mutableStateOf(false) }
             LaunchedEffect(Unit) {
-                val seen = AppContainer.consentManager.onboardingConsentSeen.first()
+                val seen = runCatching {
+                    withTimeoutOrNull(CONSENT_GATE_TIMEOUT_MS) {
+                        AppContainer.consentManager.onboardingConsentSeen.first()
+                    }
+                }.onFailure { throwable ->
+                    com.smsclassifier.app.util.AppLog.w(
+                        "MainActivity",
+                        "Consent gate read failed: ${throwable.message}"
+                    )
+                }.getOrNull() ?: AppContainer.consentManager.onboardingSeenNow()
                 needsConsent = !seen
                 gateReady = true
             }
@@ -783,6 +793,7 @@ class MainActivity : ComponentActivity() {
         private const val REQUEST_DEFAULT_SMS = 1001
         private const val REQUEST_NOTIFICATION_PERMISSION = 1002
         private const val REQUEST_SMS_PERMISSIONS = 1003
+        private const val CONSENT_GATE_TIMEOUT_MS = 2_000L
     }
 }
 

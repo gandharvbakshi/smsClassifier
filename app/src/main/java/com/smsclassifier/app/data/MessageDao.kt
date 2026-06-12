@@ -92,7 +92,7 @@ interface MessageDao {
     @Query("SELECT * FROM messages WHERE threadId = :threadId ORDER BY ts ASC")
     fun getMessagesByThreadPaged(threadId: Long): PagingSource<Int, MessageEntity>
     
-    @Query("SELECT DISTINCT threadId FROM messages ORDER BY (SELECT MAX(ts) FROM messages m WHERE m.threadId = messages.threadId) DESC")
+    @Query("SELECT threadId FROM messages GROUP BY threadId ORDER BY MAX(ts) DESC")
     suspend fun getAllThreadIds(): List<Long>
     
     @Query("SELECT * FROM messages WHERE threadId = :threadId ORDER BY ts DESC LIMIT 1")

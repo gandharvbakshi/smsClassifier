@@ -1,4 +1,4 @@
-v1.2.10 - Import existing SMS
-- Imports existing SMS after the app is made the default SMS app and SMS permission is granted.
-- Clarifies onboarding so users know default SMS setup brings existing SMS into the inbox.
-- Updates AndroidX Fragment to address the Play SDK warning.
+v1.2.11 - Inbox loading hotfix
+- Fixes an inbox spinner issue on phones with very large SMS histories.
+- Speeds up conversation lookup and avoids duplicate startup database work.
+- Keeps Inbox on the selected filter instead of auto-switching after launch.
