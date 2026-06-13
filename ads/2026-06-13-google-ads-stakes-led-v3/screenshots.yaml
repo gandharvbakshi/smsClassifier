@@ -1,0 +1,25 @@
+screenshots:
+- id: otp_purpose_mismatch
+  path: screenshots/otp_purpose_mismatch.png
+  screen_name: OTP details synthetic proof
+  key_state: Purpose hint shows account change and do-not-share state
+  suggested_use:
+  - otp purpose mismatch
+  - otp intent
+  - fraud tripwire
+  crop_pct: &id001
+    x: 0
+    y: 4
+    w: 100
+    h: 76
+  focus_pct: *id001
+- id: risk_review
+  path: screenshots/risk_review.png
+  screen_name: Review texts synthetic proof
+  key_state: Suspicious message marked for review before tapping
+  suggested_use:
+  - risk review
+  - suspicious SMS
+  - review before tapping
+  crop_pct: *id001
+  focus_pct: *id001

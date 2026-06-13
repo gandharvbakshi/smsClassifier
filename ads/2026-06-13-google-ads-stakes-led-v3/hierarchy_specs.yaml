@@ -1,0 +1,66 @@
+defaults:
+  proof_area_target: 40-55%
+  brand_mark: top-right
+  on_image_words_max: 6
+  allowed_overlap: false
+assets:
+- asset_id: otp_mismatch_square
+  first_second_focal_point: headline then large SMS Classifier proof screen
+  reading_order:
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55% of canvas bbox; crop focuses on two-row synthetic proof
+  brand_placement: top-right, consistent across ratios
+  mobile_notes: Designed for phone viewing with one short hook and no CTA baked into
+    image.
+- asset_id: otp_mismatch_landscape
+  first_second_focal_point: headline then large SMS Classifier proof screen
+  reading_order:
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55% of canvas bbox; crop focuses on two-row synthetic proof
+  brand_placement: top-right, consistent across ratios
+  mobile_notes: Designed for phone viewing with one short hook and no CTA baked into
+    image.
+- asset_id: otp_mismatch_portrait
+  first_second_focal_point: headline then large SMS Classifier proof screen
+  reading_order:
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55% of canvas bbox; crop focuses on two-row synthetic proof
+  brand_placement: top-right, consistent across ratios
+  mobile_notes: Designed for phone viewing with one short hook and no CTA baked into
+    image.
+- asset_id: risk_review_square
+  first_second_focal_point: headline then large SMS Classifier proof screen
+  reading_order:
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55% of canvas bbox; crop focuses on two-row synthetic proof
+  brand_placement: top-right, consistent across ratios
+  mobile_notes: Designed for phone viewing with one short hook and no CTA baked into
+    image.
+- asset_id: risk_review_landscape
+  first_second_focal_point: headline then large SMS Classifier proof screen
+  reading_order:
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55% of canvas bbox; crop focuses on two-row synthetic proof
+  brand_placement: top-right, consistent across ratios
+  mobile_notes: Designed for phone viewing with one short hook and no CTA baked into
+    image.
+- asset_id: risk_review_portrait
+  first_second_focal_point: headline then large SMS Classifier proof screen
+  reading_order:
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55% of canvas bbox; crop focuses on two-row synthetic proof
+  brand_placement: top-right, consistent across ratios
+  mobile_notes: Designed for phone viewing with one short hook and no CTA baked into
+    image.

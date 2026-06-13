@@ -1,0 +1,424 @@
+{
+  "metadata": {
+    "engine_git_hash": "7087721c5dda21002769f28515a4bc2bdfcc2529",
+    "linter_version": "2026-06-13-stakes-strict-v3"
+  },
+  "results": [
+    {
+      "asset_id": "otp_mismatch_square",
+      "decision": "reject",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 0,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 0,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [
+        "strict_model_review_required"
+      ],
+      "recommendations": [
+        "Revise hard-fail issues before export."
+      ],
+      "deterministic_failures": [
+        "strict_model_review_required"
+      ],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "model_reviews": {},
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "otp_mismatch_square",
+          "hook_id": "H001"
+        }
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.49,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.1334,
+        "proof_inner_bottom_empty_fraction": 0.0,
+        "proof_top_edge_ink_fraction": 0.1257
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "7087721c5dda21002769f28515a4bc2bdfcc2529",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "otp_mismatch_landscape",
+      "decision": "reject",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 0,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 0,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [
+        "strict_model_review_required"
+      ],
+      "recommendations": [
+        "Revise hard-fail issues before export."
+      ],
+      "deterministic_failures": [
+        "strict_model_review_required"
+      ],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "model_reviews": {},
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "otp_mismatch_landscape",
+          "hook_id": "H001"
+        }
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.4006,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.1649,
+        "proof_inner_bottom_empty_fraction": 0.0,
+        "proof_top_edge_ink_fraction": 0.1435
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "7087721c5dda21002769f28515a4bc2bdfcc2529",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "otp_mismatch_portrait",
+      "decision": "reject",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 0,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 0,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [
+        "strict_model_review_required"
+      ],
+      "recommendations": [
+        "Revise hard-fail issues before export."
+      ],
+      "deterministic_failures": [
+        "strict_model_review_required"
+      ],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "model_reviews": {},
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "otp_mismatch_portrait",
+          "hook_id": "H001"
+        }
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.441,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.1461,
+        "proof_inner_bottom_empty_fraction": 0.0,
+        "proof_top_edge_ink_fraction": 0.1383
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "7087721c5dda21002769f28515a4bc2bdfcc2529",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "risk_review_square",
+      "decision": "reject",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 0,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 0,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [
+        "strict_model_review_required"
+      ],
+      "recommendations": [
+        "Revise hard-fail issues before export."
+      ],
+      "deterministic_failures": [
+        "strict_model_review_required"
+      ],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "model_reviews": {},
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "risk_review_square",
+          "hook_id": "H002"
+        }
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.49,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.139,
+        "proof_inner_bottom_empty_fraction": 0.0,
+        "proof_top_edge_ink_fraction": 0.1275
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "7087721c5dda21002769f28515a4bc2bdfcc2529",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "risk_review_landscape",
+      "decision": "reject",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 0,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 0,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [
+        "strict_model_review_required"
+      ],
+      "recommendations": [
+        "Revise hard-fail issues before export."
+      ],
+      "deterministic_failures": [
+        "strict_model_review_required"
+      ],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "model_reviews": {},
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "risk_review_landscape",
+          "hook_id": "H002"
+        }
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.4006,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.1656,
+        "proof_inner_bottom_empty_fraction": 0.0,
+        "proof_top_edge_ink_fraction": 0.146
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "7087721c5dda21002769f28515a4bc2bdfcc2529",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "risk_review_portrait",
+      "decision": "reject",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 0,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 0,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [
+        "strict_model_review_required"
+      ],
+      "recommendations": [
+        "Revise hard-fail issues before export."
+      ],
+      "deterministic_failures": [
+        "strict_model_review_required"
+      ],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "model_reviews": {},
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "risk_review_portrait",
+          "hook_id": "H002"
+        }
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.441,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.1508,
+        "proof_inner_bottom_empty_fraction": 0.0,
+        "proof_top_edge_ink_fraction": 0.1406
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "7087721c5dda21002769f28515a4bc2bdfcc2529",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "V_OTP_MISMATCH_9x16",
+      "decision": "reject",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 0,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 0,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [
+        "strict_model_review_required"
+      ],
+      "recommendations": [
+        "Revise hard-fail issues before export."
+      ],
+      "deterministic_failures": [
+        "strict_model_review_required"
+      ],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "model_reviews": {},
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "V_OTP_MISMATCH_9x16",
+          "hook_id": "H001"
+        }
+      },
+      "visual_metrics": {},
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "7087721c5dda21002769f28515a4bc2bdfcc2529",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "V_RISK_REVIEW_9x16",
+      "decision": "reject",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 0,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 0,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [
+        "strict_model_review_required"
+      ],
+      "recommendations": [
+        "Revise hard-fail issues before export."
+      ],
+      "deterministic_failures": [
+        "strict_model_review_required"
+      ],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "model_reviews": {},
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "V_RISK_REVIEW_9x16",
+          "hook_id": "H002"
+        }
+      },
+      "visual_metrics": {},
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "7087721c5dda21002769f28515a4bc2bdfcc2529",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    }
+  ]
+}

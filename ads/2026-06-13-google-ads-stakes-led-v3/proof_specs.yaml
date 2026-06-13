@@ -1,0 +1,42 @@
+proofs:
+- proof_type: synthetic_ui
+  synthetic_data: true
+  max_visible_rows: 2
+  crop_pct: &id001
+    x: 0
+    y: 4
+    w: 100
+    h: 76
+  focus_pct: *id001
+  id: otp_purpose_mismatch
+  source: screenshots/otp_purpose_mismatch.png
+  highlighted_state: OTP purpose hint shows account change and do-not-share sensitivity
+  intended_proof_moment: User compares a claimed delivery OTP with the code purpose
+    signal before sharing.
+  visible_chip_count: 5
+  visible_text_regions: 4
+  forbidden_surfaces:
+  - settings
+  - debug
+  - real_otp
+  - phone_number
+  - live_url
+  - absolute_safety_claim
+- proof_type: synthetic_ui
+  synthetic_data: true
+  max_visible_rows: 2
+  crop_pct: *id001
+  focus_pct: *id001
+  id: risk_review
+  source: screenshots/risk_review.png
+  highlighted_state: Suspicious message marked for review with risky-link signal
+  intended_proof_moment: User sees a review signal before tapping an unexpected SMS
+    request.
+  visible_chip_count: 5
+  visible_text_regions: 4
+  forbidden_surfaces:
+  - settings
+  - debug
+  - fake_os_alert
+  - live_url
+  - absolute_safety_claim

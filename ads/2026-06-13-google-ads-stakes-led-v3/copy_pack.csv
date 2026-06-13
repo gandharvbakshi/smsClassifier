@@ -1,0 +1,13 @@
+hook_id,platform,asset_type,headline,description,cta,headline_chars,description_chars
+H001,Google,App Campaign text,Know what the OTP unlocks,See OTP purpose hints before you share a code.,Try the app,25,46
+H001,Google,App Campaign text,Know what the OTP unlocks,A calm decision aid for OTPs and risky texts.,Try the app,25,45
+H001,Google,App Campaign text,Spot OTP purpose mismatch,See OTP purpose hints before you share a code.,Try the app,25,46
+H001,Google,App Campaign text,Spot OTP purpose mismatch,A calm decision aid for OTPs and risky texts.,Try the app,25,45
+H001,Google,App Campaign text,Review before sharing OTP,See OTP purpose hints before you share a code.,Try the app,25,46
+H001,Google,App Campaign text,Review before sharing OTP,A calm decision aid for OTPs and risky texts.,Try the app,25,45
+H002,Google,App Campaign text,Check suspicious texts first,Highlights review-worthy texts before you act.,Try the app,28,46
+H002,Google,App Campaign text,Check suspicious texts first,A cleaner SMS inbox with risk-review signals.,Try the app,28,45
+H002,Google,App Campaign text,Review risky SMS signals,Highlights review-worthy texts before you act.,Try the app,24,46
+H002,Google,App Campaign text,Review risky SMS signals,A cleaner SMS inbox with risk-review signals.,Try the app,24,45
+H002,Google,App Campaign text,Pause before you tap,Highlights review-worthy texts before you act.,Try the app,20,46
+H002,Google,App Campaign text,Pause before you tap,A cleaner SMS inbox with risk-review signals.,Try the app,20,45

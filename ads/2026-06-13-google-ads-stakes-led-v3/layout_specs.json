@@ -1,0 +1,410 @@
+[
+  {
+    "asset_id": "otp_mismatch_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#F7FBFF",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 8,
+          "w": 72,
+          "h": 12
+        },
+        "font_role": "hero",
+        "text": "Is this OTP for delivery?",
+        "color": "#102033",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 24,
+          "w": 70,
+          "h": 70
+        },
+        "font_role": "none",
+        "src": "screenshots/otp_purpose_mismatch.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 30,
+        "align": "center",
+        "focus_pct": {
+          "x": 0,
+          "y": 4,
+          "w": 100,
+          "h": 76
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 88,
+          "y": 8,
+          "w": 7,
+          "h": 7
+        },
+        "font_role": "logo",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_mismatch_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#F7FBFF",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 6,
+          "y": 22,
+          "w": 34,
+          "h": 30
+        },
+        "font_role": "hero",
+        "text": "Is this OTP for delivery?",
+        "color": "#102033",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 43,
+          "y": 7,
+          "w": 45,
+          "h": 89
+        },
+        "font_role": "none",
+        "src": "screenshots/otp_purpose_mismatch.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 30,
+        "align": "center",
+        "focus_pct": {
+          "x": 0,
+          "y": 4,
+          "w": 100,
+          "h": 76
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 91,
+          "y": 6,
+          "w": 6,
+          "h": 11
+        },
+        "font_role": "logo",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_mismatch_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#F7FBFF",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 7,
+          "w": 72,
+          "h": 12
+        },
+        "font_role": "hero",
+        "text": "Is this OTP for delivery?",
+        "color": "#102033",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 24,
+          "w": 70,
+          "h": 63
+        },
+        "font_role": "none",
+        "src": "screenshots/otp_purpose_mismatch.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 30,
+        "align": "center",
+        "focus_pct": {
+          "x": 0,
+          "y": 4,
+          "w": 100,
+          "h": 76
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 88,
+          "y": 7,
+          "w": 7,
+          "h": 6
+        },
+        "font_role": "logo",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "risk_review_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#F7FBFF",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 8,
+          "w": 72,
+          "h": 12
+        },
+        "font_role": "hero",
+        "text": "Check suspicious texts first",
+        "color": "#102033",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 24,
+          "w": 70,
+          "h": 70
+        },
+        "font_role": "none",
+        "src": "screenshots/risk_review.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 30,
+        "align": "center",
+        "focus_pct": {
+          "x": 0,
+          "y": 4,
+          "w": 100,
+          "h": 76
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 88,
+          "y": 8,
+          "w": 7,
+          "h": 7
+        },
+        "font_role": "logo",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "risk_review_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#F7FBFF",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 6,
+          "y": 22,
+          "w": 34,
+          "h": 30
+        },
+        "font_role": "hero",
+        "text": "Check suspicious texts first",
+        "color": "#102033",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 43,
+          "y": 7,
+          "w": 45,
+          "h": 89
+        },
+        "font_role": "none",
+        "src": "screenshots/risk_review.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 30,
+        "align": "center",
+        "focus_pct": {
+          "x": 0,
+          "y": 4,
+          "w": 100,
+          "h": 76
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 91,
+          "y": 6,
+          "w": 6,
+          "h": 11
+        },
+        "font_role": "logo",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "risk_review_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#F7FBFF",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 7,
+          "w": 72,
+          "h": 12
+        },
+        "font_role": "hero",
+        "text": "Check suspicious texts first",
+        "color": "#102033",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 24,
+          "w": 70,
+          "h": 63
+        },
+        "font_role": "none",
+        "src": "screenshots/risk_review.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 30,
+        "align": "center",
+        "focus_pct": {
+          "x": 0,
+          "y": 4,
+          "w": 100,
+          "h": 76
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 88,
+          "y": 7,
+          "w": 7,
+          "h": 6
+        },
+        "font_role": "logo",
+        "align": "center"
+      }
+    ]
+  }
+]

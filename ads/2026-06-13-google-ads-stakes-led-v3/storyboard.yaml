@@ -1,0 +1,39 @@
+videos:
+- asset_id: V_OTP_MISMATCH_9x16
+  hook_id: H001
+  beats:
+  - proof_id: otp_purpose_mismatch
+    caption: Caller says delivery code
+    hold_sec: 4.0
+    screen: screenshots/otp_purpose_mismatch.png
+  - proof_id: otp_purpose_mismatch
+    caption: Purpose says account change
+    hold_sec: 4.0
+    screen: screenshots/otp_purpose_mismatch.png
+  - proof_id: otp_purpose_mismatch
+    caption: Pause before sharing
+    hold_sec: 3.5
+    screen: screenshots/otp_purpose_mismatch.png
+  outro:
+    title: SMS Classifier
+    subtitle: On Google Play
+    hold_sec: 2.4
+- asset_id: V_RISK_REVIEW_9x16
+  hook_id: H002
+  beats:
+  - proof_id: risk_review
+    caption: Unexpected SMS asks fast
+    hold_sec: 4.0
+    screen: screenshots/risk_review.png
+  - proof_id: risk_review
+    caption: Review signals stay visible
+    hold_sec: 4.0
+    screen: screenshots/risk_review.png
+  - proof_id: risk_review
+    caption: Check before tapping
+    hold_sec: 3.5
+    screen: screenshots/risk_review.png
+  outro:
+    title: SMS Classifier
+    subtitle: On Google Play
+    hold_sec: 2.4

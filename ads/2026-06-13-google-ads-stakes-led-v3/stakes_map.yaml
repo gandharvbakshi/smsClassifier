@@ -1,0 +1,81 @@
+mode: user
+personas:
+- id: otp_pressure_user
+  name: User under OTP pressure
+  description: Receives OTPs while someone asks them to share a code quickly.
+- id: cautious_link_reviewer
+  name: Cautious SMS link reviewer
+  description: Wants to slow down before tapping risky-looking messages.
+moments:
+- id: caller_claims_harmless_otp
+  trigger: Someone says an OTP is for delivery or another harmless action.
+  pressure_or_confusion: The SMS is real, but the surrounding explanation may be false.
+- id: unexpected_link_or_kyc_text
+  trigger: A text asks the user to tap, confirm, or update something unexpectedly.
+  pressure_or_confusion: The message sounds urgent enough to act before reviewing
+    it.
+features:
+- id: otp_intent_detection
+  mechanism: Classifies whether an OTP appears related to login, account change, delivery/service,
+    bank/card, UPI, KYC/e-sign, or a generic app action.
+  decision_enabled: Compare the code purpose signal against what the caller claims.
+  bad_outcome_defeated: Sharing a sensitive code under a false pretext.
+  outcome_type: fraud_loss_avoidance
+  claim_boundary: Shows a purpose signal; does not guarantee fraud prevention.
+  evidence_refs:
+  - model_metadata.json otp_intent classes
+  - HeuristicOtpClassifier.detectIntent
+  - owner positioning correction
+  confidence: owner_confirmed
+  so_what_ladder:
+  - The user sees what the OTP appears to be for.
+  - A mismatch between the caller story and code purpose becomes visible.
+  - The user can avoid sharing a sensitive code in a social-engineering scam.
+- id: risky_message_review
+  mechanism: Classifies phishing/risky-looking SMS signals and review-needed messages
+    when classification data supports it.
+  decision_enabled: Pause and review suspicious texts before tapping or sharing information.
+  bad_outcome_defeated: Acting too quickly on a risky SMS link or request.
+  outcome_type: risk_reduction
+  claim_boundary: Highlights review signals; does not guarantee every scam is caught.
+  evidence_refs:
+  - store listing scam awareness language
+  - Prediction.isPhishing and phishScore
+  confidence: source_confirmed
+  so_what_ladder:
+  - The user sees that a text deserves review.
+  - They slow down before tapping a risky link or acting on the request.
+  - They reduce the chance of handing over money, credentials, or sensitive information
+    by mistake.
+scenarios:
+- id: delivery_story_account_change_code
+  persona_id: otp_pressure_user
+  moment_id: caller_claims_harmless_otp
+  feature_id: otp_intent_detection
+  user_belief: The caller says the OTP is only for delivery.
+  actual_risk: The code appears to relate to account change or another sensitive action.
+  product_intervention: The app shows the code purpose signal and a do-not-share sensitivity
+    hint.
+  outcome_type: fraud_loss_avoidance
+  so_what_ladder:
+  - The user sees what the OTP appears to be for.
+  - The mismatch between delivery story and account-change signal becomes visible.
+  - The user can pause and avoid sharing a sensitive code under pressure.
+- id: unexpected_kyc_or_reward_link
+  persona_id: cautious_link_reviewer
+  moment_id: unexpected_link_or_kyc_text
+  feature_id: risky_message_review
+  user_belief: The text may be a normal update or reward message.
+  actual_risk: The text may be a risky link or information request.
+  product_intervention: The app highlights the message as review-worthy before the
+    user taps.
+  outcome_type: risk_reduction
+  so_what_ladder:
+  - The user sees the text needs review.
+  - They pause before tapping or sharing details.
+  - They reduce exposure to risky SMS requests and scam-like prompts.
+baselines:
+- id: stock_messages
+  name: Stock SMS app
+  product_difference: Shows message text but not the same OTP-purpose/risk decision
+    aid.
