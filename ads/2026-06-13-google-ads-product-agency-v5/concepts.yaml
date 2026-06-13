@@ -1,0 +1,21 @@
+concepts:
+- id: otp_agency
+  hook_id: H001
+  hook_type: pain_led
+  angle: OTP pressure
+  user_promise: Delivery OTP? App shows account change
+  ui_proof: otp_app_shows_account_change
+  claim_risk: medium
+  rank: 1
+  treatments:
+  - benefit_headline
+- id: kyc_review
+  hook_id: H002
+  hook_type: pain_led
+  angle: Suspicious KYC text
+  user_promise: Prize text asks for KYC? App warns
+  ui_proof: kyc_app_flags_review
+  claim_risk: medium
+  rank: 2
+  treatments:
+  - benefit_headline

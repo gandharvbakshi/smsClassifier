@@ -1,0 +1,39 @@
+videos:
+- asset_id: V_OTP_AGENCY_9x16
+  hook_id: H001
+  beats:
+  - proof_id: otp_app_shows_account_change
+    caption: Delivery OTP? App shows account change
+    hold_sec: 4.0
+    screen: screenshots/otp_app_shows_account_change.png
+  - proof_id: otp_app_shows_account_change
+    caption: Story and code mismatch
+    hold_sec: 3.8
+    screen: screenshots/otp_app_shows_account_change.png
+  - proof_id: otp_app_shows_account_change
+    caption: Know before sharing
+    hold_sec: 3.2
+    screen: screenshots/otp_app_shows_account_change.png
+  outro:
+    title: SMS Classifier
+    subtitle: Try on Google Play
+    hold_sec: 2.0
+- asset_id: V_KYC_REVIEW_9x16
+  hook_id: H002
+  beats:
+  - proof_id: kyc_app_flags_review
+    caption: Prize text asks for KYC? App warns
+    hold_sec: 4.0
+    screen: screenshots/kyc_app_flags_review.png
+  - proof_id: kyc_app_flags_review
+    caption: App warns on KYC
+    hold_sec: 3.8
+    screen: screenshots/kyc_app_flags_review.png
+  - proof_id: kyc_app_flags_review
+    caption: Review before tapping
+    hold_sec: 3.2
+    screen: screenshots/kyc_app_flags_review.png
+  outro:
+    title: SMS Classifier
+    subtitle: Try on Google Play
+    hold_sec: 2.0

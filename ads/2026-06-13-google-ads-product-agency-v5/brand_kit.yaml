@@ -1,0 +1,53 @@
+brand_name: SMS Classifier
+logo_files:
+- path: inputs/logo-primary.png
+  variant: primary
+  min_clearspace_pct: 0.25
+- path: inputs/logo-primary.png
+  variant: icon
+  min_clearspace_pct: 0.25
+- path: inputs/logo-primary.png
+  variant: mono_dark
+  min_clearspace_pct: 0.25
+- path: inputs/logo-primary.png
+  variant: mono_light
+  min_clearspace_pct: 0.25
+palette:
+  primary: '#1D9BF0'
+  secondary:
+  - '#BBD7F2'
+  - '#E9F3FF'
+  - '#D8C7FF'
+  background_light: '#F7FBFF'
+  background_dark: '#06243F'
+  text_on_light: '#102033'
+  text_on_dark: '#F8FAFC'
+  accent_warning: '#FF6B6B'
+  accent_ok: '#48B06A'
+fonts:
+  heading: Inter
+  body: Inter
+  fallback: Arial, sans-serif
+tone:
+- clear
+- practical
+- privacy-aware
+- calm
+voice_dos:
+- Use decision-aid language such as review, helps, highlights, and easier to find.
+- Qualify Pro/cloud features as trial or subscription features.
+- Keep privacy copy honest about cloud classification when enabled.
+voice_donts:
+- Do not claim messages are always safe or scams are fully blocked.
+- Do not imply SMS never leaves the device when cloud checks are active.
+- Do not use bare free CTAs for trial-then-paid surfaces.
+logo_rules:
+  clearspace: Keep at least 25% icon-width clearspace.
+  backgrounds: Use high contrast on light or dark backgrounds.
+forbidden:
+- 100% safe
+- safe and secure
+- never miss
+- blocks all scams
+- install free
+- download free

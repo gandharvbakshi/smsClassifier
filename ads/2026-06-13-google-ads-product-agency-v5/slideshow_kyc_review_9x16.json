@@ -1,0 +1,34 @@
+{
+  "asset_id": "V_KYC_REVIEW_9x16",
+  "hook_id": "H002",
+  "canvas": {
+    "width_px": 1080,
+    "height_px": 1920
+  },
+  "fps": 30,
+  "background_mode": "light",
+  "crossfade_sec": 0.0,
+  "motion": false,
+  "frames": [
+    {
+      "image": "screenshots/kyc_app_flags_review.png",
+      "caption": "Prize text asks for KYC? App warns",
+      "hold_sec": 4.0
+    },
+    {
+      "image": "screenshots/kyc_app_flags_review.png",
+      "caption": "App warns on KYC",
+      "hold_sec": 3.8
+    },
+    {
+      "image": "screenshots/kyc_app_flags_review.png",
+      "caption": "Review before tapping",
+      "hold_sec": 3.2
+    }
+  ],
+  "outro": {
+    "title": "SMS Classifier",
+    "subtitle": "Try on Google Play",
+    "hold_sec": 2.0
+  }
+}

@@ -1,0 +1,25 @@
+messages:
+- hook_id: H001
+  on_image_headline: Delivery OTP? App shows account change
+  platform_headlines:
+  - Delivery OTP? Check the purpose
+  - See what the OTP is for
+  platform_descriptions:
+  - SMS Classifier shows purpose hints so the story and code can be compared.
+  cta_variants:
+  - Try the app
+  claim_ids_used: []
+  proof_id: otp_app_shows_account_change
+  callout_text: Story mismatch
+- hook_id: H002
+  on_image_headline: Prize text asks for KYC? App warns
+  platform_headlines:
+  - Prize text asks for KYC?
+  - App warns before tap
+  platform_descriptions:
+  - SMS Classifier warns before suspicious KYC requests.
+  cta_variants:
+  - Try the app
+  claim_ids_used: []
+  proof_id: kyc_app_flags_review
+  callout_text: KYC warning

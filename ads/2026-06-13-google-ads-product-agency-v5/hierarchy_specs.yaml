@@ -1,0 +1,55 @@
+assets:
+- asset_id: otp_agency_benefit_headline_square
+  first_second_focal_point: headline_then_product_ui_proof
+  reading_order:
+  - logo
+  - headline
+  - product_ui
+  proof_size_target: 40-55%
+  brand_placement: top_left_lockup
+  allowed_overlap_exceptions: []
+- asset_id: otp_agency_benefit_headline_landscape
+  first_second_focal_point: headline_then_product_ui_proof
+  reading_order:
+  - logo
+  - headline
+  - product_ui
+  proof_size_target: 40-55%
+  brand_placement: top_left_lockup
+  allowed_overlap_exceptions: []
+- asset_id: otp_agency_benefit_headline_portrait
+  first_second_focal_point: headline_then_product_ui_proof
+  reading_order:
+  - logo
+  - headline
+  - product_ui
+  proof_size_target: 40-55%
+  brand_placement: top_left_lockup
+  allowed_overlap_exceptions: []
+- asset_id: kyc_review_benefit_headline_square
+  first_second_focal_point: headline_then_product_ui_proof
+  reading_order:
+  - logo
+  - headline
+  - product_ui
+  proof_size_target: 40-55%
+  brand_placement: top_left_lockup
+  allowed_overlap_exceptions: []
+- asset_id: kyc_review_benefit_headline_landscape
+  first_second_focal_point: headline_then_product_ui_proof
+  reading_order:
+  - logo
+  - headline
+  - product_ui
+  proof_size_target: 40-55%
+  brand_placement: top_left_lockup
+  allowed_overlap_exceptions: []
+- asset_id: kyc_review_benefit_headline_portrait
+  first_second_focal_point: headline_then_product_ui_proof
+  reading_order:
+  - logo
+  - headline
+  - product_ui
+  proof_size_target: 40-55%
+  brand_placement: top_left_lockup
+  allowed_overlap_exceptions: []
