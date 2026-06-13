@@ -1,0 +1,76 @@
+approved_hooks:
+- id: H001
+  rank: 1
+  hook: Delivery? App shows account change
+  hook_type: pain_led
+  status: primary
+  persona_id: otp_pressure_user
+  moment_id: caller_claims_delivery_otp
+  scenario_id: delivery_story_account_change_code
+  feature_id: otp_intent_detection
+  proof_id: otp_app_shows_account_change
+  claim_boundary: Shows a purpose signal; does not guarantee fraud prevention.
+  proof_feasibility: single_frame_ui_proof
+  evidence_status: owner_confirmed
+  confidence: owner_confirmed
+  outcome_type: fraud_loss_avoidance
+  so_what_ladder:
+  - The app shows what the OTP appears to be for.
+  - The delivery story and account-change signal do not match.
+  - The user can catch the mismatch before sharing the code.
+  scores:
+    pain_magnitude: 5
+    frequency: 4
+    breadth_of_audience: 4
+    proofability: 5
+    differentiation: 5
+    one_second_clarity: 5
+    claim_safety: 4
+    confidence_score: 5
+  claim_risk: medium
+  rationale: Shows product agency and the mismatch in one line.
+  callout_text: Story mismatch
+- id: H002
+  rank: 2
+  hook: Prize SMS asks KYC? App warns
+  hook_type: pain_led
+  status: approved
+  persona_id: cautious_link_reviewer
+  moment_id: unexpected_kyc_reward_text
+  scenario_id: unexpected_kyc_reward_link
+  feature_id: risky_message_review
+  proof_id: kyc_app_flags_review
+  claim_boundary: Highlights review signals; does not guarantee every scam is caught.
+  proof_feasibility: single_frame_ui_proof
+  evidence_status: source_confirmed
+  confidence: source_confirmed
+  outcome_type: risk_reduction
+  so_what_ladder:
+  - The app flags the KYC text for review.
+  - The user sees the request may be risky before tapping.
+  - The user can slow down before a scam-like prompt.
+  scores:
+    pain_magnitude: 4
+    frequency: 4
+    breadth_of_audience: 4
+    proofability: 4
+    differentiation: 4
+    one_second_clarity: 5
+    claim_safety: 4
+    confidence_score: 4
+  claim_risk: medium
+  rationale: Concrete KYC/reward moment with app agency in the hook.
+  callout_text: Risky KYC
+discarded_hooks:
+- hook: Pause before sharing
+  hook_type: pain_led
+  reason: Precaution-only; does not show what the product does.
+  allowed_use: supporting caption only
+- hook: Check suspicious texts first
+  hook_type: pain_led
+  reason: Instruction-led; weaker than product-agency KYC hook.
+  allowed_use: supporting copy only
+- hook: Cloud checks
+  hook_type: config_led
+  reason: Configuration detail, not a customer pain.
+  allowed_use: retargeting/trust context only

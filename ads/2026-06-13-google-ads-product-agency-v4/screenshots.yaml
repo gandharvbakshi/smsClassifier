@@ -1,0 +1,23 @@
+screenshots:
+- id: otp_app_shows_account_change
+  path: screenshots/otp_app_shows_account_change.png
+  screen_name: OTP purpose proof
+  key_state: app shows account change while caller says delivery
+  suggested_use:
+  - otp_app_shows_account_change
+  synthetic_data: true
+  crop_pct: &id001
+    x: 0
+    y: 0
+    w: 100
+    h: 42
+  focus_pct: *id001
+- id: kyc_app_flags_review
+  path: screenshots/kyc_app_flags_review.png
+  screen_name: Risky KYC review proof
+  key_state: app warns on the KYC request before tapping
+  suggested_use:
+  - kyc_app_flags_review
+  synthetic_data: true
+  crop_pct: *id001
+  focus_pct: *id001
