@@ -1,0 +1,93 @@
+source: sanitized_demo_screens_snapshot
+created_at: '2026-06-13T01:57:53.073573+00:00'
+screenshots:
+- id: otp_inbox
+  screen_name: OTP inbox
+  key_state: OTP category with reusable demo messages
+  suggested_use:
+  - otp_retrieval
+  - find_otp_fast
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 10
+    left: 0
+  focus_pct:
+    x: 50
+    y: 45
+  path: screenshots/otp_inbox.png
+- id: suspicious_review
+  screen_name: Suspicious review
+  key_state: Suspicious category with decision aid labels
+  suggested_use:
+  - scam_awareness
+  - review_suspicious_texts
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 10
+    left: 0
+  focus_pct:
+    x: 50
+    y: 45
+  path: screenshots/suspicious_review.png
+- id: sorted_inbox
+  screen_name: Sorted inbox
+  key_state: General category showing clean message sorting
+  suggested_use:
+  - organized_inbox
+  - category_sorting
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 16
+    left: 0
+  focus_pct:
+    x: 50
+    y: 42
+  path: screenshots/sorted_inbox.png
+- id: correction_logs
+  screen_name: Correction logs
+  key_state: User correction workflow with share and delete controls
+  suggested_use:
+  - fix_wrong_labels
+  - feedback_loop
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 18
+    left: 0
+  focus_pct:
+    x: 45
+    y: 36
+  path: screenshots/correction_logs.png
+- id: pro_settings
+  screen_name: Pro settings
+  key_state: Trial and Pro cloud check controls
+  suggested_use:
+  - pro_cloud_checks
+  - trial_settings
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 14
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  path: screenshots/pro_settings.png
+- id: data_controls
+  screen_name: Data controls
+  key_state: Privacy and cloud review control settings
+  suggested_use:
+  - privacy_controls
+  - cloud_review_disclosure
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 18
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  path: screenshots/data_controls.png

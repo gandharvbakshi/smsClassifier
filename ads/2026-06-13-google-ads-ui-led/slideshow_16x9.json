@@ -1,0 +1,43 @@
+{
+  "asset_id": "V002_ui_proof_youtube",
+  "canvas": {
+    "width_px": 1920,
+    "height_px": 1080
+  },
+  "fps": 30,
+  "background_mode": "light",
+  "crossfade_sec": 0.35,
+  "motion": true,
+  "intro": {
+    "title": "SMS Classifier",
+    "subtitle": "A clearer SMS inbox",
+    "hold_sec": 1.8
+  },
+  "frames": [
+    {
+      "image": "screenshots/sorted_inbox.png",
+      "caption": "SMS inbox, sorted",
+      "hold_sec": 2.2
+    },
+    {
+      "image": "screenshots/otp_inbox.png",
+      "caption": "Find OTPs faster",
+      "hold_sec": 2.2
+    },
+    {
+      "image": "screenshots/suspicious_review.png",
+      "caption": "Review suspicious texts",
+      "hold_sec": 2.2
+    },
+    {
+      "image": "screenshots/data_controls.png",
+      "caption": "Control cloud review",
+      "hold_sec": 2.2
+    }
+  ],
+  "outro": {
+    "title": "Free for 14 days",
+    "subtitle": "On Google Play",
+    "hold_sec": 2.0
+  }
+}

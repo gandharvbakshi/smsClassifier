@@ -1,0 +1,10 @@
+monetization:
+  pricing_model: free_trial
+  has_free_tier: true
+  trial_days: 14
+  price: 199
+  currency: INR
+  billing_period: year
+  notes: Store listing says local OTP detection is available for basic use; Pro trial/subscription
+    enables cloud classification, code-purpose explanations, scam warnings, and do-not-share
+    alerts. Annual Google Play subscription is INR 199/year in India.

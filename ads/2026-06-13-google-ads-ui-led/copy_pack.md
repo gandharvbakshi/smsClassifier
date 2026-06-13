@@ -1,0 +1,40 @@
+# Text Asset Pack
+
+| Asset ID | Headline | Description | CTA |
+|---|---|---|---|
+| otp_fast_ui_only_square | Find OTPs faster | Shows OTP inbox in the app UI. | Free for 14 days |
+| otp_fast_ui_only_landscape | Find OTPs faster | Shows OTP inbox in the app UI. | Free for 14 days |
+| otp_fast_ui_only_portrait | Find OTPs faster | Shows OTP inbox in the app UI. | Free for 14 days |
+| otp_fast_benefit_headline_square | Find OTPs faster | Shows OTP inbox in the app UI. | Free for 14 days |
+| otp_fast_benefit_headline_landscape | Find OTPs faster | Shows OTP inbox in the app UI. | Free for 14 days |
+| otp_fast_benefit_headline_portrait | Find OTPs faster | Shows OTP inbox in the app UI. | Free for 14 days |
+| review_texts_ui_only_square | Review suspicious texts | Shows Suspicious review in the app UI. | Free for 14 days |
+| review_texts_ui_only_landscape | Review suspicious texts | Shows Suspicious review in the app UI. | Free for 14 days |
+| review_texts_ui_only_portrait | Review suspicious texts | Shows Suspicious review in the app UI. | Free for 14 days |
+| review_texts_benefit_headline_square | Review suspicious texts | Shows Suspicious review in the app UI. | Free for 14 days |
+| review_texts_benefit_headline_landscape | Review suspicious texts | Shows Suspicious review in the app UI. | Free for 14 days |
+| review_texts_benefit_headline_portrait | Review suspicious texts | Shows Suspicious review in the app UI. | Free for 14 days |
+| sorted_messages_ui_only_square | SMS inbox, sorted | Shows Sorted inbox in the app UI. | Free for 14 days |
+| sorted_messages_ui_only_landscape | SMS inbox, sorted | Shows Sorted inbox in the app UI. | Free for 14 days |
+| sorted_messages_ui_only_portrait | SMS inbox, sorted | Shows Sorted inbox in the app UI. | Free for 14 days |
+| sorted_messages_benefit_headline_square | SMS inbox, sorted | Shows Sorted inbox in the app UI. | Free for 14 days |
+| sorted_messages_benefit_headline_landscape | SMS inbox, sorted | Shows Sorted inbox in the app UI. | Free for 14 days |
+| sorted_messages_benefit_headline_portrait | SMS inbox, sorted | Shows Sorted inbox in the app UI. | Free for 14 days |
+| fix_labels_ui_only_square | Fix wrong labels | Shows Correction logs in the app UI. | Free for 14 days |
+| fix_labels_ui_only_landscape | Fix wrong labels | Shows Correction logs in the app UI. | Free for 14 days |
+| fix_labels_ui_only_portrait | Fix wrong labels | Shows Correction logs in the app UI. | Free for 14 days |
+| fix_labels_benefit_headline_square | Fix wrong labels | Shows Correction logs in the app UI. | Free for 14 days |
+| fix_labels_benefit_headline_landscape | Fix wrong labels | Shows Correction logs in the app UI. | Free for 14 days |
+| fix_labels_benefit_headline_portrait | Fix wrong labels | Shows Correction logs in the app UI. | Free for 14 days |
+| cloud_checks_ui_only_square | Add cloud checks | Shows Pro settings in the app UI. | Free for 14 days |
+| cloud_checks_ui_only_landscape | Add cloud checks | Shows Pro settings in the app UI. | Free for 14 days |
+| cloud_checks_ui_only_portrait | Add cloud checks | Shows Pro settings in the app UI. | Free for 14 days |
+| cloud_checks_benefit_headline_square | Add cloud checks | Shows Pro settings in the app UI. | Free for 14 days |
+| cloud_checks_benefit_headline_landscape | Add cloud checks | Shows Pro settings in the app UI. | Free for 14 days |
+| cloud_checks_benefit_headline_portrait | Add cloud checks | Shows Pro settings in the app UI. | Free for 14 days |
+| data_controls_ui_only_square | Control cloud review | Shows Data controls in the app UI. | Free for 14 days |
+| data_controls_ui_only_landscape | Control cloud review | Shows Data controls in the app UI. | Free for 14 days |
+| data_controls_ui_only_portrait | Control cloud review | Shows Data controls in the app UI. | Free for 14 days |
+| data_controls_benefit_headline_square | Control cloud review | Shows Data controls in the app UI. | Free for 14 days |
+| data_controls_benefit_headline_landscape | Control cloud review | Shows Data controls in the app UI. | Free for 14 days |
+| data_controls_benefit_headline_portrait | Control cloud review | Shows Data controls in the app UI. | Free for 14 days |

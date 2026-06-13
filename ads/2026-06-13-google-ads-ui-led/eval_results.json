@@ -1,0 +1,920 @@
+{
+  "metadata": {
+    "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+    "linter_version": "2026-06-13-product-proof-v1"
+  },
+  "results": [
+    {
+      "asset_id": "otp_fast_ui_only_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "otp_fast_ui_only_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "otp_fast_ui_only_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "otp_fast_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "otp_fast_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "otp_fast_benefit_headline_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "review_texts_ui_only_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "review_texts_ui_only_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "review_texts_ui_only_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "review_texts_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "review_texts_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "review_texts_benefit_headline_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "sorted_messages_ui_only_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "sorted_messages_ui_only_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "sorted_messages_ui_only_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "sorted_messages_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "sorted_messages_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "sorted_messages_benefit_headline_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "fix_labels_ui_only_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "fix_labels_ui_only_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "fix_labels_ui_only_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "fix_labels_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "fix_labels_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "fix_labels_benefit_headline_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "cloud_checks_ui_only_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "cloud_checks_ui_only_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "cloud_checks_ui_only_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "cloud_checks_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "cloud_checks_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "cloud_checks_benefit_headline_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "data_controls_ui_only_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "data_controls_ui_only_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "data_controls_ui_only_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "data_controls_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "data_controls_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "data_controls_benefit_headline_portrait",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "V001_ui_proof_reels",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    },
+    {
+      "asset_id": "V002_ui_proof_youtube",
+      "decision": "ship",
+      "scores": {
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "67c317468ff87fb4f5cc4aa23534677f37a7c2b1",
+        "linter_version": "2026-06-13-product-proof-v1"
+      }
+    }
+  ]
+}

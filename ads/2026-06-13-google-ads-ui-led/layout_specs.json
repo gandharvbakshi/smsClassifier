@@ -1,0 +1,2198 @@
+[
+  {
+    "asset_id": "otp_fast_ui_only_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\otp_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_fast_ui_only_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\otp_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_fast_ui_only_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\otp_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_fast_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 8,
+          "w": 58,
+          "h": 16
+        },
+        "font_role": "hero",
+        "text": "Find OTPs faster",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\otp_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 30,
+          "y": 78,
+          "w": 40,
+          "h": 8
+        },
+        "font_role": "caption",
+        "text": "OTP inbox",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_fast_benefit_headline_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 6,
+          "y": 14,
+          "w": 44,
+          "h": 24
+        },
+        "font_role": "hero",
+        "text": "Find OTPs faster",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\otp_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 8,
+          "y": 46,
+          "w": 32,
+          "h": 10
+        },
+        "font_role": "caption",
+        "text": "OTP inbox",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_fast_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 9,
+          "w": 84,
+          "h": 11
+        },
+        "font_role": "hero",
+        "text": "Find OTPs faster",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\otp_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 22,
+          "y": 85,
+          "w": 42,
+          "h": 7
+        },
+        "font_role": "caption",
+        "text": "OTP inbox",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "review_texts_ui_only_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\suspicious_review.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "review_texts_ui_only_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\suspicious_review.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "review_texts_ui_only_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\suspicious_review.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "review_texts_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 8,
+          "w": 58,
+          "h": 16
+        },
+        "font_role": "hero",
+        "text": "Review suspicious texts",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\suspicious_review.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 30,
+          "y": 78,
+          "w": 40,
+          "h": 8
+        },
+        "font_role": "caption",
+        "text": "Suspicious review",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "review_texts_benefit_headline_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 6,
+          "y": 14,
+          "w": 44,
+          "h": 24
+        },
+        "font_role": "hero",
+        "text": "Review suspicious texts",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\suspicious_review.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 8,
+          "y": 46,
+          "w": 32,
+          "h": 10
+        },
+        "font_role": "caption",
+        "text": "Suspicious review",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "review_texts_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 9,
+          "w": 84,
+          "h": 11
+        },
+        "font_role": "hero",
+        "text": "Review suspicious texts",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\suspicious_review.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 10,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 45
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 22,
+          "y": 85,
+          "w": 42,
+          "h": 7
+        },
+        "font_role": "caption",
+        "text": "Suspicious review",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "sorted_messages_ui_only_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\sorted_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 16,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 42
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "sorted_messages_ui_only_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\sorted_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 16,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 42
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "sorted_messages_ui_only_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\sorted_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 16,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 42
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "sorted_messages_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 8,
+          "w": 58,
+          "h": 16
+        },
+        "font_role": "hero",
+        "text": "SMS inbox, sorted",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\sorted_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 16,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 42
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 30,
+          "y": 78,
+          "w": 40,
+          "h": 8
+        },
+        "font_role": "caption",
+        "text": "Sorted inbox",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "sorted_messages_benefit_headline_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 6,
+          "y": 14,
+          "w": 44,
+          "h": 24
+        },
+        "font_role": "hero",
+        "text": "SMS inbox, sorted",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\sorted_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 16,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 42
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 8,
+          "y": 46,
+          "w": 32,
+          "h": 10
+        },
+        "font_role": "caption",
+        "text": "Sorted inbox",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "sorted_messages_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 9,
+          "w": 84,
+          "h": 11
+        },
+        "font_role": "hero",
+        "text": "SMS inbox, sorted",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\sorted_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 16,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 42
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 22,
+          "y": 85,
+          "w": 42,
+          "h": 7
+        },
+        "font_role": "caption",
+        "text": "Sorted inbox",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "fix_labels_ui_only_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\correction_logs.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 45,
+          "y": 36
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "fix_labels_ui_only_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\correction_logs.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 45,
+          "y": 36
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "fix_labels_ui_only_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\correction_logs.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 45,
+          "y": 36
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "fix_labels_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 8,
+          "w": 58,
+          "h": 16
+        },
+        "font_role": "hero",
+        "text": "Fix wrong labels",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\correction_logs.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 45,
+          "y": 36
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 30,
+          "y": 78,
+          "w": 40,
+          "h": 8
+        },
+        "font_role": "caption",
+        "text": "Correction logs",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "fix_labels_benefit_headline_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 6,
+          "y": 14,
+          "w": 44,
+          "h": 24
+        },
+        "font_role": "hero",
+        "text": "Fix wrong labels",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\correction_logs.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 45,
+          "y": 36
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 8,
+          "y": 46,
+          "w": 32,
+          "h": 10
+        },
+        "font_role": "caption",
+        "text": "Correction logs",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "fix_labels_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 9,
+          "w": 84,
+          "h": 11
+        },
+        "font_role": "hero",
+        "text": "Fix wrong labels",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\correction_logs.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 45,
+          "y": 36
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 22,
+          "y": 85,
+          "w": 42,
+          "h": 7
+        },
+        "font_role": "caption",
+        "text": "Correction logs",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "cloud_checks_ui_only_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\pro_settings.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 14,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "cloud_checks_ui_only_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\pro_settings.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 14,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "cloud_checks_ui_only_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\pro_settings.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 14,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "cloud_checks_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 8,
+          "w": 58,
+          "h": 16
+        },
+        "font_role": "hero",
+        "text": "Add cloud checks",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\pro_settings.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 14,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 30,
+          "y": 78,
+          "w": 40,
+          "h": 8
+        },
+        "font_role": "caption",
+        "text": "Pro settings",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "cloud_checks_benefit_headline_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 6,
+          "y": 14,
+          "w": 44,
+          "h": 24
+        },
+        "font_role": "hero",
+        "text": "Add cloud checks",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\pro_settings.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 14,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 8,
+          "y": 46,
+          "w": 32,
+          "h": 10
+        },
+        "font_role": "caption",
+        "text": "Pro settings",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "cloud_checks_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 9,
+          "w": 84,
+          "h": 11
+        },
+        "font_role": "hero",
+        "text": "Add cloud checks",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\pro_settings.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 14,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 22,
+          "y": 85,
+          "w": 42,
+          "h": 7
+        },
+        "font_role": "caption",
+        "text": "Pro settings",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "data_controls_ui_only_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\data_controls.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "data_controls_ui_only_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\data_controls.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "data_controls_ui_only_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\data_controls.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      }
+    ]
+  },
+  {
+    "asset_id": "data_controls_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 8,
+          "w": 58,
+          "h": 16
+        },
+        "font_role": "hero",
+        "text": "Control cloud review",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 20,
+          "y": 25,
+          "w": 60,
+          "h": 59
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\data_controls.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 30,
+          "y": 78,
+          "w": 40,
+          "h": 8
+        },
+        "font_role": "caption",
+        "text": "Data controls",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "data_controls_benefit_headline_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 6,
+          "y": 14,
+          "w": 44,
+          "h": 24
+        },
+        "font_role": "hero",
+        "text": "Control cloud review",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 52,
+          "y": 8,
+          "w": 44,
+          "h": 84
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\data_controls.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 8,
+          "y": 46,
+          "w": 32,
+          "h": 10
+        },
+        "font_role": "caption",
+        "text": "Data controls",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "data_controls_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 8,
+          "y": 9,
+          "w": 84,
+          "h": 11
+        },
+        "font_role": "hero",
+        "text": "Control cloud review",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 15,
+          "y": 22,
+          "w": 70,
+          "h": 58
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led\\screenshots\\data_controls.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 50,
+          "y": 40
+        }
+      },
+      {
+        "type": "label_chip",
+        "bbox_pct": {
+          "x": 22,
+          "y": 85,
+          "w": 42,
+          "h": 7
+        },
+        "font_role": "caption",
+        "text": "Data controls",
+        "color": "#7DD3FC",
+        "align": "center"
+      }
+    ]
+  }
+]
