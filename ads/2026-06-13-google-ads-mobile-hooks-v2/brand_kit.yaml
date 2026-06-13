@@ -1,0 +1,13 @@
+brand_name: SMS Classifier
+logo_files:
+- path: inputs/logo-primary.png
+  variant: primary
+palette:
+  primary: '#0EA5E9'
+  secondary:
+  - '#BDEBFF'
+  - '#D8F5E6'
+  background_light: '#F8FBFC'
+  background_dark: '#0B1220'
+  text_on_light: '#0B1220'
+  text_on_dark: '#F8FAFC'

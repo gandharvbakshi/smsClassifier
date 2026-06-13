@@ -1,0 +1,34 @@
+concepts:
+- id: otp
+  hook_id: H001
+  hook_type: pain_led
+  angle: OTP retrieval
+  user_promise: Find OTPs faster
+  ui_proof: otp_focus
+  callout_text: ''
+  claim_risk: low
+  rank: 1
+  treatments:
+  - benefit_headline
+- id: suspicious
+  hook_id: H002
+  hook_type: pain_led
+  angle: Suspicious text review
+  user_promise: Review suspicious texts
+  ui_proof: suspicious_focus
+  callout_text: ''
+  claim_risk: medium
+  rank: 2
+  treatments:
+  - benefit_headline
+- id: clear_inbox
+  hook_id: H003
+  hook_type: benefit_led
+  angle: Inbox clarity
+  user_promise: A clearer SMS inbox
+  ui_proof: sorted_focus
+  callout_text: ''
+  claim_risk: low
+  rank: 3
+  treatments:
+  - benefit_headline

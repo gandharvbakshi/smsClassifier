@@ -1,0 +1,62 @@
+approved_hooks:
+- id: H001
+  rank: 1
+  hook: Find OTPs faster
+  hook_type: pain_led
+  status: approved
+  proof_id: otp_focus
+  claim_risk: low
+  scores:
+    pain_severity: 5
+    differentiation: 4
+    proof_strength: 5
+    one_second_clarity: 5
+    breadth_of_audience: 5
+    claim_safety: 5
+  rationale: Frequent concrete job; proof is instant.
+  callout_text: OTP tab
+- id: H002
+  rank: 2
+  hook: Review suspicious texts
+  hook_type: pain_led
+  status: approved
+  proof_id: suspicious_focus
+  claim_risk: medium
+  scores:
+    pain_severity: 5
+    differentiation: 4
+    proof_strength: 5
+    one_second_clarity: 5
+    breadth_of_audience: 4
+    claim_safety: 4
+  rationale: Strong pain, framed as review not protection guarantee.
+  callout_text: Review
+- id: H003
+  rank: 3
+  hook: A clearer SMS inbox
+  hook_type: benefit_led
+  status: approved
+  proof_id: sorted_focus
+  claim_risk: low
+  scores:
+    pain_severity: 4
+    differentiation: 3
+    proof_strength: 4
+    one_second_clarity: 4
+    breadth_of_audience: 5
+    claim_safety: 5
+  rationale: Broad benefit with simple category proof.
+  callout_text: Sorted
+discarded_hooks:
+- hook: Cloud checks
+  hook_type: config_led
+  reason: Trust/support detail, not a top-funnel pain or benefit hook.
+  allowed_use: retargeting/privacy-objection proof
+- hook: Fix wrong labels
+  hook_type: feature_led
+  reason: Support feature with weak first-impression value.
+  allowed_use: supporting proof
+- hook: Data controls
+  hook_type: config_led
+  reason: Important trust context but not acquisition hook.
+  allowed_use: privacy trust card

@@ -1,0 +1,6 @@
+defaults:
+  proof_area_target: 40-55%
+  brand_mark: top corner
+  on_image_words_max: 6
+  allowed_overlap: false
+assets: []

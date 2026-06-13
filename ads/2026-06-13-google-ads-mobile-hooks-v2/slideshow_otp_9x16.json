@@ -1,0 +1,48 @@
+{
+  "asset_id": "V_OTP_9x16",
+  "primary_hook_id": "H001",
+  "canvas": {
+    "width_px": 1080,
+    "height_px": 1920
+  },
+  "fps": 30,
+  "background_mode": "light",
+  "crossfade_sec": 0.0,
+  "motion": true,
+  "intro": {
+    "title": "Find OTPs faster",
+    "subtitle": "SMS Classifier",
+    "hold_sec": 1.2
+  },
+  "frames": [
+    {
+      "hook_id": "H001",
+      "image": "screenshots/otp_focus.png",
+      "caption": "Find OTPs faster",
+      "hold_sec": 4.0,
+      "focus_pct": {
+        "x": 0,
+        "y": 18,
+        "w": 100,
+        "h": 72
+      }
+    },
+    {
+      "hook_id": "H001",
+      "image": "screenshots/otp_focus.png",
+      "caption": "Copy the code",
+      "hold_sec": 4.0,
+      "focus_pct": {
+        "x": 0,
+        "y": 24,
+        "w": 100,
+        "h": 58
+      }
+    }
+  ],
+  "outro": {
+    "title": "SMS Classifier",
+    "subtitle": "On Google Play",
+    "hold_sec": 2.8
+  }
+}

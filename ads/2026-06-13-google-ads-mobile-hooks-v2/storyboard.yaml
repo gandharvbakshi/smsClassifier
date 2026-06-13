@@ -1,0 +1,31 @@
+videos:
+- asset_id: V_OTP_9x16
+  hook_id: H001
+  beats:
+  - proof_id: otp_focus
+    caption: Find OTPs faster
+    hold_sec: 4.0
+    screen: screenshots/otp_focus.png
+  - proof_id: otp_focus
+    caption: Copy the code
+    hold_sec: 4.0
+    screen: screenshots/otp_focus.png
+  outro:
+    title: SMS Classifier
+    subtitle: On Google Play
+    hold_sec: 3.0
+- asset_id: V_REVIEW_9x16
+  hook_id: H002
+  beats:
+  - proof_id: suspicious_focus
+    caption: Review suspicious texts
+    hold_sec: 4.2
+    screen: screenshots/suspicious_focus.png
+  - proof_id: suspicious_focus
+    caption: Check before tapping
+    hold_sec: 4.2
+    screen: screenshots/suspicious_focus.png
+  outro:
+    title: SMS Classifier
+    subtitle: On Google Play
+    hold_sec: 3.0

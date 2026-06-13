@@ -1,0 +1,48 @@
+{
+  "asset_id": "V_REVIEW_9x16",
+  "primary_hook_id": "H002",
+  "canvas": {
+    "width_px": 1080,
+    "height_px": 1920
+  },
+  "fps": 30,
+  "background_mode": "light",
+  "crossfade_sec": 0.0,
+  "motion": true,
+  "intro": {
+    "title": "Review suspicious texts",
+    "subtitle": "SMS Classifier",
+    "hold_sec": 1.2
+  },
+  "frames": [
+    {
+      "hook_id": "H002",
+      "image": "screenshots/suspicious_focus.png",
+      "caption": "Review suspicious texts",
+      "hold_sec": 4.2,
+      "focus_pct": {
+        "x": 0,
+        "y": 18,
+        "w": 100,
+        "h": 72
+      }
+    },
+    {
+      "hook_id": "H002",
+      "image": "screenshots/suspicious_focus.png",
+      "caption": "Check before tapping",
+      "hold_sec": 4.2,
+      "focus_pct": {
+        "x": 0,
+        "y": 24,
+        "w": 100,
+        "h": 58
+      }
+    }
+  ],
+  "outro": {
+    "title": "SMS Classifier",
+    "subtitle": "On Google Play",
+    "hold_sec": 2.8
+  }
+}

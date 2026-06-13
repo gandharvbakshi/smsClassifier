@@ -1,0 +1,43 @@
+screenshots:
+- id: otp_focus
+  path: screenshots/otp_focus.png
+  screen_name: OTP focus
+  key_label: OTP
+  state: ad_safe
+  key_state: one enlarged OTP demo card
+  suggested_use:
+  - otp
+  - otp_retrieval
+  focus_pct:
+    x: 0
+    y: 18
+    w: 100
+    h: 72
+- id: suspicious_focus
+  path: screenshots/suspicious_focus.png
+  screen_name: Suspicious review
+  key_label: Review
+  state: ad_safe
+  key_state: one suspicious demo text with review chips
+  suggested_use:
+  - suspicious
+  - review_before_tapping
+  focus_pct:
+    x: 0
+    y: 18
+    w: 100
+    h: 72
+- id: sorted_focus
+  path: screenshots/sorted_focus.png
+  screen_name: Sorted inbox
+  key_label: Sorted
+  state: ad_safe
+  key_state: two category cards only
+  suggested_use:
+  - sorted
+  - inbox_clarity
+  focus_pct:
+    x: 0
+    y: 20
+    w: 100
+    h: 62

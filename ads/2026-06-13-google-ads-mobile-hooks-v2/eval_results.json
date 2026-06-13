@@ -1,0 +1,294 @@
+{
+  "metadata": {
+    "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+    "linter_version": "2026-06-13-creative-quality-v2"
+  },
+  "results": [
+    {
+      "asset_id": "otp_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    },
+    {
+      "asset_id": "otp_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    },
+    {
+      "asset_id": "otp_benefit_headline_portrait",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    },
+    {
+      "asset_id": "suspicious_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    },
+    {
+      "asset_id": "suspicious_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    },
+    {
+      "asset_id": "suspicious_benefit_headline_portrait",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    },
+    {
+      "asset_id": "clear_inbox_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    },
+    {
+      "asset_id": "clear_inbox_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    },
+    {
+      "asset_id": "clear_inbox_benefit_headline_portrait",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    },
+    {
+      "asset_id": "V_OTP_9x16",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    },
+    {
+      "asset_id": "V_REVIEW_9x16",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": null,
+      "checker_model": "deterministic_rules",
+      "eval_metadata": {
+        "engine_git_hash": "fd0d6ca13d04de79dcae87562a9353c9c06be1bd",
+        "linter_version": "2026-06-13-creative-quality-v2"
+      }
+    }
+  ]
+}

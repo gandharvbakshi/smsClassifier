@@ -1,0 +1,33 @@
+proofs:
+- id: otp_focus
+  source: screenshots/otp_focus.png
+  proof_type: synthetic_ui
+  synthetic_data: true
+  max_visible_rows: 2
+  highlighted_state: OTP demo card
+  forbidden_surfaces:
+  - settings
+  - debug
+  - real_otp
+  - phone_number
+  - live_url
+- id: suspicious_focus
+  source: screenshots/suspicious_focus.png
+  proof_type: synthetic_ui
+  synthetic_data: true
+  max_visible_rows: 2
+  highlighted_state: Review chips
+  forbidden_surfaces:
+  - fake_os_alert
+  - absolute_safety
+  - live_url
+- id: sorted_focus
+  source: screenshots/sorted_focus.png
+  proof_type: synthetic_ui
+  synthetic_data: true
+  max_visible_rows: 2
+  highlighted_state: Category cards
+  forbidden_surfaces:
+  - settings
+  - debug
+  - notification_clutter
