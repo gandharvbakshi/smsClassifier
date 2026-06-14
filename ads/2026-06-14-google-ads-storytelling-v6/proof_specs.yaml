@@ -1,0 +1,87 @@
+proofs:
+- id: otp_warning_inbox
+  screenshot_id: otp_warning_inbox
+  source: screenshots/otp_warning_inbox.png
+  intended_proof_moment: SMS Classifier warns before the user shares an OTP that may
+    change an account.
+  synthetic_data: true
+  max_visible_rows: 2
+  required_visible_text:
+  - SMS app warning
+  - account
+  - Do not share
+  required_chips: []
+  forbidden_surfaces:
+  - settings
+  - debug
+  - cloud checks
+  - real phone number
+  - real OTP
+  crop_pct:
+    x: 0
+    y: 0
+    w: 100
+    h: 64
+  focus_pct:
+    x: 0
+    y: 0
+    w: 100
+    h: 64
+  proof_type: synthetic_ui_proof
+  highlighted_state: The warning card shows that the OTP may change an account before
+    sharing.
+  product_surface: sms_inbox
+  visual_adds: Shows the SMS inbox warning state and the app intervention, not just
+    the headline.
+  contrast_checks:
+  - label: warning
+    fg: '#991B1B'
+    bg: '#FEF2F2'
+    min_ratio: 4.5
+  - label: body
+    fg: '#102033'
+    bg: '#FFFFFF'
+    min_ratio: 4.5
+- id: scam_sms_warning
+  screenshot_id: scam_sms_warning
+  source: screenshots/scam_sms_warning.png
+  intended_proof_moment: SMS Classifier warns on a suspicious prize/KYC text before
+    the user taps or shares details.
+  synthetic_data: true
+  max_visible_rows: 2
+  required_visible_text:
+  - Suspicious prize text
+  - fake KYC link
+  - SMS app warning
+  required_chips: []
+  forbidden_surfaces:
+  - settings
+  - debug
+  - cloud checks
+  - real phone number
+  - live URL
+  crop_pct:
+    x: 0
+    y: 0
+    w: 100
+    h: 55
+  focus_pct:
+    x: 0
+    y: 0
+    w: 100
+    h: 55
+  proof_type: synthetic_ui_proof
+  highlighted_state: The warning card marks a prize/KYC text as suspicious before
+    tapping or sharing details.
+  product_surface: sms_inbox
+  visual_adds: Shows a suspicious SMS inside the app with a visible warning and review
+    action.
+  contrast_checks:
+  - label: warning
+    fg: '#991B1B'
+    bg: '#FEF2F2'
+    min_ratio: 4.5
+  - label: body
+    fg: '#102033'
+    bg: '#FFFFFF'
+    min_ratio: 4.5

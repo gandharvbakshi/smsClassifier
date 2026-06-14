@@ -1,0 +1,72 @@
+target_user_profile:
+  id: everyday_sms_user_and_family_buyer
+  name: Everyday SMS user and family buyer
+  summary: A non-technical phone user or adult child who worries about OTP fraud,
+    scam SMS, and confusing messages.
+  language_register: consumer
+  natural_terms:
+  - SMS
+  - OTP
+  - scam
+  - fraud
+  - warning
+  - share
+  - tap
+  - KYC
+  - parents
+  avoid_terms:
+  - risk signals
+  - intent
+  - classifier output
+  - purpose mismatch
+  pain_points:
+  - may share an OTP under pressure
+  - may tap a scam-like KYC text
+  - wants parents to notice SMS warnings
+personas:
+- id: otp_fraud_worrier
+  name: OTP fraud worrier
+  description: Gets or worries about calls asking for OTPs.
+- id: family_sms_protector
+  name: Family SMS protector
+  description: Wants clearer warnings for parents or elderly relatives.
+moments:
+- id: otp_share_pressure
+  trigger: Someone asks for an OTP over a call or message.
+- id: scam_sms_tap_moment
+  trigger: A prize or KYC SMS asks the user to tap or act.
+features:
+- id: otp_purpose_warning
+  mechanism: Shows a warning when the OTP purpose appears risky or different from
+    the story.
+  outcome_type: fraud_loss_avoidance
+  so_what_ladder:
+  - The app warns before the OTP is shared.
+  - The user sees the code may change an account.
+  - The user can avoid giving scammers account access.
+- id: scam_sms_warning
+  mechanism: Flags suspicious prize/KYC texts before tapping.
+  outcome_type: risk_reduction
+  so_what_ladder:
+  - The app warns before a suspicious SMS is tapped.
+  - The user sees a prize or KYC text may be a scam.
+  - The user can avoid sharing details through a fake KYC link.
+scenarios:
+- id: otp_account_change_warning
+  user_belief: The OTP is harmless or for delivery.
+  actual_risk: The OTP may authorize an account change.
+  product_intervention: SMS Classifier warns and shows account change.
+  outcome_type: fraud_loss_avoidance
+  so_what_ladder:
+  - The app shows account change before sharing.
+  - The delivery story does not match the OTP purpose.
+  - The user can avoid giving scammers account access.
+- id: prize_kyc_warning
+  user_belief: The prize SMS may be real.
+  actual_risk: The KYC request may be scam-like.
+  product_intervention: SMS Classifier flags the suspicious text.
+  outcome_type: risk_reduction
+  so_what_ladder:
+  - The app warns before the suspicious text is tapped.
+  - The user sees the KYC link may be a scam.
+  - The user can avoid sharing details through a fake prize link.
