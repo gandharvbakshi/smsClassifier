@@ -1,0 +1,45 @@
+messages:
+- hook_id: H001
+  persona_id: otp_fraud_worrier
+  scenario_id: otp_account_change_warning
+  on_image_headline: An OTP scam can change your account. This SMS app warns you
+  optional_subtext: ''
+  platform_headlines:
+  - OTP scams can change accounts
+  - SMS app OTP warnings
+  long_headlines:
+  - An OTP scam can change your account. This SMS app warns you before sharing.
+  platform_descriptions:
+  - This SMS warning app shows when a code looks risky before you share it.
+  cta_variants:
+  - Try the app
+  claim_ids_used: []
+  proof_id: otp_warning_inbox
+  callout_text: OTP scam warning
+  claim_boundary: Decision-aid warning, not a guarantee.
+  category_context: SMS warning app
+  plain_language_pain: Scammers pressure people to share OTPs.
+  story_framework: problem_agitate_solve
+  emotional_payoff: Feel calmer before sharing a code that could change an account.
+- hook_id: H002
+  persona_id: family_sms_protector
+  scenario_id: parent_prize_link_warning
+  on_image_headline: Worried your parents might tap a scam SMS? This app warns them
+  optional_subtext: ''
+  platform_headlines:
+  - Worried about scam texts?
+  - Scam SMS warnings for family
+  long_headlines:
+  - Worried your parents might tap a scam SMS? This app warns them.
+  platform_descriptions:
+  - This SMS warning app flags suspicious prize links before family taps.
+  cta_variants:
+  - Try the app
+  claim_ids_used: []
+  proof_id: scam_sms_warning
+  callout_text: Scam SMS warning
+  claim_boundary: Flags suspicious patterns, not every scam.
+  category_context: SMS warning app
+  plain_language_pain: Scam texts can trick parents into tapping fast.
+  story_framework: problem_agitate_solve
+  emotional_payoff: Feel calmer knowing family sees a scam warning before tapping.

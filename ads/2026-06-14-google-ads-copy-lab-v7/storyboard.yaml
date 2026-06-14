@@ -1,0 +1,47 @@
+videos:
+- asset_id: V_OTP_SCAM_9x16
+  hook_id: H001
+  story_framework: problem_agitate_solve
+  beats:
+  - proof_id: otp_warning_inbox
+    caption: An OTP scam can change your account. This SMS app warns you
+    voiceover: An OTP scam can change your account. SMS Classifier warns before you share.
+    hold_sec: 4.0
+    screen: screenshots/otp_warning_inbox.png
+  - proof_id: otp_warning_inbox
+    caption: Caller says delivery. App shows account change
+    voiceover: A caller may say delivery, but the code can change an account.
+    hold_sec: 4.0
+    screen: screenshots/otp_detail_compare.png
+  - proof_id: otp_warning_inbox
+    caption: Warning first, before you share
+    voiceover: See the warning first, then decide whether to share.
+    hold_sec: 3.5
+    screen: screenshots/otp_pause_point.png
+  outro:
+    title: SMS Classifier
+    subtitle: Try on Google Play
+    hold_sec: 2.0
+- asset_id: V_PARENT_SCAM_9x16
+  hook_id: H002
+  story_framework: problem_agitate_solve
+  beats:
+  - proof_id: scam_sms_warning
+    caption: Worried your parents might tap scam SMS? This app warns them
+    voiceover: Worried your parents might tap a scam SMS? This app warns them first.
+    hold_sec: 4.0
+    screen: screenshots/scam_sms_warning.png
+  - proof_id: scam_sms_warning
+    caption: Prize link asks for details
+    voiceover: A prize link can ask for personal details before anyone notices.
+    hold_sec: 4.0
+    screen: screenshots/scam_sms_detail.png
+  - proof_id: scam_sms_warning
+    caption: They see the warning before tapping
+    voiceover: The warning appears before they tap the link.
+    hold_sec: 3.5
+    screen: screenshots/scam_sms_review.png
+  outro:
+    title: SMS Classifier
+    subtitle: Try on Google Play
+    hold_sec: 2.0

@@ -1,0 +1,49 @@
+screenshots:
+- id: otp_warning_inbox
+  path: screenshots/otp_warning_inbox.png
+  screen_name: OTP warning inbox
+  key_state: Delivery code warning shows account change before sharing
+  suggested_use:
+  - otp_warning
+  crop_pct: {x: 0, y: 0, w: 100, h: 64}
+  focus_pct: {x: 0, y: 0, w: 100, h: 64}
+- id: otp_detail_compare
+  path: screenshots/otp_detail_compare.png
+  screen_name: OTP comparison detail
+  key_state: Caller says delivery, app shows account change
+  suggested_use:
+  - otp_video
+  crop_pct: {x: 0, y: 0, w: 100, h: 64}
+  focus_pct: {x: 0, y: 0, w: 100, h: 64}
+- id: otp_pause_point
+  path: screenshots/otp_pause_point.png
+  screen_name: OTP pause point
+  key_state: Account change warning appears before sharing
+  suggested_use:
+  - otp_video
+  crop_pct: {x: 0, y: 0, w: 100, h: 64}
+  focus_pct: {x: 0, y: 0, w: 100, h: 64}
+- id: scam_sms_warning
+  path: screenshots/scam_sms_warning.png
+  screen_name: Scam SMS warning inbox
+  key_state: Suspicious prize link warning appears before tapping
+  suggested_use:
+  - scam_sms_warning
+  crop_pct: {x: 0, y: 0, w: 100, h: 55}
+  focus_pct: {x: 0, y: 0, w: 100, h: 55}
+- id: scam_sms_detail
+  path: screenshots/scam_sms_detail.png
+  screen_name: Scam SMS detail
+  key_state: Prize text is marked as a suspicious link
+  suggested_use:
+  - scam_sms_video
+  crop_pct: {x: 0, y: 0, w: 100, h: 64}
+  focus_pct: {x: 0, y: 0, w: 100, h: 64}
+- id: scam_sms_review
+  path: screenshots/scam_sms_review.png
+  screen_name: Scam SMS review
+  key_state: Parent sees scam warning before tapping
+  suggested_use:
+  - scam_sms_video
+  crop_pct: {x: 0, y: 0, w: 100, h: 64}
+  focus_pct: {x: 0, y: 0, w: 100, h: 64}

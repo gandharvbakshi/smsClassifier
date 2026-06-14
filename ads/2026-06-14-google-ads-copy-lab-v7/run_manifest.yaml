@@ -1,0 +1,25 @@
+target_project: D:\Projects\SMS datasets and project
+campaign_slug: google-ads-copy-lab-v7
+created_at: '2026-06-14T15:55:00+00:00'
+central_engine_path: D:\Projects\ad creatives
+central_engine_commit: pending-local-copy-architecture
+product_type: mobile_app
+requested_outputs:
+- copy
+- image
+- video
+- eval
+product_context_status: reused_from_v6_with_copy_lab_update
+user_approval_status: auto_mode_using_latest_owner_feedback
+stakes_map_status: complete
+hook_gate_status: copy_lab_required
+message_map_status: complete_with_public_copy_source_of_truth
+copy_preflight_status: pending
+proof_authoring_status: synthetic_sms_app_surfaces_updated_for_plain_language
+creative_quality_eval_status: pending
+checker_model_review_status: pending
+learning_capture_status: pending
+notes:
+- Fresh v7 run after central strategy/copy architecture update.
+- SMS Classifier is the test bed; reusable process is copy-first and target-user-language led.
+- KYC is treated as a domain/proof term, not first-read consumer hook language.

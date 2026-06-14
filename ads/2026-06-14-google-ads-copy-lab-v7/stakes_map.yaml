@@ -1,0 +1,80 @@
+target_user_profile:
+  id: everyday_sms_user_and_family_buyer
+  name: Everyday SMS user and family buyer
+  summary: A non-technical phone user or adult child who worries about OTP fraud,
+    scam SMS, and parents tapping suspicious messages.
+  language_register: consumer
+  natural_terms:
+  - SMS
+  - OTP
+  - scam
+  - fraud
+  - warning
+  - share
+  - tap
+  - parents
+  - code
+  - link
+  domain_terms:
+  - KYC
+  - intent
+  - classification
+  - risk signals
+  - account-change OTP
+  avoid_terms:
+  - risk signals
+  - intent
+  - classifier output
+  - purpose mismatch
+  - KYC
+  pain_points:
+  - may share an OTP under pressure
+  - may tap a scam-like prize text
+  - wants parents to notice SMS warnings before acting
+personas:
+- id: otp_fraud_worrier
+  name: OTP fraud worrier
+  description: Gets or worries about calls asking for OTPs.
+- id: family_sms_protector
+  name: Family SMS protector
+  description: Wants clearer scam warnings for parents or elderly relatives.
+moments:
+- id: otp_share_pressure
+  trigger: Someone asks for an OTP over a call or message.
+- id: parent_scam_sms_tap_moment
+  trigger: A parent sees a prize or reward SMS and may tap the link.
+features:
+- id: otp_purpose_warning
+  mechanism: Shows a warning when the OTP purpose appears risky or different from
+    the story.
+  outcome_type: fraud_loss_avoidance
+  so_what_ladder:
+  - The app warns before the OTP is shared.
+  - The user sees the code may change an account.
+  - The user can avoid giving scammers account access.
+- id: scam_sms_warning
+  mechanism: Flags suspicious prize texts and unknown-sender links before tapping.
+  outcome_type: risk_reduction
+  so_what_ladder:
+  - The app warns before a suspicious SMS is tapped.
+  - The parent sees the prize link may be a scam.
+  - The family can avoid sharing personal details through a fake link.
+scenarios:
+- id: otp_account_change_warning
+  user_belief: The OTP is harmless or for delivery.
+  actual_risk: The OTP may authorize an account change.
+  product_intervention: SMS Classifier warns and shows account change.
+  outcome_type: fraud_loss_avoidance
+  so_what_ladder:
+  - The app shows account change before sharing.
+  - The delivery story does not match the OTP purpose.
+  - The user can avoid giving scammers account access.
+- id: parent_prize_link_warning
+  user_belief: The prize SMS may be real.
+  actual_risk: The link may ask for personal details under a fake reward story.
+  product_intervention: SMS Classifier flags the suspicious prize text.
+  outcome_type: risk_reduction
+  so_what_ladder:
+  - The app warns before the suspicious text is tapped.
+  - The parent sees the prize link may be a scam.
+  - The family can avoid sharing personal details through a fake prize link.
