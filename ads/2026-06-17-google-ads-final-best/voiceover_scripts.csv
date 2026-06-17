@@ -1,0 +1,3 @@
+asset_id,voiceover,voice,language,speed,provider,voice_id
+V_OTP_SCAM_9x16,"If someone asks for a delivery OTP, the real risk is what that code actually does. SMS Classifier shows when the code points to an account change, so you can stop before sharing.",indian_english,en-IN,1.02,gemini,
+V_PARENT_SCAM_9x16,"Scam texts can look urgent and harmless. For parents, the warning has to appear before the tap. SMS Classifier flags suspicious links early, so the risk is clear in the moment.",indian_english,en-IN,1.02,gemini,

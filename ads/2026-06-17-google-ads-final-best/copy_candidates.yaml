@@ -1,0 +1,58 @@
+candidates:
+- hook_id: H001
+  candidate_id: H001-A
+  framework: contradiction_reveal
+  on_image_headline: Scam caller says delivery. SMS app shows account access risk.
+  platform_headline: Delivery OTP? Pause first
+  long_headline: Scam caller says delivery. SMS Classifier shows account access risk
+    before you share.
+  description: This SMS warning app shows account access risk before you share a code.
+  voiceover_opening: A caller says delivery. SMS Classifier sees account change.
+  status: selected
+  selection_reason: Plain-language contradiction plus visible product agency and SMS
+    category.
+- hook_id: H001
+  candidate_id: H001-B
+  framework: stakes_first
+  on_image_headline: That delivery OTP could change your account
+  platform_headline: Delivery OTP? Pause first
+  long_headline: That delivery OTP could change your account. SMS Classifier warns
+    first.
+  description: Shows when the caller story and OTP purpose do not line up.
+  voiceover_opening: That delivery OTP could change your account.
+  status: backup
+  selection_reason: Sharper thumbnail hook; used as labeled headline-test assets.
+- hook_id: H001
+  candidate_id: H001-C
+  framework: bad_label
+  on_image_headline: OTP fraud? SMS app warns first
+  status: rejected
+  rejection_reason: Too telegraphic; sounds like a label instead of a human sentence.
+- hook_id: H002
+  candidate_id: H002-A
+  framework: caregiver_problem_solution
+  on_image_headline: Parents may tap scam texts. This SMS app warns before links open.
+  platform_headline: Scam SMS warnings for family
+  long_headline: Parents may tap scam texts. SMS Classifier warns before suspicious
+    links open.
+  description: This SMS warning app flags suspicious links before family taps.
+  voiceover_opening: Parents may tap scam texts. SMS Classifier warns first.
+  status: selected
+  selection_reason: Names the caregiver problem and the product action without jargon.
+- hook_id: H002
+  candidate_id: H002-B
+  framework: caregiver_question
+  on_image_headline: Worried parents may tap scam SMS? This app warns first.
+  platform_headline: Scam SMS warnings for family
+  long_headline: Worried parents may tap scam SMS? SMS Classifier warns first.
+  description: Flags suspicious links before family taps.
+  voiceover_opening: Worried parents may tap scam SMS? This app warns first.
+  status: backup
+  selection_reason: Direct caregiver anxiety; used as labeled headline-test assets.
+- hook_id: H002
+  candidate_id: H002-C
+  framework: bad_jargon
+  on_image_headline: Prize SMS asks KYC? App warns first
+  status: rejected
+  rejection_reason: KYC/prize phrasing is not first-read language for this target
+    user profile.

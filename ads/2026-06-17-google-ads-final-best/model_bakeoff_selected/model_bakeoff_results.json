@@ -1,0 +1,460 @@
+{
+  "results": [
+    {
+      "candidate_id": "image-fal-fal-ai-flux-schnell",
+      "kind": "image_background",
+      "provider": "fal",
+      "model": "fal-ai/flux/schnell",
+      "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-fal-fal-ai-flux-schnell",
+      "status": "succeeded",
+      "output_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-fal-fal-ai-flux-schnell\\assets\\otp_scam_benefit_headline_square_google_app_square.png",
+      "metrics": {
+        "width": 1200,
+        "height": 1200,
+        "bytes": 393301,
+        "sha256": "a34692709c478a35b8611b929d2f321af1f77a57aa24883309a4a3155a2a5084"
+      },
+      "eval_decision": "reject",
+      "eval_hard_failures": [
+        "unreadable-on-mobile text"
+      ],
+      "standard_model_review": {
+        "verdict": "reject",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 4,
+          "visual_hierarchy": 3,
+          "mobile_legibility": 0,
+          "brand_consistency": 5,
+          "composition_aesthetics": 3,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [
+          "unreadable-on-mobile text"
+        ],
+        "strengths": [
+          "Clear visual proof of the app's core feature (OTP warning) is shown.",
+          "The on-image headline and proof clearly communicate the problem and solution.",
+          "No misleading pricing claims are made on the image, which is appropriate for a trial-then-paid product.",
+          "Adheres to policy rules regarding content and synthetic UI."
+        ],
+        "fixes": [
+          "Improve the legibility of the headline text ('An OTP scam can change your account. This SMS app warns you') by ensuring sufficient contrast against its background. The current semi-transparent speech bubble overlapping the phone outline makes the text difficult to read on mobile."
+        ],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 3,
+          "message_clarity": 4,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 4,
+          "composition_aesthetics": 4,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "Provides excellent contrast for overlaid product UI, headlines, and logos.",
+          "The dark, abstract background is calm, premium, and non-distracting.",
+          "Offers ample negative space, ensuring deterministic text and product screenshots will be easy to understand.",
+          "Visually appealing and highly suitable for mobile legibility."
+        ],
+        "fixes": [
+          "While effective, exploring subtle variations in the abstract shapes or color palette could potentially enhance a thematic connection to digital security or communication, without adding clutter."
+        ],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "selection_score": 39.0
+    },
+    {
+      "candidate_id": "image-fal-fal-ai-ideogram-v3",
+      "kind": "image_background",
+      "provider": "fal",
+      "model": "fal-ai/ideogram/v3",
+      "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-fal-fal-ai-ideogram-v3",
+      "status": "succeeded",
+      "output_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-fal-fal-ai-ideogram-v3\\assets\\otp_scam_benefit_headline_square_google_app_square.png",
+      "metrics": {
+        "width": 1200,
+        "height": 1200,
+        "bytes": 843244,
+        "sha256": "507824d9eb226863adad68ba9805190eab1cc58a2ea860b4f4e6482a8f1ce8f0"
+      },
+      "eval_decision": "ship",
+      "eval_hard_failures": [],
+      "standard_model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "The headline clearly communicates the problem and the app's solution.",
+          "The synthetic product UI effectively demonstrates the OTP warning feature, providing strong visual proof.",
+          "Excellent mobile legibility for both the headline and the in-app warning text, with high contrast as declared in the brief.",
+          "The composition is clean, modern, and adheres to the clutter budget.",
+          "No misleading pricing claims are made on the image, aligning with the monetization facts."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 3,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 4,
+          "composition_aesthetics": 4,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "Provides excellent contrast for overlaid deterministic text and product UI.",
+          "Features a clean, modern, and premium aesthetic.",
+          "Abstract, translucent shapes subtly hint at communication or messaging, aligning with an SMS app.",
+          "Offers ample negative space, ensuring legibility and focus on foreground elements.",
+          "Adheres to all policy safety guidelines with no distracting or problematic elements."
+        ],
+        "fixes": [
+          "Explore variations with slightly more dynamic lighting or subtle color shifts to add depth without increasing clutter.",
+          "Consider abstract forms that more directly, yet subtly, evoke 'SMS' or 'warning' to further enhance product proof."
+        ],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "selection_score": 40.0
+    },
+    {
+      "candidate_id": "image-fal-fal-ai-recraft-v4-pro-text-to-image",
+      "kind": "image_background",
+      "provider": "fal",
+      "model": "fal-ai/recraft/v4/pro/text-to-image",
+      "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-fal-fal-ai-recraft-v4-pro-text-to-image",
+      "status": "succeeded",
+      "output_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-fal-fal-ai-recraft-v4-pro-text-to-image\\assets\\otp_scam_benefit_headline_square_google_app_square.png",
+      "metrics": {
+        "width": 1200,
+        "height": 1200,
+        "bytes": 616114,
+        "sha256": "b311e0af3ace6fe3930e24f7a3e386a0a8d1b55491079cb3cc97310be9a5e6b7"
+      },
+      "eval_decision": "ship",
+      "eval_hard_failures": [],
+      "standard_model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "The headline clearly communicates the problem and the app's solution, directly addressing the target user's pain point.",
+          "The synthetic product UI effectively demonstrates the app's OTP warning feature, providing strong visual proof.",
+          "Excellent mobile legibility; all on-image text (headline and in-app warnings) is large, high-contrast, and easy to read.",
+          "The visual hierarchy is well-executed, guiding the viewer from the headline to the product proof.",
+          "The creative adheres to all policy rules, including the allowance for synthetic UI and absence of misleading pricing claims.",
+          "The composition is clean, professional, and aesthetically pleasing, with the app UI prominently featured."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_review": {
+        "verdict": "revise",
+        "scores": {
+          "product_proof": 1,
+          "message_clarity": 4,
+          "visual_hierarchy": 4,
+          "mobile_legibility": 4,
+          "brand_consistency": 3,
+          "composition_aesthetics": 4,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "Provides excellent contrast for overlaid text and UI due to the dark background.",
+          "Ample negative space, especially in the top left, suitable for headline and logo placement.",
+          "Clean and modern aesthetic, contributing to a premium feel.",
+          "Visually appealing without being overly aggressive or distracting in critical areas."
+        ],
+        "fixes": [
+          "Explore background options that subtly hint at the SMS/communication or security/warning theme to better support the product category.",
+          "Consider simplifying the bubble elements or making them less reflective to ensure absolute clarity if future UI elements were to overlap them more directly.",
+          "Increase thematic relevance to the 'SMS fraud warning' product category."
+        ],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "selection_score": 30.0
+    },
+    {
+      "candidate_id": "image-google-imagen-4-0-fast-generate-001",
+      "kind": "image_background",
+      "provider": "google",
+      "model": "imagen-4.0-fast-generate-001",
+      "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-google-imagen-4-0-fast-generate-001",
+      "status": "succeeded",
+      "output_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-google-imagen-4-0-fast-generate-001\\assets\\otp_scam_benefit_headline_square_google_app_square.png",
+      "metrics": {
+        "width": 1200,
+        "height": 1200,
+        "bytes": 709496,
+        "sha256": "696f1e86c922f5748f76e0e2baa03803a2f400f9332fb7ec0b2d94c99606a8dd"
+      },
+      "eval_decision": "reject",
+      "eval_hard_failures": [
+        "Headline text has insufficient contrast against its background, making it unreadable on mobile.",
+        "Brand logo text 'SMS Classifier' has insufficient contrast against its background, making it unreadable on mobile."
+      ],
+      "standard_model_review": {
+        "verdict": "reject",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 4,
+          "visual_hierarchy": 3,
+          "mobile_legibility": 0,
+          "brand_consistency": 4,
+          "composition_aesthetics": 3,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [
+          "Headline text has insufficient contrast against its background, making it unreadable on mobile.",
+          "Brand logo text 'SMS Classifier' has insufficient contrast against its background, making it unreadable on mobile."
+        ],
+        "strengths": [
+          "Clear and relevant product proof that directly addresses the hook.",
+          "Strong message clarity regarding the problem and solution.",
+          "Effective use of synthetic UI as declared in the brief.",
+          "Good overall composition focusing on the product's value."
+        ],
+        "fixes": [
+          "Increase the contrast of the headline text 'An OTP scam can change your account. This SMS app warns you' to ensure it meets the 4.5:1 ratio against its background. Consider a solid background for the text or a lighter text color.",
+          "Increase the contrast of the 'SMS Classifier' logo text to ensure it is clearly legible.",
+          "Refine the background overlay behind the headline to improve legibility without obscuring the background elements too much."
+        ],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 4,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 4,
+          "composition_aesthetics": 4,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "Effectively provides secondary context for an SMS/messaging app with blurred chat bubbles.",
+          "Dark, calm background ensures excellent contrast for overlayed text and product UI.",
+          "Creates a strong visual hierarchy, allowing the deterministic elements to stand out.",
+          "Clean, premium, and mobile-safe aesthetic, suitable for a security app.",
+          "Subtle and non-distracting, enhancing rather than competing with the main message."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "selection_score": 41.0
+    },
+    {
+      "candidate_id": "video-fal-bytedance-seedance-2-0-fast-text-to-video",
+      "kind": "video_broll",
+      "provider": "fal",
+      "model": "bytedance/seedance-2.0/fast/text-to-video",
+      "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-bytedance-seedance-2-0-fast-text-to-video",
+      "status": "succeeded",
+      "output_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-bytedance-seedance-2-0-fast-text-to-video\\assets\\video\\BROLL_FAL_BYTEDANCE_SEEDANCE_2_0_FAST_TEXT_TO_VIDEO.mp4",
+      "frame_paths": [
+        "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-bytedance-seedance-2-0-fast-text-to-video\\model_bakeoff_frames\\frame_00018.png",
+        "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-bytedance-seedance-2-0-fast-text-to-video\\model_bakeoff_frames\\frame_00060.png",
+        "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-bytedance-seedance-2-0-fast-text-to-video\\model_bakeoff_frames\\frame_00102.png"
+      ],
+      "metrics": {
+        "width": 720,
+        "height": 1280,
+        "fps": 24.0,
+        "frame_count": 121,
+        "duration_sec": 5.04,
+        "max_letterbox_fraction": 0.0,
+        "bytes": 1281300,
+        "sha256": "7a5143eb96fe37b797a3b55a8e9620633ddd02c49dbb19b217aeb0100cf9366e"
+      },
+      "automatic_failures": [],
+      "model_review": {
+        "verdict": "reject",
+        "scores": {
+          "product_proof": 4,
+          "message_clarity": 4,
+          "visual_hierarchy": 4,
+          "mobile_legibility": 5,
+          "brand_consistency": 4,
+          "composition_aesthetics": 4,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [
+          "Frames contain readable gibberish text ('SM') in the top-left corner, which is a hard fail."
+        ],
+        "strengths": [
+          "Conveys immediate human stakes through the actor's concerned expression.",
+          "Clear mobile framing (9:16).",
+          "Supports the SMS fraud-warning narrative without explicit UI.",
+          "Natural and relatable setting."
+        ],
+        "fixes": [
+          "Remove the 'SM' text artifact from the top-left corner to ensure a clean canvas for captions."
+        ],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "selection_score": 17.0
+    },
+    {
+      "candidate_id": "video-fal-fal-ai-kling-video-v2-master-text-to-video",
+      "kind": "video_broll",
+      "provider": "fal",
+      "model": "fal-ai/kling-video/v2/master/text-to-video",
+      "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-fal-ai-kling-video-v2-master-text-to-video",
+      "status": "succeeded",
+      "output_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-fal-ai-kling-video-v2-master-text-to-video\\assets\\video\\BROLL_FAL_FAL_AI_KLING_VIDEO_V2_MASTER_TEXT_TO_VIDEO.mp4",
+      "frame_paths": [
+        "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-fal-ai-kling-video-v2-master-text-to-video\\model_bakeoff_frames\\frame_00018.png",
+        "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-fal-ai-kling-video-v2-master-text-to-video\\model_bakeoff_frames\\frame_00060.png",
+        "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-fal-ai-kling-video-v2-master-text-to-video\\model_bakeoff_frames\\frame_00102.png"
+      ],
+      "metrics": {
+        "width": 720,
+        "height": 1280,
+        "fps": 24.0,
+        "frame_count": 121,
+        "duration_sec": 5.04,
+        "max_letterbox_fraction": 0.0,
+        "bytes": 3328029,
+        "sha256": "14c474b334c766e3e1e7b377e154c53dbe4bafcd8eac960aec86b491382e0cda"
+      },
+      "automatic_failures": [],
+      "model_review": {
+        "verdict": "reject",
+        "scores": {
+          "product_proof": 2,
+          "message_clarity": 3,
+          "visual_hierarchy": 4,
+          "mobile_legibility": 3,
+          "brand_consistency": 4,
+          "composition_aesthetics": 4,
+          "policy_safety": 3,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [
+          "Frames contain readable gibberish text on the phone screen, specifically in the first frame."
+        ],
+        "strengths": [
+          "Conveys immediate human stakes through the actor's concerned expression.",
+          "Good framing for mobile (9:16) with ample room for top-left captions.",
+          "No distorted hands, phones, or faces.",
+          "Avoids overt scary fear-mongering."
+        ],
+        "fixes": [
+          "Replace the phone screen content with a blank screen, a generic non-text background, or clearly legible, non-gibberish placeholder text that supports the fraud warning narrative without being a fake system warning.",
+          "Ensure all frames have consistent and appropriate screen content (e.g., all blank, or all with a consistent, non-gibberish display)."
+        ],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "selection_score": 10.0
+    },
+    {
+      "candidate_id": "video-fal-fal-ai-minimax-hailuo-2-3-standard-text-to-video",
+      "kind": "video_broll",
+      "provider": "fal",
+      "model": "fal-ai/minimax/hailuo-2.3/standard/text-to-video",
+      "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-fal-ai-minimax-hailuo-2-3-standard-text-to-video",
+      "status": "failed",
+      "error": "[{'type': 'literal_error', 'loc': ['body', 'duration'], 'msg': \"Input should be '6' or '10'\", 'input': '5', 'ctx': {'expected': \"'6' or '10'\"}}]",
+      "selection_score": -100.0
+    },
+    {
+      "candidate_id": "video-google-veo-3-1-fast-generate-preview",
+      "kind": "video_broll",
+      "provider": "google",
+      "model": "veo-3.1-fast-generate-preview",
+      "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-google-veo-3-1-fast-generate-preview",
+      "status": "succeeded",
+      "output_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-google-veo-3-1-fast-generate-preview\\assets\\video\\BROLL_GOOGLE_VEO_3_1_FAST_GENERATE_PREVIEW.mp4",
+      "frame_paths": [
+        "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-google-veo-3-1-fast-generate-preview\\model_bakeoff_frames\\frame_00028.png",
+        "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-google-veo-3-1-fast-generate-preview\\model_bakeoff_frames\\frame_00096.png",
+        "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-google-veo-3-1-fast-generate-preview\\model_bakeoff_frames\\frame_00163.png"
+      ],
+      "metrics": {
+        "width": 720,
+        "height": 1280,
+        "fps": 24.0,
+        "frame_count": 192,
+        "duration_sec": 8.0,
+        "max_letterbox_fraction": 0.2492,
+        "bytes": 1817031,
+        "sha256": "50b6e754e0d9a72a6db4d4e89b39e0f86c77ed4d618b72837b7b6c9da8628dc2"
+      },
+      "automatic_failures": [
+        "video_letterboxed_bars"
+      ],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 4,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "Strong emotional arc (happy to shocked to concerned) effectively creates immediate human stakes.",
+          "Clear visual narrative supports an SMS fraud warning story as secondary footage.",
+          "Excellent mobile framing, ensuring legibility of expressions and actions.",
+          "Ample negative space, especially in the top-left, for overlaying captions and product UI.",
+          "High production quality, including lighting and composition.",
+          "Adheres to all policy safety guidelines, avoiding prohibited elements like gibberish text or scary fear-mongering."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "selection_score": 33.0
+    }
+  ]
+}

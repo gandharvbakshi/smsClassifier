@@ -1,0 +1,610 @@
+[
+  {
+    "asset_id": "otp_scam_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 15,
+          "w": 86,
+          "h": 12
+        },
+        "font_role": "hero",
+        "text": "Scam caller says delivery. SMS app shows account access risk.",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 17,
+          "y": 30,
+          "w": 66,
+          "h": 61
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\screenshots\\otp_warning_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 64
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 64
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 7,
+          "y": 6,
+          "w": 30,
+          "h": 7
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_scam_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 12,
+          "w": 86,
+          "h": 10
+        },
+        "font_role": "hero",
+        "text": "Scam caller says delivery. SMS app shows account access risk.",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 8,
+          "y": 24,
+          "w": 84,
+          "h": 62
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\screenshots\\otp_warning_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 64
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 64
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 7,
+          "y": 5,
+          "w": 30,
+          "h": 6
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_scam_short_tension_benefit_headline_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 5,
+          "y": 20,
+          "w": 42,
+          "h": 24
+        },
+        "font_role": "hero",
+        "text": "That delivery OTP could change your account",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 50,
+          "y": 5,
+          "w": 46,
+          "h": 90
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\screenshots\\otp_warning_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 64
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 64
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 5,
+          "y": 6,
+          "w": 25,
+          "h": 8
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_scam_short_tension_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 12,
+          "w": 86,
+          "h": 10
+        },
+        "font_role": "hero",
+        "text": "That delivery OTP could change your account",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 8,
+          "y": 24,
+          "w": 84,
+          "h": 62
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\screenshots\\otp_warning_inbox.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 64
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 64
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 7,
+          "y": 5,
+          "w": 30,
+          "h": 6
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "family_scam_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 15,
+          "w": 86,
+          "h": 12
+        },
+        "font_role": "hero",
+        "text": "Parents may tap scam texts. This SMS app warns before links open.",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 17,
+          "y": 30,
+          "w": 66,
+          "h": 61
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\screenshots\\scam_sms_warning.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 55
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 55
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 7,
+          "y": 6,
+          "w": 30,
+          "h": 7
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "family_scam_caregiver_question_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 15,
+          "w": 86,
+          "h": 12
+        },
+        "font_role": "hero",
+        "text": "Worried parents may tap scam SMS? This app warns first.",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 17,
+          "y": 30,
+          "w": 66,
+          "h": 61
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\screenshots\\scam_sms_warning.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 55
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 55
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 7,
+          "y": 6,
+          "w": 30,
+          "h": 7
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "family_scam_caregiver_question_benefit_headline_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 5,
+          "y": 20,
+          "w": 42,
+          "h": 24
+        },
+        "font_role": "hero",
+        "text": "Worried parents may tap scam SMS? This app warns first.",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 50,
+          "y": 5,
+          "w": 46,
+          "h": 90
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\screenshots\\scam_sms_warning.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 55
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 55
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 5,
+          "y": 6,
+          "w": 25,
+          "h": 8
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "family_scam_caregiver_question_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "light",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 12,
+          "w": 86,
+          "h": 10
+        },
+        "font_role": "hero",
+        "text": "Worried parents may tap scam SMS? This app warns first.",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 8,
+          "y": 24,
+          "w": 84,
+          "h": 62
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\screenshots\\scam_sms_warning.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 55
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 55
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 7,
+          "y": 5,
+          "w": 30,
+          "h": 6
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  }
+]

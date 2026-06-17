@@ -1,0 +1,80 @@
+messages:
+- hook_id: H001
+  persona_id: otp_fraud_worrier
+  scenario_id: otp_account_change_warning
+  on_image_headline: Scam caller says delivery. SMS app shows account access risk.
+  headline_tests:
+  - id: short_tension
+    on_image_headline: That delivery OTP could change your account
+    platform_headline: Delivery OTP? Pause first
+    long_headline: That delivery OTP could change your account. SMS Classifier warns
+      first.
+    description: Shows when the caller story and OTP purpose do not line up.
+  - id: video_direct_benefit
+    on_image_headline: Scam caller says delivery. SMS app warns before OTP scams.
+    platform_headline: OTP scam warnings
+    long_headline: SMS Classifier warns before OTP scams. Spot account-change codes
+      before sharing.
+    description: Shows when an OTP may be risky before you share it.
+  - id: video_indian_english_vo
+    on_image_headline: Someone asks for a delivery OTP. SMS app warns before sharing.
+    platform_headline: OTP warning app
+    long_headline: If someone asks for a delivery OTP, SMS Classifier shows when
+      the code points to an account change.
+    description: Shows when a caller story and OTP purpose do not line up.
+  optional_subtext: ''
+  platform_headlines:
+  - Delivery OTP? Pause first
+  - OTP scam warning app
+  long_headlines:
+  - Scam caller says delivery. SMS Classifier shows account access risk before you
+    share.
+  platform_descriptions:
+  - This SMS warning app shows account access risk before you share a code.
+  cta_variants:
+  - Try the app
+  claim_ids_used: []
+  proof_id: otp_warning_inbox
+  callout_text: Account-change warning
+  claim_boundary: Decision-aid warning, not a guarantee.
+  category_context: SMS warning app
+  plain_language_pain: Scammers call people and ask for OTPs that can change accounts.
+  story_framework: contradiction_reveal
+  emotional_payoff: Feel a clear pause before sharing a code that could give scammers
+    account access.
+- hook_id: H002
+  persona_id: family_sms_protector
+  scenario_id: parent_prize_link_warning
+  on_image_headline: Parents may tap scam texts. This SMS app warns before links open.
+  headline_tests:
+  - id: caregiver_question
+    on_image_headline: Worried parents may tap scam SMS? This app warns first.
+    platform_headline: Scam SMS warnings for family
+    long_headline: Worried parents may tap scam SMS? SMS Classifier warns first.
+    description: Flags suspicious links before family taps.
+  - id: video_indian_english_vo
+    on_image_headline: Parents may tap scam links. SMS app warns.
+    platform_headline: Scam SMS warnings for family
+    long_headline: For parents, SMS Classifier warns before a suspicious link is
+      tapped.
+    description: Flags suspicious links before family taps.
+  optional_subtext: ''
+  platform_headlines:
+  - Scam SMS warnings for family
+  - Warn before scam links
+  long_headlines:
+  - Parents may tap scam texts. SMS Classifier warns before suspicious links open.
+  platform_descriptions:
+  - This SMS warning app flags suspicious links before family taps.
+  cta_variants:
+  - Try the app
+  claim_ids_used: []
+  proof_id: scam_sms_warning
+  callout_text: Scam-link warning
+  claim_boundary: Flags suspicious patterns, not every scam.
+  category_context: SMS warning app
+  plain_language_pain: Scam texts can trick parents into tapping and sharing personal
+    details.
+  story_framework: problem_agitate_solve
+  emotional_payoff: Feel calmer because family sees scam risk before sharing personal
+    details.

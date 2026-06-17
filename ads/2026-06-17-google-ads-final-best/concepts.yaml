@@ -1,0 +1,23 @@
+concepts:
+- id: otp_scam
+  angle: OTP scam warning
+  user_promise: Scam caller says delivery. SMS app shows account access risk.
+  ui_proof: otp_warning_inbox
+  hook_id: H001
+  hook_type: pain_led
+  callout_text: Account-change warning
+  claim_risk: medium
+  rank: 1
+  treatments:
+  - benefit_headline
+- id: family_scam
+  angle: Family scam SMS warning
+  user_promise: Parents may tap scam texts. This SMS app warns before links open.
+  ui_proof: scam_sms_warning
+  hook_id: H002
+  hook_type: pain_led
+  callout_text: Scam-link warning
+  claim_risk: medium
+  rank: 2
+  treatments:
+  - benefit_headline

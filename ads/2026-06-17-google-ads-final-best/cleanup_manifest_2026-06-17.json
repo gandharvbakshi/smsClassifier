@@ -1,0 +1,26 @@
+{
+  "cleaned_at": "2026-06-17T08:49:43",
+  "kept": [
+    "_shared",
+    "icon-assets",
+    "2026-06-17-google-ads-final-best"
+  ],
+  "removed": [
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-07-google-ads",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-mobile-hooks-v2",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-product-agency-v4",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-product-agency-v5",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-stakes-led-v3",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-13-google-ads-ui-led",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-14-google-ads-copy-lab-v7",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-14-google-ads-storytelling-v6",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-16-model-bakeoff",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-16-model-bakeoff-dryrun",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-16-model-bakeoff-imagen-abstract",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-16-model-bakeoff-skip-test",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-16-model-bakeoff-skip-video-dry",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-16-model-bakeoff-veo-blank-phone",
+    "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal",
+    "D:\\Projects\\SMS datasets and project\\ads\\google_app_install_2026_05"
+  ]
+}

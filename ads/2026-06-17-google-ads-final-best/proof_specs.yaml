@@ -1,0 +1,108 @@
+proofs:
+- id: otp_warning_inbox
+  screenshot_id: otp_warning_inbox
+  source: screenshots/otp_warning_inbox.png
+  intended_proof_moment: SMS Classifier warns before the user shares an OTP that may
+    change an account.
+  synthetic_data: true
+  ad_scale_readability: thumbnail_safe
+  proof_typography:
+    min_important_text_px: 52
+    max_visible_text_blocks: 3
+    max_words_per_block: 5
+  max_visible_rows: 2
+  required_visible_text:
+  - Delivery code?
+  - Account change
+  - Do not share
+  forbidden_surfaces:
+  - settings
+  - debug
+  - cloud checks
+  - real phone number
+  - real OTP
+  crop_pct:
+    x: 0
+    y: 0
+    w: 100
+    h: 64
+  focus_pct:
+    x: 0
+    y: 0
+    w: 100
+    h: 64
+  proof_type: synthetic_ui_proof
+  highlighted_state: The warning card shows that the OTP may change an account before
+    sharing.
+  product_surface: sms_inbox
+  visual_adds: Shows the SMS inbox warning state and the app intervention, not just
+    the headline.
+  contrast_checks:
+  - label: chip
+    fg: '#1E40AF'
+    bg: '#DBEAFE'
+    min_ratio: 4.5
+  - label: warning
+    fg: '#991B1B'
+    bg: '#FEF2F2'
+    min_ratio: 4.5
+  - label: body
+    fg: '#102033'
+    bg: '#FFFFFF'
+    min_ratio: 4.5
+  context_type: message_thread
+  visual_context: User receives an OTP while a caller claims it is for delivery.
+- id: scam_sms_warning
+  screenshot_id: scam_sms_warning
+  source: screenshots/scam_sms_warning.png
+  intended_proof_moment: SMS Classifier warns on a suspicious prize link before the
+    parent taps or shares details.
+  synthetic_data: true
+  ad_scale_readability: thumbnail_safe
+  proof_typography:
+    min_important_text_px: 52
+    max_visible_text_blocks: 3
+    max_words_per_block: 5
+  max_visible_rows: 2
+  required_visible_text:
+  - Prize link?
+  - Suspicious link
+  - May steal details
+  forbidden_surfaces:
+  - settings
+  - debug
+  - cloud checks
+  - real phone number
+  - live URL
+  crop_pct:
+    x: 0
+    y: 0
+    w: 100
+    h: 55
+  focus_pct:
+    x: 0
+    y: 0
+    w: 100
+    h: 55
+  proof_type: synthetic_ui_proof
+  highlighted_state: The warning card marks a prize link as suspicious before tapping
+    or sharing details.
+  product_surface: sms_inbox
+  visual_adds: Shows a suspicious SMS inside the app with a visible warning and family-relevant
+    consequence.
+  contrast_checks:
+  - label: chip
+    fg: '#1E40AF'
+    bg: '#DBEAFE'
+    min_ratio: 4.5
+  - label: warning
+    fg: '#B01622'
+    bg: '#FEF2F2'
+    min_ratio: 4.5
+  - label: body
+    fg: '#0F172A'
+    bg: '#FFFFFF'
+    min_ratio: 4.5
+  context_type: message_thread
+  visual_context: Parent receives a suspicious SMS link and sees the app warning before
+    tapping.

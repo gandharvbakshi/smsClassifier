@@ -1,0 +1,47 @@
+videos:
+- asset_id: V_OTP_SCAM_9x16
+  hook_id: H001
+  story_framework: contradiction_reveal
+  beats:
+  - proof_id: otp_warning_inbox
+    caption: Someone asks for a delivery OTP. SMS app warns before sharing.
+    voiceover: If someone asks for a delivery OTP, the real risk is what that code actually does.
+    hold_sec: 3.3
+    screen: screenshots/otp_warning_inbox.png
+  - proof_id: otp_warning_inbox
+    caption: Caller said delivery. App shows account change.
+    voiceover: SMS Classifier shows when the code points to an account change.
+    hold_sec: 3.4
+    screen: screenshots/otp_detail_compare.png
+  - proof_id: otp_warning_inbox
+    caption: The story and code don't match.
+    voiceover: You can stop before sharing.
+    hold_sec: 3.4
+    screen: screenshots/otp_pause_point.png
+  outro:
+    title: SMS Classifier
+    subtitle: Download on Google Play
+    hold_sec: 1.8
+- asset_id: V_PARENT_SCAM_9x16
+  hook_id: H002
+  story_framework: caregiver_problem_solution
+  beats:
+  - proof_id: scam_sms_warning
+    caption: Parents may tap scam links. SMS app warns.
+    voiceover: Scam texts can look urgent and harmless.
+    hold_sec: 3.3
+    screen: screenshots/scam_sms_warning.png
+  - proof_id: scam_sms_warning
+    caption: Suspicious link. Warning before the tap.
+    voiceover: For parents, the warning has to appear before the tap.
+    hold_sec: 3.4
+    screen: screenshots/scam_sms_detail.png
+  - proof_id: scam_sms_warning
+    caption: They see the risk in time.
+    voiceover: SMS Classifier flags suspicious links early, so the risk is clear in the moment.
+    hold_sec: 3.4
+    screen: screenshots/scam_sms_review.png
+  outro:
+    title: SMS Classifier
+    subtitle: Download on Google Play
+    hold_sec: 1.8

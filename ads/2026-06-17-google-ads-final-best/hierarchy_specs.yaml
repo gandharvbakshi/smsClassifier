@@ -1,0 +1,91 @@
+assets:
+- asset_id: otp_scam_benefit_headline_square
+  first_second_focal_point: human OTP scam headline, then account-change OTP warning
+    proof
+  reading_order: &id001
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: otp_scam_benefit_headline_landscape
+  first_second_focal_point: human OTP scam headline, then account-change OTP warning
+    proof
+  reading_order: &id002
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: otp_scam_benefit_headline_portrait
+  first_second_focal_point: human OTP scam headline, then account-change OTP warning
+    proof
+  reading_order: &id003
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: family_scam_benefit_headline_square
+  first_second_focal_point: parent scam SMS headline, then suspicious prize link warning
+    proof
+  reading_order: &id004
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: family_scam_benefit_headline_landscape
+  first_second_focal_point: parent scam SMS headline, then suspicious prize link warning
+    proof
+  reading_order: &id005
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: family_scam_benefit_headline_portrait
+  first_second_focal_point: parent scam SMS headline, then suspicious prize link warning
+    proof
+  reading_order: &id006
+  - headline
+  - product_ui
+  - logo
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: otp_scam_short_tension_benefit_headline_square
+  first_second_focal_point: human OTP scam headline, then account-change OTP warning
+    proof (headline-test variant)
+  reading_order: *id001
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: otp_scam_short_tension_benefit_headline_landscape
+  first_second_focal_point: human OTP scam headline, then account-change OTP warning
+    proof (headline-test variant)
+  reading_order: *id002
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: otp_scam_short_tension_benefit_headline_portrait
+  first_second_focal_point: human OTP scam headline, then account-change OTP warning
+    proof (headline-test variant)
+  reading_order: *id003
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: family_scam_caregiver_question_benefit_headline_square
+  first_second_focal_point: parent scam SMS headline, then suspicious prize link warning
+    proof (headline-test variant)
+  reading_order: *id004
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: family_scam_caregiver_question_benefit_headline_landscape
+  first_second_focal_point: parent scam SMS headline, then suspicious prize link warning
+    proof (headline-test variant)
+  reading_order: *id005
+  proof_size_target: 40-55%
+  brand_placement: top_left
+- asset_id: family_scam_caregiver_question_benefit_headline_portrait
+  first_second_focal_point: parent scam SMS headline, then suspicious prize link warning
+    proof (headline-test variant)
+  reading_order: *id006
+  proof_size_target: 40-55%
+  brand_placement: top_left

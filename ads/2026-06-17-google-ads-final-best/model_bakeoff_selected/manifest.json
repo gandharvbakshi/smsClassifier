@@ -1,0 +1,38 @@
+[
+  {
+    "file": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\model_bakeoff_selected\\image_background_candidates\\recraft_reference_square.png",
+    "source": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-fal-fal-ai-recraft-v4-pro-text-to-image\\assets\\otp_scam_benefit_headline_square_google_app_square.png",
+    "use": "reference_only",
+    "notes": "Model-generated background candidate; primary deliverables use deterministic product-proof layouts."
+  },
+  {
+    "file": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\model_bakeoff_selected\\image_background_candidates\\ideogram_reference_square.png",
+    "source": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-fal-fal-ai-ideogram-v3\\assets\\otp_scam_benefit_headline_square_google_app_square.png",
+    "use": "reference_only",
+    "notes": "Model-generated background candidate; primary deliverables use deterministic product-proof layouts."
+  },
+  {
+    "file": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\model_bakeoff_selected\\image_background_candidates\\flux_reference_square_watch_contrast.png",
+    "source": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\image-fal-fal-ai-flux-schnell\\assets\\otp_scam_benefit_headline_square_google_app_square.png",
+    "use": "reference_only",
+    "notes": "Model-generated background candidate; primary deliverables use deterministic product-proof layouts."
+  },
+  {
+    "file": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\model_bakeoff_selected\\video_broll_reference\\seedance_reference_REJECT_text_artifact.mp4",
+    "source": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-bytedance-seedance-2-0-fast-text-to-video\\assets\\video\\BROLL_FAL_BYTEDANCE_SEEDANCE_2_0_FAST_TEXT_TO_VIDEO.mp4",
+    "use": "reference_only_not_shippable",
+    "notes": "Raw generative b-roll is not primary because it lacks controlled product proof or has artifacts."
+  },
+  {
+    "file": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\model_bakeoff_selected\\video_broll_reference\\kling_reference_REJECT_hallucinated_phone_text.mp4",
+    "source": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-fal-fal-ai-kling-video-v2-master-text-to-video\\assets\\video\\BROLL_FAL_FAL_AI_KLING_VIDEO_V2_MASTER_TEXT_TO_VIDEO.mp4",
+    "use": "reference_only_not_shippable",
+    "notes": "Raw generative b-roll is not primary because it lacks controlled product proof or has artifacts."
+  },
+  {
+    "file": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best\\model_bakeoff_selected\\video_broll_reference\\veo_reference_REJECT_letterboxed.mp4",
+    "source": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-model-bakeoff-fal\\candidates\\video-google-veo-3-1-fast-generate-preview\\assets\\video\\BROLL_GOOGLE_VEO_3_1_FAST_GENERATE_PREVIEW.mp4",
+    "use": "reference_only_not_shippable",
+    "notes": "Raw generative b-roll is not primary because it lacks controlled product proof or has artifacts."
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-17-google-ads-final-best",
+  "strict_app_install": true,
+  "decision": "pass",
+  "summary": {
+    "hooks_checked": 2,
+    "messages_checked": 2,
+    "videos_checked": 2,
+    "failure_count": 0
+  },
+  "failures": []
+}
