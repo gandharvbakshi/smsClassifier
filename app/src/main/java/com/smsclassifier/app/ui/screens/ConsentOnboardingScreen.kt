@@ -188,7 +188,7 @@ fun ConsentOnboardingScreen(
                         entitlementState == EntitlementState.PRO ||
                             entitlementState == EntitlementState.TRIAL_ACTIVE -> "Open app"
                         trialStartInFlight -> "Starting Pro trial..."
-                        else -> "Start $trialLabel Pro protection"
+                        else -> "Start Pro protection"
                     },
                     onClick = {
                         scope.launch {
