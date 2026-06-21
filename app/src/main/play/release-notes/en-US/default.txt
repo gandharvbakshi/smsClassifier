@@ -1,4 +1,4 @@
-v1.2.11 - Inbox loading hotfix
-- Fixes an inbox spinner issue on phones with very large SMS histories.
-- Speeds up conversation lookup and avoids duplicate startup database work.
-- Keeps Inbox on the selected filter instead of auto-switching after launch.
+v1.2.12 - Simpler Pro trial setup
+- Starts new users with a clearer 14-day Pro trial option during setup.
+- Keeps Basic mode available as a simple opt-out path.
+- Explains that Pro cloud checks add scam warnings without requiring payment details.

@@ -254,15 +254,20 @@ class MainActivity : ComponentActivity() {
                         ) {
                         composable("consent_onboarding") {
                             ConsentOnboardingScreen(
-                                onContinueFree = {
+                                onContinueBasic = {
                                     needsConsent = false
                                     navController.navigate("inbox") {
                                         popUpTo("consent_onboarding") { inclusive = true }
                                     }
                                 },
-                                onUnlockPro = {
+                                onStartProTrial = {
+                                    AppContainer.entitlementManager.startTrialIfAvailableRemote()
+                                },
+                                onContinueToInbox = {
                                     needsConsent = false
-                                    navController.navigate("paywall/onboarding")
+                                    navController.navigate("inbox") {
+                                        popUpTo("consent_onboarding") { inclusive = true }
+                                    }
                                 },
                                 onSetDefaultSms = { startDefaultSmsAndPermissionFlow() }
                             )

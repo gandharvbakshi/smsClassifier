@@ -45,8 +45,9 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConsentOnboardingScreen(
-    onContinueFree: () -> Unit,
-    onUnlockPro: () -> Unit,
+    onContinueBasic: () -> Unit,
+    onStartProTrial: suspend () -> Boolean,
+    onContinueToInbox: () -> Unit,
     onSetDefaultSms: () -> Unit
 ) {
     val context = LocalContext.current
@@ -65,6 +66,8 @@ fun ConsentOnboardingScreen(
     var crashOn by rememberSaveable {
         mutableStateOf(if (onboardingAlreadySeen) consent.crashlyticsEnabledNow() else true)
     }
+    var trialStartInFlight by rememberSaveable { mutableStateOf(false) }
+    var trialStartError by rememberSaveable { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
         if (entitlementManager.refreshFromServer()) {
@@ -165,38 +168,67 @@ fun ConsentOnboardingScreen(
 
             InfoCard {
                 Text(
-                    text = "Choose your mode",
+                    text = "Start protected",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "Free sorts messages on this phone. Pro adds cloud scam warnings, OTP purpose, and 'Do not share' alerts. You can try Pro for $trialLabel from the Pro screen.",
+                    text = "We recommend turning on Pro protection now: scam warnings, OTP purpose, and 'Do not share' alerts. It is free for $trialLabel, no payment method is needed, and you can still use Basic mode instead.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
+                    text = "Basic mode keeps classification on this phone only. Pro cloud checks send message text and sender over HTTPS when scam warnings are available.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 PrimaryButton(
-                    text = if (entitlementState == EntitlementState.PRO) {
-                        "Open app"
-                    } else {
-                        "Start free - I'll explore Pro later"
+                    text = when {
+                        entitlementState == EntitlementState.PRO ||
+                            entitlementState == EntitlementState.TRIAL_ACTIVE -> "Open app"
+                        trialStartInFlight -> "Starting Pro trial..."
+                        else -> "Start $trialLabel Pro protection"
                     },
                     onClick = {
                         scope.launch {
+                            trialStartError = null
+                            if (
+                                entitlementState != EntitlementState.PRO &&
+                                entitlementState != EntitlementState.TRIAL_ACTIVE
+                            ) {
+                                trialStartInFlight = true
+                                val started = onStartProTrial()
+                                trialStartInFlight = false
+                                if (!started) {
+                                    trialStartError =
+                                        "Could not start Pro trial. Check internet and try again, or use Basic mode for now."
+                                    return@launch
+                                }
+                            }
                             persistConsent(
                                 context = context,
                                 consent = consent,
                                 analyticsOn = analyticsOn,
                                 crashOn = crashOn
                             )
-                            AppContainer.telemetry.logCtaTap("onboarding", "continue_free")
-                            onContinueFree()
+                            AppContainer.telemetry.logCtaTap("onboarding", "start_pro_trial")
+                            onContinueToInbox()
                         }
-                    }
+                    },
+                    enabled = !trialStartInFlight
                 )
 
+                trialStartError?.let { error ->
+                    Text(
+                        text = error,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+
                 SecondaryButton(
-                    text = "See Pro features",
+                    text = "Use Basic mode instead",
                     onClick = {
                         scope.launch {
                             persistConsent(
@@ -205,10 +237,11 @@ fun ConsentOnboardingScreen(
                                 analyticsOn = analyticsOn,
                                 crashOn = crashOn
                             )
-                            AppContainer.telemetry.logCtaTap("onboarding", "see_pro_features")
-                            onUnlockPro()
+                            AppContainer.telemetry.logCtaTap("onboarding", "continue_basic")
+                            onContinueBasic()
                         }
-                    }
+                    },
+                    enabled = !trialStartInFlight
                 )
             }
         }
