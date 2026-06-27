@@ -1,0 +1,34 @@
+target_project: D:\Projects\SMS datasets and project\android_sms_classifier
+campaign_slug: google-ads-creative-refresh-v4
+created_at: '2026-06-27T07:27:41Z'
+central_engine_path: D:\Projects\ad creatives
+central_engine_commit: 4fd9debbe2343a47ccca56e3046879688071429d
+product_type: mobile_app
+requested_outputs:
+- google_app_static_images
+- youtube_shorts_video
+- google_search_copy
+- evals
+- client_summary
+product_context_status: created_from_prior_confirmed_context
+user_approval_status: not_approved_for_spend
+stakes_map_status: created
+hook_gate_status: created
+message_map_status: created
+copy_preflight_status: pass_0_failures
+proof_authoring_status: created_and_eval_passed
+creative_quality_eval_status: pass_2_of_2_ship_with_google_gemini_checker
+checker_model_review_status: strict_app_install_google_model_checked
+learning_capture_status: pending
+artifact_index:
+  new_run: D:\Projects\SMS datasets and project\ads\2026-06-27-google-ads-creative-refresh-v4
+  launch_ready_dir: exports/launch_ready
+  google_ads_plan: D:\Projects\SMS datasets and project\ads\2026-06-27-google-ads-creative-refresh-v4\google_ads_campaign_plan_v4.json
+notes:
+- All assets must keep parent campaigns paused until explicit approval to serve.
+- 'v4 launch carries the central OTP-intent promise in the hook: caller asks OTP;
+  app shows account-change context before sharing.'
+- Both square and portrait image assets passed strict deterministic checks plus Google
+  model checker.
+search_copy_status: deterministic_pass_model_held
+launch_ready_status: two_google_app_images_ready

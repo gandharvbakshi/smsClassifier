@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-06-27T12:13:26.389920+00:00",
+  "customer_id": "6269702350",
+  "existing_campaign": "customers/6269702350/campaigns/23973860520",
+  "campaign_status_before": "PAUSED",
+  "new_ad_group": "customers/6269702350/adGroups/197156806079",
+  "new_ad_group_status": "PAUSED",
+  "new_app_ad": "customers/6269702350/adGroupAds/197156806079~814478228576",
+  "new_app_ad_status": "ENABLED_UNDER_PAUSED_AD_GROUP_AND_PAUSED_CAMPAIGN",
+  "uploaded_image_assets": [
+    "customers/6269702350/assets/380403122661",
+    "customers/6269702350/assets/380326038499"
+  ],
+  "source_plan": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\google_ads_campaign_plan_v4.json",
+  "safety": {
+    "enabled_spend": false,
+    "campaign_remained_paused": true,
+    "serving_approval": "not_granted"
+  }
+}

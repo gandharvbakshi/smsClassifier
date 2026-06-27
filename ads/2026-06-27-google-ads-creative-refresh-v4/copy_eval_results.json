@@ -1,0 +1,12 @@
+{
+  "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4",
+  "strict_app_install": true,
+  "decision": "pass",
+  "summary": {
+    "hooks_checked": 3,
+    "messages_checked": 3,
+    "videos_checked": 0,
+    "failure_count": 0
+  },
+  "failures": []
+}

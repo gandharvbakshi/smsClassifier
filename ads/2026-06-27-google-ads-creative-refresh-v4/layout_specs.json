@@ -1,0 +1,132 @@
+[
+  {
+    "asset_id": "IMG_OTP_ACCOUNT_SQUARE",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "light",
+    "custom_background": "#F4FAFF",
+    "platform_overlays_app_name": false,
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#F4FAFF",
+        "align": "stretch"
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 6,
+          "y": 6,
+          "w": 40,
+          "h": 8
+        },
+        "font_role": "logo",
+        "align": "left",
+        "show_name": true
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 15,
+          "w": 80,
+          "h": 19
+        },
+        "font_role": "hero",
+        "text": "Caller asks OTP. SMS app shows account change before sharing.",
+        "color": "#102033",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 8,
+          "y": 35,
+          "w": 84,
+          "h": 64
+        },
+        "font_role": "none",
+        "src": "screenshots/proof_otp_account_warning.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 28,
+        "align": "center"
+      }
+    ]
+  },
+  {
+    "asset_id": "IMG_OTP_ACCOUNT_PORTRAIT",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "light",
+    "custom_background": "#F4FAFF",
+    "platform_overlays_app_name": false,
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#F4FAFF",
+        "align": "stretch"
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 6,
+          "y": 6,
+          "w": 40,
+          "h": 8
+        },
+        "font_role": "logo",
+        "align": "left",
+        "show_name": true
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 14,
+          "w": 82,
+          "h": 17
+        },
+        "font_role": "hero",
+        "text": "Caller asks OTP. SMS app shows account change before sharing.",
+        "color": "#102033",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 5,
+          "y": 35,
+          "w": 90,
+          "h": 61
+        },
+        "font_role": "none",
+        "src": "screenshots/proof_otp_account_warning.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 28,
+        "align": "center"
+      }
+    ]
+  }
+]

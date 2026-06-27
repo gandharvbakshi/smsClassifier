@@ -1,0 +1,21 @@
+{
+  "created_at": "2026-06-27",
+  "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4",
+  "launch_ready_assets": [
+    {
+      "asset_id": "IMG_OTP_ACCOUNT_SQUARE",
+      "asset_type": "image",
+      "file": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\exports\\launch_ready\\IMG_OTP_ACCOUNT_SQUARE_google_app_square.png",
+      "decision": "ship"
+    },
+    {
+      "asset_id": "IMG_OTP_ACCOUNT_PORTRAIT",
+      "asset_type": "image",
+      "file": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\exports\\launch_ready\\IMG_OTP_ACCOUNT_PORTRAIT_google_app_portrait.png",
+      "decision": "ship"
+    }
+  ],
+  "excluded_assets": [],
+  "central_promise": "Caller asks OTP. SMS app shows account change before sharing.",
+  "spend_status": "Do not enable serving without explicit user approval."
+}

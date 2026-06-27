@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-06-27T12:12:20.915859+00:00",
+  "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4",
+  "customer_id": "6269702350",
+  "login_customer_id": "6269702350",
+  "campaign": {
+    "name": "SMS Classifier latest OTP proof 2026-06-27",
+    "status": "PAUSED",
+    "type": "APP_CAMPAIGN",
+    "app_id": "com.smsclassifier.app",
+    "app_store": "GOOGLE_APP_STORE",
+    "daily_budget_micros": 50000000,
+    "target_cpa_micros": 10000000,
+    "bidding_goal": "OPTIMIZE_INSTALLS_TARGET_INSTALL_COST",
+    "contains_eu_political_advertising": "DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING",
+    "location_ids": [
+      2356
+    ],
+    "language_ids": [
+      1000
+    ]
+  },
+  "ad_group": {
+    "name": "SMS Classifier OTP account proof v4",
+    "status": "PAUSED"
+  },
+  "app_ad": {
+    "status": "PAUSED",
+    "headlines": [
+      "OTP Warning App",
+      "Review OTP Before Sharing",
+      "SMS Classifier",
+      "Account Change Warning",
+      "Delivery OTP Warning"
+    ],
+    "descriptions": [
+      "See OTP context before sharing codes under pressure.",
+      "Review delivery-OTP requests before account details change.",
+      "A clearer SMS inbox for OTPs and suspicious texts.",
+      "Shows warning context for review-needed SMS moments."
+    ],
+    "images": [
+      {
+        "asset_id": "IMG_OTP_ACCOUNT_SQUARE",
+        "path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\exports\\launch_ready\\IMG_OTP_ACCOUNT_SQUARE_google_app_square.png",
+        "sha256": "2d5e0c922579cbd690862d9811f7a5a4ac9e3bef8d604eae84165fbbd2674c06",
+        "name": "IMG_OTP_ACCOUNT_SQUARE Google Ads image"
+      },
+      {
+        "asset_id": "IMG_OTP_ACCOUNT_PORTRAIT",
+        "path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\exports\\launch_ready\\IMG_OTP_ACCOUNT_PORTRAIT_google_app_portrait.png",
+        "sha256": "86c9e79c29c81f72b0f51237adb7c1ea641c2954f96e5c00e0cb770e42c3790b",
+        "name": "IMG_OTP_ACCOUNT_PORTRAIT Google Ads image"
+      }
+    ]
+  },
+  "source": {
+    "creative_matrix": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\creative_matrix.csv",
+    "launch_ready_assets": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\launch_ready_assets.csv",
+    "eval_results": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\eval_results.json",
+    "google_row_count": 2
+  },
+  "app_creative_review": {
+    "decision": "pass",
+    "selected_asset_ids": [
+      "IMG_OTP_ACCOUNT_SQUARE",
+      "IMG_OTP_ACCOUNT_PORTRAIT"
+    ],
+    "selected_count": 2,
+    "launch_ready_assets": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\launch_ready_assets.csv",
+    "eval_results": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\eval_results.json",
+    "model_review_required": true,
+    "strict_app_install_required": true,
+    "diversity": {
+      "concept_or_theme_count": 1,
+      "requires_multiple_when_three_or_more": true
+    },
+    "issues": []
+  },
+  "safety": {
+    "creates_paused_campaign_only": true,
+    "enable_campaign_supported": false,
+    "requires_publish_flag": "--allow-create",
+    "requires_launch_ready_assets": true,
+    "requires_strict_model_eval": true,
+    "max_daily_budget_micros": 50000000,
+    "serving_approval": "not_granted"
+  },
+  "warnings": [
+    "Skipped headline from IMG_OTP_ACCOUNT_SQUARE: 61 chars exceeds Google Ads limit 30.",
+    "Skipped headline from IMG_OTP_ACCOUNT_PORTRAIT: 61 chars exceeds Google Ads limit 30.",
+    "Skipped hook from IMG_OTP_ACCOUNT_SQUARE: 61 chars exceeds Google Ads limit 30.",
+    "Skipped hook from IMG_OTP_ACCOUNT_PORTRAIT: 61 chars exceeds Google Ads limit 30.",
+    "Skipped primary_text from IMG_OTP_ACCOUNT_SQUARE: 133 chars exceeds Google Ads limit 30.",
+    "Skipped primary_text from IMG_OTP_ACCOUNT_PORTRAIT: 133 chars exceeds Google Ads limit 30.",
+    "Skipped primary_text from IMG_OTP_ACCOUNT_SQUARE: 133 chars exceeds Google Ads limit 90.",
+    "Skipped primary_text from IMG_OTP_ACCOUNT_PORTRAIT: 133 chars exceeds Google Ads limit 90."
+  ],
+  "validation_errors": []
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "asset_id": "IMG_OTP_ACCOUNT_SQUARE",
+    "kind": "image",
+    "dry_run": false,
+    "live": false,
+    "provider": "deterministic_compositor",
+    "model": "pillow",
+    "prompt": "Deterministic app-install image with real app icon, ad-scale SMS Classifier UI proof, large headline, no generated text background.",
+    "spec": "google_app_square",
+    "cost_estimate_usd": 0.0,
+    "output_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\assets\\IMG_OTP_ACCOUNT_SQUARE_google_app_square.png",
+    "output_hash": "2d5e0c922579cbd690862d9811f7a5a4ac9e3bef8d604eae84165fbbd2674c06",
+    "warnings": [],
+    "logged_at": "2026-06-27T12:07:35.486841+00:00"
+  },
+  {
+    "asset_id": "IMG_OTP_ACCOUNT_PORTRAIT",
+    "kind": "image",
+    "dry_run": false,
+    "live": false,
+    "provider": "deterministic_compositor",
+    "model": "pillow",
+    "prompt": "Deterministic app-install image with real app icon, ad-scale SMS Classifier UI proof, large headline, no generated text background.",
+    "spec": "google_app_portrait",
+    "cost_estimate_usd": 0.0,
+    "output_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-refresh-v4\\assets\\IMG_OTP_ACCOUNT_PORTRAIT_google_app_portrait.png",
+    "output_hash": "86c9e79c29c81f72b0f51237adb7c1ea641c2954f96e5c00e0cb770e42c3790b",
+    "warnings": [],
+    "logged_at": "2026-06-27T12:07:35.486841+00:00"
+  }
+]
