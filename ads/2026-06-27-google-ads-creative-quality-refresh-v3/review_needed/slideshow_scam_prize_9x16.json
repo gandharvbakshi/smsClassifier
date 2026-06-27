@@ -1,0 +1,56 @@
+{
+  "canvas": {
+    "width_px": 1080,
+    "height_px": 1920
+  },
+  "fps": 30,
+  "background_mode": "light",
+  "crossfade_sec": 0.0,
+  "motion": true,
+  "asset_id": "VID_SCAM_PRIZE_9x16",
+  "audio": "assets/audio/VID_SCAM_PRIZE_9x16.wav",
+  "frames": [
+    {
+      "image": "screenshots/proof_scam_video_warning.png",
+      "caption": "Prize SMS asks bank details. App warns. 14-day trial, INR 199/year.",
+      "hold_sec": 3.5,
+      "bbox_pct": {
+        "x": 14,
+        "y": 33,
+        "w": 72,
+        "h": 55
+      },
+      "proof_id": "proof_scam_prize_warning"
+    },
+    {
+      "image": "screenshots/proof_scam_video_reason.png",
+      "caption": "Short link and bank details stay marked.",
+      "hold_sec": 3.5,
+      "bbox_pct": {
+        "x": 14,
+        "y": 33,
+        "w": 72,
+        "h": 55
+      },
+      "proof_id": "proof_scam_link_reason"
+    },
+    {
+      "image": "screenshots/proof_scam_review_done.png",
+      "caption": "Open on Google Play. 14-day trial, then INR 199/year.",
+      "hold_sec": 3.5,
+      "bbox_pct": {
+        "x": 14,
+        "y": 33,
+        "w": 72,
+        "h": 55
+      },
+      "proof_id": "proof_scam_review_done"
+    }
+  ],
+  "outro": {
+    "title": "Open on Google Play",
+    "subtitle": "14-day trial, then INR 199/year",
+    "hold_sec": 2.0
+  },
+  "proof_id": "proof_scam_prize_warning"
+}

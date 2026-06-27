@@ -1,0 +1,565 @@
+{
+  "metadata": {
+    "engine_git_hash": "4052b4b862970226a48e2e5791acb2b393145b93",
+    "linter_version": "2026-06-13-stakes-strict-v3"
+  },
+  "results": [
+    {
+      "asset_id": "IMG_SCAM_PRIZE_SQUARE",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 4,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 3,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [
+        "blind_one_second: The smaller text within the phone screen, such as 'Bank details requested' and 'Review before tapping', could be slightly larger or bolder to improve legibility on very small mobile screens during a quick glance.",
+        "blind_one_second: No pricing information is provided, so 'pricing_honesty' cannot be assessed. If pricing is a key differentiator, consider including it."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "The headline is exceptionally clear, concise, and directly addresses the user's pain point and the app's solution.",
+          "The visual proof effectively demonstrates the app's core feature of warning against scam SMS, aligning perfectly with the brief's 'proof_scam_prize_warning'.",
+          "Excellent mobile legibility for both the main headline and the text within the synthetic app UI.",
+          "The composition is clean, aesthetically pleasing, and maintains a strong visual hierarchy.",
+          "The creative is fully compliant with all policy rules and does not make any misleading pricing claims."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline is exceptionally clear, concise, and directly addresses the user's pain point and the app's solution.",
+            "The visual proof effectively demonstrates the app's core feature of warning against scam SMS, aligning perfectly with the brief's 'proof_scam_prize_warning'.",
+            "Excellent mobile legibility for both the main headline and the text within the synthetic app UI.",
+            "The composition is clean, aesthetically pleasing, and maintains a strong visual hierarchy.",
+            "The creative is fully compliant with all policy rules and does not make any misleading pricing claims."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 5,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 3,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The main headline 'Bank details in a prize SMS. App warns before you tap.' clearly and concisely communicates the user problem and the app's core solution.",
+            "The product category (SMS security/classifier app) and user problem (scam SMS) are immediately evident.",
+            "The phone screen provides clear visual proof of the app's function, showing how it identifies a 'Suspicious link' and advises 'Open with caution' for prize-related messages.",
+            "The brand name 'SMS Classifier' and logo are prominent and consistent throughout the ad.",
+            "The overall design is clean, with good use of whitespace and a clear focal point on the phone screen."
+          ],
+          "fixes": [
+            "The smaller text within the phone screen, such as 'Bank details requested' and 'Review before tapping', could be slightly larger or bolder to improve legibility on very small mobile screens during a quick glance.",
+            "No pricing information is provided, so 'pricing_honesty' cannot be assessed. If pricing is a key differentiator, consider including it."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The hook directly addresses a deep user stake (avoided financial loss, risk reduction) rather than a mere surface feature or convenience.",
+            "The hook uses plain problem language first, followed by the solution, aligning with best practices for security products.",
+            "Visual proof clearly and immediately demonstrates the app's core function and warning state, directly supporting the headline.",
+            "Excellent message clarity; the headline is concise, impactful, and easily understood by the target persona.",
+            "Strong visual hierarchy and mobile legibility, ensuring the key message and proof are clear even at small sizes.",
+            "The asset is fully compliant with all stated policy constraints, including no unsupported superlatives, absolute safety guarantees, or misleading pricing.",
+            "Clean, professional, and uncluttered composition aesthetics."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline clearly states the problem (bank details in a prize SMS) and the app's solution (warns before you tap).",
+            "The visual proof directly and clearly supports the headline's claim, showing a 'Prize text' with 'Bank details requested' and a 'Suspicious link' warning, along with 'Review before tapping' and 'Open with caution'.",
+            "The on-image text is highly legible and well-placed for mobile-first viewing.",
+            "The composition is clean, aesthetically pleasing, and effectively highlights the app's core feature.",
+            "The language used is appropriately hedged ('warns before you tap', 'suspicious link', 'open with caution') and avoids absolute safety guarantees or unsupported superlatives, aligning with policy constraints.",
+            "No pricing information is present on the image, thus avoiding any misleading implications about a permanently free product."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "IMG_SCAM_PRIZE_SQUARE",
+          "hook_id": "H_SCAM_PRIZE"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 3,
+        "messages_checked": 3,
+        "videos_checked": 0,
+        "failure_count": 0
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.4104,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.0894,
+        "proof_inner_bottom_empty_fraction": 0.0,
+        "proof_top_edge_ink_fraction": 0.0577,
+        "proof_density_limit": 0.38
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "4052b4b862970226a48e2e5791acb2b393145b93",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "IMG_SCAM_PRIZE_PORTRAIT",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [
+        "blind_one_second: Increase font size for smaller descriptive text within the app UI on the phone screen (e.g., 'Bank details requested', 'Review before tapping') to enhance legibility on very small mobile devices.",
+        "blind_one_second: Consider adding pricing information or a call to action if the ad's objective is direct conversion or download, as no such details are present."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "The headline is clear, concise, and effectively communicates the product's value proposition and the user's pain point.",
+          "The visual proof (synthetic app UI) directly demonstrates the core feature of scam warning for prize SMS, aligning perfectly with the declared proof moment.",
+          "Excellent mobile legibility for both the main headline and the text within the app UI, supported by declared contrast checks and thumbnail safety.",
+          "The composition is clean, well-balanced, and aesthetically pleasing, with a clear visual hierarchy.",
+          "The creative fully adheres to all policy constraints, including the use of declared synthetic UI without fake OS elements or PII.",
+          "No pricing claims are made on the image, which is compliant with the brief's instruction to handle pricing via platform fields."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline is clear, concise, and effectively communicates the product's value proposition and the user's pain point.",
+            "The visual proof (synthetic app UI) directly demonstrates the core feature of scam warning for prize SMS, aligning perfectly with the declared proof moment.",
+            "Excellent mobile legibility for both the main headline and the text within the app UI, supported by declared contrast checks and thumbnail safety.",
+            "The composition is clean, well-balanced, and aesthetically pleasing, with a clear visual hierarchy.",
+            "The creative fully adheres to all policy constraints, including the use of declared synthetic UI without fake OS elements or PII.",
+            "No pricing claims are made on the image, which is compliant with the brief's instruction to handle pricing via platform fields."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 4,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The ad clearly identifies the product as 'SMS Classifier' and its function as warning about suspicious SMS messages.",
+            "The headline 'Bank details in a prize SMS. App warns before you tap.' immediately communicates the user problem and the app's solution.",
+            "The phone screen visual effectively demonstrates the app's functionality, showing how it flags 'Suspicious link' and advises to 'Open with caution' for prize links.",
+            "The visual hierarchy is strong, with the main headline drawing attention, followed by the clear demonstration on the phone screen.",
+            "The overall composition is clean, professional, and aesthetically pleasing with good use of whitespace and a clear focal point."
+          ],
+          "fixes": [
+            "Increase font size for smaller descriptive text within the app UI on the phone screen (e.g., 'Bank details requested', 'Review before tapping') to enhance legibility on very small mobile devices.",
+            "Consider adding pricing information or a call to action if the ad's objective is direct conversion or download, as no such details are present."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The hook directly addresses a deep user stake (avoided loss of bank details, risk reduction) rather than a mere convenience, aligning perfectly with the product's core value.",
+            "The on-image headline clearly states the problem and the app's immediate solution in plain language.",
+            "The visual proof (app UI) is highly effective, clearly demonstrating the warning mechanism for a prize SMS asking for bank details, directly supporting the headline.",
+            "Excellent mobile legibility and visual hierarchy; all critical text elements are clear and readable, even at small sizes.",
+            "The creative adheres to all policy constraints, including no unsupported superlatives, absolute safety guarantees, or misleading pricing information (by deferring pricing to platform fields)."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The on-image headline is concise, clear, and directly addresses a common user pain point (prize SMS scams).",
+            "The visual proof (app UI) perfectly demonstrates the product's core feature, showing clear warnings ('Suspicious link', 'Open with caution') in response to a 'Prize text' asking for 'Bank details requested'. This directly supports the claim 'App warns before you tap'.",
+            "The design has excellent visual hierarchy, with the headline immediately grabbing attention, followed by the clear app demonstration.",
+            "All text, including the headline and critical in-app warning labels, is highly legible and uses good contrast, ensuring readability even at small thumbnail sizes.",
+            "The creative uses hedged language ('warns before you tap', 'Open with caution') and avoids any absolute safety guarantees or over-claims, aligning perfectly with policy constraints.",
+            "The synthetic UI is well-executed, looks realistic, and avoids any misleading elements or fake system dialogs.",
+            "The overall composition is clean, professional, and aesthetically pleasing, enhancing brand perception."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "IMG_SCAM_PRIZE_PORTRAIT",
+          "hook_id": "H_SCAM_PRIZE"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 3,
+        "messages_checked": 3,
+        "videos_checked": 0,
+        "failure_count": 0
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.4988,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.096,
+        "proof_inner_bottom_empty_fraction": 0.0,
+        "proof_top_edge_ink_fraction": 0.0649,
+        "proof_density_limit": 0.38
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "4052b4b862970226a48e2e5791acb2b393145b93",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "IMG_OTP_INBOX_PORTRAIT",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 5,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [
+        "blind_one_second: Consider adding a prominent call to action (e.g., 'Download now') outside of the phone screen to guide users on the next step."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "Clear and concise headline that effectively communicates the user pain point and solution.",
+          "Relevant and well-executed synthetic product proof that directly supports the headline's claim.",
+          "Excellent visual hierarchy with the headline, logo, and product UI clearly defined.",
+          "High mobile legibility for both the main headline and the in-app text, adhering to brief's guidelines.",
+          "Clean, modern, and aesthetically pleasing composition with good use of negative space.",
+          "Full compliance with all policy rules, including the use of declared synthetic UI and contrast requirements.",
+          "No misleading pricing claims, aligning with the monetization facts."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "Clear and concise headline that effectively communicates the user pain point and solution.",
+            "Relevant and well-executed synthetic product proof that directly supports the headline's claim.",
+            "Excellent visual hierarchy with the headline, logo, and product UI clearly defined.",
+            "High mobile legibility for both the main headline and the in-app text, adhering to brief's guidelines.",
+            "Clean, modern, and aesthetically pleasing composition with good use of negative space.",
+            "Full compliance with all policy rules, including the use of declared synthetic UI and contrast requirements.",
+            "No misleading pricing claims, aligning with the monetization facts."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline 'Bank OTP is buried. SMS app shows login code.' clearly states the user problem and the product's solution.",
+            "The phone screen visually demonstrates the app's core functionality, showing 'Bank OTP found' and a 'Copy right code' button, providing strong product proof.",
+            "All text, including the main headline and the text within the app UI, is large and highly legible on a mobile screen.",
+            "The brand name 'SMS Classifier' and its icon are consistently displayed and clearly communicate the app's purpose.",
+            "The overall composition is clean, modern, and aesthetically pleasing, with good use of white space and a clear focus on the product."
+          ],
+          "fixes": [
+            "Consider adding a prominent call to action (e.g., 'Download now') outside of the phone screen to guide users on the next step."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline effectively communicates a common user pain point ('Bank OTP is buried') and offers a clear solution ('SMS app shows login code') in plain language.",
+            "The visual proof directly supports the headline by showing the app surfacing a 'Bank OTP found' with the benefit 'Avoid login delay' and 'Copy right code', clearly demonstrating the product's value.",
+            "The creative successfully connects the convenience of OTP organization to deeper user stakes such as avoided login delays and reduced 'wrong-code stress', preventing a hard-fail for selling only surface features.",
+            "Excellent mobile legibility, with a concise headline and clear, high-contrast text within the app UI that adheres to specified text block and word count limits.",
+            "Strong visual hierarchy and composition, guiding the viewer's eye from the problem/solution to the product proof.",
+            "Adheres to all policy constraints, including no unsupported superlatives, no realistic OTPs, and appropriate use of synthetic UI."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline clearly articulates a common user pain point (buried OTPs) and the app's direct solution.",
+            "The visual proof within the phone screenshot directly and clearly supports the headline's claim by showing an 'OTP' tab, 'Bank OTP found', and a 'Copy right code' button.",
+            "Excellent mobile legibility for both the headline and key elements within the app UI.",
+            "The composition is clean, aesthetically pleasing, and effectively uses whitespace to highlight the core message and proof.",
+            "Adheres to all policy constraints, including the appropriate use of synthetic UI without misleading elements or unsupported claims.",
+            "The creative story is well-executed, showing the problem, the app's agency, and the resolution clearly."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "IMG_OTP_INBOX_PORTRAIT",
+          "hook_id": "H_OTP_INBOX"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 3,
+        "messages_checked": 3,
+        "videos_checked": 0,
+        "failure_count": 0
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.4104,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.1033,
+        "proof_inner_bottom_empty_fraction": 0.0,
+        "proof_top_edge_ink_fraction": 0.0758,
+        "proof_density_limit": 0.38
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "4052b4b862970226a48e2e5791acb2b393145b93",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    }
+  ]
+}

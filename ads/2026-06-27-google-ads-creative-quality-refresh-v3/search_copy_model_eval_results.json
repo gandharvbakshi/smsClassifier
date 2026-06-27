@@ -1,0 +1,568 @@
+{
+  "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-quality-refresh-v3",
+  "strict": true,
+  "decision": "fail",
+  "summary": {
+    "ad_groups_checked": 7,
+    "rsas_checked": 12,
+    "failure_count": 22,
+    "warning_count": 11
+  },
+  "keyword_metrics": {
+    "source": "keyword_research.csv",
+    "row_count": 48,
+    "metric_row_count": 48,
+    "status": "available"
+  },
+  "portfolio_scores": {
+    "keyword_metric_quality": 5,
+    "portfolio_distinctness": 4,
+    "coverage": 5,
+    "claim_safety": 5,
+    "combination_quality": 1
+  },
+  "rsa_results": [
+    {
+      "rsa_id": "messages_app_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "sms_app_category_scale"
+    },
+    {
+      "rsa_id": "messages_app_challenger",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 4,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "sms_app_category_scale"
+    },
+    {
+      "rsa_id": "spam_sms_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "spam_sms_problem_scale"
+    },
+    {
+      "rsa_id": "spam_sms_challenger",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 4,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "spam_sms_problem_scale"
+    },
+    {
+      "rsa_id": "scam_text_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 4,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "scam_text_problem_scale"
+    },
+    {
+      "rsa_id": "scam_text_challenger",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 4,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "scam_text_problem_scale"
+    },
+    {
+      "rsa_id": "otp_utility_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 4,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 4,
+        "predicted_ad_strength": 3
+      },
+      "predicted_ad_strength_label": "Average",
+      "ad_group_id": "otp_utility_risk_scale"
+    },
+    {
+      "rsa_id": "otp_utility_challenger",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "otp_utility_risk_scale"
+    },
+    {
+      "rsa_id": "sms_organizer_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 4,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "sms_organizer_control"
+    },
+    {
+      "rsa_id": "sms_organizer_challenger",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "sms_organizer_control"
+    },
+    {
+      "rsa_id": "brand_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "sms_classifier_brand_exact"
+    },
+    {
+      "rsa_id": "permissions_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "sms_permissions_trust_holdout"
+    }
+  ],
+  "model_reviews": {
+    "blind_serp_scan": {
+      "verdict": "reject",
+      "scores": {
+        "serp_clarity": 4,
+        "intent_fit": 5,
+        "distinctness": 3,
+        "message_match": 4,
+        "claim_safety": 4,
+        "click_power": 3
+      },
+      "hard_fails": [
+        "Multiple RSA combinations lose product agency, repeat copy, or create claim risk.",
+        "Descriptions frequently repeat headlines, reducing added value.",
+        "Generic portfolio headline phrases ('sms app', 'sms review') are overused, impacting distinctness.",
+        "Primary query keyword coverage is low in headlines for some ad groups."
+      ],
+      "strengths": [
+        "Clearly identifies the product category as an SMS app.",
+        "Strong intent fit across all ad groups, directly addressing user search moments.",
+        "Effectively addresses common user pain points such as spam, scams, OTP management, and message organization.",
+        "Careful wording used to ensure claim safety, employing phrases like 'flags spam-looking' and 'review cues' rather than definitive claims.",
+        "Transparency regarding trial and renewal terms is consistently present."
+      ],
+      "fixes": [
+        "Address and resolve RSA combinations that lose product agency, repeat copy, or create claim risk.",
+        "Rewrite descriptions to provide unique value and avoid repeating headline content.",
+        "Diversify headline phrasing to improve distinctness and reduce reliance on generic terms.",
+        "Increase primary query keyword coverage in headlines across ad groups.",
+        "Add more Good/Excellent RSAs per ad group to improve overall ad strength and variety."
+      ],
+      "checker_provider": "google",
+      "checker_model": "gemini-2.5-flash"
+    },
+    "intent_fit_critic": {
+      "verdict": "reject",
+      "scores": {
+        "serp_clarity": 3,
+        "intent_fit": 5,
+        "distinctness": 3,
+        "message_match": 5,
+        "claim_safety": 5,
+        "click_power": 3
+      },
+      "hard_fails": [
+        "Description mostly repeats a headline instead of adding proof or motivation: 'The app highlights review cues for odd links and account-code texts.' (sms_app_category_scale/messages_app_challenger)",
+        "Description mostly repeats a headline instead of adding proof or motivation: 'The app highlights odd reply requests and bank-detail language.' (spam_sms_problem_scale/spam_sms_challenger)",
+        "Description mostly repeats a headline instead of adding proof or motivation: 'The app shows code context before a bank OTP is shared under pressure.' (otp_utility_risk_scale/otp_utility_control)",
+        "5/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk. (scam_text_problem_scale/scam_text_control)",
+        "6/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk. (scam_text_problem_scale/scam_text_challenger)",
+        "6/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk. (otp_utility_risk_scale/otp_utility_control)",
+        "5/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk. (sms_organizer_control/sms_organizer_control)",
+        "Google recommends at least 2 Good/Excellent RSAs per ad group when possible. (sms_classifier_brand_exact)",
+        "Google recommends at least 2 Good/Excellent RSAs per ad group when possible. (sms_permissions_trust_holdout)",
+        "Include the primary query or close variant in 2-3 readable headlines. (otp_utility_risk_scale)",
+        "Repeated portfolio headline phrase(s) reduce distinctness: sms app, sms review."
+      ],
+      "strengths": [
+        "Strong intent fit across all ad groups, aligning well with primary queries and search moments.",
+        "Consistent use of cautious, claim-safe language, avoiding over-promises (e.g., 'flags spam-looking texts', 'without a fraud-prevention promise').",
+        "Clear communication of pricing and trial terms within descriptions.",
+        "Headlines generally echo searcher language effectively.",
+        "Good category clarity within individual RSAs."
+      ],
+      "fixes": [
+        "Rewrite descriptions to provide unique value, proof, or motivation, avoiding direct repetition of headlines.",
+        "Improve RSA combination quality by reviewing and refining asset pairings to ensure they add value and avoid redundancy or claim risk.",
+        "Add more high-quality RSAs to ad groups, especially for 'sms_classifier_brand_exact' and 'sms_permissions_trust_holdout', to meet Google's recommendation of at least 2 Good/Excellent RSAs.",
+        "Ensure the primary query 'otp app' or close variants are included in 2-3 readable headlines for the 'otp_utility_risk_scale' ad group.",
+        "Diversify headline phrases across the portfolio to improve distinctness, reducing reliance on generic terms like 'sms app' and 'sms review'.",
+        "Review and improve ad strength for RSAs with lower predicted scores, particularly 'otp_utility_risk_scale/otp_utility_control'."
+      ],
+      "checker_provider": "google",
+      "checker_model": "gemini-2.5-flash"
+    },
+    "skeptic_critic": {
+      "verdict": "reject",
+      "scores": {
+        "serp_clarity": 3,
+        "intent_fit": 5,
+        "distinctness": 2,
+        "message_match": 3,
+        "claim_safety": 5,
+        "click_power": 3
+      },
+      "hard_fails": [
+        "search_description_repeats_headline: Descriptions frequently repeat headlines, leading to redundant copy and reduced clarity.",
+        "search_rsa_combination_quality_low: Multiple ad groups have low RSA combination quality, indicating lost category/product agency, repetition, or claim risk in generated ad variations.",
+        "search_portfolio_phrase_repetition: Repetitive phrasing across the portfolio (e.g., 'sms app', 'sms review') reduces overall distinctness.",
+        "search_rsas_per_ad_group_low: Insufficient unique RSA assets per ad group limits testing and optimization potential."
+      ],
+      "strengths": [
+        "Excellent claim safety: Ad copy consistently uses precise, hedged language (e.g., 'flags spam-looking texts', 'warns before... acted on', 'review aids only') avoiding unsupported guarantees or absolute claims.",
+        "Strong transparency: Clear communication regarding trial terms, renewal pricing, permissions, and data choices is present across ad groups.",
+        "High intent fit: Each ad group's copy is well-aligned with its primary query and search moment.",
+        "Focus on user agency: Messaging empowers users with review tools and context rather than promising blanket protection."
+      ],
+      "fixes": [
+        "Rewrite descriptions to provide new, complementary information or motivation, avoiding direct repetition of headlines.",
+        "Expand RSA asset libraries within each ad group to include more unique headlines and descriptions, aiming for at least 2 Good/Excellent RSAs per group.",
+        "Review and revise headline/description combinations to ensure they create strong, distinct messages and avoid redundancy or diluted product agency.",
+        "Diversify phrasing across the entire ad portfolio to reduce repetition of common terms and improve overall distinctness.",
+        "Ensure primary queries or close variants are integrated into 2-3 readable headlines per ad group to improve keyword coverage."
+      ],
+      "checker_provider": "google",
+      "checker_model": "gemini-2.5-flash"
+    },
+    "combination_critic": {
+      "verdict": "ship",
+      "scores": {
+        "serp_clarity": 5,
+        "intent_fit": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "click_power": 5
+      },
+      "hard_fails": [],
+      "strengths": [
+        "Clear category and product agency",
+        "Distinct headlines and descriptions",
+        "Safe and bounded claims",
+        "Strong message match to query and promise"
+      ],
+      "fixes": [],
+      "checker_provider": "google",
+      "checker_model": "gemini-2.5-flash"
+    }
+  },
+  "issues": [
+    {
+      "scope": "description",
+      "item_id": "sms_app_category_scale/messages_app_challenger",
+      "severity": "warn",
+      "code": "search_description_repeats_headline",
+      "message": "Description mostly repeats a headline instead of adding proof or motivation: 'The app highlights review cues for odd links and account-code texts.'"
+    },
+    {
+      "scope": "description",
+      "item_id": "spam_sms_problem_scale/spam_sms_challenger",
+      "severity": "warn",
+      "code": "search_description_repeats_headline",
+      "message": "Description mostly repeats a headline instead of adding proof or motivation: 'The app highlights odd reply requests and bank-detail language.'"
+    },
+    {
+      "scope": "rsa",
+      "item_id": "scam_text_problem_scale/scam_text_control",
+      "severity": "warn",
+      "code": "search_rsa_combination_quality_low",
+      "message": "5/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk."
+    },
+    {
+      "scope": "rsa",
+      "item_id": "scam_text_problem_scale/scam_text_challenger",
+      "severity": "warn",
+      "code": "search_rsa_combination_quality_low",
+      "message": "6/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk."
+    },
+    {
+      "scope": "description",
+      "item_id": "otp_utility_risk_scale/otp_utility_control",
+      "severity": "warn",
+      "code": "search_description_repeats_headline",
+      "message": "Description mostly repeats a headline instead of adding proof or motivation: 'The app shows code context before a bank OTP is shared under pressure.'"
+    },
+    {
+      "scope": "rsa",
+      "item_id": "otp_utility_risk_scale/otp_utility_control",
+      "severity": "warn",
+      "code": "search_rsa_combination_quality_low",
+      "message": "6/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk."
+    },
+    {
+      "scope": "rsa",
+      "item_id": "sms_organizer_control/sms_organizer_control",
+      "severity": "warn",
+      "code": "search_rsa_combination_quality_low",
+      "message": "5/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk."
+    },
+    {
+      "scope": "ad_group",
+      "item_id": "sms_classifier_brand_exact",
+      "severity": "warn",
+      "code": "search_rsas_per_ad_group_low",
+      "message": "Google recommends at least 2 Good/Excellent RSAs per ad group when possible."
+    },
+    {
+      "scope": "rsa",
+      "item_id": "sms_classifier_brand_exact/brand_control",
+      "severity": "warn",
+      "code": "search_keyword_coverage_low",
+      "message": "Include the primary query or close variant in 2-3 readable headlines."
+    },
+    {
+      "scope": "ad_group",
+      "item_id": "sms_permissions_trust_holdout",
+      "severity": "warn",
+      "code": "search_rsas_per_ad_group_low",
+      "message": "Google recommends at least 2 Good/Excellent RSAs per ad group when possible."
+    },
+    {
+      "scope": "portfolio",
+      "item_id": "portfolio",
+      "severity": "warn",
+      "code": "search_portfolio_phrase_repetition",
+      "message": "Repeated portfolio headline phrase(s) reduce distinctness: sms app, sms review."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "blind_serp_scan",
+      "severity": "fail",
+      "code": "search_model_blind_serp_scan_reject",
+      "message": "blind_serp_scan rejected the Search copy pack."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "blind_serp_scan",
+      "severity": "fail",
+      "code": "search_model_blind_serp_scan_hard_fail",
+      "message": "Multiple RSA combinations lose product agency, repeat copy, or create claim risk."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "blind_serp_scan",
+      "severity": "fail",
+      "code": "search_model_blind_serp_scan_hard_fail",
+      "message": "Descriptions frequently repeat headlines, reducing added value."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "blind_serp_scan",
+      "severity": "fail",
+      "code": "search_model_blind_serp_scan_hard_fail",
+      "message": "Generic portfolio headline phrases ('sms app', 'sms review') are overused, impacting distinctness."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "blind_serp_scan",
+      "severity": "fail",
+      "code": "search_model_blind_serp_scan_hard_fail",
+      "message": "Primary query keyword coverage is low in headlines for some ad groups."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_reject",
+      "message": "intent_fit_critic rejected the Search copy pack."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "Description mostly repeats a headline instead of adding proof or motivation: 'The app highlights review cues for odd links and account-code texts.' (sms_app_category_scale/messages_app_challenger)"
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "Description mostly repeats a headline instead of adding proof or motivation: 'The app highlights odd reply requests and bank-detail language.' (spam_sms_problem_scale/spam_sms_challenger)"
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "Description mostly repeats a headline instead of adding proof or motivation: 'The app shows code context before a bank OTP is shared under pressure.' (otp_utility_risk_scale/otp_utility_control)"
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "5/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk. (scam_text_problem_scale/scam_text_control)"
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "6/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk. (scam_text_problem_scale/scam_text_challenger)"
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "6/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk. (otp_utility_risk_scale/otp_utility_control)"
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "5/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk. (sms_organizer_control/sms_organizer_control)"
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "Google recommends at least 2 Good/Excellent RSAs per ad group when possible. (sms_classifier_brand_exact)"
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "Google recommends at least 2 Good/Excellent RSAs per ad group when possible. (sms_permissions_trust_holdout)"
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "Include the primary query or close variant in 2-3 readable headlines. (otp_utility_risk_scale)"
+    },
+    {
+      "scope": "model_review",
+      "item_id": "intent_fit_critic",
+      "severity": "fail",
+      "code": "search_model_intent_fit_critic_hard_fail",
+      "message": "Repeated portfolio headline phrase(s) reduce distinctness: sms app, sms review."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "skeptic_critic",
+      "severity": "fail",
+      "code": "search_model_skeptic_critic_reject",
+      "message": "skeptic_critic rejected the Search copy pack."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "skeptic_critic",
+      "severity": "fail",
+      "code": "search_model_skeptic_critic_hard_fail",
+      "message": "search_description_repeats_headline: Descriptions frequently repeat headlines, leading to redundant copy and reduced clarity."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "skeptic_critic",
+      "severity": "fail",
+      "code": "search_model_skeptic_critic_hard_fail",
+      "message": "search_rsa_combination_quality_low: Multiple ad groups have low RSA combination quality, indicating lost category/product agency, repetition, or claim risk in generated ad variations."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "skeptic_critic",
+      "severity": "fail",
+      "code": "search_model_skeptic_critic_hard_fail",
+      "message": "search_portfolio_phrase_repetition: Repetitive phrasing across the portfolio (e.g., 'sms app', 'sms review') reduces overall distinctness."
+    },
+    {
+      "scope": "model_review",
+      "item_id": "skeptic_critic",
+      "severity": "fail",
+      "code": "search_model_skeptic_critic_hard_fail",
+      "message": "search_rsas_per_ad_group_low: Insufficient unique RSA assets per ad group limits testing and optimization potential."
+    }
+  ]
+}

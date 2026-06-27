@@ -1,0 +1,49 @@
+ad_group,keyword,match_type,priority,source,avg_monthly_searches,competition,competition_index,low_top_of_page_bid_micros,high_top_of_page_bid_micros,note
+sms_app_category_scale,messages app,phrase,high,keyword_planner_api_live_2026-06-27,27100,LOW,24,1288971,6652921,Promoted scale keyword; broad category term needs strong negatives.
+sms_app_category_scale,sms app,phrase,high,keyword_planner_api_live_2026-06-27,3600,LOW,23,1302848,6574378,Promoted scale keyword.
+sms_app_category_scale,sms message app,phrase,high,keyword_planner_api_live_2026-06-27,3600,LOW,23,1302848,6574378,Promoted scale keyword.
+sms_app_category_scale,text message app,phrase,medium,keyword_planner_api_live_2026-06-27,1300,LOW,19,1183146,5655087,Promoted scale keyword.
+sms_app_category_scale,best messaging app for android,phrase,medium,keyword_planner_api_live_2026-06-27,880,LOW,6,903620,10159408,Promoted scale keyword; watch generic messaging traffic.
+sms_app_category_scale,default sms app,exact,high,keyword_planner_api_live_2026-06-27,720,MEDIUM,40,2078648,8917165,Promoted high-fit category keyword.
+sms_app_category_scale,messaging apps for android,phrase,medium,keyword_planner_api_live_2026-06-27,590,LOW,9,1360434,5100283,Promoted scale keyword; watch generic messaging traffic.
+spam_sms_problem_scale,i keep getting spam texts,phrase,high,keyword_planner_api_live_2026-06-27,12100,LOW,0,0,0,Promoted problem-aware scale keyword; may need informational negatives.
+spam_sms_problem_scale,spam messages,phrase,high,keyword_planner_api_live_2026-06-27,6600,LOW,0,0,0,Promoted problem-aware scale keyword.
+spam_sms_problem_scale,spam text messages,phrase,high,keyword_planner_api_live_2026-06-27,2900,LOW,0,0,0,Promoted problem-aware scale keyword.
+spam_sms_problem_scale,spam sms,phrase,high,keyword_planner_api_live_2026-06-27,2400,LOW,0,0,0,Promoted SMS-specific problem keyword.
+spam_sms_problem_scale,spam sms messages,phrase,high,keyword_planner_api_live_2026-06-27,2400,LOW,0,0,0,Promoted SMS-specific problem keyword.
+spam_sms_problem_scale,sms filter,phrase,medium,keyword_planner_api_live_2026-06-27,320,LOW,0,0,0,Promoted feature-aware test.
+scam_text_problem_scale,scam text messages,phrase,high,keyword_planner_api_live_2026-06-27,6600,LOW,0,0,0,Promoted problem-aware scale keyword.
+scam_text_problem_scale,text scams,phrase,high,keyword_planner_api_live_2026-06-27,6600,LOW,0,0,0,Promoted problem-aware scale keyword; may need how-to/example negatives.
+scam_text_problem_scale,smishing,exact,high,keyword_planner_api_live_2026-06-27,3600,LOW,0,555653,1580392,Promoted educated problem-aware keyword.
+scam_text_problem_scale,phishing scam text,phrase,high,keyword_planner_api_live_2026-06-27,2400,LOW,0,0,0,Promoted problem-aware scale keyword.
+scam_text_problem_scale,phishing text messages,phrase,medium,keyword_planner_api_live_2026-06-27,1300,LOW,0,0,0,Promoted problem-aware scale keyword.
+scam_text_problem_scale,phishing texts,phrase,medium,keyword_planner_api_live_2026-06-27,1300,LOW,0,0,0,Promoted problem-aware scale keyword.
+scam_text_problem_scale,sms scam,exact,high,keyword_planner_api_live_2026-06-27,720,LOW,0,0,0,Promoted SMS-specific problem keyword.
+scam_text_problem_scale,phishing sms,exact,medium,keyword_planner_api_live_2026-06-27,590,LOW,0,0,0,Promoted SMS-specific problem keyword.
+scam_text_problem_scale,sms fraud,phrase,medium,keyword_planner_api_live_2026-06-27,320,LOW,0,0,0,Promoted SMS-specific problem keyword.
+otp_utility_risk_scale,otp app,phrase,medium,keyword_planner_api_live_2026-06-27,1600,LOW,6,2290582,56120303,Promoted with authenticator/API negatives.
+otp_utility_risk_scale,otp scam,exact,high,keyword_planner_api_live_2026-06-27,720,LOW,0,0,0,Promoted high-fit problem keyword.
+otp_utility_risk_scale,otp sms,exact,medium,keyword_planner_api_live_2026-06-27,590,LOW,10,14230421,77708173,Promoted utility/risk keyword; CPC may be high.
+otp_utility_risk_scale,bank otp,phrase,medium,keyword_planner_api_live_2026-06-27,320,LOW,0,0,0,Promoted OTP utility keyword.
+otp_utility_risk_scale,otp fraud,phrase,medium,keyword_planner_api_live_2026-06-27,210,LOW,0,0,0,Promoted OTP risk keyword.
+otp_utility_risk_scale,delivery otp scam,exact,medium,keyword_planner_api_live_2026-06-27,10,LOW,0,0,0,Kept as high-intent control inside broader OTP group.
+otp_utility_risk_scale,otp scam warning app,phrase,low,keyword_planner_api_live_2026-06-27,0,UNSPECIFIED,0,0,0,Kept as high-intent zero-visible-volume test.
+otp_utility_risk_scale,otp fraud warning app,phrase,low,keyword_planner_api_live_2026-06-27,0,UNSPECIFIED,0,0,0,Kept as high-intent zero-visible-volume test.
+sms_organizer_control,sms organizer,exact,high,keyword_planner_api_live_2026-06-27,590,LOW,2,1101677,7613561,High-intent control keyword.
+sms_organizer_control,sms organizer app,phrase,high,keyword_planner_api_live_2026-06-27,50,LOW,7,724444,4287572,High-intent control keyword.
+sms_organizer_control,best sms organizer app for android,phrase,medium,keyword_planner_api_live_2026-06-27,30,LOW,2,0,0,High-intent control keyword.
+sms_organizer_control,sms organiser app,phrase,medium,keyword_planner_api_live_2026-06-27,20,LOW,8,1262822,4869564,High-intent control keyword.
+privacy_data_controls,default sms app privacy,exact,medium,strategy_seed_no_visible_planner_row_2026-06-27,0,UNSPECIFIED,0,0,0,Trust-objection control; keep small.
+privacy_data_controls,sms app data privacy,phrase,medium,strategy_seed_no_visible_planner_row_2026-06-27,0,UNSPECIFIED,0,0,0,Trust-objection control; keep small.
+privacy_data_controls,sms app permissions,phrase,low,strategy_seed_no_visible_planner_row_2026-06-27,0,UNSPECIFIED,0,0,0,Trust-objection control; keep small.
+privacy_data_controls,sms permissions android,phrase,low,strategy_seed_no_visible_planner_row_2026-06-27,0,UNSPECIFIED,0,0,0,Trust-objection control; keep small.
+brand_sms_classifier,sms classifier,exact,medium,strategy_seed_no_visible_planner_row_2026-06-27,0,UNSPECIFIED,0,0,0,Brand/navigation control.
+brand_sms_classifier,sms classifier app,phrase,medium,strategy_seed_no_visible_planner_row_2026-06-27,0,UNSPECIFIED,0,0,0,Brand/navigation control.
+brand_sms_classifier,sms classifier android,phrase,medium,strategy_seed_no_visible_planner_row_2026-06-27,0,UNSPECIFIED,0,0,0,Brand/navigation control.
+later_test_keywords,sms blocker,phrase,low,keyword_planner_api_live_2026-06-27,880,LOW,0,0,0,"Hold until product/claim fit is proven; blocker intent may expect hard blocking."
+later_test_keywords,stop spam texts,phrase,low,keyword_planner_api_live_2026-06-27,140,LOW,0,0,0,"Hold until product/claim fit is proven; stop/block intent may expect guarantees."
+later_test_keywords,sms link warning app,phrase,low,keyword_planner_api_live_2026-06-27,0,UNSPECIFIED,0,0,0,"Keep as later low-budget test, not core scale."
+later_test_keywords,sms phishing warning,phrase,low,keyword_planner_api_live_2026-06-27,0,UNSPECIFIED,0,0,0,"Keep as later low-budget test, not core scale."
+later_test_keywords,otp sms organizer,phrase,low,keyword_planner_api_live_2026-06-27,0,UNSPECIFIED,0,0,0,"Keep as later low-budget test, not core scale."
+later_test_keywords,otp inbox app,phrase,low,keyword_planner_api_live_2026-06-27,0,UNSPECIFIED,0,0,0,"Keep as later low-budget test, not core scale."
+later_test_keywords,sms scam app for parents,phrase,low,keyword_planner_api_live_2026-06-27,0,UNSPECIFIED,0,0,0,"Keep as later low-budget test, not core scale."

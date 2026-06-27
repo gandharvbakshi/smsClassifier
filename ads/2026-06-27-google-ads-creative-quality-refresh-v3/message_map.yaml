@@ -1,0 +1,64 @@
+messages:
+- hook_id: H_SCAM_PRIZE
+  proof_id: proof_scam_prize_warning
+  on_image_headline: Bank details in a prize SMS. App warns before you tap.
+  headline_tests:
+  - id: short_prize
+    on_image_headline: Prize SMS asks for bank details.
+  platform_headlines:
+  - Scam SMS Warning App
+  - Review Suspicious SMS
+  - SMS Classifier
+  long_headlines:
+  - SMS Classifier helps flag suspicious prize-style texts before bank details are shared.
+  platform_descriptions:
+  - Review suspicious-looking SMS links and details requests in a clearer default SMS inbox.
+  cta_variants:
+  - Start 14-day trial
+  - Open on Google Play
+  category_context: SMS warning app
+  plain_language_pain: A prize SMS can ask for bank details through a suspicious short link.
+  story_framework: demo_proof
+  emotional_payoff: More confidence before sharing bank details or tapping a suspicious SMS.
+- hook_id: H_OTP_ACCOUNT
+  proof_id: proof_otp_account_warning
+  on_image_headline: Caller says delivery OTP. SMS app flags account change.
+  headline_tests:
+  - id: short_delivery
+    on_image_headline: Caller says delivery OTP. SMS app flags account change.
+  platform_headlines:
+  - OTP Warning App
+  - Review Delivery OTPs
+  - SMS Classifier
+  long_headlines:
+  - SMS Classifier helps show OTP context before a code is shared under pressure.
+  platform_descriptions:
+  - See review-needed OTP context in your SMS inbox before replying or sharing a code.
+  cta_variants:
+  - Start 14-day trial
+  - Open on Google Play
+  category_context: SMS warning app
+  plain_language_pain: A caller may pressure someone to share an OTP that changes account details.
+  story_framework: demo_proof
+  emotional_payoff: A calmer pause before sharing an OTP tied to account access.
+- hook_id: H_OTP_INBOX
+  proof_id: proof_otp_inbox_focus
+  on_image_headline: Bank OTP is buried. SMS app shows login code.
+  headline_tests:
+  - id: short_otp
+    on_image_headline: Bank OTP? SMS app shows code.
+  platform_headlines:
+  - OTP Inbox Organizer
+  - Find Bank OTPs Fast
+  - SMS Classifier
+  long_headlines:
+  - SMS Classifier organizes OTP and service texts so login codes are easier to find.
+  platform_descriptions:
+  - Find recent bank OTPs with less wrong-code stress in a calmer SMS inbox.
+  cta_variants:
+  - Start 14-day trial
+  - Open on Google Play
+  category_context: SMS organizer app
+  plain_language_pain: A bank login OTP can be missed or confused during a time-sensitive login.
+  story_framework: demo_proof
+  emotional_payoff: More confidence during time-sensitive bank logins.

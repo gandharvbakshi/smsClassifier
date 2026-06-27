@@ -1,0 +1,7 @@
+asset_id,headline,long_headline,description,cta
+IMG_SCAM_PRIZE_SQUARE,Bank details in a prize SMS. A,SMS Classifier marks prize-style texts that ask for bank details through short links.,Review suspicious SMS before tapping.,Start 14-day trial
+IMG_SCAM_PRIZE_LANDSCAPE,Bank details in a prize SMS. A,SMS Classifier marks prize-style texts that ask for bank details through short links.,Review suspicious SMS before tapping.,Start 14-day trial
+IMG_SCAM_PRIZE_PORTRAIT,Bank details in a prize SMS. A,SMS Classifier marks prize-style texts that ask for bank details through short links.,Review suspicious SMS before tapping.,Start 14-day trial
+IMG_OTP_ACCOUNT_LANDSCAPE,Caller says delivery OTP. SMS ,Caller says delivery OTP. SMS Classifier flags account-change context before sharing.,Review OTP context before sharing codes.,Start 14-day trial
+IMG_OTP_INBOX_LANDSCAPE,Bank OTP is buried. SMS app sh,SMS Classifier organizes bank OTPs so users avoid login delays and wrong-code stress.,Find recent bank OTPs with less wrong-code stress.,Start 14-day trial
+IMG_OTP_INBOX_PORTRAIT,Bank OTP is buried. SMS app sh,SMS Classifier organizes bank OTPs so users avoid login delays and wrong-code stress.,Find recent bank OTPs with less wrong-code stress.,Start 14-day trial

@@ -1,0 +1,13 @@
+market: India
+language: English
+geo_target: geoTargetConstants/2356
+language_id: languageConstants/1000
+seed_source: prior live Keyword Planner API expansion from 2026-06-27
+seeds:
+- messages app
+- sms app
+- spam texts
+- scam text messages
+- otp app
+- sms organizer
+- sms app privacy

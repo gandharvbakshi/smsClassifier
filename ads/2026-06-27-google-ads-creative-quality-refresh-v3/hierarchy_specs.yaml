@@ -1,0 +1,73 @@
+assets:
+- asset_id: IMG_SCAM_PRIZE_SQUARE
+  first_second_focal_point: headline plus large product UI proof
+  reading_order:
+  - brand lockup
+  - headline
+  - product UI proof
+  proof_size_target: 40-55 percent of canvas with ad-scale proof text
+  brand_placement: consistent visible lockup with real icon
+- asset_id: IMG_SCAM_PRIZE_LANDSCAPE
+  first_second_focal_point: headline plus large product UI proof
+  reading_order:
+  - brand lockup
+  - headline
+  - product UI proof
+  proof_size_target: 40-55 percent of canvas with ad-scale proof text
+  brand_placement: consistent visible lockup with real icon
+- asset_id: IMG_SCAM_PRIZE_PORTRAIT
+  first_second_focal_point: headline plus large product UI proof
+  reading_order:
+  - brand lockup
+  - headline
+  - product UI proof
+  proof_size_target: 40-55 percent of canvas with ad-scale proof text
+  brand_placement: consistent visible lockup with real icon
+- asset_id: IMG_OTP_ACCOUNT_SQUARE
+  first_second_focal_point: headline plus large product UI proof
+  reading_order:
+  - brand lockup
+  - headline
+  - product UI proof
+  proof_size_target: 40-55 percent of canvas with ad-scale proof text
+  brand_placement: consistent visible lockup with real icon
+- asset_id: IMG_OTP_ACCOUNT_LANDSCAPE
+  first_second_focal_point: headline plus large product UI proof
+  reading_order:
+  - brand lockup
+  - headline
+  - product UI proof
+  proof_size_target: 40-55 percent of canvas with ad-scale proof text
+  brand_placement: consistent visible lockup with real icon
+- asset_id: IMG_OTP_ACCOUNT_PORTRAIT
+  first_second_focal_point: headline plus large product UI proof
+  reading_order:
+  - brand lockup
+  - headline
+  - product UI proof
+  proof_size_target: 40-55 percent of canvas with ad-scale proof text
+  brand_placement: consistent visible lockup with real icon
+- asset_id: IMG_OTP_INBOX_SQUARE
+  first_second_focal_point: headline plus large product UI proof
+  reading_order:
+  - brand lockup
+  - headline
+  - product UI proof
+  proof_size_target: 40-55 percent of canvas with ad-scale proof text
+  brand_placement: consistent visible lockup with real icon
+- asset_id: IMG_OTP_INBOX_LANDSCAPE
+  first_second_focal_point: headline plus large product UI proof
+  reading_order:
+  - brand lockup
+  - headline
+  - product UI proof
+  proof_size_target: 40-55 percent of canvas with ad-scale proof text
+  brand_placement: consistent visible lockup with real icon
+- asset_id: IMG_OTP_INBOX_PORTRAIT
+  first_second_focal_point: headline plus large product UI proof
+  reading_order:
+  - brand lockup
+  - headline
+  - product UI proof
+  proof_size_target: 40-55 percent of canvas with ad-scale proof text
+  brand_placement: consistent visible lockup with real icon

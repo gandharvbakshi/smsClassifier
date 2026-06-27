@@ -1,0 +1,108 @@
+source: generated_ad_scale_demo_screens_with_real_icon
+created_at: '2026-06-27T07:27:41Z'
+screenshots:
+- id: proof_scam_prize_warning
+  screen_name: Prize SMS bank-detail warning with rupee prize cue
+  key_state: Prize SMS bank-detail warning
+  suggested_use:
+  - strict_app_install
+  - ad_scale_product_proof
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  path: screenshots/proof_scam_prize_warning.png
+- id: proof_scam_link_reason
+  screen_name: Suspicious link reason with unknown sender cue
+  key_state: Suspicious link reason
+  suggested_use:
+  - strict_app_install
+  - ad_scale_product_proof
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  path: screenshots/proof_scam_link_reason.png
+- id: proof_scam_review_done
+  screen_name: Pause-before-tapping warning state
+  key_state: Warning stays visible
+  suggested_use:
+  - strict_app_install
+  - ad_scale_product_proof
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  path: screenshots/proof_scam_review_done.png
+- id: proof_otp_account_warning
+  screen_name: Delivery OTP account-change warning
+  key_state: Delivery OTP account-change warning
+  suggested_use:
+  - strict_app_install
+  - ad_scale_product_proof
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  path: screenshots/proof_otp_account_warning.png
+- id: proof_otp_inbox_focus
+  screen_name: Bank OTP inbox focus
+  key_state: Bank OTP inbox focus
+  suggested_use:
+  - strict_app_install
+  - ad_scale_product_proof
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  path: screenshots/proof_otp_inbox_focus.png
+- id: proof_scam_video_warning
+  screen_name: Video prize SMS warning
+  path: screenshots/proof_scam_video_warning.png
+  synthetic: true
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  key_state: Prize details request marked as suspicious
+  suggested_use: video proof frame for suspicious prize SMS warning
+  source: generated_ad_scale_demo_screen
+- id: proof_scam_video_reason
+  screen_name: Video suspicious reason
+  path: screenshots/proof_scam_video_reason.png
+  synthetic: true
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  key_state: Short link and bank details reason remains marked
+  suggested_use: video proof frame for suspicious SMS reason
+  source: generated_ad_scale_demo_screen

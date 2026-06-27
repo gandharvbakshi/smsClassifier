@@ -1,0 +1,468 @@
+market: India
+language: English
+brand_name: SMS Classifier
+recommended_launch_match: Exact and phrase for the five volume groups first; defensive brand/trust holdouts stay
+  exact/low-budget.
+volume_refresh:
+  source: keyword_planner_api_live_2026-06-27
+  launch_volume_groups_monthly_searches: 92800
+  defensive_groups:
+  - sms_classifier_brand_exact
+  - sms_permissions_trust_holdout
+clusters:
+- id: sms_app_category_scale
+  persona_id: otp_searcher
+  search_moment: category_scale
+  primary_query: messages app
+  keywords:
+  - messages app
+  - sms app
+  - sms message app
+  - text message app
+  - default sms app
+  - best messaging app for android
+  - messaging apps for android
+  category_terms:
+  - messages app
+  - SMS app
+  - Android SMS app
+  primary_promise: Android SMS app keeps OTPs, service texts, and review-needed messages easier to scan.
+  claim_boundary: Organization and review help only; no fraud-prevention promise.
+  estimated_monthly_searches: 37790
+  priority: 1
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: Messages App For Android
+  landing_page_proof:
+  - OTP inbox and review-needed messages in one Android SMS app.
+  - Organization and review proof only.
+- id: spam_sms_problem_scale
+  persona_id: family_helper
+  search_moment: problem_aware_scale
+  primary_query: i keep getting spam texts
+  keywords:
+  - i keep getting spam texts
+  - spam messages
+  - spam text messages
+  - spam sms
+  - spam sms messages
+  - sms filter
+  category_terms:
+  - spam SMS app
+  - SMS filter
+  - Android SMS app
+  primary_promise: SMS app flags spam-looking texts so users can review before replying.
+  claim_boundary: Flags and review labels only; no blocking promise.
+  estimated_monthly_searches: 26720
+  priority: 2
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: Spam SMS Review App
+  landing_page_proof:
+  - Review spam-looking SMS in a calmer default inbox.
+  - Bounded review labels only.
+- id: scam_text_problem_scale
+  persona_id: otp_fraud_worrier
+  search_moment: problem_aware_scale
+  primary_query: scam text messages
+  keywords:
+  - scam text messages
+  - text scams
+  - smishing
+  - phishing scam text
+  - phishing text messages
+  - phishing texts
+  - sms scam
+  - phishing sms
+  - sms fraud
+  category_terms:
+  - scam text app
+  - SMS warning app
+  - phishing SMS
+  - Android SMS app
+  primary_promise: SMS app warns before suspicious-looking links or details requests are acted on.
+  claim_boundary: Shows warnings and review context; no safe-or-unsafe certification.
+  estimated_monthly_searches: 23430
+  priority: 3
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: Scam Text Message Review
+  landing_page_proof:
+  - SMS warning UI for suspicious-looking links and details requests.
+  - Bounded review context.
+- id: otp_utility_risk_scale
+  persona_id: otp_fraud_worrier
+  search_moment: otp_utility_and_risk
+  primary_query: otp app
+  keywords:
+  - otp app
+  - otp scam
+  - otp sms
+  - bank otp
+  - otp fraud
+  - delivery otp scam
+  - otp scam warning app
+  - otp fraud warning app
+  category_terms:
+  - OTP app
+  - SMS app
+  - OTP warning app
+  - Android SMS app
+  primary_promise: SMS app shows OTP context and helps users find bank codes faster.
+  claim_boundary: OTP context and organization only; no fraud-prevention promise.
+  estimated_monthly_searches: 3450
+  priority: 4
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: OTP App For SMS Codes
+  landing_page_proof:
+  - OTP inbox and review warning screens.
+  - Bounded OTP-context claim.
+- id: sms_organizer_control
+  persona_id: busy_otp_user
+  search_moment: solution_aware_control
+  primary_query: sms organizer
+  keywords:
+  - sms organizer
+  - sms organizer app
+  - sms organiser app
+  - default sms app
+  category_terms:
+  - SMS organizer
+  - SMS app
+  - Android SMS app
+  primary_promise: SMS app keeps OTPs and service messages easier to scan.
+  claim_boundary: Organization and review help only; no perfect-sorting promise.
+  estimated_monthly_searches: 1410
+  priority: 5
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: SMS Organizer
+  landing_page_proof:
+  - OTP and service code organization in SMS Classifier.
+  - Bounded organization claim only.
+- id: sms_classifier_brand_exact
+  persona_id: brand_searcher
+  search_moment: brand_exact_defensive
+  primary_query: sms classifier
+  keywords:
+  - sms classifier
+  - sms classifier app
+  category_terms:
+  - SMS Classifier app
+  - Android SMS app
+  primary_promise: SMS Classifier app listing for OTP organization and SMS review.
+  claim_boundary: Brand navigation only; no unbounded safety claim.
+  estimated_monthly_searches: 0
+  priority: defensive_brand
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: SMS Classifier App
+  landing_page_proof:
+  - App listing and trial terms.
+  - Brand coverage is exact/phrase only.
+- id: sms_permissions_trust_holdout
+  persona_id: privacy_cautious_user
+  search_moment: trust_objection_holdout
+  primary_query: sms permissions android
+  keywords:
+  - sms permissions android
+  - default sms permissions
+  - sms app privacy
+  - sms app data privacy
+  category_terms:
+  - SMS privacy
+  - Android SMS app
+  - default SMS app
+  primary_promise: SMS app shows permissions and feature controls clearly before Pro.
+  claim_boundary: Explain settings honestly; no absolute privacy claim.
+  estimated_monthly_searches: 0
+  priority: defensive_trust
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: SMS App Privacy
+  landing_page_proof:
+  - Privacy and settings screens explain review feature controls.
+  - No absolute privacy claim.
+negative_keywords_initial:
+- google messages
+- messages for web
+- samsung messages
+- messenger
+- facebook
+- whatsapp
+- telegram
+- instagram
+- bulk sms
+- sms gateway
+- sms marketing
+- sms api
+- otp api
+- otp service
+- email
+- call blocker
+- truecaller
+- authenticator
+- 2fa
+- totp
+- loan
+- jobs
+- career
+- course
+- ios
+- iphone
+- pc
+- windows
+- web
+- apk
+- mod apk
+- free sms
+- fake sms
+- meaning
+- definition
+- examples
