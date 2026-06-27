@@ -21,10 +21,11 @@ import re
 import threading
 import time
 import uuid
+from collections import defaultdict, deque
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set
 from urllib.parse import urlparse
 
 import numpy as np
@@ -50,6 +51,29 @@ def _int_env(name: str, default: int) -> int:
     except ValueError:
         logger.warning("Invalid integer env %s=%r; using default %s", name, raw, default)
         return default
+
+
+def _optional_int_env(name: str) -> Optional[int]:
+    raw = os.getenv(name)
+    if not raw:
+        return None
+    try:
+        return int(raw.strip())
+    except ValueError:
+        logger.warning("Invalid integer env %s=%r; ignoring", name, raw)
+        return None
+
+
+def _bool_env(name: str, default: bool = False) -> bool:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _csv_env_set(name: str) -> Set[str]:
+    raw = os.getenv(name, "")
+    return {item.strip() for item in raw.split(",") if item.strip()}
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 MODEL_DIR = ROOT_DIR / "trained_models"
@@ -306,6 +330,10 @@ SHORT_URL_DANGER_PATTERN = re.compile(
 class ClassifyRequest(BaseModel):
     text: str = Field(..., description="SMS text body")
     sender: Optional[str] = Field(None, description="Alphanumeric sender id or phone number")
+    installId: Optional[str] = Field(None, max_length=128)
+    firebaseUid: Optional[str] = Field(None, max_length=128)
+    appVersionCode: Optional[int] = None
+    appVersionName: Optional[str] = Field(None, max_length=64)
 
 
 class ClassifyResponse(BaseModel):
@@ -320,6 +348,16 @@ class HealthResponse(BaseModel):
     status: str
     modelsLoaded: bool
     groqModel: str
+
+
+class AppConfigResponse(BaseModel):
+    ok: bool = True
+    maintenanceMode: bool = False
+    installDisabled: bool = False
+    serverClassifyEnabled: bool = True
+    minVersionCode: Optional[int] = None
+    message: Optional[str] = None
+    updateUrl: Optional[str] = None
 
 
 @dataclass
@@ -411,9 +449,30 @@ except Exception as _exc:  # noqa: BLE001
     logger.warning("Could not create feedback log dir %s: %s", FEEDBACK_LOG_DIR, _exc)
     FEEDBACK_LOG_FILE = None
 FEEDBACK_BODY_MAX_LEN = int(os.getenv("FEEDBACK_BODY_MAX_LEN", "4000"))
-FEEDBACK_REJECT_NON_OKHTTP = os.getenv("FEEDBACK_REJECT_NON_OKHTTP", "true").lower() in {"1", "true", "yes"}
+FEEDBACK_REJECT_NON_OKHTTP = _bool_env("FEEDBACK_REJECT_NON_OKHTTP", True)
+APP_CONFIG_MAINTENANCE_MODE = _bool_env("APP_CONFIG_MAINTENANCE_MODE", False)
+APP_CONFIG_SERVER_CLASSIFY_ENABLED = _bool_env("APP_CONFIG_SERVER_CLASSIFY_ENABLED", True)
+APP_CONFIG_MIN_VERSION_CODE = _optional_int_env("APP_CONFIG_MIN_VERSION_CODE")
+APP_CONFIG_MESSAGE = os.getenv("APP_CONFIG_MESSAGE") or None
+APP_CONFIG_UPDATE_URL = os.getenv("APP_CONFIG_UPDATE_URL") or None
+APP_CONFIG_BLOCKED_INSTALL_IDS = _csv_env_set("APP_CONFIG_BLOCKED_INSTALL_IDS")
+APP_CONFIG_BLOCKED_INSTALL_ID_HASHES = _csv_env_set("APP_CONFIG_BLOCKED_INSTALL_ID_HASHES")
+APP_CONFIG_BLOCKED_FIREBASE_UIDS = _csv_env_set("APP_CONFIG_BLOCKED_FIREBASE_UIDS")
+APP_CONFIG_BLOCKED_FIREBASE_UID_HASHES = _csv_env_set("APP_CONFIG_BLOCKED_FIREBASE_UID_HASHES")
+APP_CONFIG_BLOCKED_MESSAGE = (
+    os.getenv("APP_CONFIG_BLOCKED_MESSAGE")
+    or "This install is temporarily disabled. Please contact support if this seems wrong."
+)
+CLASSIFY_RATE_LIMIT_ENABLED = _bool_env("CLASSIFY_RATE_LIMIT_ENABLED", True)
+CLASSIFY_RATE_LIMIT_LOG_ONLY = _bool_env("CLASSIFY_RATE_LIMIT_LOG_ONLY", False)
+CLASSIFY_INSTALL_LIMIT_PER_MINUTE = _int_env("CLASSIFY_INSTALL_LIMIT_PER_MINUTE", 300)
+CLASSIFY_INSTALL_LIMIT_PER_DAY = _int_env("CLASSIFY_INSTALL_LIMIT_PER_DAY", 30000)
+CLASSIFY_IP_LIMIT_PER_MINUTE = _int_env("CLASSIFY_IP_LIMIT_PER_MINUTE", 3000)
+CLASSIFY_IP_LIMIT_PER_DAY = _int_env("CLASSIFY_IP_LIMIT_PER_DAY", 150000)
 FEEDBACK_LOCK = threading.Lock()
 ENTITLEMENT_LOCK = threading.Lock()
+RATE_LIMIT_LOCK = threading.Lock()
+CLASSIFY_RATE_BUCKETS: Dict[str, deque[float]] = defaultdict(deque)
 
 _GCS_CLIENT = None
 _ANDROID_PUBLISHER_SERVICE = None
@@ -1571,6 +1630,137 @@ def call_groq_phishing_light(text: str, sender: Optional[str]) -> GroqSmsFullRes
     )
 
 
+def _client_ip(request: Optional[Request]) -> str:
+    if request is None:
+        return "direct"
+    forwarded = request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+    if forwarded:
+        return forwarded
+    client = request.client
+    return client.host if client else "unknown"
+
+
+def _hashed_subject(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()[:16]
+
+
+def _hash_matches(value: str, hashes: Set[str]) -> bool:
+    digest = hashlib.sha256(value.encode("utf-8")).hexdigest()
+    return any(digest == item or (len(item) >= 16 and digest.startswith(item)) for item in hashes)
+
+
+def _value_blocked(value: Optional[str], raw_values: Set[str], hashes: Set[str]) -> bool:
+    if not value:
+        return False
+    cleaned = value.strip()
+    return cleaned in raw_values or _hash_matches(cleaned, hashes)
+
+
+def _install_or_user_disabled(install_id: Optional[str], firebase_uid: Optional[str]) -> bool:
+    return _value_blocked(
+        install_id,
+        APP_CONFIG_BLOCKED_INSTALL_IDS,
+        APP_CONFIG_BLOCKED_INSTALL_ID_HASHES,
+    ) or _value_blocked(
+        firebase_uid,
+        APP_CONFIG_BLOCKED_FIREBASE_UIDS,
+        APP_CONFIG_BLOCKED_FIREBASE_UID_HASHES,
+    )
+
+
+def _rate_window_allowed(
+    key: str,
+    now: float,
+    per_minute: int,
+    per_day: int,
+) -> tuple[bool, str]:
+    day_cutoff = now - 86_400
+    minute_cutoff = now - 60
+    with RATE_LIMIT_LOCK:
+        bucket = CLASSIFY_RATE_BUCKETS[key]
+        while bucket and bucket[0] < day_cutoff:
+            bucket.popleft()
+        day_count = len(bucket)
+        minute_count = sum(1 for ts in bucket if ts >= minute_cutoff)
+        if minute_count >= per_minute:
+            return False, "minute"
+        if day_count >= per_day:
+            return False, "day"
+        bucket.append(now)
+    return True, "ok"
+
+
+def _enforce_classify_rate_limit(req: ClassifyRequest, http_request: Optional[Request]) -> None:
+    if not CLASSIFY_RATE_LIMIT_ENABLED:
+        return
+    if http_request is None:
+        return
+    subject = (req.firebaseUid or req.installId or "").strip()
+    if subject:
+        key = f"install:{subject}"
+        per_minute = CLASSIFY_INSTALL_LIMIT_PER_MINUTE
+        per_day = CLASSIFY_INSTALL_LIMIT_PER_DAY
+        subject_kind = "install"
+    else:
+        ip = _client_ip(http_request)
+        key = f"ip:{ip}"
+        per_minute = CLASSIFY_IP_LIMIT_PER_MINUTE
+        per_day = CLASSIFY_IP_LIMIT_PER_DAY
+        subject_kind = "ip"
+    allowed, window = _rate_window_allowed(key, time.time(), per_minute, per_day)
+    if allowed:
+        return
+    logger.warning(
+        "classify rate limit exceeded",
+        extra={
+            "subject_kind": subject_kind,
+            "subject_hash": _hashed_subject(key),
+            "window": window,
+            "app_version_code": req.appVersionCode,
+        },
+    )
+    if CLASSIFY_RATE_LIMIT_LOG_ONLY:
+        return
+    raise HTTPException(
+        status_code=429,
+        detail="Too many classify requests. Please try again shortly.",
+        headers={"Retry-After": "60" if window == "minute" else "3600"},
+    )
+
+
+def _enforce_not_blocked(req: ClassifyRequest) -> None:
+    if not _install_or_user_disabled(req.installId, req.firebaseUid):
+        return
+    logger.warning(
+        "blocked install attempted classify",
+        extra={
+            "install_hash": _hashed_subject(req.installId or "") if req.installId else None,
+            "firebase_uid_hash": _hashed_subject(req.firebaseUid or "") if req.firebaseUid else None,
+            "app_version_code": req.appVersionCode,
+        },
+    )
+    raise HTTPException(status_code=403, detail=APP_CONFIG_BLOCKED_MESSAGE)
+
+
+@api_router.get("/config", response_model=AppConfigResponse)
+def app_config(
+    versionCode: Optional[int] = None,
+    versionName: Optional[str] = None,
+    installId: Optional[str] = None,
+    firebaseUid: Optional[str] = None,
+) -> AppConfigResponse:
+    install_disabled = _install_or_user_disabled(installId, firebaseUid)
+    return AppConfigResponse(
+        ok=True,
+        maintenanceMode=APP_CONFIG_MAINTENANCE_MODE,
+        installDisabled=install_disabled,
+        serverClassifyEnabled=APP_CONFIG_SERVER_CLASSIFY_ENABLED,
+        minVersionCode=APP_CONFIG_MIN_VERSION_CODE,
+        message=APP_CONFIG_BLOCKED_MESSAGE if install_disabled else APP_CONFIG_MESSAGE,
+        updateUrl=APP_CONFIG_UPDATE_URL,
+    )
+
+
 @api_router.get("/health", response_model=HealthResponse)
 def health() -> HealthResponse:
     return HealthResponse(
@@ -1581,7 +1771,19 @@ def health() -> HealthResponse:
 
 
 @api_router.post("/classify", response_model=ClassifyResponse)
+def classify_api(request: ClassifyRequest, http_request: Request) -> ClassifyResponse:
+    return _classify_impl(request, http_request)
+
+
 def classify(request: ClassifyRequest) -> ClassifyResponse:
+    return _classify_impl(request, None)
+
+
+def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) -> ClassifyResponse:
+    if not APP_CONFIG_SERVER_CLASSIFY_ENABLED:
+        raise HTTPException(status_code=503, detail="Server classification is temporarily unavailable.")
+    _enforce_not_blocked(request)
+    _enforce_classify_rate_limit(request, http_request)
     if not request.text or not request.text.strip():
         raise HTTPException(status_code=400, detail="Request text must not be empty.")
 
