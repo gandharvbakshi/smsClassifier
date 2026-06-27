@@ -52,6 +52,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -62,6 +63,7 @@ import com.smsclassifier.app.ui.components.ConversationItem
 import com.smsclassifier.app.ui.components.FilterChips
 import com.smsclassifier.app.ui.components.MessageItem
 import com.smsclassifier.app.ui.components.OtpStrip
+import com.smsclassifier.app.ui.components.PrimaryButton
 import com.smsclassifier.app.ui.viewmodel.FilterType
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
 import com.smsclassifier.app.ui.viewmodel.ViewMode
@@ -308,6 +310,9 @@ private fun InboxLoadErrorState(
 ) {
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -355,21 +360,20 @@ private fun EmptyInboxState(
             Text(
                 text = "No conversations yet",
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center
             )
             Text(
-                text = "Set this app as default SMS to import existing SMS and sort new messages.",
+                text = "Make SMS Classifier your texting app to import texts and sort new messages.",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
             )
-            Text(
-                text = stringResource(R.string.privacy_cloud_checks_summary),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+            PrimaryButton(
+                text = "Set as default SMS app",
+                onClick = onSetDefaultSms
             )
-            TextButton(onClick = onSetDefaultSms) {
-                Text("Set as default SMS app")
-            }
         }
     }
 }
@@ -438,7 +442,7 @@ private fun InboxHeader(
                 if (searchQuery.isNotEmpty()) {
                     IconButton(
                         onClick = { onSearchChange("") },
-                        modifier = Modifier.size(28.dp)
+                        modifier = Modifier.size(48.dp)
                     ) {
                         Icon(
                             Icons.Default.Close,
@@ -459,7 +463,7 @@ private fun InboxHeader(
                 onDismissRequest = { menuExpanded = false }
             ) {
                 DropdownMenuItem(
-                    text = { Text("View as messages") },
+                    text = { Text("By message") },
                     onClick = {
                         AppContainer.telemetry.logCtaTap("inbox", "view_messages")
                         onViewModeChange(ViewMode.MESSAGES)
@@ -470,7 +474,7 @@ private fun InboxHeader(
                     } else null
                 )
                 DropdownMenuItem(
-                    text = { Text("Group by sender (threads)") },
+                    text = { Text("By person") },
                     onClick = {
                         AppContainer.telemetry.logCtaTap("inbox", "view_threads")
                         onViewModeChange(ViewMode.THREADS)

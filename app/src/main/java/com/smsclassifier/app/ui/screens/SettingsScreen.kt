@@ -250,7 +250,7 @@ fun SettingsScreen(
                 SectionDivider()
                 SettingsRow(
                     icon = Icons.Default.BugReport,
-                    title = "Wrong labels",
+                    title = "Reports you've sent",
                     subtitle = "See reports you sent about app mistakes",
                     trailing = {
                         Icon(

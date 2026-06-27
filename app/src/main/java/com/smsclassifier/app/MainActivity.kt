@@ -100,6 +100,7 @@ import kotlinx.coroutines.withTimeoutOrNull
 
 class MainActivity : ComponentActivity() {
     private lateinit var database: AppDatabase
+    private val defaultSmsAppState = mutableStateOf(false)
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -107,6 +108,7 @@ class MainActivity : ComponentActivity() {
         
         database = AppDatabase.getDatabase(this)
         handleIntent(intent)
+        defaultSmsAppState.value = isDefaultSmsAppNow()
 
         // Ensure notification channel is created
         NotificationHelper.createNotificationChannel(this)
@@ -178,6 +180,7 @@ class MainActivity : ComponentActivity() {
                             val navController = rememberNavController()
                             val backStackEntry by navController.currentBackStackEntryAsState()
                             val currentRoute = backStackEntry?.destination?.route
+                            val isDefaultSmsApp by defaultSmsAppState
 
                             var entitlementRefresh by remember { mutableStateOf(0) }
                             val productDetails by AppContainer.billingRepository.productDetails.collectAsState(initial = null)
@@ -266,6 +269,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                         composable("consent_onboarding") {
                             ConsentOnboardingScreen(
+                                isDefaultSmsApp = isDefaultSmsApp,
                                 onContinueBasic = {
                                     needsConsent = false
                                     navController.navigate("inbox") {
@@ -560,6 +564,7 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         val def = isDefaultSmsAppNow()
+        defaultSmsAppState.value = def
         AppContainer.telemetry.onMainActivityResume(def)
         CrashlyticsBootstrap.refresh(this, def)
         maybeEnqueueSmsImport()
@@ -586,6 +591,7 @@ class MainActivity : ComponentActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_DEFAULT_SMS) {
+            defaultSmsAppState.value = isDefaultSmsAppNow()
             if (isDefaultSmsAppNow()) {
                 window.decorView.post {
                     requestSmsPermissionsIfNeeded()

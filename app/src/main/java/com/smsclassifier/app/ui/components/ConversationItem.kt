@@ -38,14 +38,10 @@ import com.smsclassifier.app.ui.badges.ClassificationBadge
 import com.smsclassifier.app.ui.badges.SensitivityBadge
 import com.smsclassifier.app.ui.badges.SensitivityType
 import com.smsclassifier.app.ui.theme.SuspiciousAmber
-import com.smsclassifier.app.ui.theme.SuspiciousAmberSoft
 import com.smsclassifier.app.ui.theme.avatarColor
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.formatFriendlyTime
 import com.smsclassifier.app.util.SenderNameResolver
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -63,7 +59,7 @@ fun ConversationItem(
     val accentColor = when (risk) {
         ClassificationUtils.RiskLevel.HIGH -> MaterialTheme.colorScheme.error
         ClassificationUtils.RiskLevel.MEDIUM -> SuspiciousAmber
-        ClassificationUtils.RiskLevel.LOW -> SuspiciousAmberSoft
+        ClassificationUtils.RiskLevel.LOW -> Color.Transparent
         ClassificationUtils.RiskLevel.NONE -> Color.Transparent
     }
     val ringColor = if (risk == ClassificationUtils.RiskLevel.HIGH) {
@@ -120,7 +116,7 @@ fun ConversationItem(
                         Spacer(modifier = Modifier.width(8.dp))
                     }
                     Text(
-                        text = formatTimestamp(thread.lastMessageTime),
+                        text = formatFriendlyTime(thread.lastMessageTime),
                         style = MaterialTheme.typography.labelMedium,
                         color = if (isUnread) MaterialTheme.colorScheme.primary
                         else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -246,33 +242,3 @@ fun ContactAvatar(
         }
     }
 }
-
-private fun formatTimestamp(timestamp: Long): String {
-    val date = Date(timestamp)
-    val now = Calendar.getInstance()
-    val msgCal = Calendar.getInstance().apply { time = date }
-
-    return when {
-        sameDay(now, msgCal) -> SimpleDateFormat("h:mm a", Locale.getDefault()).format(date)
-        isYesterday(now, msgCal) -> "Yesterday"
-        sameWeek(now, msgCal) -> SimpleDateFormat("EEE", Locale.getDefault()).format(date)
-        sameYear(now, msgCal) -> SimpleDateFormat("MMM d", Locale.getDefault()).format(date)
-        else -> SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(date)
-    }
-}
-
-private fun sameDay(a: Calendar, b: Calendar) =
-    a.get(Calendar.YEAR) == b.get(Calendar.YEAR) &&
-        a.get(Calendar.DAY_OF_YEAR) == b.get(Calendar.DAY_OF_YEAR)
-
-private fun isYesterday(now: Calendar, msg: Calendar): Boolean {
-    val yesterday = (now.clone() as Calendar).apply { add(Calendar.DAY_OF_YEAR, -1) }
-    return sameDay(yesterday, msg)
-}
-
-private fun sameWeek(a: Calendar, b: Calendar) =
-    a.get(Calendar.YEAR) == b.get(Calendar.YEAR) &&
-        a.get(Calendar.WEEK_OF_YEAR) == b.get(Calendar.WEEK_OF_YEAR)
-
-private fun sameYear(a: Calendar, b: Calendar) =
-    a.get(Calendar.YEAR) == b.get(Calendar.YEAR)

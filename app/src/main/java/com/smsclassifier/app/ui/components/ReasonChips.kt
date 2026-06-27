@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.ui.theme.DoNotShareOrange
 import com.smsclassifier.app.ui.theme.InfoGray
 import com.smsclassifier.app.ui.theme.SuspiciousAmber
+import com.smsclassifier.app.ui.theme.SuspiciousAmberText
 
 @Composable
 fun ReasonChips(
@@ -29,7 +30,7 @@ fun ReasonChips(
                 )
                 ReasonTone.ALERT -> AssistChipDefaults.assistChipColors(
                     containerColor = SuspiciousAmber.copy(alpha = 0.2f),
-                    labelColor = SuspiciousAmber
+                    labelColor = SuspiciousAmberText
                 )
                 ReasonTone.INFO -> AssistChipDefaults.assistChipColors(
                     containerColor = InfoGray.copy(alpha = 0.12f),

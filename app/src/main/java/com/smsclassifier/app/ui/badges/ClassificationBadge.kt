@@ -16,8 +16,8 @@ import com.smsclassifier.app.ui.theme.PhishingRed
 import com.smsclassifier.app.ui.theme.PhishingRedSoft
 import com.smsclassifier.app.ui.theme.SafeGreen
 import com.smsclassifier.app.ui.theme.SafeGreenSoft
-import com.smsclassifier.app.ui.theme.SuspiciousAmber
 import com.smsclassifier.app.ui.theme.SuspiciousAmberSoft
+import com.smsclassifier.app.ui.theme.SuspiciousAmberText
 
 enum class BadgeType(
     val label: String,
@@ -25,7 +25,7 @@ enum class BadgeType(
     val backgroundColor: Color
 ) {
     SAFE("No scam signs", SafeGreen, SafeGreenSoft),
-    SUSPICIOUS("Suspicious", SuspiciousAmber, SuspiciousAmberSoft),
+    SUSPICIOUS("Suspicious", SuspiciousAmberText, SuspiciousAmberSoft),
     PHISHING("Scam", PhishingRed, PhishingRedSoft),
     OTP("OTP", OTPBlue, OTPBlueSoft)
 }

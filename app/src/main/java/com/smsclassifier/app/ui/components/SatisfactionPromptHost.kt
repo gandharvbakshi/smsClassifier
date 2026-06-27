@@ -12,7 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
@@ -24,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,7 +36,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.google.android.play.core.review.ReviewManagerFactory
@@ -76,6 +80,7 @@ fun SatisfactionPromptHost(
     var privateFeedbackPrompt by remember { mutableStateOf<Pair<SatisfactionPromptKind, Int>?>(null) }
     var reviewPrompt by remember { mutableStateOf<SatisfactionPromptKind?>(null) }
     var feedbackComment by remember { mutableStateOf("") }
+    val selectedFeedbackReasons = remember { mutableStateListOf<String>() }
     var feedbackSending by remember { mutableStateOf(false) }
 
     LaunchedEffect(consentCompleted, currentRoute) {
@@ -99,6 +104,7 @@ fun SatisfactionPromptHost(
         privateFeedbackPrompt = null
         reviewPrompt = null
         feedbackComment = ""
+        selectedFeedbackReasons.clear()
         feedbackSending = false
     }
 
@@ -112,6 +118,7 @@ fun SatisfactionPromptHost(
         if (score <= 3) {
             prompt = null
             feedbackComment = ""
+            selectedFeedbackReasons.clear()
             privateFeedbackPrompt = kind to score
             return
         }
@@ -140,11 +147,19 @@ fun SatisfactionPromptHost(
                 val settings = SettingsRepository(appContext)
                 val installId = settings.installId
                 val cleanedComment = feedbackComment.trim().take(PRIVATE_FEEDBACK_MAX_CHARS)
-                val body = if (cleanedComment.isBlank()) {
-                    "Satisfaction score $score of 5"
-                } else {
-                    SmsRedactor.redactForTraining(cleanedComment, installId)
+                val reasons = selectedFeedbackReasons.toList()
+                val rawBody = buildString {
+                    append("Satisfaction score $score of 5")
+                    if (reasons.isNotEmpty()) {
+                        append(". Reasons: ")
+                        append(reasons.joinToString(", "))
+                    }
+                    if (cleanedComment.isNotBlank()) {
+                        append(". Note: ")
+                        append(cleanedComment)
+                    }
                 }
+                val body = SmsRedactor.redactForTraining(rawBody, installId)
                 FeedbackUploader().upload(
                     FeedbackRequest(
                         installId = installId,
@@ -158,7 +173,7 @@ fun SatisfactionPromptHost(
                         predictedIsPhishing = null,
                         predictedPhishScore = null,
                         userCorrection = null,
-                        userNote = body.takeIf { cleanedComment.isNotBlank() },
+                        userNote = body.takeIf { reasons.isNotEmpty() || cleanedComment.isNotBlank() },
                         clientCreatedAt = System.currentTimeMillis(),
                         feedbackKind = "satisfaction_$kindStr",
                         satisfactionScore = score
@@ -182,14 +197,13 @@ fun SatisfactionPromptHost(
             Surface(shape = MaterialTheme.shapes.large) {
                 Column(modifier = Modifier.padding(Spacing.xl)) {
                     Text(
-                        text = if (kind == SatisfactionPromptKind.D1) "How's it going so far?"
-                        else "How's the app feeling?",
+                        text = "How is the app working for you?",
                         style = MaterialTheme.typography.headlineSmall,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Spacer(modifier = Modifier.height(Spacing.sm))
                     Text(
-                        text = "Tap a face. Tap 1 if it's bad, 5 if you love it.",
+                        text = "Tap a number. 1 is poor, 5 is great.",
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -234,22 +248,46 @@ fun SatisfactionPromptHost(
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
                     Text(
-                        text = "Your note goes privately to the developer. We do not attach any SMS from your phone.",
+                        text = "Choose any reason that fits. This goes privately to the developer. We do not attach any SMS from your phone.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    OutlinedTextField(
-                        value = feedbackComment,
-                        onValueChange = { feedbackComment = it.take(PRIVATE_FEEDBACK_MAX_CHARS) },
-                        label = { Text("Feedback") },
-                        minLines = 3,
-                        enabled = !feedbackSending
+                    PRIVATE_FEEDBACK_REASONS.forEach { reason ->
+                        FeedbackReasonRow(
+                            text = reason,
+                            selected = selectedFeedbackReasons.contains(reason),
+                            enabled = !feedbackSending,
+                            onToggle = { checked ->
+                                if (checked) {
+                                    selectedFeedbackReasons.add(reason)
+                                } else {
+                                    selectedFeedbackReasons.remove(reason)
+                                    if (reason == PRIVATE_FEEDBACK_OTHER) {
+                                        feedbackComment = ""
+                                    }
+                                }
+                            }
+                        )
+                    }
+                    if (selectedFeedbackReasons.contains(PRIVATE_FEEDBACK_OTHER)) {
+                        OutlinedTextField(
+                            value = feedbackComment,
+                            onValueChange = { feedbackComment = it.take(PRIVATE_FEEDBACK_MAX_CHARS) },
+                            label = { Text("Add a short note (optional)") },
+                            minLines = 3,
+                            enabled = !feedbackSending
+                        )
+                    }
+                    Text(
+                        text = "Private details are hidden before sending.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             },
             confirmButton = {
                 Button(
-                    enabled = !feedbackSending,
+                    enabled = !feedbackSending && selectedFeedbackReasons.isNotEmpty(),
                     onClick = { sendPrivateFeedback(kind, score) }
                 ) {
                     Text(if (feedbackSending) "Sending..." else "Send")
@@ -325,16 +363,28 @@ private fun FaceButton(
     ) {
         Box(
             modifier = Modifier
-                .size(48.dp)
-                .clip(CircleShape)
+                .heightIn(min = 48.dp)
+                .fillMaxWidth()
+                .clip(MaterialTheme.shapes.medium)
                 .background(MaterialTheme.colorScheme.surfaceVariant),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = emoji,
-                style = MaterialTheme.typography.headlineSmall,
-                textAlign = TextAlign.Center
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = ratingValue.toString(),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = emoji,
+                    style = MaterialTheme.typography.titleMedium,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
         Spacer(modifier = Modifier.height(Spacing.xs))
         Text(
@@ -346,4 +396,52 @@ private fun FaceButton(
     }
 }
 
+@Composable
+private fun FeedbackReasonRow(
+    text: String,
+    selected: Boolean,
+    enabled: Boolean,
+    onToggle: (Boolean) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.medium)
+            .toggleable(
+                value = selected,
+                enabled = enabled,
+                role = Role.Checkbox,
+                onValueChange = onToggle
+            )
+            .heightIn(min = 56.dp)
+            .padding(horizontal = 4.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(Spacing.sm)
+    ) {
+        Checkbox(
+            checked = selected,
+            onCheckedChange = null,
+            enabled = enabled
+        )
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyLarge,
+            color = if (enabled) {
+                MaterialTheme.colorScheme.onSurface
+            } else {
+                MaterialTheme.colorScheme.onSurfaceVariant
+            },
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
 private const val PRIVATE_FEEDBACK_MAX_CHARS = 600
+private const val PRIVATE_FEEDBACK_OTHER = "Something else"
+private val PRIVATE_FEEDBACK_REASONS = listOf(
+    "Labels are wrong",
+    "Hard to understand",
+    "Too many alerts",
+    "Missing OTPs",
+    PRIVATE_FEEDBACK_OTHER
+)

@@ -41,7 +41,7 @@ import com.smsclassifier.app.ui.theme.PhishingRedSoft
 import com.smsclassifier.app.ui.theme.SafeGreen
 import com.smsclassifier.app.ui.theme.SafeGreenSoft
 import com.smsclassifier.app.ui.theme.SuspiciousAmber
-import com.smsclassifier.app.ui.theme.SuspiciousAmberSoft
+import com.smsclassifier.app.ui.theme.SuspiciousAmberText
 import com.smsclassifier.app.ui.theme.avatarColor
 
 enum class MessageVerdictTone { SAFE, OTP, SCAM }
@@ -191,6 +191,11 @@ fun ScamRiskMeter(
         ClassificationUtils.RiskLevel.MEDIUM -> SuspiciousAmber
         else -> SafeGreen
     }
+    val labelColor = when (level) {
+        ClassificationUtils.RiskLevel.HIGH -> PhishingRed
+        ClassificationUtils.RiskLevel.MEDIUM -> SuspiciousAmberText
+        else -> SafeGreen
+    }
 
     Surface(
         modifier = modifier.fillMaxWidth(),
@@ -230,7 +235,7 @@ fun ScamRiskMeter(
                 text = label,
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold,
-                color = activeColor
+                color = labelColor
             )
         }
     }
@@ -240,8 +245,14 @@ fun ScamRiskMeter(
 fun WhyList(
     title: String,
     reasons: List<String>,
+    tone: MessageVerdictTone = MessageVerdictTone.SAFE,
     modifier: Modifier = Modifier
 ) {
+    val icon = when (tone) {
+        MessageVerdictTone.SCAM -> Icons.Default.Warning
+        MessageVerdictTone.OTP -> Icons.Default.Info
+        MessageVerdictTone.SAFE -> Icons.Default.CheckCircle
+    }
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -259,7 +270,7 @@ fun WhyList(
                 verticalAlignment = Alignment.Top
             ) {
                 Icon(
-                    imageVector = Icons.Default.CheckCircle,
+                    imageVector = icon,
                     contentDescription = null,
                     modifier = Modifier.size(18.dp),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -294,7 +305,7 @@ fun ReportWrongButton(
             modifier = Modifier.size(18.dp)
         )
         Text(
-            text = "Wrong label? Let us know",
+            text = "Report a mistake",
             style = MaterialTheme.typography.labelLarge,
             modifier = Modifier.padding(start = 8.dp)
         )

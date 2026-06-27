@@ -1,5 +1,7 @@
 package com.smsclassifier.app.ui.screens
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -28,6 +30,7 @@ import com.smsclassifier.app.ui.components.ScamRiskMeter
 import com.smsclassifier.app.ui.components.WhyList
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.formatFriendlyTime
 import com.smsclassifier.app.util.SenderNameResolver
 import com.smsclassifier.app.util.SmsRedactor
 import kotlinx.coroutines.launch
@@ -139,7 +142,7 @@ fun DetailScreen(
                 MessageSenderCard(
                     friendlySender = friendlySender,
                     rawSender = msg.sender,
-                    timestamp = formatTimestamp(msg.ts),
+                    timestamp = formatFriendlyTime(msg.ts),
                     body = msg.body
                 )
 
@@ -265,7 +268,8 @@ fun DetailScreen(
 
                     WhyList(
                         title = if (scamLikely) "Why it looks risky" else "Why we think this",
-                        reasons = plainReasons
+                        reasons = plainReasons,
+                        tone = verdictTone
                     )
 
                     if (scamLikely) {
@@ -472,21 +476,11 @@ private fun ReportClassificationSheet(
                     fontWeight = FontWeight.SemiBold
                 )
                 reportIssueOptions.forEach { option ->
-                    FilterChip(
+                    ReportIssueOptionRow(
+                        option = option,
                         selected = selectedOption == option,
-                        onClick = { if (!submitting) onOptionSelected(option) },
-                        label = {
-                            Column(modifier = Modifier.padding(vertical = 4.dp)) {
-                                Text(option.title, style = MaterialTheme.typography.bodyMedium)
-                                Text(
-                                    option.description,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = !submitting
+                        enabled = !submitting,
+                        onClick = { onOptionSelected(option) }
                     )
                 }
             }
@@ -531,6 +525,61 @@ private fun ReportClassificationSheet(
     }
 }
 
+@Composable
+private fun ReportIssueOptionRow(
+    option: ReportIssueOption,
+    selected: Boolean,
+    enabled: Boolean,
+    onClick: () -> Unit
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(enabled = enabled, onClick = onClick),
+        shape = MaterialTheme.shapes.medium,
+        color = if (selected) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.surface
+        },
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (selected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.outlineVariant
+            }
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 56.dp)
+                .padding(horizontal = 10.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            RadioButton(
+                selected = selected,
+                onClick = null,
+                enabled = enabled
+            )
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    option.title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    option.description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+    }
+}
+
 private fun parseReasons(json: String?): List<String> {
     if (json.isNullOrBlank()) return emptyList()
     return try {
@@ -539,15 +588,3 @@ private fun parseReasons(json: String?): List<String> {
         emptyList()
     }
 }
-
-private fun formatTimestamp(ts: Long): String {
-    val now = System.currentTimeMillis()
-    val diff = now - ts
-    return when {
-        diff < 60000 -> "${diff / 1000}s ago"
-        diff < 3600000 -> "${diff / 60000}m ago"
-        diff < 86400000 -> "${diff / 3600000}h ago"
-        else -> "${diff / 86400000}d ago"
-    }
-}
-

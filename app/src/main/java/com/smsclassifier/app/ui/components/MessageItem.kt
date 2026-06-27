@@ -40,11 +40,8 @@ import com.smsclassifier.app.ui.badges.SensitivityBadge
 import com.smsclassifier.app.ui.badges.SensitivityType
 import com.smsclassifier.app.ui.theme.avatarColor
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.formatFriendlyTime
 import com.smsclassifier.app.util.SenderNameResolver
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 @Composable
 fun MessageItem(
@@ -116,7 +113,7 @@ fun MessageItem(
                         Spacer(modifier = Modifier.width(8.dp))
                     }
                     Text(
-                        text = formatTimestamp(message.ts),
+                        text = formatFriendlyTime(message.ts),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -193,19 +190,5 @@ private fun CopyOtpPill(code: String) {
                 fontWeight = FontWeight.Bold
             )
         }
-    }
-}
-
-private fun formatTimestamp(ts: Long): String {
-    val date = Date(ts)
-    val now = Calendar.getInstance()
-    val msgCal = Calendar.getInstance().apply { time = date }
-    val sameDay = now.get(Calendar.YEAR) == msgCal.get(Calendar.YEAR) &&
-        now.get(Calendar.DAY_OF_YEAR) == msgCal.get(Calendar.DAY_OF_YEAR)
-    val sameYear = now.get(Calendar.YEAR) == msgCal.get(Calendar.YEAR)
-    return when {
-        sameDay -> SimpleDateFormat("h:mm a", Locale.getDefault()).format(date)
-        sameYear -> SimpleDateFormat("MMM d", Locale.getDefault()).format(date)
-        else -> SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(date)
     }
 }
