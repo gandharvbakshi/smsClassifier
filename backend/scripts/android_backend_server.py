@@ -461,7 +461,7 @@ APP_CONFIG_BLOCKED_FIREBASE_UIDS = _csv_env_set("APP_CONFIG_BLOCKED_FIREBASE_UID
 APP_CONFIG_BLOCKED_FIREBASE_UID_HASHES = _csv_env_set("APP_CONFIG_BLOCKED_FIREBASE_UID_HASHES")
 APP_CONFIG_BLOCKED_MESSAGE = (
     os.getenv("APP_CONFIG_BLOCKED_MESSAGE")
-    or "This install is temporarily disabled. Please contact support if this seems wrong."
+    or "SMS Classifier is paused on this phone. Please contact support if you need help."
 )
 CLASSIFY_RATE_LIMIT_ENABLED = _bool_env("CLASSIFY_RATE_LIMIT_ENABLED", True)
 CLASSIFY_RATE_LIMIT_LOG_ONLY = _bool_env("CLASSIFY_RATE_LIMIT_LOG_ONLY", False)
