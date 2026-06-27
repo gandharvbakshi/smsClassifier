@@ -200,13 +200,14 @@ fun SatisfactionPromptHost(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         val faces = listOf("😡", "🙁", "😐", "🙂", "😍")
-                        val labels = listOf("Bad", "Meh", "OK", "Good", "Love it")
+                        val labels = listOf("Bad", "Meh", "OK", "Good", "Love")
                         faces.forEachIndexed { index, face ->
                             val n = index + 1
                             FaceButton(
                                 emoji = face,
                                 label = labels[index],
                                 ratingValue = n,
+                                modifier = Modifier.weight(1f),
                                 onTap = { onEmoji(n) }
                             )
                         }
@@ -233,7 +234,7 @@ fun SatisfactionPromptHost(
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
                     Text(
-                        text = "Your note goes privately to the developer. Message text is not attached.",
+                        text = "Your note goes privately to the developer. We do not attach any SMS from your phone.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -308,15 +309,16 @@ private fun FaceButton(
     emoji: String,
     label: String,
     ratingValue: Int,
+    modifier: Modifier = Modifier,
     onTap: () -> Unit
 ) {
     val desc = "Rate $ratingValue of 5: $label"
     Column(
-        modifier = Modifier
+        modifier = modifier
             .clip(MaterialTheme.shapes.medium)
             .clickable(onClick = onTap)
             .heightIn(min = 72.dp)
-            .padding(horizontal = Spacing.sm, vertical = Spacing.sm)
+            .padding(horizontal = 2.dp, vertical = Spacing.sm)
             .semantics { contentDescription = desc },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center

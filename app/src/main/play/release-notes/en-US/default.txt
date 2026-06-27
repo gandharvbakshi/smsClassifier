@@ -1,4 +1,4 @@
-v1.2.14 - Feedback and safety polish
-- Adds a private feedback path before asking happy users for public reviews.
-- Adds remote update and pause controls for safer test-user rollouts.
-- Tightens backend abuse protection and removes test sample data from the app bundle.
+v1.2.15 - Clearer feedback and safety polish
+- Makes setup and feedback wording simpler.
+- Fixes the satisfaction prompt so all five rating choices fit on phone screens.
+- Keeps private feedback, review confirmation, and rollout safety controls in place.

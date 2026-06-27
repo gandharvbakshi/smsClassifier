@@ -230,8 +230,8 @@ fun SettingsScreen(
                 SectionDivider()
                 SettingsRow(
                     icon = Icons.Default.CloudUpload,
-                    title = "Improve wrong-label fixes",
-                    subtitle = "Upload redacted wrong-label reports to improve the classifier.",
+                    title = "Share mistake reports",
+                    subtitle = "Send app mistake reports after private details are hidden.",
                     trailing = {
                         Switch(
                             checked = feedbackUploadEnabled,
@@ -250,8 +250,8 @@ fun SettingsScreen(
                 SectionDivider()
                 SettingsRow(
                     icon = Icons.Default.BugReport,
-                    title = "Wrong-label reports",
-                    subtitle = "Review, share, or delete classifier mistake reports",
+                    title = "Wrong labels",
+                    subtitle = "See reports you sent about app mistakes",
                     trailing = {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,
@@ -283,7 +283,7 @@ fun SettingsScreen(
                 SettingsRow(
                     icon = Icons.Default.Description,
                     title = "Export my data",
-                    subtitle = "One zip with labels, full export, and wrong-label reports",
+                    subtitle = "One zip with labels, full export, and mistake reports",
                     trailing = {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,
@@ -297,7 +297,7 @@ fun SettingsScreen(
                 SettingsRow(
                     icon = Icons.Default.DeleteOutline,
                     title = "Delete my data",
-                    subtitle = "Remove data linked to this install",
+                    subtitle = "Remove data linked to this phone",
                     trailing = {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowForward,
@@ -371,12 +371,12 @@ fun SettingsScreen(
             if (showFeedbackConsentDialog) {
                 AlertDialog(
                     onDismissRequest = { showFeedbackConsentDialog = false },
-                    title = { Text("Improve wrong-label fixes?") },
+                    title = { Text("Share mistake reports?") },
                     text = {
                         Text(
-                            "Send misclassified-message reports over HTTPS so we can improve the classifier. " +
-                                "OTPs, long numbers, phone-number senders, links, and emails are masked before upload. " +
-                                "Stored on our servers; see Privacy policy. Off by default."
+                            "When you report a mistake, send it to us so we can improve the app. " +
+                                "OTPs, long numbers, phone numbers, links, and emails are hidden before upload. " +
+                                "This is off unless you turn it on."
                         )
                     },
                     confirmButton = {

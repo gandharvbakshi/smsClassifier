@@ -822,7 +822,7 @@ private fun RemoteSafetyBlockScreen(state: RemoteSafetyState) {
     val message = state.message ?: if (state.updateRequired) {
         "Please update to the latest version to keep using SMS Classifier."
     } else {
-        "Service is temporarily unavailable. Please try again later."
+        "SMS Classifier is temporarily unavailable. Please try again later."
     }
     Column(
         modifier = Modifier

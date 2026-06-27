@@ -108,7 +108,7 @@ fun ConsentOnboardingScreen(
             if (entitlementState == EntitlementState.PRO || entitlementState == EntitlementState.TRIAL_ACTIVE) {
                 Text(
                     text = when (entitlementState) {
-                        EntitlementState.PRO -> "Pro is already active on this install."
+                        EntitlementState.PRO -> "Pro is already active on this phone."
                         EntitlementState.TRIAL_ACTIVE -> "Trial active: $trialDaysRemaining day(s) remaining."
                         else -> ""
                     },
@@ -173,12 +173,12 @@ fun ConsentOnboardingScreen(
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "We recommend turning on Pro protection now: scam warnings, OTP purpose, and 'Do not share' alerts. It is free for $trialLabel, no payment method is needed, and you can still use Basic mode instead.",
+                    text = "We recommend Pro protection: scam warnings, OTP purpose, and 'Do not share' alerts. It is free for $trialLabel and needs no payment method. You can still use the app without Pro.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "Basic mode keeps classification on this phone only. Pro cloud checks send message text and sender over HTTPS when scam warnings are available.",
+                    text = "Without Pro, sorting stays on this phone only. Pro sends the message text and sender securely to our server when cloud scam checks are used.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -202,7 +202,7 @@ fun ConsentOnboardingScreen(
                                 trialStartInFlight = false
                                 if (!started) {
                                     trialStartError =
-                                        "Could not start Pro trial. Check internet and try again, or use Basic mode for now."
+                                        "Could not start Pro trial. Check internet and try again, or use the app without Pro for now."
                                     return@launch
                                 }
                             }
@@ -228,7 +228,7 @@ fun ConsentOnboardingScreen(
                 }
 
                 SecondaryButton(
-                    text = "Use Basic mode instead",
+                    text = "Use without Pro",
                     onClick = {
                         scope.launch {
                             persistConsent(

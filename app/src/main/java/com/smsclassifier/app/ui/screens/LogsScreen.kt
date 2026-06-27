@@ -161,13 +161,13 @@ private fun EmptyLogsState(
             fontWeight = FontWeight.SemiBold
         )
         Text(
-            text = "When you tap \"Report a mistake\" on a message, it shows up here. Use it to track classifier mistakes.",
+            text = "When you tap \"Report a mistake\" on a message, it shows up here. Use it to track mistakes the app made.",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         if (!feedbackUploadEnabled) {
             Text(
-                text = "To send reports to the developer for model improvement, turn on Settings → Feedback → Help improve classification.",
+                text = "To send these reports to the developer, turn on Share mistake reports in Settings.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
