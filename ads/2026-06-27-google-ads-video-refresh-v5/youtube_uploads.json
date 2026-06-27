@@ -1,0 +1,40 @@
+[
+  {
+    "status": "uploaded",
+    "uploaded_at": "2026-06-27T14:12:57.500691+00:00",
+    "asset_id": "VID_OTP_ACCOUNT_9x16",
+    "source_file": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-video-refresh-v5\\exports\\launch_ready\\VID_OTP_ACCOUNT_9x16.mp4",
+    "sha256": "e974b04abecc5aad4af314650ccb648ca9ab55a1294c22561b9fdf451cc41b83",
+    "youtube_video_id": "QrikGmvpanU",
+    "youtube_watch_url": "https://www.youtube.com/watch?v=QrikGmvpanU",
+    "youtube_shorts_url": "https://youtube.com/shorts/QrikGmvpanU",
+    "youtube_studio_url": "https://studio.youtube.com/video/QrikGmvpanU/edit",
+    "title": "SMS Classifier - OTP Account Change Warning Ad",
+    "description": "Unlisted Google Ads app campaign video for SMS Classifier. Shows how the app surfaces account-change context before a pressured OTP is shared.",
+    "requested_privacy_status": "unlisted",
+    "actual_privacy_status": "unlisted",
+    "made_for_kids": false,
+    "category_id": "28",
+    "source": "launch_ready_assets.csv",
+    "notes": "Strict app-install eval passed with Google checker; OTP-account-change promise visible before sharing."
+  },
+  {
+    "status": "uploaded",
+    "uploaded_at": "2026-06-27T14:24:07.455912+00:00",
+    "asset_id": "VID_OTP_ACCOUNT_9x16",
+    "source_file": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-video-refresh-v5\\exports\\launch_ready\\VID_OTP_ACCOUNT_9x16.mp4",
+    "sha256": "2e300bd965f88cc6be6ee56f6b70b5c7bf8da327245b8812c9d86def0cd08263",
+    "youtube_video_id": "aZV2OjSLU9Y",
+    "youtube_watch_url": "https://www.youtube.com/watch?v=aZV2OjSLU9Y",
+    "youtube_shorts_url": "https://youtube.com/shorts/aZV2OjSLU9Y",
+    "youtube_studio_url": "https://studio.youtube.com/video/aZV2OjSLU9Y/edit",
+    "title": "SMS Classifier - OTP Account Change Warning Ad v2",
+    "description": "Unlisted Google Ads app campaign video for SMS Classifier. Final evaluated version showing how the app surfaces account-change context before a pressured OTP is shared.",
+    "requested_privacy_status": "unlisted",
+    "actual_privacy_status": "unlisted",
+    "made_for_kids": false,
+    "category_id": "28",
+    "source": "launch_ready_assets.csv",
+    "notes": "Strict app-install eval passed with Google checker; OTP-account-change promise visible before sharing."
+  }
+]

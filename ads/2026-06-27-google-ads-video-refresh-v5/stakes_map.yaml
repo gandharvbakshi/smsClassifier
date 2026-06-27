@@ -1,0 +1,116 @@
+product_name: SMS Classifier
+product_category: Android SMS warning and organizer app
+market: India
+language: English
+target_user_profile:
+  language_register: consumer
+  natural_terms:
+  - SMS
+  - SMS app
+  - OTP
+  - bank OTP
+  - spam texts
+  - scam SMS
+  - suspicious link
+  - messages app
+  - bank details
+  - SMS Classifier
+  - classifier
+  domain_terms:
+  - classification
+  - intent
+  - risk signal
+  - cloud checks
+  - model
+  proof_terms:
+  - Review tab
+  - OTP inbox
+  - flagged message
+  avoid_terms:
+  - 100% safe
+  - scam proof
+  - blocks all scams
+  - safe and secure
+  required_language_variants: []
+personas:
+- id: otp_fraud_worrier
+  name: Android user under OTP pressure
+  description: Receives OTPs and bank/service alerts and wants context before sharing or tapping.
+- id: busy_otp_user
+  name: Busy OTP finder
+  description: Needs login or delivery codes quickly in a crowded SMS inbox.
+- id: family_helper
+  name: Family helper
+  description: Helps relatives notice suspicious SMS moments without fear-based wording.
+moments:
+- id: scam_prize_details
+  trigger: A prize-style SMS asks for bank details
+  stakes: Tapping or sharing details can expose money or credentials.
+- id: delivery_otp_pressure
+  trigger: A caller says the OTP is for delivery
+  stakes: The SMS context suggests account access or account change instead.
+- id: login_code_hurry
+  trigger: A bank login code is buried in service messages
+  stakes: The user wastes time and may copy the wrong code under pressure.
+features:
+- id: suspicious_link_warning
+  mechanism: The app marks suspicious-looking links or details requests for review.
+  bad_outcome_defeated: Tapping a suspicious link or sharing bank details too quickly.
+  outcome_type: fraud_avoidance
+  so_what_ladder:
+  - The SMS asks for bank details.
+  - The app keeps the warning visible before tapping.
+  - The user can avoid sharing details with a scam text.
+- id: otp_context_warning
+  mechanism: The app surfaces context around OTP messages that need review.
+  bad_outcome_defeated: Sharing an account-change code under a false delivery pretext.
+  outcome_type: fraud_avoidance
+  so_what_ladder:
+  - Someone says the code is for delivery.
+  - The app shows account-change context.
+  - The user can avoid sharing an account access OTP.
+- id: otp_inbox_sorting
+  mechanism: The app groups recent OTP and service messages for quicker review.
+  bad_outcome_defeated: Missing the right bank OTP or copying the wrong code under time pressure.
+  outcome_type: risk_reduction
+  so_what_ladder:
+  - A login code is hard to find.
+  - The app brings OTPs into a clearer inbox.
+  - The user can avoid delay or copying the wrong SMS.
+scenarios:
+- id: scenario_prize_bank_details
+  persona_id: otp_fraud_worrier
+  moment_id: scam_prize_details
+  feature_id: suspicious_link_warning
+  bad_outcome: A scam text collects bank details through a suspicious link.
+  user_decision_enabled: Review before tapping or sharing details.
+  claim_boundary: Helps flag suspicious-looking SMS; does not certify every text as safe or unsafe.
+  outcome_type: fraud_avoidance
+  so_what_ladder:
+  - The text says the user won a prize.
+  - The app shows the bank-details warning.
+  - The user can avoid sharing details with a scam SMS.
+- id: scenario_delivery_account_otp
+  persona_id: family_helper
+  moment_id: delivery_otp_pressure
+  feature_id: otp_context_warning
+  bad_outcome: A caller uses delivery pressure to get an account-change OTP.
+  user_decision_enabled: Do not share until the OTP context matches the claim.
+  claim_boundary: Shows context and review labels; does not guarantee fraud prevention.
+  outcome_type: fraud_avoidance
+  so_what_ladder:
+  - The caller says delivery.
+  - The app shows account-change context.
+  - The user can avoid sharing an account access OTP.
+- id: scenario_bank_otp_buried
+  persona_id: busy_otp_user
+  moment_id: login_code_hurry
+  feature_id: otp_inbox_sorting
+  bad_outcome: A bank login code is missed or confused during a time-sensitive login.
+  user_decision_enabled: Find the right OTP before login delay or wrong-code stress.
+  claim_boundary: Organizes and surfaces codes; does not guarantee perfect sorting.
+  outcome_type: risk_reduction
+  so_what_ladder:
+  - The bank login SMS is buried.
+  - The app groups OTPs and service codes.
+  - The user can avoid delay or copying the wrong SMS.

@@ -1,0 +1,286 @@
+{
+  "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-06-27-google-ads-creative-quality-refresh-v3",
+  "strict": true,
+  "decision": "pass",
+  "summary": {
+    "ad_groups_checked": 7,
+    "rsas_checked": 12,
+    "failure_count": 0,
+    "warning_count": 11
+  },
+  "keyword_metrics": {
+    "source": "keyword_research.csv",
+    "row_count": 48,
+    "metric_row_count": 48,
+    "status": "available"
+  },
+  "portfolio_scores": {
+    "keyword_metric_quality": 5,
+    "portfolio_distinctness": 4,
+    "coverage": 5,
+    "claim_safety": 5,
+    "combination_quality": 1
+  },
+  "rsa_results": [
+    {
+      "rsa_id": "messages_app_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "sms_app_category_scale"
+    },
+    {
+      "rsa_id": "messages_app_challenger",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 4,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "sms_app_category_scale"
+    },
+    {
+      "rsa_id": "spam_sms_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "spam_sms_problem_scale"
+    },
+    {
+      "rsa_id": "spam_sms_challenger",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 4,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "spam_sms_problem_scale"
+    },
+    {
+      "rsa_id": "scam_text_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 4,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "scam_text_problem_scale"
+    },
+    {
+      "rsa_id": "scam_text_challenger",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 4,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "scam_text_problem_scale"
+    },
+    {
+      "rsa_id": "otp_utility_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 4,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 4,
+        "predicted_ad_strength": 3
+      },
+      "predicted_ad_strength_label": "Average",
+      "ad_group_id": "otp_utility_risk_scale"
+    },
+    {
+      "rsa_id": "otp_utility_challenger",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "otp_utility_risk_scale"
+    },
+    {
+      "rsa_id": "sms_organizer_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 4,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "sms_organizer_control"
+    },
+    {
+      "rsa_id": "sms_organizer_challenger",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "sms_organizer_control"
+    },
+    {
+      "rsa_id": "brand_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "sms_classifier_brand_exact"
+    },
+    {
+      "rsa_id": "permissions_control",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "sms_permissions_trust_holdout"
+    }
+  ],
+  "model_reviews": {},
+  "issues": [
+    {
+      "scope": "description",
+      "item_id": "sms_app_category_scale/messages_app_challenger",
+      "severity": "warn",
+      "code": "search_description_repeats_headline",
+      "message": "Description mostly repeats a headline instead of adding proof or motivation: 'The app highlights review cues for odd links and account-code texts.'"
+    },
+    {
+      "scope": "description",
+      "item_id": "spam_sms_problem_scale/spam_sms_challenger",
+      "severity": "warn",
+      "code": "search_description_repeats_headline",
+      "message": "Description mostly repeats a headline instead of adding proof or motivation: 'The app highlights odd reply requests and bank-detail language.'"
+    },
+    {
+      "scope": "rsa",
+      "item_id": "scam_text_problem_scale/scam_text_control",
+      "severity": "warn",
+      "code": "search_rsa_combination_quality_low",
+      "message": "5/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk."
+    },
+    {
+      "scope": "rsa",
+      "item_id": "scam_text_problem_scale/scam_text_challenger",
+      "severity": "warn",
+      "code": "search_rsa_combination_quality_low",
+      "message": "6/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk."
+    },
+    {
+      "scope": "description",
+      "item_id": "otp_utility_risk_scale/otp_utility_control",
+      "severity": "warn",
+      "code": "search_description_repeats_headline",
+      "message": "Description mostly repeats a headline instead of adding proof or motivation: 'The app shows code context before a bank OTP is shared under pressure.'"
+    },
+    {
+      "scope": "rsa",
+      "item_id": "otp_utility_risk_scale/otp_utility_control",
+      "severity": "warn",
+      "code": "search_rsa_combination_quality_low",
+      "message": "6/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk."
+    },
+    {
+      "scope": "rsa",
+      "item_id": "sms_organizer_control/sms_organizer_control",
+      "severity": "warn",
+      "code": "search_rsa_combination_quality_low",
+      "message": "5/30 sampled RSA combinations lose category/product agency, repeat copy, or create claim risk."
+    },
+    {
+      "scope": "ad_group",
+      "item_id": "sms_classifier_brand_exact",
+      "severity": "warn",
+      "code": "search_rsas_per_ad_group_low",
+      "message": "Google recommends at least 2 Good/Excellent RSAs per ad group when possible."
+    },
+    {
+      "scope": "rsa",
+      "item_id": "sms_classifier_brand_exact/brand_control",
+      "severity": "warn",
+      "code": "search_keyword_coverage_low",
+      "message": "Include the primary query or close variant in 2-3 readable headlines."
+    },
+    {
+      "scope": "ad_group",
+      "item_id": "sms_permissions_trust_holdout",
+      "severity": "warn",
+      "code": "search_rsas_per_ad_group_low",
+      "message": "Google recommends at least 2 Good/Excellent RSAs per ad group when possible."
+    },
+    {
+      "scope": "portfolio",
+      "item_id": "portfolio",
+      "severity": "warn",
+      "code": "search_portfolio_phrase_repetition",
+      "message": "Repeated portfolio headline phrase(s) reduce distinctness: sms app, sms review."
+    }
+  ]
+}

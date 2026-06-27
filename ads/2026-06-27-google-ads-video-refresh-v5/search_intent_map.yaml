@@ -1,0 +1,57 @@
+intents:
+- ad_group_id: sms_app_category_scale
+  persona_id: otp_searcher
+  search_moment: category_scale
+  primary_query: messages app
+  desired_outcome: Android SMS app keeps OTPs, service texts, and review-needed messages easier to scan.
+  claim_boundary: Organization and review help only; no fraud-prevention promise.
+  estimated_monthly_searches: 37790
+  priority: 1
+- ad_group_id: spam_sms_problem_scale
+  persona_id: family_helper
+  search_moment: problem_aware_scale
+  primary_query: i keep getting spam texts
+  desired_outcome: SMS app flags spam-looking texts so users can review before replying.
+  claim_boundary: Flags and review labels only; no blocking promise.
+  estimated_monthly_searches: 26720
+  priority: 2
+- ad_group_id: scam_text_problem_scale
+  persona_id: otp_fraud_worrier
+  search_moment: problem_aware_scale
+  primary_query: scam text messages
+  desired_outcome: SMS app warns before suspicious-looking links or details requests are acted on.
+  claim_boundary: Shows warnings and review context; no safe-or-unsafe certification.
+  estimated_monthly_searches: 23430
+  priority: 3
+- ad_group_id: otp_utility_risk_scale
+  persona_id: otp_fraud_worrier
+  search_moment: otp_utility_and_risk
+  primary_query: otp app
+  desired_outcome: SMS app shows OTP context and helps users find bank codes faster.
+  claim_boundary: OTP context and organization only; no fraud-prevention promise.
+  estimated_monthly_searches: 3450
+  priority: 4
+- ad_group_id: sms_organizer_control
+  persona_id: busy_otp_user
+  search_moment: solution_aware_control
+  primary_query: sms organizer
+  desired_outcome: SMS app keeps OTPs and service messages easier to scan.
+  claim_boundary: Organization and review help only; no perfect-sorting promise.
+  estimated_monthly_searches: 1410
+  priority: 5
+- ad_group_id: sms_classifier_brand_exact
+  persona_id: brand_searcher
+  search_moment: brand_exact_defensive
+  primary_query: sms classifier
+  desired_outcome: SMS Classifier app listing for OTP organization and SMS review.
+  claim_boundary: Brand navigation only; no unbounded safety claim.
+  estimated_monthly_searches: 0
+  priority: defensive_brand
+- ad_group_id: sms_permissions_trust_holdout
+  persona_id: privacy_cautious_user
+  search_moment: trust_objection_holdout
+  primary_query: sms permissions android
+  desired_outcome: SMS app shows permissions and feature controls clearly before Pro.
+  claim_boundary: Explain settings honestly; no absolute privacy claim.
+  estimated_monthly_searches: 0
+  priority: defensive_trust

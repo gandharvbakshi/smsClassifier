@@ -1,0 +1,1027 @@
+metadata:
+  product: SMS Classifier
+  campaign_type: Google Search RSA
+  status: v2_quality_fixed_v3_candidate
+  dynamic_copy_plan: Static RSAs first; DKI only after search terms and negatives are reviewed.
+  ai_max_guardrail: Review generated variants against claim boundaries and monetization terms.
+brand_name: SMS Classifier
+require_brand_ad_group: true
+require_trust_ad_group: true
+ad_groups:
+- id: sms_app_category_scale
+  persona_id: otp_searcher
+  search_moment: category_scale
+  primary_query: messages app
+  keywords:
+  - messages app
+  - sms app
+  - sms message app
+  - text message app
+  - default sms app
+  - best messaging app for android
+  - messaging apps for android
+  category_terms:
+  - messages app
+  - SMS app
+  - Android SMS app
+  primary_promise: Android SMS app keeps OTPs, service texts, and review-needed messages easier to scan.
+  claim_boundary: Organization and review help only; no fraud-prevention promise.
+  estimated_monthly_searches: 37790
+  priority: 1
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: Messages App For Android
+  landing_page_proof:
+  - OTP inbox and review-needed messages in one Android SMS app.
+  - Organization and review proof only.
+  rsas:
+  - id: messages_app_control
+    headlines:
+    - text: Messages App Android
+      role: query_echo
+    - text: Inbox Finds Bank Codes
+    - text: SMS App For OTPs
+    - text: Bank Code Access
+    - text: Shows Review Labels
+    - text: Service Alerts Grouped
+    - text: Simple Text Helper
+    - text: Calmer Code View
+    - text: Suspicious Link Cues
+    - text: Built For India SMS
+    - text: Family SMS Review
+    descriptions:
+    - The app organizes login messages, service alerts, and review-needed texts in one inbox.
+    - The app highlights odd links while keeping renewal terms visible.
+    - The app shows bank-code context without a fraud-prevention promise.
+    - The app explains trial pricing before the annual renewal.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+  - id: messages_app_challenger
+    headlines:
+    - text: SMS Message App
+      role: query_echo
+    - text: Text Message App
+    - text: SMS App Sorts Codes
+    - text: Highlights Odd Links
+    - text: OTP And Alerts Together
+    - text: Bank Alerts In View
+    - text: Service SMS Sorted
+    - text: Review Links First
+    - text: Price Terms Visible
+    - text: Install Listing Ready
+    - text: Daily Texts Organized
+    descriptions:
+    - The app organizes daily messages without forcing a crowded default view.
+    - The app highlights review cues for odd links and account-code texts.
+    - The app finds recent login messages while service alerts stay easier to scan.
+    - The app shows Pro trial terms before the yearly price starts.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+- id: spam_sms_problem_scale
+  persona_id: family_helper
+  search_moment: problem_aware_scale
+  primary_query: i keep getting spam texts
+  keywords:
+  - i keep getting spam texts
+  - spam messages
+  - spam text messages
+  - spam sms
+  - spam sms messages
+  - sms filter
+  category_terms:
+  - spam SMS app
+  - SMS filter
+  - Android SMS app
+  primary_promise: SMS app flags spam-looking texts so users can review before replying.
+  claim_boundary: Flags and review labels only; no blocking promise.
+  estimated_monthly_searches: 26720
+  priority: 2
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: Spam SMS Review App
+  landing_page_proof:
+  - Review spam-looking SMS in a calmer default inbox.
+  - Bounded review labels only.
+  rsas:
+  - id: spam_sms_control
+    headlines:
+    - text: Spam Messages Keep Coming
+      role: query_echo
+    - text: SMS Filter For Texts
+    - text: Spam SMS App Review
+    - text: Flags Spam-Looking SMS
+    - text: App Flags Odd Links
+    - text: Review Texts Before Reply
+    - text: Bank Requests In View
+    - text: Service Alerts In View
+    - text: OTP Inbox Included
+    - text: INR 199 After Trial
+    - text: Default Text Helper
+    descriptions:
+    - The app flags spam-looking texts and adds context before you reply.
+    - The app shows why a message may need review without blocking claims.
+    - The app organizes OTPs and service alerts beside suspicious-looking texts.
+    - The app lists trial terms so the paid renewal is clear.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+  - id: spam_sms_challenger
+    headlines:
+    - text: Spam SMS Messages
+      role: query_echo
+    - text: SMS Filter Inbox
+    - text: App Spots Reply Traps
+    - text: Review Odd Messages
+    - text: Calmer Code Inbox
+    - text: Highlights Bank Requests
+    - text: Android Message Helper
+    - text: Delivery Texts Sorted
+    - text: OTP And Spam Review
+    - text: Trial Renewal Info
+    - text: Inbox Review Helper
+    descriptions:
+    - The app highlights odd reply requests and bank-detail language.
+    - The app shows review cues while daily codes remain accessible.
+    - The app organizes spam-looking messages separately from routine alerts.
+    - The app flags links for review without calling every text unsafe.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+- id: scam_text_problem_scale
+  persona_id: otp_fraud_worrier
+  search_moment: problem_aware_scale
+  primary_query: scam text messages
+  keywords:
+  - scam text messages
+  - text scams
+  - smishing
+  - phishing scam text
+  - phishing text messages
+  - phishing texts
+  - sms scam
+  - phishing sms
+  - sms fraud
+  category_terms:
+  - scam text app
+  - phishing SMS
+  - suspicious SMS
+  - SMS review app
+  primary_promise: SMS app warns before suspicious-looking links or details requests are acted on.
+  claim_boundary: Shows warnings and review context; no safe-or-unsafe certification.
+  estimated_monthly_searches: 23430
+  priority: 3
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: Scam Text Message Review
+  landing_page_proof:
+  - SMS warning UI for suspicious-looking links and details requests.
+  - Bounded review context.
+  rsas:
+  - id: scam_text_control
+    headlines:
+    - text: Scam Text Messages
+      role: query_echo
+    - text: Phishing SMS Review
+    - text: Suspicious SMS Review
+    - text: App Flags Prize Links
+    - text: Bank Details Request
+    - text: Smishing Text Helper
+    - text: Before Sharing Details
+    - text: Android Text Warnings
+    - text: Prize Message Review
+    - text: OTP Links In View
+    - text: Review Aid Terms
+    descriptions:
+    - The app highlights prize-style messages that ask for bank details.
+    - The app shows link-review cues before you tap or reply.
+    - The app flags suspicious-looking requests without certifying every SMS.
+    - The app keeps trial and renewal terms clear beside review features.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+  - id: scam_text_challenger
+    headlines:
+    - text: Text Scams In Inbox
+      role: query_echo
+    - text: Phishing SMS Helper
+    - text: SMS Fraud Review
+    - text: Scam Text App Review
+    - text: Shows Link Clues
+    - text: Prize SMS Bank Details
+    - text: Short Link Highlighted
+    - text: Check Details First
+    - text: Android SMS Alerts
+    - text: Install Page Ready
+    - text: Prize Text Review
+    descriptions:
+    - The app shows why a link or details request may need review.
+    - The app highlights phishing-style SMS with bounded review wording.
+    - The app organizes suspicious-looking texts near OTP and service messages.
+    - The app explains Pro review features before the yearly renewal.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+- id: otp_utility_risk_scale
+  persona_id: otp_fraud_worrier
+  search_moment: otp_utility_and_risk
+  primary_query: otp app
+  keywords:
+  - otp app
+  - otp scam
+  - otp sms
+  - bank otp
+  - otp fraud
+  - delivery otp scam
+  - otp scam warning app
+  - otp fraud warning app
+  category_terms:
+  - OTP app
+  - SMS app
+  - OTP warning app
+  - Android SMS app
+  primary_promise: SMS app shows OTP context and helps users find bank codes faster.
+  claim_boundary: OTP context and organization only; no fraud-prevention promise.
+  estimated_monthly_searches: 3450
+  priority: 4
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: OTP App For SMS Codes
+  landing_page_proof:
+  - OTP inbox and review warning screens.
+  - Bounded OTP-context claim.
+  rsas:
+  - id: otp_utility_control
+    headlines:
+    - text: OTP App For SMS Codes
+      role: query_echo
+    - text: OTP SMS Review
+    - text: SMS App Code Review
+    - text: Shows Code Context
+    - text: Bank Login Code Finder
+    - text: Delivery OTP Check
+    - text: Account Change Warning
+    - text: Find Recent Codes
+    - text: Service Alerts Nearby
+    - text: Yearly Price Shown
+    - text: Default OTP Inbox
+    descriptions:
+    - The app shows code context before a bank OTP is shared under pressure.
+    - The app finds recent login messages while keeping account-change cues visible.
+    - The app organizes bank codes beside service alerts for quicker review.
+    - The app lists trial terms and yearly price before renewal.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+  - id: otp_utility_challenger
+    headlines:
+    - text: OTP Fraud Context
+      role: query_echo
+    - text: Delivery OTP Context
+    - text: OTP Warning App
+    - text: App Flags Code Pressure
+    - text: Bank OTP In View
+    - text: Account Access Context
+    - text: Compares Caller Claim
+    - text: Recent Code Finder
+    - text: Delivery Code Inbox
+    - text: Code Help Listing
+    - text: Code Review Terms
+    descriptions:
+    - The app highlights caller-code mismatch moments for review.
+    - The app shows why a requested code needs review before you reply.
+    - The app flags unusual requests while routine alerts stay visible.
+    - The app organizes recent OTPs so review happens before replies.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+- id: sms_organizer_control
+  persona_id: busy_otp_user
+  search_moment: solution_aware_control
+  primary_query: sms organizer
+  keywords:
+  - sms organizer
+  - sms organizer app
+  - sms organiser app
+  - default sms app
+  category_terms:
+  - SMS organizer
+  - SMS app
+  - Android SMS app
+  primary_promise: SMS app keeps OTPs and service messages easier to scan.
+  claim_boundary: Organization and review help only; no perfect-sorting promise.
+  estimated_monthly_searches: 1410
+  priority: 5
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: SMS Organizer
+  landing_page_proof:
+  - OTP and service code organization in SMS Classifier.
+  - Bounded organization claim only.
+  rsas:
+  - id: sms_organizer_control
+    headlines:
+    - text: SMS Organizer
+      role: query_echo
+    - text: Default SMS App Inbox
+    - text: Daily Text Sorting
+    - text: App Organizes Codes
+    - text: Bank Codes In View
+    - text: Service Updates Grouped
+    - text: Codes In One View
+    - text: Cleaner Daily Inbox
+    - text: Review Links Too
+    - text: Subscription Price Clear
+    - text: Setup Page Visible
+    descriptions:
+    - The app organizes OTPs and service messages for calmer daily scanning.
+    - The app shows bank-code cards while keeping suspicious links nearby.
+    - The app finds login messages without promising perfect sorting.
+    - The app explains trial and yearly renewal terms clearly.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+  - id: sms_organizer_challenger
+    headlines:
+    - text: SMS Organiser App
+      role: query_echo
+    - text: Default SMS App For Codes
+    - text: Shows Login Codes
+    - text: Daily Alerts Grouped
+    - text: OTP Messages Together
+    - text: Suspicious Links Marked
+    - text: Daily Texts In View
+    - text: Login SMS Faster
+    - text: Calmer SMS Inbox
+    - text: Price Details Visible
+    - text: Play Page Visible
+    descriptions:
+    - The app highlights bank-code messages and separates routine alerts.
+    - The app organizes service texts while keeping review cues visible.
+    - The app shows recent OTP context before you copy or reply.
+    - The app flags suspicious-looking links as review aids only.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+- id: sms_classifier_brand_exact
+  persona_id: brand_searcher
+  search_moment: brand_exact_defensive
+  primary_query: sms classifier
+  keywords:
+  - sms classifier
+  - sms classifier app
+  category_terms:
+  - SMS Classifier
+  - SMS Classifier app
+  - official app listing
+  - brand listing
+  primary_promise: SMS Classifier app listing for OTP organization and SMS review.
+  claim_boundary: Brand navigation only; no unbounded safety claim.
+  estimated_monthly_searches: 0
+  priority: defensive_brand
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: SMS Classifier App
+  landing_page_proof:
+  - App listing and trial terms.
+  - Brand coverage is exact/phrase only.
+  rsas:
+  - id: brand_control
+    headlines:
+    - text: SMS Classifier App
+      role: query_echo
+    - text: Official App Listing
+    - text: Shows OTP Context
+    - text: Flags Brand SMS
+    - text: Bank Code Review
+    - text: Play Store Page
+    - text: 14 Day Pro Trial
+    - text: INR 199 Yearly
+    - text: Service Alert Inbox
+    - text: Brand Listing
+    - text: Review Labels Explained
+    descriptions:
+    - The app organizes OTP, link, and alert review moments after install.
+    - The app shows trial pricing and renewal details from the store page.
+    - The app flags suspicious-looking texts as bounded review cues.
+    - The app highlights settings and permission cues for cautious users.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier
+- id: sms_permissions_trust_holdout
+  persona_id: privacy_cautious_user
+  search_moment: trust_objection_holdout
+  primary_query: sms permissions android
+  keywords:
+  - sms permissions android
+  - default sms permissions
+  - sms app privacy
+  - sms app data privacy
+  category_terms:
+  - SMS privacy
+  - SMS permissions
+  - SMS app
+  - default SMS app
+  primary_promise: SMS app shows permissions and feature controls clearly before Pro.
+  claim_boundary: Explain settings honestly; no absolute privacy claim.
+  estimated_monthly_searches: 0
+  priority: defensive_trust
+  negative_keywords:
+  - google messages
+  - messages for web
+  - samsung messages
+  - messenger
+  - facebook
+  - whatsapp
+  - telegram
+  - instagram
+  - bulk sms
+  - sms gateway
+  - sms marketing
+  - sms api
+  - otp api
+  - otp service
+  - email
+  - call blocker
+  - truecaller
+  - authenticator
+  - 2fa
+  - totp
+  - loan
+  - jobs
+  - career
+  - course
+  - ios
+  - iphone
+  - pc
+  - windows
+  - web
+  - apk
+  - mod apk
+  - free sms
+  - fake sms
+  - meaning
+  - definition
+  - examples
+  landing_page_h1: SMS App Privacy
+  landing_page_proof:
+  - Privacy and settings screens explain review feature controls.
+  - No absolute privacy claim.
+  rsas:
+  - id: permissions_control
+    headlines:
+    - text: SMS Permissions Android
+      role: query_echo
+    - text: Default SMS Permissions
+    - text: Shows Data Choices
+    - text: Permission Review
+    - text: Cloud Review Explained
+    - text: Trial Details Visible
+    - text: Feature Controls Visible
+    - text: Play Listing Terms
+    - text: SMS Privacy Info
+    - text: Pro Settings Context
+    - text: Data Choices Visible
+    descriptions:
+    - The app shows permission context, Pro terms, and feature controls before setup.
+    - The app highlights review features with clear cloud-review context.
+    - The app shows data-choice cues from the settings and Play listing.
+    - The app highlights privacy questions before enabling Pro review features.
+    paths:
+      path1: sms-app
+      path2: review
+    sitelinks:
+    - text: OTP Inbox
+      description1: Find codes faster
+      description2: Review service SMS
+    - text: Suspicious SMS
+      description1: See marked texts
+      description2: Pause before tapping
+    - text: Pro Trial
+      description1: Try Pro features
+      description2: INR 199/year after
+    - text: Privacy Controls
+      description1: Review settings
+      description2: See data choices
+    callouts:
+    - 14-day trial
+    - INR 199/year Pro
+    - OTP inbox
+    - Scam-aware sorting
+    - Default SMS app
+    structured_snippets:
+    - header: Types
+      values:
+      - OTP
+      - Service SMS
+      - Suspicious links
+      - Bank alerts
+    business_name: SMS Classifier

@@ -1,0 +1,88 @@
+approved_hooks:
+- id: H_SCAM_PRIZE
+  status: primary
+  rank: 1
+  hook: Bank details in a prize SMS. App warns before you tap.
+  hook_type: pain_led
+  persona_id: otp_fraud_worrier
+  moment_id: scam_prize_details
+  scenario_id: scenario_prize_bank_details
+  feature_id: suspicious_link_warning
+  proof_id: proof_scam_prize_warning
+  claim_boundary: Helps flag suspicious-looking SMS; does not certify every text as
+    safe or unsafe.
+  proof_feasibility: high
+  evidence_status: source_confirmed
+  confidence: source_confirmed
+  outcome_type: fraud_avoidance
+  so_what_ladder:
+  - The text says the user won a prize.
+  - The app shows the bank-details warning.
+  - The user can avoid sharing details with a scam SMS.
+  scores:
+    pain_magnitude: 5
+    frequency: 4
+    breadth_of_audience: 4
+    proofability: 5
+    differentiation: 4
+    one_second_clarity: 5
+    claim_safety: 5
+- id: H_OTP_ACCOUNT
+  status: primary
+  rank: 1
+  hook: Caller asks OTP. SMS app shows account change before sharing.
+  hook_type: pain_led
+  persona_id: family_helper
+  moment_id: delivery_otp_pressure
+  scenario_id: scenario_delivery_account_otp
+  feature_id: otp_context_warning
+  proof_id: proof_otp_account_warning
+  claim_boundary: Shows OTP context and review labels; does not guarantee fraud prevention.
+  proof_feasibility: high
+  evidence_status: source_confirmed
+  confidence: source_confirmed
+  outcome_type: fraud_avoidance
+  so_what_ladder:
+  - The caller says delivery.
+  - The app shows account-change context.
+  - The user can avoid sharing an account access OTP.
+  scores:
+    pain_magnitude: 5
+    frequency: 3
+    breadth_of_audience: 4
+    proofability: 5
+    differentiation: 5
+    one_second_clarity: 5
+    claim_safety: 5
+- id: H_OTP_INBOX
+  status: approved
+  rank: 3
+  hook: Bank OTP is buried. SMS app shows login code.
+  hook_type: benefit_led
+  persona_id: busy_otp_user
+  moment_id: login_code_hurry
+  scenario_id: scenario_bank_otp_buried
+  feature_id: otp_inbox_sorting
+  proof_id: proof_otp_inbox_focus
+  claim_boundary: Organizes and surfaces codes; does not guarantee perfect sorting.
+  proof_feasibility: high
+  evidence_status: source_confirmed
+  confidence: source_confirmed
+  outcome_type: risk_reduction
+  so_what_ladder:
+  - The bank login SMS is buried.
+  - The app groups OTPs and service codes.
+  - The user can avoid delay or copying the wrong SMS.
+  scores:
+    pain_magnitude: 4
+    frequency: 5
+    breadth_of_audience: 5
+    proofability: 5
+    differentiation: 4
+    one_second_clarity: 5
+    claim_safety: 5
+discarded_hooks:
+- hook: Pause before tapping
+  reason: Advice-only and product agency too weak.
+- hook: App flags KYC risk
+  reason: Compressed jargon for broad acquisition.

@@ -1,0 +1,29 @@
+videos:
+- asset_id: VID_OTP_ACCOUNT_9x16
+  hook_id: H_OTP_ACCOUNT
+  proof_id: proof_otp_account_warning
+  story_framework: contradiction_reveal
+  production_mode: ui_led_deterministic
+  allow_no_voiceover: false
+  beats:
+  - time_sec: 0
+    caption: Caller asks OTP. SMS app shows account change first.
+    proof_id: proof_otp_video_account_sequence
+    screenshot: screenshots/proof_otp_video_pressure.png
+    role: setup_plus_stakes
+  - time_sec: 3.7
+    caption: It shows account change before sharing
+    proof_id: proof_otp_account_warning
+    screenshot: screenshots/proof_otp_video_reveal.png
+    role: product_intervention
+  - time_sec: 7.4
+    caption: SMS app shows review before sharing
+    proof_id: proof_otp_video_account_sequence
+    screenshot: screenshots/proof_otp_video_action.png
+    role: payoff_and_action
+  rejection_notes:
+  - No settings/config/debug beats.
+  - No generated phone text or fake OS alert.
+  - Synthetic data only; no real OTP digits.
+  how_story_advances: Beat 1 sets the delivery-call pressure, beat 2 reveals account-change
+    context through the app, beat 3 gives the safer review action and CTA.

@@ -1,0 +1,61 @@
+{
+  "asset_id": "VID_OTP_ACCOUNT_9x16",
+  "hook_id": "H_OTP_ACCOUNT",
+  "canvas": {
+    "width_px": 1080,
+    "height_px": 1920
+  },
+  "fps": 30,
+  "background_mode": "light",
+  "crossfade_sec": 0.0,
+  "motion": true,
+  "frames": [
+    {
+      "image": "screenshots/proof_otp_video_pressure.png",
+      "caption": "Caller asks OTP. SMS app shows account change first.",
+      "hold_sec": 3.7,
+      "bbox_pct": {
+        "x": 11,
+        "y": 29,
+        "w": 78,
+        "h": 60
+      },
+      "device_frame": true,
+      "shadow": true,
+      "corner_radius": 28
+    },
+    {
+      "image": "screenshots/proof_otp_video_reveal.png",
+      "caption": "It shows account change before sharing",
+      "hold_sec": 3.8,
+      "bbox_pct": {
+        "x": 9,
+        "y": 29,
+        "w": 82,
+        "h": 60
+      },
+      "device_frame": true,
+      "shadow": true,
+      "corner_radius": 28
+    },
+    {
+      "image": "screenshots/proof_otp_video_action.png",
+      "caption": "SMS app shows review before sharing",
+      "hold_sec": 3.7,
+      "bbox_pct": {
+        "x": 9,
+        "y": 29,
+        "w": 82,
+        "h": 60
+      },
+      "device_frame": true,
+      "shadow": true,
+      "corner_radius": 28
+    }
+  ],
+  "outro": {
+    "title": "Try SMS Classifier",
+    "subtitle": "On Google Play",
+    "hold_sec": 2.2
+  }
+}

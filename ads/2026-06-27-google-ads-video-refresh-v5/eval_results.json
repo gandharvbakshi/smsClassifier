@@ -1,0 +1,182 @@
+{
+  "metadata": {
+    "engine_git_hash": "4fd9debbe2343a47ccca56e3046879688071429d",
+    "linter_version": "2026-06-13-stakes-strict-v3"
+  },
+  "results": [
+    {
+      "asset_id": "VID_OTP_ACCOUNT_9x16",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 4,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [
+        "blind_one_second: Increase the font size of the smaller text within the phone screen (e.g., 'Code changes mobile number') to ensure maximum legibility in a one-second glance.",
+        "blind_one_second: Consider adding a more prominent and consistent call to action earlier in the sequence, rather than only on the final frame.",
+        "blind_one_second: The phrase 'SMS app checks code' in the first slide could be more descriptive to immediately convey the specific value or action the app performs."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "Clear and concise headline that immediately communicates the product's value proposition.",
+          "Effective use of synthetic product UI to demonstrate the app's core feature and problem-solution flow.",
+          "Excellent mobile legibility with large, high-contrast text both in the headline and within the simulated app UI.",
+          "Strong visual hierarchy that guides the viewer through the narrative, from problem to resolution.",
+          "Adheres to all policy guidelines, avoiding any prohibited claims or deceptive elements.",
+          "Consistent branding with the 'SMS Classifier' logo present and clear."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "Clear and concise headline that immediately communicates the product's value proposition.",
+            "Effective use of synthetic product UI to demonstrate the app's core feature and problem-solution flow.",
+            "Excellent mobile legibility with large, high-contrast text both in the headline and within the simulated app UI.",
+            "Strong visual hierarchy that guides the viewer through the narrative, from problem to resolution.",
+            "Adheres to all policy guidelines, avoiding any prohibited claims or deceptive elements.",
+            "Consistent branding with the 'SMS Classifier' logo present and clear."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 4,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 4,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The ad clearly demonstrates the product's function by showing a phone screen with an SMS app identifying a potential OTP scam.",
+            "The progression across the three images effectively tells a story, from problem (caller asks OTP) to solution (app warns about account change before sharing).",
+            "Strong visual cues, such as the red warning box and green action button, effectively highlight critical information and guide the user's attention.",
+            "The 'SMS Classifier' brand logo is consistently present and clearly visible in all frames."
+          ],
+          "fixes": [
+            "Increase the font size of the smaller text within the phone screen (e.g., 'Code changes mobile number') to ensure maximum legibility in a one-second glance.",
+            "Consider adding a more prominent and consistent call to action earlier in the sequence, rather than only on the final frame.",
+            "The phrase 'SMS app checks code' in the first slide could be more descriptive to immediately convey the specific value or action the app performs."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The hook 'Caller asks OTP. SMS app shows account change first.' effectively uses plain problem language and immediately introduces the product's core value proposition, directly addressing the deeper user stake of risk reduction and avoided loss, rather than a mere surface feature or convenience.",
+            "The visual proof is exceptionally clear and directly demonstrates the product's mechanism for detecting and warning about OTP mismatches, making the promised advantage highly believable.",
+            "Excellent mobile-first legibility with large, high-contrast text and a clean, uncluttered UI.",
+            "The creative story clearly articulates the user pain, the product's intervention, and the resolution, fulfilling the creative story contract.",
+            "Adheres to all policy constraints, including appropriate use of synthetic UI and avoiding unsupported claims or deceptive elements."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The video clearly demonstrates the core feature of detecting a mismatch between a caller's claim and the OTP's actual intent.",
+            "The headlines are concise and effectively communicate the problem and the app's solution across the video sequence.",
+            "Strong visual cues (red for warning, green for review) are used effectively to guide the user's attention.",
+            "Excellent mobile legibility with large, high-contrast text and minimal words, suitable for small screens and thumbnails.",
+            "The creative adheres to all policy constraints, avoiding over-claims, absolute safety guarantees, and misleading UI.",
+            "The synthetic UI is well-designed, clear, and directly supports the promised functionality without clutter.",
+            "The creative effectively addresses the target user's pain point and provides a clear emotional payoff of a 'calmer pause'."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "VID_OTP_ACCOUNT_9x16",
+          "hook_id": "H_OTP_ACCOUNT"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 3,
+        "messages_checked": 3,
+        "videos_checked": 1,
+        "failure_count": 0
+      },
+      "visual_metrics": {},
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "4fd9debbe2343a47ccca56e3046879688071429d",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    }
+  ]
+}

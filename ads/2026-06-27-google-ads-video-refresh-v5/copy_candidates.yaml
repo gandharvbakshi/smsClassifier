@@ -1,0 +1,9 @@
+selected:
+- Prize SMS says you won. App shows bank risk.
+- Caller says delivery OTP. SMS app flags account change.
+- Bank login SMS is buried. App finds the OTP.
+rejected:
+- hook: Pause before tapping
+  reason: Advice-only and product agency too weak.
+- hook: App flags KYC risk
+  reason: Compressed jargon for broad acquisition.

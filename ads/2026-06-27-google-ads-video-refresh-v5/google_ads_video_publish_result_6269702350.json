@@ -1,0 +1,122 @@
+{
+  "updated_at": "2026-06-27T14:25:05.908447+00:00",
+  "customer_id": "6269702350",
+  "campaign": "customers/6269702350/campaigns/23973860520",
+  "youtube_video_id": "aZV2OjSLU9Y",
+  "youtube_url": "https://youtube.com/shorts/aZV2OjSLU9Y",
+  "video_asset": "customers/6269702350/assets/380389776139",
+  "created_asset": true,
+  "existing_ads_with_video": [],
+  "created": {
+    "ad_group": "customers/6269702350/adGroups/195677068457",
+    "ad_group_ad": "customers/6269702350/adGroupAds/195677068457~814381949436",
+    "headlines": [
+      "OTP Warning App",
+      "Review OTP Before Sharing",
+      "SMS Classifier",
+      "Account Change Warning",
+      "Delivery OTP Warning"
+    ],
+    "descriptions": [
+      "See OTP context before sharing codes under pressure.",
+      "Review delivery-OTP requests before account details change.",
+      "A clearer SMS inbox for OTPs and suspicious texts.",
+      "Shows warning context for review-needed SMS moments."
+    ],
+    "images": [
+      "customers/6269702350/assets/380403122661",
+      "customers/6269702350/assets/380326038499"
+    ],
+    "youtube_videos": [
+      "customers/6269702350/assets/380389776139"
+    ]
+  },
+  "supersedes_youtube_video_id": "QrikGmvpanU",
+  "verified_ads": [
+    {
+      "campaign_status": "PAUSED",
+      "campaign_primary_status": "PAUSED",
+      "campaign_serving_status": "SUSPENDED",
+      "ad_group_id": 200593472289,
+      "ad_group_name": "SMS Classifier OTP video v5 20260627-141722",
+      "ad_group_status": "PAUSED",
+      "ad_group_primary_status": "PAUSED",
+      "ad_group_ad": "customers/6269702350/adGroupAds/200593472289~814414787452",
+      "ad_status": "ENABLED",
+      "ad_primary_status": "NOT_ELIGIBLE",
+      "images": [
+        "customers/6269702350/assets/380403122661",
+        "customers/6269702350/assets/380326038499"
+      ],
+      "youtube_videos": [
+        "customers/6269702350/assets/380387292145"
+      ]
+    },
+    {
+      "campaign_status": "PAUSED",
+      "campaign_primary_status": "PAUSED",
+      "campaign_serving_status": "SUSPENDED",
+      "ad_group_id": 197156806079,
+      "ad_group_name": "SMS Classifier OTP proof v4 20260627-121318",
+      "ad_group_status": "PAUSED",
+      "ad_group_primary_status": "PAUSED",
+      "ad_group_ad": "customers/6269702350/adGroupAds/197156806079~814478228576",
+      "ad_status": "ENABLED",
+      "ad_primary_status": "NOT_ELIGIBLE",
+      "images": [
+        "customers/6269702350/assets/380403122661",
+        "customers/6269702350/assets/380326038499"
+      ],
+      "youtube_videos": []
+    },
+    {
+      "campaign_status": "PAUSED",
+      "campaign_primary_status": "PAUSED",
+      "campaign_serving_status": "SUSPENDED",
+      "ad_group_id": 195677068457,
+      "ad_group_name": "SMS Classifier OTP video v5 FINAL 20260627-142502",
+      "ad_group_status": "PAUSED",
+      "ad_group_primary_status": "PAUSED",
+      "ad_group_ad": "customers/6269702350/adGroupAds/195677068457~814381949436",
+      "ad_status": "ENABLED",
+      "ad_primary_status": "NOT_ELIGIBLE",
+      "images": [
+        "customers/6269702350/assets/380403122661",
+        "customers/6269702350/assets/380326038499"
+      ],
+      "youtube_videos": [
+        "customers/6269702350/assets/380389776139"
+      ]
+    },
+    {
+      "campaign_status": "PAUSED",
+      "campaign_primary_status": "PAUSED",
+      "campaign_serving_status": "SUSPENDED",
+      "ad_group_id": 193138032690,
+      "ad_group_name": "SMS Classifier India app install 2026-06-27 - generated creative",
+      "ad_group_status": "PAUSED",
+      "ad_group_primary_status": "PAUSED",
+      "ad_group_ad": "customers/6269702350/adGroupAds/193138032690~814329042201",
+      "ad_status": "ENABLED",
+      "ad_primary_status": "NOT_ELIGIBLE",
+      "images": [
+        "customers/6269702350/assets/379931168561",
+        "customers/6269702350/assets/379931213993",
+        "customers/6269702350/assets/380031213259",
+        "customers/6269702350/assets/380031243700",
+        "customers/6269702350/assets/380031213487",
+        "customers/6269702350/assets/380031244342",
+        "customers/6269702350/assets/379931222738"
+      ],
+      "youtube_videos": [
+        "customers/6269702350/assets/380065797017"
+      ]
+    }
+  ],
+  "safety": {
+    "campaign_left_paused": true,
+    "new_ad_group_paused": true,
+    "serving_not_enabled": true,
+    "reason": "App ads are enabled by type, but parent campaign and ad group are paused."
+  }
+}

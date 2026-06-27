@@ -1,0 +1,252 @@
+proofs:
+- id: proof_scam_prize_warning
+  source: screenshots/proof_scam_prize_warning.png
+  proof_type: synthetic_ad_scale_product_ui
+  synthetic_data: true
+  max_visible_rows: 2
+  highlighted_state: Prize SMS text asks for bank details through a suspicious short
+    link
+  intended_proof_moment: The app warns before a prize SMS asks for bank details.
+  required_visible_text:
+  - Prize text says ₹50,000
+  - Bank details requested
+  - Suspicious link
+  forbidden_surfaces:
+  - settings
+  - debug
+  - fake_os_alert
+  - real_bank_brand
+  - real_url
+  - real_otp
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  ad_scale_readability: thumbnail_safe
+  proof_typography:
+    min_important_text_px: 52
+    max_visible_text_blocks: 3
+    max_words_per_block: 6
+  product_surface: sms_review_screen
+  visual_adds: Shows a realistic prize-SMS risk cue with the product warning state.
+  context_type: realistic_sms_review_state
+  contrast_checks:
+  - fg: '#102033'
+    bg: '#FFF7ED'
+    min_ratio: 4.5
+  - fg: '#FFFFFF'
+    bg: '#C2410C'
+    min_ratio: 4.5
+- id: proof_scam_link_reason
+  source: screenshots/proof_scam_link_reason.png
+  proof_type: synthetic_ad_scale_product_ui
+  synthetic_data: true
+  max_visible_rows: 2
+  highlighted_state: Unknown sender plus rupee-prize short-link reason
+  intended_proof_moment: The app gives a simple reason for the warning.
+  required_visible_text:
+  - Unknown sender
+  - ₹50,000 prize link
+  - Check first
+  forbidden_surfaces:
+  - settings
+  - debug
+  - fake_os_alert
+  - real_bank_brand
+  - real_url
+  - real_otp
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  ad_scale_readability: thumbnail_safe
+  proof_typography:
+    min_important_text_px: 52
+    max_visible_text_blocks: 3
+    max_words_per_block: 6
+  product_surface: sms_review_screen
+  visual_adds: Adds a concrete reason for the warning instead of meta narration.
+  context_type: realistic_sms_review_state
+  contrast_checks:
+  - fg: '#102033'
+    bg: '#FFF7ED'
+    min_ratio: 4.5
+  - fg: '#FFFFFF'
+    bg: '#C2410C'
+    min_ratio: 4.5
+- id: proof_scam_review_done
+  source: screenshots/proof_scam_review_done.png
+  proof_type: synthetic_ad_scale_product_ui
+  synthetic_data: true
+  max_visible_rows: 2
+  highlighted_state: User can pause while the prize text remains marked
+  intended_proof_moment: The suspicious text remains marked for review.
+  required_visible_text:
+  - Prize text still marked
+  - Do not share bank details
+  - Review first
+  forbidden_surfaces:
+  - settings
+  - debug
+  - fake_os_alert
+  - real_bank_brand
+  - real_url
+  - real_otp
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  ad_scale_readability: thumbnail_safe
+  proof_typography:
+    min_important_text_px: 52
+    max_visible_text_blocks: 3
+    max_words_per_block: 6
+  product_surface: sms_review_screen
+  visual_adds: Shows the pause/review payoff state after the warning.
+  context_type: realistic_sms_review_state
+  contrast_checks:
+  - fg: '#102033'
+    bg: '#FFF7ED'
+    min_ratio: 4.5
+  - fg: '#FFFFFF'
+    bg: '#0F6F45'
+    min_ratio: 4.5
+- id: proof_otp_account_warning
+  source: screenshots/proof_otp_account_warning.png
+  proof_type: synthetic_ad_scale_product_ui
+  synthetic_data: true
+  max_visible_rows: 2
+  highlighted_state: Caller claim versus account-change OTP warning
+  intended_proof_moment: The app shows account-change context before sharing a delivery
+    OTP.
+  required_visible_text:
+  - Delivery OTP? Wait
+  - Code changes mobile number
+  - Do not share yet
+  forbidden_surfaces:
+  - settings
+  - debug
+  - fake_os_alert
+  - real_bank_brand
+  - real_url
+  - real_otp
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  ad_scale_readability: thumbnail_safe
+  proof_typography:
+    min_important_text_px: 52
+    max_visible_text_blocks: 3
+    max_words_per_block: 6
+  product_surface: sms_review_screen
+  visual_adds: Shows a concrete mismatch between the caller story and OTP context.
+  context_type: realistic_sms_review_state
+  contrast_checks:
+  - fg: '#102033'
+    bg: '#F4FAFF'
+    min_ratio: 4.5
+  - fg: '#FFFFFF'
+    bg: '#B42318'
+    min_ratio: 4.5
+- id: proof_otp_inbox_focus
+  source: screenshots/proof_otp_inbox_focus.png
+  proof_type: synthetic_ad_scale_product_ui
+  synthetic_data: true
+  max_visible_rows: 2
+  highlighted_state: Bank OTP separated to reduce wrong-code/login-delay stress
+  intended_proof_moment: The app surfaces a bank login SMS so the user can avoid login
+    delay or wrong-code stress.
+  required_visible_text:
+  - Bank OTP found
+  - Avoid login delay
+  - Copy right code
+  forbidden_surfaces:
+  - settings
+  - debug
+  - fake_os_alert
+  - real_bank_brand
+  - real_url
+  - real_otp
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 24
+    left: 0
+  focus_pct:
+    x: 50
+    y: 40
+  ad_scale_readability: thumbnail_safe
+  proof_typography:
+    min_important_text_px: 52
+    max_visible_text_blocks: 3
+    max_words_per_block: 6
+  product_surface: sms_inbox
+  visual_adds: Connects OTP organization to a concrete time-sensitive login stake.
+  context_type: realistic_sms_review_state
+  contrast_checks:
+  - fg: '#102033'
+    bg: '#F2FCF7'
+    min_ratio: 4.5
+  - fg: '#FFFFFF'
+    bg: '#0F6F45'
+    min_ratio: 4.5
+- id: proof_otp_video_account_sequence
+  source: screenshots/proof_otp_video_reveal.png
+  proof_type: synthetic_ad_scale_product_ui
+  synthetic_data: true
+  max_visible_rows: 1
+  highlighted_state: Delivery OTP warning shows account-change context before sharing
+  intended_proof_moment: The app shows account-change context before the user shares
+    a delivery OTP.
+  required_visible_text:
+  - Delivery OTP? Wait
+  - Code changes mobile number
+  - Do not share yet
+  forbidden_surfaces:
+  - settings
+  - debug
+  - fake_os_alert
+  - real_bank_brand
+  - real_url
+  - real_otp
+  crop_pct:
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+  focus_pct:
+    x: 50
+    y: 50
+  ad_scale_readability: thumbnail_safe
+  proof_typography:
+    min_important_text_px: 54
+    max_visible_text_blocks: 3
+    max_words_per_block: 5
+  product_surface: sms_review_screen
+  visual_adds: Shows the app-visible account-change warning and the review action
+    instead of generic OTP advice.
+  context_type: ui_led_video_sequence
+  contrast_checks:
+  - fg: '#102033'
+    bg: '#FFE5E1'
+    min_ratio: 4.5
+  - fg: '#FFFFFF'
+    bg: '#C21D14'
+    min_ratio: 4.5

@@ -1,0 +1,31 @@
+target_project: D:\Projects\SMS datasets and project\android_sms_classifier
+campaign_slug: google-ads-video-refresh-v5
+created_at: '2026-06-27T07:27:41Z'
+central_engine_path: D:\Projects\ad creatives
+central_engine_commit: 04d573406b54fbb7e1d4e86c19c4095c1af643be
+product_type: mobile_app
+requested_outputs:
+- youtube_shorts_video
+- google_app_video_asset
+- evals
+product_context_status: created_from_prior_confirmed_context
+user_approval_status: not_approved_for_spend
+stakes_map_status: created
+hook_gate_status: created
+message_map_status: created
+copy_preflight_status: pass_0_failures
+proof_authoring_status: created_and_eval_passed
+creative_quality_eval_status: strict_app_install_ship
+checker_model_review_status: strict_app_install_google_model_checked
+learning_capture_status: pending
+artifact_index:
+  new_run: D:\Projects\SMS datasets and project\ads\2026-06-27-google-ads-video-refresh-v5
+  slideshow_spec: D:\Projects\SMS datasets and project\ads\2026-06-27-google-ads-video-refresh-v5\slideshow_otp_account_9x16.json
+notes:
+- v5 video uses deterministic UI-led proof sequence for the OTP/account-change promise.
+- Generative video models are not used for proof; product claim is carried by synthetic
+  ad-proof UI and captions.
+- Final strict app-install eval passed; unlisted YouTube upload is https://youtube.com/shorts/aZV2OjSLU9Y.
+- Final paused Google Ads App ad group/ad created with video asset customers/6269702350/assets/380389776139.
+search_copy_status: deterministic_pass_model_held
+launch_ready_status: video_uploaded_and_attached_paused

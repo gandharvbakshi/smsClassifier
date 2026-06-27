@@ -1,0 +1,2 @@
+asset_id,asset_type,decision,upload_file,notes
+VID_OTP_ACCOUNT_9x16,video,ship,exports/launch_ready/VID_OTP_ACCOUNT_9x16.mp4,Strict app-install eval passed with Google checker; OTP-account-change promise visible before sharing.
