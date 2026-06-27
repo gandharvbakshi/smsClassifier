@@ -291,7 +291,7 @@ class EntitlementManager(private val context: Context) {
             } else {
                 editor.remove(KEY_PRO_EXPIRES_AT)
             }
-        } else if (state.proExpiresAt != null) {
+        } else {
             editor.remove(KEY_PRO)
             editor.remove(KEY_PRO_EXPIRES_AT)
         }

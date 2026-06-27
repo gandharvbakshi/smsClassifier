@@ -1,4 +1,4 @@
-v1.2.13 - Simpler Pro trial setup
-- Starts new users with a clearer 14-day Pro trial option during setup.
-- Keeps Basic mode available as a simple opt-out path.
-- Explains that Pro cloud checks add scam warnings without requiring payment details.
+v1.2.14 - Feedback and safety polish
+- Adds a private feedback path before asking happy users for public reviews.
+- Adds remote update and pause controls for safer test-user rollouts.
+- Tightens backend abuse protection and removes test sample data from the app bundle.

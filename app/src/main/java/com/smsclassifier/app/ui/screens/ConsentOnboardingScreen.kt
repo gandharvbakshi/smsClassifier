@@ -298,4 +298,5 @@ private suspend fun persistConsent(
     if (!alreadyLogged) {
         Telemetry.instance?.logEvent("app_first_open")
     }
+    Telemetry.instance?.logEvent("onboarding_complete")
 }

@@ -121,6 +121,7 @@ fun PhoneAuthScreen(
     LaunchedEffect(successUid) {
         if (successUid == null) return@LaunchedEffect
         CrashlyticsBootstrap.setUserId(successUid)
+        AppContainer.telemetry.setUserId(successUid)
         AppContainer.telemetry.logEvent(
             "phone_auth_completed",
             mapOf("success" to true.toString())

@@ -81,7 +81,7 @@ class ClassificationWorker(
                             hPred
                         } else {
                         try {
-                            ServerClassifier().predict(features).also { serverPrediction ->
+                            ServerClassifier(appContext = applicationContext).predict(features).also { serverPrediction ->
                                 usedServerResult = serverPrediction.isOtp != null ||
                                     serverPrediction.isPhishing != null
                             }

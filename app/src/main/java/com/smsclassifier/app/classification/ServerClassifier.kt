@@ -1,6 +1,9 @@
 package com.smsclassifier.app.classification
 
+import android.content.Context
+import com.google.firebase.auth.FirebaseAuth
 import com.smsclassifier.app.BuildConfig
+import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.util.AppLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,7 +20,11 @@ import java.util.concurrent.TimeUnit
 data class ServerRequest(
     val text: String,
     val sender: String? = null,
-    val features: Map<String, Float>? = null
+    val features: Map<String, Float>? = null,
+    val installId: String? = null,
+    val firebaseUid: String? = null,
+    val appVersionCode: Int? = null,
+    val appVersionName: String? = null
 )
 
 @Serializable
@@ -31,7 +38,8 @@ data class ServerResponse(
 
 class ServerClassifier(
     private val baseUrl: String = BuildConfig.SERVER_API_BASE_URL,
-    private val timeoutSeconds: Int = 10  // Increased timeout for Cloud Run
+    private val timeoutSeconds: Int = 10,  // Increased timeout for Cloud Run
+    private val appContext: Context? = null
 ) : Classifier {
     
     companion object {
@@ -51,6 +59,7 @@ class ServerClassifier(
         val url = "$baseUrl/classify"
         AppLog.d(TAG, "Making request to $url")
         AppLog.d(TAG, "Request text length: ${input.text.length}")
+        val installId = appContext?.let { SettingsRepository(it).installId }
         
         val requestBody = Json.encodeToString(
             ServerRequest(
@@ -58,7 +67,11 @@ class ServerClassifier(
                 sender = input.sender,
                 features = input.heuristicFeatures?.let { features ->
                     features.mapIndexed { index, value -> "feature_$index" to value }.toMap()
-                }
+                },
+                installId = installId,
+                firebaseUid = FirebaseAuth.getInstance().currentUser?.uid,
+                appVersionCode = BuildConfig.VERSION_CODE,
+                appVersionName = BuildConfig.VERSION_NAME
             )
         ).toRequestBody("application/json".toMediaType())
 

@@ -17,6 +17,8 @@ class SatisfactionPromptManager(private val context: Context) {
         val firstOpen = context.getSharedPreferences("telemetry_launch", Context.MODE_PRIVATE)
             .getLong("first_open_at_ms", now)
         val dayMs = 86_400_000L
+        val lastClosed = prefs.getLong(KEY_LAST_SESSION_DISMISS, 0L)
+        if (lastClosed > 0L && now - lastClosed < MIN_PROMPT_GAP_MS) return null
 
         if (!prefs.getBoolean(KEY_D1_DONE, false)) {
             if (now - firstOpen >= dayMs) return SatisfactionPromptKind.D1
@@ -47,5 +49,6 @@ class SatisfactionPromptManager(private val context: Context) {
         private const val KEY_D1_DONE = "d1_done"
         private const val KEY_D5_DONE = "d5_done"
         private const val KEY_LAST_SESSION_DISMISS = "last_session_dismiss"
+        private const val MIN_PROMPT_GAP_MS = 3L * 86_400_000L
     }
 }

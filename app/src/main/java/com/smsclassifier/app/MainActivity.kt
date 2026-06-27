@@ -5,6 +5,7 @@ import android.app.role.RoleManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Telephony
@@ -29,8 +30,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -53,6 +56,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.smsclassifier.app.data.AppDatabase
+import com.smsclassifier.app.data.SettingsRepository
+import com.smsclassifier.app.remote.AppRemoteConfigClient
+import com.smsclassifier.app.remote.RemoteSafetyState
 import com.smsclassifier.app.ui.screens.ComposeScreen
 import com.smsclassifier.app.ui.screens.DetailScreen
 import com.smsclassifier.app.ui.screens.InboxEntitlementUi
@@ -108,6 +114,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             var gateReady by remember { mutableStateOf(false) }
             var needsConsent by remember { mutableStateOf(false) }
+            var remoteSafety by remember { mutableStateOf(RemoteSafetyState.allow()) }
             LaunchedEffect(Unit) {
                 val seen = runCatching {
                     withTimeoutOrNull(CONSENT_GATE_TIMEOUT_MS) {
@@ -120,6 +127,9 @@ class MainActivity : ComponentActivity() {
                     )
                 }.getOrNull() ?: AppContainer.consentManager.onboardingSeenNow()
                 needsConsent = !seen
+                remoteSafety = AppRemoteConfigClient()
+                    .fetch(SettingsRepository(this@MainActivity).installId)
+                    .getOrElse { RemoteSafetyState.allow() }
                 gateReady = true
             }
             SMSClassifierTheme {
@@ -161,15 +171,17 @@ class MainActivity : ComponentActivity() {
                                 Spacer(modifier = Modifier.height(Spacing.xs))
                             }
                         }
+                    } else if (remoteSafety.blocksApp) {
+                        RemoteSafetyBlockScreen(remoteSafety)
                     } else {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                    val navController = rememberNavController()
-                    val backStackEntry by navController.currentBackStackEntryAsState()
-                    val currentRoute = backStackEntry?.destination?.route
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            val navController = rememberNavController()
+                            val backStackEntry by navController.currentBackStackEntryAsState()
+                            val currentRoute = backStackEntry?.destination?.route
 
-                    var entitlementRefresh by remember { mutableStateOf(0) }
-                    val productDetails by AppContainer.billingRepository.productDetails.collectAsState(initial = null)
-                    val formattedPrice = PlayBillingRepository.formattedAnnualPrice(productDetails)?.let { "$it/year" }
+                            var entitlementRefresh by remember { mutableStateOf(0) }
+                            val productDetails by AppContainer.billingRepository.productDetails.collectAsState(initial = null)
+                            val formattedPrice = PlayBillingRepository.formattedAnnualPrice(productDetails)?.let { "$it/year" }
 
                     LaunchedEffect(Unit) {
                         AppContainer.billingRepository.purchaseSuccess.collect {
@@ -422,6 +434,7 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("settings_notifications")
                                 },
                                 onNavigateToExport = { navController.navigate("settings_export") },
+                                onNavigateToLogs = { navController.navigate("logs") },
                                 onNavigateToAbout = { navController.navigate("settings_about") },
                                 onNavigateToPaywall = { navController.navigate("paywall/settings") },
                                 onNavigateToConsent = {
@@ -799,6 +812,73 @@ class MainActivity : ComponentActivity() {
         private const val REQUEST_NOTIFICATION_PERMISSION = 1002
         private const val REQUEST_SMS_PERMISSIONS = 1003
         private const val CONSENT_GATE_TIMEOUT_MS = 2_000L
+    }
+}
+
+@Composable
+private fun RemoteSafetyBlockScreen(state: RemoteSafetyState) {
+    val context = LocalContext.current
+    val title = if (state.updateRequired) "Update SMS Classifier" else "SMS Classifier is paused"
+    val message = state.message ?: if (state.updateRequired) {
+        "Please update to the latest version to keep using SMS Classifier."
+    } else {
+        "Service is temporarily unavailable. Please try again later."
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(Spacing.xl),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Surface(
+            shape = androidx.compose.foundation.shape.CircleShape,
+            color = MaterialTheme.colorScheme.primaryContainer,
+            tonalElevation = 1.dp
+        ) {
+            Icon(
+                imageVector = Icons.Default.PrivacyTip,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .size(80.dp)
+                    .padding(20.dp)
+            )
+        }
+        Spacer(modifier = Modifier.height(Spacing.lg))
+        Text(
+            text = title,
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.SemiBold
+        )
+        Spacer(modifier = Modifier.height(Spacing.sm))
+        Text(
+            text = message,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        if (state.updateRequired) {
+            Spacer(modifier = Modifier.height(Spacing.lg))
+            Button(
+                onClick = {
+                    val target = state.updateUrl
+                        ?: "market://details?id=${BuildConfig.APPLICATION_ID}"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(target))
+                    runCatching { context.startActivity(intent) }.onFailure {
+                        context.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
+                                    "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+                                )
+                            )
+                        )
+                    }
+                }
+            ) {
+                Text("Update")
+            }
+        }
     }
 }
 

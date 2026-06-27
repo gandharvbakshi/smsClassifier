@@ -16,6 +16,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.Description
@@ -78,6 +79,7 @@ fun SettingsScreen(
     onDefaultSmsChanged: () -> Unit = {},
     onNavigateToNotifications: () -> Unit,
     onNavigateToExport: () -> Unit,
+    onNavigateToLogs: () -> Unit,
     onNavigateToAbout: () -> Unit,
     onNavigateToPaywall: () -> Unit = {},
     onNavigateToConsent: () -> Unit = {},
@@ -244,6 +246,20 @@ fun SettingsScreen(
                             }
                         )
                     }
+                )
+                SectionDivider()
+                SettingsRow(
+                    icon = Icons.Default.BugReport,
+                    title = "Wrong-label reports",
+                    subtitle = "Review, share, or delete classifier mistake reports",
+                    trailing = {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    },
+                    onClick = onNavigateToLogs
                 )
                 SectionDivider()
                 SettingsRow(
