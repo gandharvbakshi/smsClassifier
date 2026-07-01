@@ -1,5 +1,6 @@
 package com.smsclassifier.app.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,6 +26,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Inbox
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
@@ -62,7 +65,6 @@ import com.smsclassifier.app.R
 import com.smsclassifier.app.ui.components.ConversationItem
 import com.smsclassifier.app.ui.components.FilterChips
 import com.smsclassifier.app.ui.components.MessageItem
-import com.smsclassifier.app.ui.components.OtpStrip
 import com.smsclassifier.app.ui.components.PrimaryButton
 import com.smsclassifier.app.ui.viewmodel.FilterType
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
@@ -96,7 +98,6 @@ fun InboxScreen(
     val filter by viewModel.filter.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
     val viewMode by viewModel.viewMode.collectAsState()
-    val recentOtps by viewModel.recentOtps.collectAsState()
 
     val totalCount by viewModel.totalCount.collectAsState(initial = 0)
     val otpCount by viewModel.otpCount.collectAsState(initial = 0)
@@ -144,12 +145,7 @@ fun InboxScreen(
                 onViewModeChange = viewModel::setViewMode,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 8.dp)
-            )
-
-            OtpStrip(
-                messages = recentOtps,
-                onCardClick = { id -> onMessageClick(id) }
+                .padding(horizontal = 12.dp, vertical = 8.dp)
             )
 
             FilterChips(
@@ -501,76 +497,90 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         if (ui.showTrialWelcome) {
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Text(
-                        text = "Pro is unlocked for $trialLabel: scam warnings, OTP purpose, and 'Do not share' alerts.",
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f)
-                    )
-                    TextButton(onClick = ui.onTrialWelcomeDismiss) {
-                        Text("Got it", fontWeight = FontWeight.SemiBold)
-                    }
-                }
-            }
+            EntitlementBannerCard(
+                label = "Pro trial",
+                body = "Pro is unlocked for $trialLabel: scam warnings, OTP purpose, and do-not-share alerts.",
+                primaryText = "Got it",
+                onPrimary = ui.onTrialWelcomeDismiss
+            )
         }
         if (ui.showTrialEnding) {
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer
-                )
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Text(
-                        text = "Trial ends in ${ui.trialDaysRemaining} day(s). Keep Pro for ${ui.formattedPrice ?: "Play price/year"}.",
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f)
-                    )
-                    TextButton(onClick = ui.onTrialEndingBuy) { Text("Subscribe") }
-                    TextButton(onClick = ui.onTrialEndingDismiss) { Text("Dismiss") }
-                }
-            }
+            EntitlementBannerCard(
+                label = "Trial ending",
+                body = "Trial ends in ${ui.trialDaysRemaining} day(s). Keep Pro for ${ui.formattedPrice ?: "Play price/year"}.",
+                primaryText = "Subscribe",
+                onPrimary = ui.onTrialEndingBuy,
+                secondaryText = "Dismiss",
+                onSecondary = ui.onTrialEndingDismiss
+            )
         }
         if (ui.showUnlockPro) {
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
-                )
-            ) {
+            EntitlementBannerCard(
+                label = "Pro needed",
+                body = if (trialAvailable) {
+                    "Scam warnings are unavailable here. Start a Pro trial ($trialLabel) or subscribe for scam warnings."
+                } else {
+                    "Scam warnings are unavailable here. Subscribe to Pro for scam warnings."
+                },
+                primaryText = if (trialAvailable) "Start trial" else "Subscribe",
+                onPrimary = ui.onUnlockPro
+            )
+        }
+    }
+}
+
+@Composable
+private fun EntitlementBannerCard(
+    label: String,
+    body: String,
+    primaryText: String? = null,
+    onPrimary: () -> Unit = {},
+    secondaryText: String? = null,
+    onSecondary: () -> Unit = {}
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = body,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            if (primaryText != null || secondaryText != null) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = if (trialAvailable) {
-                            "Scam warnings are unavailable here. Start a Pro trial ($trialLabel) or subscribe for scam warnings."
-                        } else {
-                            "Scam warnings are unavailable here. Subscribe to Pro for scam warnings."
-                        },
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f)
-                    )
-                    TextButton(onClick = ui.onUnlockPro) {
-                        Text(if (trialAvailable) "Start trial" else "Subscribe")
+                    if (secondaryText != null) {
+                        TextButton(onClick = onSecondary) {
+                            Text(secondaryText)
+                        }
+                    }
+                    if (primaryText != null) {
+                        Button(
+                            onClick = onPrimary,
+                            modifier = Modifier.heightIn(min = 48.dp)
+                        ) {
+                            Text(primaryText, fontWeight = FontWeight.SemiBold)
+                        }
                     }
                 }
             }

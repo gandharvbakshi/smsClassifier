@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -184,23 +185,26 @@ private fun OtpHighlight(
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = otpCode,
-            fontSize = 36.sp,
+            fontSize = 38.sp,
             fontWeight = FontWeight.Bold,
-            letterSpacing = 0.sp,
-            color = MaterialTheme.colorScheme.primary
+            fontFamily = FontFamily.Monospace,
+            letterSpacing = 4.sp,
+            color = MaterialTheme.colorScheme.onSurface
         )
         Spacer(modifier = Modifier.height(8.dp))
-        FilledTonalButton(
+        Button(
             onClick = onTapCopy,
-            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 56.dp)
         ) {
             Icon(
                 Icons.Default.ContentCopy,
                 contentDescription = null,
-                modifier = Modifier.size(16.dp)
+                modifier = Modifier.size(20.dp)
             )
-            Spacer(modifier = Modifier.width(6.dp))
-            Text("Copy OTP", style = MaterialTheme.typography.labelLarge)
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("Copy OTP", style = MaterialTheme.typography.titleMedium)
         }
         Spacer(modifier = Modifier.height(10.dp))
         Text(

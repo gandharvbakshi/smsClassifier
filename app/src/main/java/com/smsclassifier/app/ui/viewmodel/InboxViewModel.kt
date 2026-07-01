@@ -41,9 +41,6 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _recentOtps = MutableStateFlow<List<MessageEntity>>(emptyList())
-    val recentOtps: StateFlow<List<MessageEntity>> = _recentOtps.asStateFlow()
-
     private val _viewMode = MutableStateFlow(ViewMode.MESSAGES)
     val viewMode: StateFlow<ViewMode> = _viewMode.asStateFlow()
 
@@ -84,7 +81,6 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
 
     init {
         refreshCounts()
-        viewModelScope.launch { refreshRecentOtps() }
 
         viewModelScope.launch {
             database.messageDao().getLatestMessage().collect { latest ->
@@ -95,17 +91,9 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
                         if (_viewMode.value == ViewMode.THREADS) {
                             loadConversations()
                         }
-                        refreshRecentOtps()
                     }
                 }
             }
-        }
-    }
-
-    fun refreshRecentOtps() {
-        viewModelScope.launch {
-            val tenMinutesAgo = System.currentTimeMillis() - 10 * 60 * 1000L
-            _recentOtps.value = database.messageDao().getRecentOtps(tenMinutesAgo, limit = 3)
         }
     }
 
@@ -186,7 +174,6 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
                 }
                 
                 _conversations.value = filtered
-                refreshRecentOtps()
             } catch (e: Exception) {
                 // Handle error
             } finally {

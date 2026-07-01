@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -187,6 +188,7 @@ private fun CopyOtpPill(code: String) {
             Text(
                 text = code,
                 style = MaterialTheme.typography.titleMedium,
+                fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold
             )
         }
