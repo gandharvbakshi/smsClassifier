@@ -1,24 +1,26 @@
-SMS Classifier is an SMS-first inbox for people who want OTPs, service messages, and risky-looking texts to be easier to review.
+SMS Classifier is a default SMS app built to make OTPs easier to find and risky texts easier to review.
 
-It can be set as your default SMS app so it can receive, read, send, and organize messages on your phone.
+Use it as your texting app to import and organize SMS on your phone. Basic OTP sorting runs on-device. Trial and Pro cloud checks add scam warnings, OTP purpose hints, and "do not share" alerts when you want stronger protection.
 
 What it helps with
 
-- OTP inbox: identifies one-time passwords and makes them easier to find.
-- Message labels: helps separate OTP, general, suspicious, and review-needed messages.
-- OTP details: shows intent and sensitivity hints when cloud checks are available.
-- Scam awareness: highlights phishing signals and risky links when classification data supports it.
-- One-tap actions: copy OTPs, search messages, and manage conversations.
-- Data controls: export your data or delete local app data from Settings.
+- Find OTPs quickly and copy codes in one tap.
+- Review scam-like SMS with warning labels and reasons.
+- Separate OTP, safe, suspicious, and review-needed messages.
+- Spot risky links, urgent payment pressure, and sender tricks.
+- Keep basic sorting local if you do not want Pro cloud checks.
+- Export your data or delete local app data from Settings.
+
+Privacy and control
+
+SMS Classifier needs to become your default SMS app for full SMS features. Your messages are stored in the app's local database so the inbox can work on your device.
+
+Free mode uses local OTP detection for basic sorting. During the 14-day Pro trial and while Pro is active, cloud classification can send message text and sender information over HTTPS to the app's backend to classify risky messages and OTP purpose. Optional mistake reports are redacted before upload and are off unless you turn them on. Usage diagnostics and crash reports are controlled in Settings. The app does not use ads or the Android advertising ID.
 
 Free, trial, and Pro
 
-SMS Classifier includes local OTP detection for basic use. Setup recommends starting a 14-day Pro trial for scam warnings, OTP purpose, and 'Do not share' alerts, with Basic mode available if you prefer local-only sorting. During the trial, and while your Pro subscription is active, the app can use cloud classification to explain what codes are for, show scam warnings, and surface 'Do not share' alerts. Pro is an annual Google Play subscription priced at ₹199/year in India and renews yearly unless you cancel in Play Store.
-
-Privacy notes
-
-SMS Classifier stores messages in the app's local database so the inbox can work on your device. Cloud classification is used when available through your trial or Pro access and sends message text and sender information over HTTPS to the app's backend for classification. Optional feedback uploads send redacted examples to help improve accuracy. Usage analytics and crash reports are controlled in Settings. The app does not use ads or the Android advertising ID.
+You can start with a 14-day Pro trial or continue with Basic mode. Pro is an annual Google Play subscription priced at ₹199/year in India and renews yearly unless you cancel in Play Store.
 
 Important
 
-SMS Classifier must become your default SMS app for full SMS features. Classification is a decision aid and may be wrong, so always verify suspicious messages before opening links, sharing OTPs, or making payments. MMS media support is limited.
+SMS Classifier is a decision aid and may be wrong. Always verify suspicious messages before opening links, sharing OTPs, or making payments. MMS media support is limited.

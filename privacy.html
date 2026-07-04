@@ -82,11 +82,11 @@
 <body>
     <div class="container">
         <h1>Privacy Policy for SMS Classifier</h1>
-        <p class="last-updated"><strong>Last Updated:</strong> May 23, 2026</p>
+        <p class="last-updated"><strong>Last Updated:</strong> July 4, 2026</p>
 
         <h2>Introduction</h2>
         <p>SMS Classifier ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our SMS Classifier mobile application ("the App").</p>
-        <p>The App is a Free / Pro Android SMS reader that classifies incoming messages as OTP, phishing, or general. A 14-day free trial of cloud classification starts automatically when the App detects your first OTP. Pro is an annual Google Play subscription priced at ₹199/year in India and renews yearly unless you cancel in Play Store.</p>
+        <p>The App is a Free / Pro Android SMS reader that classifies incoming messages as OTP, phishing, or general. You can choose to start a 14-day free trial of cloud classification during setup or from the Pro screen. Pro is an annual Google Play subscription priced at ₹199/year in India and renews yearly unless you cancel in Play Store.</p>
 
         <h2>Plain-English Summary</h2>
         <ul>
@@ -105,7 +105,7 @@
             <li><strong>Why we collect it:</strong> To classify messages as OTP, likely scam, or general, and to extract OTP codes for one-tap copy.</li>
             <li><strong>How we use it:</strong>
                 <ul>
-                    <li><strong>Free tier (after trial expires):</strong> classification runs entirely on your device. Raw SMS content does not leave your device.</li>
+                    <li><strong>Free tier / Basic mode:</strong> classification runs entirely on your device. Raw SMS content does not leave your device.</li>
                     <li><strong>Trial tier (active 14-day Pro trial) and Pro tier:</strong> SMS bodies and senders are sent over HTTPS to our classification API for higher-accuracy cloud classification. They are processed in real time and are not retained after the response is returned.</li>
                 </ul>
             </li>
@@ -177,14 +177,14 @@
 
         <h3>On-Device Processing</h3>
         <ul>
-            <li>Heuristic classification runs on your device. After your trial expires, all classification is performed on-device by default.</li>
+            <li>Heuristic classification runs on your device in Basic mode and after any trial expires.</li>
             <li>When processed on-device, your SMS content never leaves your device.</li>
             <li>No SMS content is transmitted to external servers in this mode.</li>
         </ul>
 
         <h3>Cloud Processing (Trial / Pro)</h3>
         <ul>
-            <li>During the 14-day trial that begins automatically with your first OTP, and for users with active Pro access, SMS content is sent to our classification API hosted on Google Cloud Run.</li>
+            <li>During the 14-day trial you choose to start, and for users with active Pro access, SMS content is sent to our classification API hosted on Google Cloud Run.</li>
             <li>Messages are sent over encrypted HTTPS connections (TLS 1.2+).</li>
             <li>Classification requests are processed in real time. SMS content sent only for classification is <strong>not retained</strong> on our servers after processing.</li>
             <li>Misclassification feedback (described above), when you explicitly opt in, is stored separately for improving the classifier &mdash; not limited to ephemeral processing.</li>

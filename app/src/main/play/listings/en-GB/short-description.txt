@@ -1,1 +1,1 @@
-OTP inbox and scam warnings with optional Pro checks
+OTP inbox and scam warnings for your default SMS app
