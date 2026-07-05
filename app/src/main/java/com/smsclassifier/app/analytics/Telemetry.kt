@@ -149,7 +149,11 @@ class Telemetry(
             launchPrefs.edit().putString("last_dau_date", utcDay).apply()
         }
 
-        val prevDefault = launchPrefs.getBoolean("last_known_default_sms", defaultSmsNow)
+        val prevDefault = if (launchPrefs.contains("last_known_default_sms")) {
+            launchPrefs.getBoolean("last_known_default_sms", false)
+        } else {
+            false
+        }
         if (defaultSmsNow && !prevDefault) {
             logEvent("default_sms_set")
         }

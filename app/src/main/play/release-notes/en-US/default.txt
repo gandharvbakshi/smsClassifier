@@ -1,4 +1,4 @@
-v1.2.16 - Setup and feedback polish
-- Splits setup into four simple steps, including default SMS confirmation.
-- Makes Pro trial the clear recommended start while keeping the free app available.
-- Improves private feedback, mistake reports, timestamps, and warning labels.
+v1.2.18 - Analytics and setup telemetry fixes
+- Improves setup telemetry around default SMS and SMS permissions.
+- Reduces noisy offline classification analytics while keeping the signal.
+- Adds clearer satisfaction score events for future feedback diagnosis.

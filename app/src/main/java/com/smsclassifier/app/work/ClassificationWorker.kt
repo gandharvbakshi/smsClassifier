@@ -50,6 +50,7 @@ class ClassificationWorker(
 
             AppLog.d(TAG, "Classifying ${unclassifiedMessages.size} messages")
 
+            var serverOfflineSkippedCount = 0
             unclassifiedMessages.forEach { message ->
                 try {
                     if (message.body.isBlank()) {
@@ -77,7 +78,7 @@ class ClassificationWorker(
                     val prediction = if (useServer) {
                         if (!hasInternet()) {
                             AppLog.d(TAG, "Skipping server classify (offline); using heuristic for message ${message.id}")
-                            AppContainer.telemetry.logEvent("server_classify_skipped_offline", emptyMap())
+                            serverOfflineSkippedCount++
                             hPred
                         } else {
                         try {
@@ -136,6 +137,13 @@ class ClassificationWorker(
                         AppLog.e(TAG, "Failed to update message after classification error", dbError)
                     }
                 }
+            }
+
+            if (serverOfflineSkippedCount > 0) {
+                AppContainer.telemetry.logEvent(
+                    "server_classify_skipped_offline",
+                    mapOf("skipped" to serverOfflineSkippedCount)
+                )
             }
 
             val hasMore = database.messageDao().getUnclassified(limit = 1).isNotEmpty()

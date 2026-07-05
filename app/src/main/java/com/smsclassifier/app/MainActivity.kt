@@ -591,8 +591,12 @@ class MainActivity : ComponentActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_DEFAULT_SMS) {
-            defaultSmsAppState.value = isDefaultSmsAppNow()
-            if (isDefaultSmsAppNow()) {
+            val defaultGranted = isDefaultSmsAppNow()
+            defaultSmsAppState.value = defaultGranted
+            AppContainer.telemetry.logEvent(
+                if (defaultGranted) "default_sms_prompt_granted" else "default_sms_prompt_denied"
+            )
+            if (defaultGranted) {
                 window.decorView.post {
                     requestSmsPermissionsIfNeeded()
                 }
@@ -623,11 +627,14 @@ class MainActivity : ComponentActivity() {
                 }
             }
             REQUEST_SMS_PERMISSIONS -> {
-                val allGranted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+                val allGranted = grantResults.isNotEmpty() &&
+                    grantResults.all { it == PackageManager.PERMISSION_GRANTED }
                 if (allGranted) {
+                    AppContainer.telemetry.logEvent("sms_permissions_granted")
                     com.smsclassifier.app.util.AppLog.d("MainActivity", "SMS permissions granted")
                     maybeEnqueueSmsImport()
                 } else {
+                    AppContainer.telemetry.logEvent("sms_permissions_denied")
                     com.smsclassifier.app.util.AppLog.w("MainActivity", "SMS permissions denied")
                     // Show rationale or link to settings
                 }
@@ -749,6 +756,7 @@ class MainActivity : ComponentActivity() {
             val shouldShowRationale = permissionsToRequest.any { permission ->
                 ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
             }
+            AppContainer.telemetry.logEvent("sms_permissions_requested")
             
             if (shouldShowRationale) {
                 // Show rationale dialog or snackbar explaining why permissions are needed
@@ -789,6 +797,7 @@ class MainActivity : ComponentActivity() {
             if (roleManager?.isRoleAvailable(RoleManager.ROLE_SMS) == true) {
                 roleManager.createRequestRoleIntent(RoleManager.ROLE_SMS)
             } else {
+                AppContainer.telemetry.logEvent("default_sms_prompt_unavailable")
                 return false
             }
         } else {
@@ -798,9 +807,11 @@ class MainActivity : ComponentActivity() {
         }
 
         return runCatching {
+            AppContainer.telemetry.logEvent("default_sms_prompt_shown")
             startActivityForResult(intent, REQUEST_DEFAULT_SMS)
             true
         }.getOrElse { throwable ->
+            AppContainer.telemetry.logEvent("default_sms_prompt_unavailable")
             com.smsclassifier.app.util.AppLog.w(
                 "MainActivity",
                 "Unable to launch default SMS prompt: ${throwable.message}"

@@ -115,6 +115,12 @@ fun SatisfactionPromptHost(
             "satisfaction_response",
             mapOf("prompt_kind" to kindStr, "score" to score)
         )
+        if (score in 1..5) {
+            AppContainer.telemetry.logEvent(
+                "satisfaction_score_$score",
+                mapOf("prompt_kind" to kindStr)
+            )
+        }
         if (score <= 3) {
             prompt = null
             feedbackComment = ""
