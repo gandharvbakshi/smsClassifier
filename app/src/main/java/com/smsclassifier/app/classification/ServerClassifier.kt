@@ -36,6 +36,81 @@ data class ServerResponse(
     val reasons: List<String> = emptyList()
 )
 
+class ServerClassifyException(
+    val kind: Kind,
+    val statusCode: Int? = null,
+    message: String,
+    cause: Throwable? = null
+) : IOException(message, cause) {
+    enum class Kind {
+        RATE_LIMITED,
+        TIMEOUT,
+        NETWORK,
+        SERVER,
+        CLIENT,
+        UNKNOWN
+    }
+
+    val retryable: Boolean
+        get() = kind == Kind.TIMEOUT || kind == Kind.NETWORK || kind == Kind.SERVER || kind == Kind.UNKNOWN
+
+    val telemetryReason: String
+        get() = when (kind) {
+            Kind.RATE_LIMITED -> "rate_limited"
+            Kind.TIMEOUT -> "timeout"
+            Kind.NETWORK -> "network"
+            Kind.SERVER -> "server"
+            Kind.CLIENT -> "client"
+            Kind.UNKNOWN -> "unknown"
+        }
+
+    val userMessage: String
+        get() = when (kind) {
+            Kind.RATE_LIMITED -> "Cloud check is busy right now."
+            Kind.TIMEOUT -> "Cloud check timed out."
+            Kind.NETWORK -> "Cloud check could not connect."
+            Kind.SERVER -> "Cloud check is temporarily unavailable."
+            Kind.CLIENT -> "Cloud check request was rejected."
+            Kind.UNKNOWN -> "Cloud check failed."
+        }
+
+    companion object {
+        fun fromStatus(code: Int): ServerClassifyException {
+            val kind = when (code) {
+                429 -> Kind.RATE_LIMITED
+                in 500..599 -> Kind.SERVER
+                in 400..499 -> Kind.CLIENT
+                else -> Kind.UNKNOWN
+            }
+            return ServerClassifyException(
+                kind = kind,
+                statusCode = code,
+                message = "Server error: $code"
+            )
+        }
+
+        fun fromException(error: Exception): ServerClassifyException {
+            if (error is ServerClassifyException) return error
+            val kind = when (error) {
+                is java.net.SocketTimeoutException -> Kind.TIMEOUT
+                is java.net.UnknownHostException,
+                is java.net.ConnectException -> Kind.NETWORK
+                else -> when {
+                    error.cause is java.net.SocketTimeoutException -> Kind.TIMEOUT
+                    error.cause is java.net.UnknownHostException ||
+                        error.cause is java.net.ConnectException -> Kind.NETWORK
+                    else -> Kind.UNKNOWN
+                }
+            }
+            return ServerClassifyException(
+                kind = kind,
+                message = error.message ?: "Server classify failed",
+                cause = error
+            )
+        }
+    }
+}
+
 class ServerClassifier(
     private val baseUrl: String = BuildConfig.SERVER_API_BASE_URL,
     private val timeoutSeconds: Int = 10,  // Increased timeout for Cloud Run
@@ -51,7 +126,6 @@ class ServerClassifier(
         .writeTimeout(timeoutSeconds.toLong(), TimeUnit.SECONDS)
         .build()
 
-    private var retryCount = 0
     private val maxRetries = 3
 
     override suspend fun predict(input: MessageFeatures): Prediction = withContext(Dispatchers.IO) {
@@ -84,13 +158,16 @@ class ServerClassifier(
         
         repeat(maxRetries) { attempt ->
             try {
-                val response = client.newCall(request).execute()
-                val responseBody = response.body?.string() ?: throw IOException("Empty response")
-                
-                if (response.isSuccessful) {
+                client.newCall(request).execute().use { response ->
+                    val responseBody = response.body?.string() ?: throw IOException("Empty response")
+
+                    if (!response.isSuccessful) {
+                        throw ServerClassifyException.fromStatus(response.code)
+                    }
+
                     val serverResponse = Json.decodeFromString<ServerResponse>(responseBody)
                     val inferenceTime = System.currentTimeMillis() - startTime
-                    
+
                     return@withContext Prediction(
                         isOtp = serverResponse.isOtp,
                         otpIntent = serverResponse.otpIntent,
@@ -99,53 +176,25 @@ class ServerClassifier(
                         reasons = serverResponse.reasons,
                         inferenceTimeMs = inferenceTime
                     )
-                } else {
-                    throw IOException("Server error: ${response.code}")
                 }
             } catch (e: Exception) {
-                lastException = e
-                AppLog.w(TAG, "Attempt ${attempt + 1} failed: ${e.message}", e)
-                
-                // Exponential backoff
-                if (attempt < maxRetries - 1) {
-                    val delayMs = (1000 * (1 shl attempt)).toLong()
-                    Thread.sleep(delayMs)
+                val failure = ServerClassifyException.fromException(e)
+                lastException = failure
+                AppLog.w(TAG, "Attempt ${attempt + 1} failed: ${failure.message}", failure)
+
+                if (!failure.retryable || attempt == maxRetries - 1) {
+                    AppLog.e(TAG, "Server classify failed", failure)
+                    throw failure
                 }
+
+                // Exponential backoff
+                val delayMs = (1000 * (1 shl attempt)).toLong()
+                Thread.sleep(delayMs)
             }
         }
         
-        // All retries failed
-        AppLog.e(TAG, "All retry attempts failed", lastException)
-        val inferenceTime = System.currentTimeMillis() - startTime
-        
-        // Generate user-friendly error message
-        val userFriendlyError = when {
-            lastException is java.net.UnknownHostException || 
-            lastException?.cause is java.net.UnknownHostException -> 
-                "Unable to connect to classification service. Please check your internet connection."
-            lastException is java.net.SocketTimeoutException || 
-            lastException?.cause is java.net.SocketTimeoutException -> 
-                "Classification request timed out. Please try again."
-            lastException is java.net.ConnectException || 
-            lastException?.cause is java.net.ConnectException -> 
-                "Unable to reach classification service. Please check your connection and try again."
-            lastException?.message?.contains("500", ignoreCase = true) == true -> 
-                "Classification service is temporarily unavailable. Please try again later."
-            lastException?.message?.contains("503", ignoreCase = true) == true -> 
-                "Classification service is temporarily unavailable. Please try again later."
-            lastException?.message?.contains("404", ignoreCase = true) == true -> 
-                "Classification service endpoint not found. Please contact support."
-            else -> 
-                "Unable to classify message at this time. Please try again later."
-        }
-        
-        Prediction(
-            isOtp = null,
-            otpIntent = null,
-            isPhishing = null,
-            phishScore = 0f,
-            reasons = listOf(userFriendlyError),
-            inferenceTimeMs = inferenceTime
+        throw ServerClassifyException.fromException(
+            lastException ?: IOException("Server classify failed")
         )
     }
 

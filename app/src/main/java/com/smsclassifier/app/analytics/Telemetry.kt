@@ -210,6 +210,8 @@ class Telemetry(
             "score",
             "value",
             "dau_date",
+            "count",
+            "skipped",
             "uploaded",
             "failed"
         )

@@ -13,6 +13,7 @@ import androidx.work.WorkerParameters
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.classification.FeatureExtractor
 import com.smsclassifier.app.classification.HeuristicOnlyClassifier
+import com.smsclassifier.app.classification.ServerClassifyException
 import com.smsclassifier.app.classification.ServerClassifier
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.util.PerformanceTracker
@@ -51,6 +52,9 @@ class ClassificationWorker(
             AppLog.d(TAG, "Classifying ${unclassifiedMessages.size} messages")
 
             var serverOfflineSkippedCount = 0
+            var serverSuccessCount = 0
+            var serverRateLimitedCount = 0
+            val serverFailureCounts = mutableMapOf<String, Int>()
             unclassifiedMessages.forEach { message ->
                 try {
                     if (message.body.isBlank()) {
@@ -79,18 +83,43 @@ class ClassificationWorker(
                         if (!hasInternet()) {
                             AppLog.d(TAG, "Skipping server classify (offline); using heuristic for message ${message.id}")
                             serverOfflineSkippedCount++
-                            hPred
+                            ClassificationWorkerPolicy.fallbackPrediction(
+                                hPred,
+                                ClassificationWorkerPolicy.OFFLINE_FALLBACK_REASON
+                            )
                         } else {
-                        try {
-                            ServerClassifier(appContext = applicationContext).predict(features).also { serverPrediction ->
-                                usedServerResult = serverPrediction.isOtp != null ||
-                                    serverPrediction.isPhishing != null
+                            try {
+                                val serverPrediction = ServerClassifier(appContext = applicationContext).predict(features)
+                                usedServerResult = ClassificationWorkerPolicy.hasUsableServerResult(serverPrediction)
+                                if (usedServerResult) {
+                                    serverSuccessCount++
+                                    serverPrediction
+                                } else {
+                                    recordServerFailure(serverFailureCounts, "empty_result")
+                                    ClassificationWorkerPolicy.fallbackPrediction(
+                                        hPred,
+                                        ClassificationWorkerPolicy.SERVER_FALLBACK_REASON
+                                    )
+                                }
+                            } catch (e: ServerClassifyException) {
+                                AppLog.w(TAG, "Server classify unavailable for ${message.id}: ${e.message}", e)
+                                recordServerFailure(serverFailureCounts, e.telemetryReason)
+                                if (e.kind == ServerClassifyException.Kind.RATE_LIMITED) {
+                                    serverRateLimitedCount++
+                                }
+                                ClassificationWorkerPolicy.fallbackPrediction(
+                                    hPred,
+                                    "${e.userMessage} Using basic on-device classification."
+                                )
+                            } catch (e: Exception) {
+                                AppLog.e(TAG, "Server classify failed for ${message.id}: ${e.message}", e)
+                                SafeError.report(TAG, e)
+                                recordServerFailure(serverFailureCounts, "unknown")
+                                ClassificationWorkerPolicy.fallbackPrediction(
+                                    hPred,
+                                    ClassificationWorkerPolicy.SERVER_FALLBACK_REASON
+                                )
                             }
-                        } catch (e: Exception) {
-                            AppLog.e(TAG, "Server classify failed for ${message.id}: ${e.message}", e)
-                            SafeError.report(TAG, e)
-                            hPred
-                        }
                         }
                     } else {
                         hPred
@@ -110,27 +139,21 @@ class ClassificationWorker(
                         AppContainer.entitlementManager.onWorkerDetectedOtp()
                     }
 
-                    val updatedMessage = message.copy(
-                        isOtp = prediction.isOtp,
-                        otpIntent = if (usedServerResult) prediction.otpIntent else null,
-                        isPhishing = if (usedServerResult) prediction.isPhishing else null,
-                        phishScore = if (usedServerResult) prediction.phishScore else null,
-                        reasonsJson = if (useServer && prediction.reasons.isNotEmpty()) {
-                            prediction.reasons.joinToString(",") { "\"$it\"" }.let { "[$it]" }
-                        } else {
-                            null
-                        },
-                        reviewed = if (useServer) message.reviewed else true
+                    val updatedMessage = ClassificationWorkerPolicy.updatedMessage(
+                        message = message,
+                        prediction = prediction,
+                        usedServerResult = usedServerResult
                     )
 
                     database.messageDao().update(updatedMessage)
                     AppContainer.telemetry.maybeLogFirstSmsClassified()
                 } catch (e: Exception) {
                     AppLog.e(TAG, "Failed to classify message ${message.id}: ${e.message}", e)
-                    // Don't retry indefinitely - mark as needing review after failures
+                    // Don't retry indefinitely; keep a basic non-OTP fallback so this row leaves the queue.
                     try {
-                        val failedMessage = message.copy(
-                            reasonsJson = "[\"Classification error: ${e.message?.take(50) ?: "Unknown error"}\"]"
+                        val failedMessage = ClassificationWorkerPolicy.failedMessage(
+                            message = message,
+                            errorMessage = e.message ?: "Unknown error"
                         )
                         database.messageDao().update(failedMessage)
                     } catch (dbError: Exception) {
@@ -143,6 +166,24 @@ class ClassificationWorker(
                 AppContainer.telemetry.logEvent(
                     "server_classify_skipped_offline",
                     mapOf("skipped" to serverOfflineSkippedCount)
+                )
+            }
+            if (serverSuccessCount > 0) {
+                AppContainer.telemetry.logEvent(
+                    "server_classify_success",
+                    mapOf("count" to serverSuccessCount)
+                )
+            }
+            serverFailureCounts.forEach { (reason, count) ->
+                AppContainer.telemetry.logEvent(
+                    "server_classify_failed",
+                    mapOf("reason" to reason, "count" to count)
+                )
+            }
+            if (serverRateLimitedCount > 0) {
+                AppContainer.telemetry.logEvent(
+                    "server_classify_rate_limited",
+                    mapOf("count" to serverRateLimitedCount)
                 )
             }
 
@@ -164,6 +205,10 @@ class ClassificationWorker(
         private const val TAG = "ClassificationWorker"
         private const val WORK_NAME = "classify_sms"
         private const val BATCH_LIMIT = 50
+
+        private fun recordServerFailure(counts: MutableMap<String, Int>, reason: String) {
+            counts[reason] = (counts[reason] ?: 0) + 1
+        }
 
         fun enqueue(context: Context) {
             AppLog.d(TAG, "Enqueuing classification work")

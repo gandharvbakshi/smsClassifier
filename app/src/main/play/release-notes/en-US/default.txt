@@ -1,4 +1,4 @@
-v1.2.18 - Analytics and setup telemetry fixes
-- Improves setup telemetry around default SMS and SMS permissions.
-- Reduces noisy offline classification analytics while keeping the signal.
-- Adds clearer satisfaction score events for future feedback diagnosis.
+v1.2.19 - Offline classification stability
+- Keeps basic on-device classification stable when cloud checks are offline or busy.
+- Prevents repeated background reprocessing loops for server-pending messages.
+- Adds clearer cloud check success, failure, and rate-limit telemetry.
