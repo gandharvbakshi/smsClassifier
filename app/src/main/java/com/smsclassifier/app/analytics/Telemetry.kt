@@ -17,7 +17,11 @@ class Telemetry(
     private val launchPrefs get() =
         context.getSharedPreferences("telemetry_launch", Context.MODE_PRIVATE)
 
+    private val retentionPrefs get() =
+        context.getSharedPreferences("retention_milestones", Context.MODE_PRIVATE)
+
     fun init() {
+        seedRetentionFirstObservedLaunchAt()
         analytics.setAnalyticsCollectionEnabled(consentManager.analyticsEnabledNow())
         analytics.setUserProperty("app_version_name", BuildConfig.VERSION_NAME)
         analytics.setUserProperty("app_version_code", BuildConfig.VERSION_CODE.toString())
@@ -125,9 +129,11 @@ class Telemetry(
 
     /**
      * Call from [com.smsclassifier.app.MainActivity] on resume: rate-limited [app_open],
-     * once-per-UTC-day [daily_active], and [default_sms_set] on transition to default.
+     * once-per-UTC-day [daily_active], exact UTC D1/D3/D7 retention logging,
+     * and [default_sms_set] on transition to default.
      */
     fun onMainActivityResume(defaultSmsNow: Boolean) {
+        maybeLogRetentionMilestone()
         if (!consentManager.analyticsEnabledNow()) return
         val now = System.currentTimeMillis()
         val firstOpen = launchPrefs.getLong("first_open_at_ms", now)
@@ -182,6 +188,48 @@ class Telemetry(
         )
     }
 
+    private fun seedRetentionFirstObservedLaunchAt() {
+        if (retentionPrefs.contains(KEY_RETENTION_FIRST_OBSERVED_LAUNCH_AT_MS)) return
+        val now = System.currentTimeMillis()
+        val launchFirstOpenAtMs = launchPrefs.getLong(KEY_FIRST_OPEN_AT_MS, now)
+            .takeIf { launchPrefs.contains(KEY_FIRST_OPEN_AT_MS) }
+        retentionPrefs.edit()
+            .putLong(
+                KEY_RETENTION_FIRST_OBSERVED_LAUNCH_AT_MS,
+                RetentionMilestonePolicy.seedFirstObservedLaunchAt(
+                    existingFirstObservedLaunchAtMs = null,
+                    telemetryLaunchFirstOpenAtMs = launchFirstOpenAtMs,
+                    nowMs = now,
+                )
+            )
+            .apply()
+    }
+
+    private fun maybeLogRetentionMilestone() {
+        if (!consentManager.analyticsEnabledNow()) return
+        val now = System.currentTimeMillis()
+        val firstObservedLaunchAtMs =
+            retentionPrefs.getLong(KEY_RETENTION_FIRST_OBSERVED_LAUNCH_AT_MS, now)
+                .takeIf { retentionPrefs.contains(KEY_RETENTION_FIRST_OBSERVED_LAUNCH_AT_MS) }
+                ?: return
+        val loggedMilestones = retentionMilestoneNames()
+        val eventName = RetentionMilestonePolicy.dueEventName(
+            firstObservedLaunchAtMs = firstObservedLaunchAtMs,
+            nowMs = now,
+            alreadyLogged = loggedMilestones,
+        ) ?: return
+        logEvent(eventName)
+        retentionPrefs.edit().putBoolean(retentionLoggedKey(eventName), true).apply()
+    }
+
+    private fun retentionMilestoneNames(): Set<String> {
+        return buildSet {
+            if (retentionPrefs.getBoolean(retentionLoggedKey("retention_d1"), false)) add("retention_d1")
+            if (retentionPrefs.getBoolean(retentionLoggedKey("retention_d3"), false)) add("retention_d3")
+            if (retentionPrefs.getBoolean(retentionLoggedKey("retention_d7"), false)) add("retention_d7")
+        }
+    }
+
     private fun safeLabel(value: String): String {
         return value
             .lowercase()
@@ -225,7 +273,12 @@ class Telemetry(
     }
 
     companion object {
+        private const val KEY_FIRST_OPEN_AT_MS = "first_open_at_ms"
+        private const val KEY_RETENTION_FIRST_OBSERVED_LAUNCH_AT_MS = "first_observed_launch_at_ms"
+
         @JvmField
         var instance: Telemetry? = null
+
+        private fun retentionLoggedKey(eventName: String) = "logged_$eventName"
     }
 }

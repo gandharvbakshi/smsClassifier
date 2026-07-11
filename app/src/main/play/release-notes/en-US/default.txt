@@ -1,4 +1,3 @@
-v1.2.19 - Offline classification stability
-- Keeps basic on-device classification stable when cloud checks are offline or busy.
-- Prevents repeated background reprocessing loops for server-pending messages.
-- Adds clearer cloud check success, failure, and rate-limit telemetry.
+v1.2.20 - Retention telemetry improvements
+- Improves D1, D3, and D7 retention measurement accuracy.
+- A reinstall starts a fresh retention lifecycle so retention tracking resets cleanly.

@@ -2,6 +2,13 @@
 <data-extraction-rules>
     <cloud-backup>
         <exclude domain="database" path="sms_classifier.db" />
+        <exclude domain="sharedpref" path="telemetry_launch.xml" />
+        <exclude domain="sharedpref" path="retention_milestones.xml" />
     </cloud-backup>
+    <device-transfer>
+        <exclude domain="database" path="sms_classifier.db" />
+        <exclude domain="sharedpref" path="telemetry_launch.xml" />
+        <exclude domain="sharedpref" path="retention_milestones.xml" />
+    </device-transfer>
 </data-extraction-rules>
 
