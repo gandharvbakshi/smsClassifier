@@ -4,7 +4,6 @@ import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.util.AppLog
 import java.io.IOException
 import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -23,11 +22,11 @@ class DeleteAccountClient(
 
     suspend fun delete(installId: String, uid: String?): Result<Unit> = withContext(Dispatchers.IO) {
         try {
-            val encInstall = URLEncoder.encode(installId, StandardCharsets.UTF_8)
+            val encInstall = URLEncoder.encode(installId, Charsets.UTF_8.name())
             val q = buildString {
                 append("/users/me?installId=").append(encInstall)
                 if (!uid.isNullOrBlank()) {
-                    append("&uid=").append(URLEncoder.encode(uid, StandardCharsets.UTF_8))
+                    append("&uid=").append(URLEncoder.encode(uid, Charsets.UTF_8.name()))
                 }
             }
             val url = baseUrl.trimEnd('/') + q

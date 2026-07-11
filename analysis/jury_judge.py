@@ -2,7 +2,7 @@
 LLM-as-jury classifier for SMS messages.
 
 Sends each row of the SMS classification log to N independent LLM judges
-(OpenAI, Google Gemini, DeepSeek), records each verdict to a JSONL file
+(OpenAI, Google Gemini, DeepSeek, Anthropic), records each verdict to a JSONL file
 that is RESUMABLE: re-running picks up exactly where it stopped without
 double-spending API credits.
 
@@ -39,6 +39,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 DEFAULT_DATASET = PROJECT_ROOT / "sms classifier log 2 may .csv"
 DEFAULT_ENV = PROJECT_ROOT / "app" / ".env"
+DEFAULT_FALLBACK_ENV = PROJECT_ROOT.parents[1] / ".env"
 DEFAULT_OUTPUT = SCRIPT_DIR / "jury_results.jsonl"
 
 # ---------- canonical intent enum (mirrors OnDeviceClassifier.mapIntentIndex) ----------
@@ -96,6 +97,7 @@ PRICING = {
     "openai":   {"in": 0.15,  "out": 0.60,  "model": "gpt-4o-mini"},
     "google":   {"in": 0.10,  "out": 0.40,  "model": "gemini-2.5-flash-lite"},
     "deepseek": {"in": 0.27,  "out": 1.10,  "model": "deepseek-chat"},
+    "anthropic": {"in": 1.00, "out": 5.00, "model": "claude-haiku-4-5-20251001"},
 }
 
 
@@ -160,7 +162,48 @@ async def call_deepseek(client, sender: str, body: str) -> tuple[dict, int, int]
     content = resp.choices[0].message.content
     in_t = resp.usage.prompt_tokens if resp.usage else 0
     out_t = resp.usage.completion_tokens if resp.usage else 0
-    return json.loads(content), in_t, out_t
+    return _parse_json_object(content), in_t, out_t
+
+
+async def call_anthropic(client, sender: str, body: str) -> tuple[dict, int, int]:
+    prompt = JUDGE_PROMPT.replace("{sender}", sender).replace("{body}", body)
+    resp = await client.messages.create(
+        model=PRICING["anthropic"]["model"],
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.0,
+        max_tokens=200,
+    )
+    content = _anthropic_text(resp)
+    in_t = getattr(getattr(resp, "usage", None), "input_tokens", 0) or 0
+    out_t = getattr(getattr(resp, "usage", None), "output_tokens", 0) or 0
+    return _parse_json_object(content), in_t, out_t
+
+
+def _anthropic_text(resp: Any) -> str:
+    parts = []
+    for block in getattr(resp, "content", []) or []:
+        text = getattr(block, "text", None)
+        if text:
+            parts.append(str(text))
+    return "".join(parts).strip()
+
+
+def _parse_json_object(content: str) -> dict:
+    """Parse one JSON object, tolerating markdown fences around it."""
+    text = (content or "").strip()
+    if text.startswith("```"):
+        first_newline = text.find("\n")
+        text = text[first_newline + 1 :] if first_newline >= 0 else text[3:]
+        if text.rstrip().endswith("```"):
+            text = text.rstrip()[:-3]
+    start = text.find("{")
+    end = text.rfind("}")
+    if start < 0 or end < start:
+        raise json.JSONDecodeError("No JSON object found", text, 0)
+    parsed = json.loads(text[start : end + 1])
+    if not isinstance(parsed, dict):
+        raise json.JSONDecodeError("Expected a JSON object", text, start)
+    return parsed
 
 
 async def call_google(model_obj, sender: str, body: str) -> tuple[dict, int, int]:
@@ -258,6 +301,12 @@ def append_jsonl(output_path: Path, record: dict, lock: asyncio.Lock):
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
+def load_jury_env() -> None:
+    """Load the app env first, then the shared fallback env, without overriding."""
+    load_dotenv(DEFAULT_ENV, override=False)
+    load_dotenv(DEFAULT_FALLBACK_ENV, override=False)
+
+
 # ============================================================
 # Main loop
 # ============================================================
@@ -286,6 +335,8 @@ async def judge_row(
                     verdict, in_t, out_t = await call_deepseek(client_or_model, sender, body)
                 elif provider == "google":
                     verdict, in_t, out_t = await call_google(client_or_model, sender, body)
+                elif provider == "anthropic":
+                    verdict, in_t, out_t = await call_anthropic(client_or_model, sender, body)
                 else:
                     raise ValueError(f"unknown provider {provider}")
                 verdict = validate_verdict(verdict)
@@ -338,7 +389,7 @@ async def judge_row(
 
 
 async def run_jury(cfg: JuryConfig):
-    load_dotenv(DEFAULT_ENV)
+    load_jury_env()
     df = pd.read_csv(cfg.dataset_path)
     df = df[df["section"] == "message"].copy()
     df = df.reset_index(drop=True)
@@ -355,35 +406,52 @@ async def run_jury(cfg: JuryConfig):
 
     # ---- init clients ----
     clients: dict[str, Any] = {}
-    trackers: dict[str, CostTracker] = {m: CostTracker() for m in cfg.models}
+    active_models = list(cfg.models)
 
-    if "openai" in cfg.models:
+    if "openai" in active_models:
         from openai import AsyncOpenAI
         key = os.getenv("OPENAI_API_KEY")
         if not key:
             print("[jury] WARNING: OPENAI_API_KEY missing — dropping openai")
-            cfg.models.remove("openai")
+            active_models.remove("openai")
         else:
             clients["openai"] = AsyncOpenAI(api_key=key)
 
-    if "deepseek" in cfg.models:
+    if "deepseek" in active_models:
         from openai import AsyncOpenAI
         key = os.getenv("DEEPSEEK_API_KEY")
         if not key:
             print("[jury] WARNING: DEEPSEEK_API_KEY missing — dropping deepseek")
-            cfg.models.remove("deepseek")
+            active_models.remove("deepseek")
         else:
             clients["deepseek"] = AsyncOpenAI(api_key=key, base_url="https://api.deepseek.com")
 
-    if "google" in cfg.models:
+    if "google" in active_models:
         import google.generativeai as genai
         key = os.getenv("GOOGLE_API_KEY")
         if not key:
             print("[jury] WARNING: GOOGLE_API_KEY missing — dropping google")
-            cfg.models.remove("google")
+            active_models.remove("google")
         else:
             genai.configure(api_key=key)
             clients["google"] = genai.GenerativeModel(PRICING["google"]["model"])
+
+    if "anthropic" in active_models:
+        key = os.getenv("ANTHROPIC_API_KEY")
+        if not key:
+            print("[jury] WARNING: ANTHROPIC_API_KEY missing — dropping anthropic")
+            active_models.remove("anthropic")
+        else:
+            try:
+                from anthropic import AsyncAnthropic
+            except ImportError as exc:
+                print(f"[jury] WARNING: anthropic SDK unavailable — dropping anthropic ({exc})")
+                active_models.remove("anthropic")
+            else:
+                clients["anthropic"] = AsyncAnthropic(api_key=key)
+
+    cfg.models = active_models
+    trackers: dict[str, CostTracker] = {m: CostTracker() for m in cfg.models}
 
     if not cfg.models:
         print("[jury] no usable providers — aborting")
@@ -463,7 +531,7 @@ def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--dataset", type=Path, default=DEFAULT_DATASET)
     p.add_argument("--output",  type=Path, default=DEFAULT_OUTPUT)
-    p.add_argument("--models",  type=str, default="openai,google,deepseek",
+    p.add_argument("--models",  type=str, default="openai,google,deepseek,anthropic",
                    help="comma-separated provider list")
     p.add_argument("--limit",   type=int, default=None,
                    help="if set, stratified sample of this many rows (dry run)")
@@ -472,6 +540,7 @@ def parse_args():
                    help="override concurrency for google (free tier is rate-limited)")
     p.add_argument("--concurrency-openai", type=int, default=None)
     p.add_argument("--concurrency-deepseek", type=int, default=None)
+    p.add_argument("--concurrency-anthropic", type=int, default=None)
     p.add_argument("--seed", type=int, default=42)
     return p.parse_args()
 
@@ -485,6 +554,8 @@ def main():
         overrides["openai"] = args.concurrency_openai
     if args.concurrency_deepseek is not None:
         overrides["deepseek"] = args.concurrency_deepseek
+    if args.concurrency_anthropic is not None:
+        overrides["anthropic"] = args.concurrency_anthropic
     cfg = JuryConfig(
         dataset_path=args.dataset,
         output_path=args.output,

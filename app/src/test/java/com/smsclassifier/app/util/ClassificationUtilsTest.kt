@@ -12,7 +12,7 @@ class ClassificationUtilsTest {
     @Test
     fun humanizeIntent_knownIntent_returnsPlainOtpPurpose() {
         assertEquals(
-            "Bank payment login",
+            "Bank or card payment",
             ClassificationUtils.humanizeIntent("BANK_OR_CARD_TXN_OTP")
         )
         assertNull(ClassificationUtils.humanizeIntent("NOT_OTP"))
@@ -44,7 +44,41 @@ class ClassificationUtilsTest {
         assertTrue(corrected.userCorrected)
         assertTrue(ClassificationUtils.isOtpEffective(corrected))
         assertEquals("847291", ClassificationUtils.extractOtpForCopy(corrected))
-        assertEquals("App action", ClassificationUtils.humanizeIntent(corrected.otpIntent))
+        assertEquals("Other app action", ClassificationUtils.humanizeIntent(corrected.otpIntent))
+    }
+
+    @Test
+    fun applyUserCorrection_otherWithExplicitIntent_setsOtpPurpose() {
+        val corrected = ClassificationUtils.applyUserCorrection(
+            baseMessage(
+                body = "Your OTP is 847291. Do not share it.",
+                isOtp = false,
+                otpIntent = "NOT_OTP"
+            ),
+            "other",
+            correctedOtpIntent = "UPI_TXN_OR_PIN_OTP"
+        )
+
+        assertTrue(corrected.userCorrected)
+        assertTrue(ClassificationUtils.isOtpEffective(corrected))
+        assertEquals("UPI_TXN_OR_PIN_OTP", corrected.otpIntent)
+        assertEquals("UPI payment or PIN", ClassificationUtils.humanizeIntent(corrected.otpIntent))
+    }
+
+    @Test
+    fun applyUserCorrection_otherWithoutIntent_preservesLegacyNullBehavior() {
+        val corrected = ClassificationUtils.applyUserCorrection(
+            baseMessage(
+                body = "Your OTP is 847291. Do not share it.",
+                isOtp = false,
+                otpIntent = "NOT_OTP"
+            ),
+            "other"
+        )
+
+        assertTrue(corrected.userCorrected)
+        assertFalse(ClassificationUtils.isOtpEffective(corrected))
+        assertEquals("NOT_OTP", corrected.otpIntent)
     }
 
     @Test

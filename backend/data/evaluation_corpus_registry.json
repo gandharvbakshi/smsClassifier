@@ -1,0 +1,34 @@
+{
+  "entries": [
+    {
+      "path": "backend/scripts/feedback_regression_cases.py",
+      "role": "core_safety_golden",
+      "frozen": true
+    },
+    {
+      "path": "backend/data/synthetic_test_set_200_verified.csv",
+      "role": "synthetic_edge_set",
+      "frozen": true
+    },
+    {
+      "path": "analysis/jury_results.jsonl",
+      "role": "jury_benchmark",
+      "frozen": true
+    },
+    {
+      "path": "analysis/revalidation_after_fix.jsonl",
+      "role": "post_fix_benchmark",
+      "frozen": true
+    },
+    {
+      "path": "feedback_corpus/reviewed_feedback_regression_cases.jsonl",
+      "role": "reviewed_feedback_replay",
+      "frozen": false
+    },
+    {
+      "path": "feedback_corpus/recent_reviewed_holdout.jsonl",
+      "role": "recent_time_split",
+      "frozen": false
+    }
+  ]
+}

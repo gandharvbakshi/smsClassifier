@@ -1,0 +1,59 @@
+{
+  "entries": [
+    {
+      "byteCount": 2946328,
+      "exists": true,
+      "frozen": true,
+      "path": "analysis/jury_results.jsonl",
+      "recordCount": 8775,
+      "role": "jury_benchmark",
+      "sha256": "f04ad24684166668a8352e4383db277acaf289c7b28edf96c9a2379b7872cf78"
+    },
+    {
+      "byteCount": 154069,
+      "exists": true,
+      "frozen": true,
+      "path": "analysis/revalidation_after_fix.jsonl",
+      "recordCount": 200,
+      "role": "post_fix_benchmark",
+      "sha256": "e7f26c6c08b8a119214124f8cd5452a20d9c62769fc89e395c0e2f3b6a0fac09"
+    },
+    {
+      "byteCount": 34601,
+      "exists": true,
+      "frozen": true,
+      "path": "backend/data/synthetic_test_set_200_verified.csv",
+      "recordCount": 200,
+      "role": "synthetic_edge_set",
+      "sha256": "dbe2f309a38cca604a7820d911f2ea7d7f240466401ec5e98cadbee98615036b"
+    },
+    {
+      "byteCount": 7739,
+      "exists": true,
+      "frozen": true,
+      "path": "backend/scripts/feedback_regression_cases.py",
+      "recordCount": null,
+      "role": "core_safety_golden",
+      "sha256": "7a0f8dfbbef2bc95a4a3142cc83d60afb1e2c491288afa5c738c8a6598c9eb11"
+    },
+    {
+      "byteCount": null,
+      "exists": false,
+      "frozen": false,
+      "path": "feedback_corpus/recent_reviewed_holdout.jsonl",
+      "recordCount": null,
+      "role": "recent_time_split",
+      "sha256": null
+    },
+    {
+      "byteCount": null,
+      "exists": false,
+      "frozen": false,
+      "path": "feedback_corpus/reviewed_feedback_regression_cases.jsonl",
+      "recordCount": null,
+      "role": "reviewed_feedback_replay",
+      "sha256": null
+    }
+  ],
+  "repoRoot": "."
+}

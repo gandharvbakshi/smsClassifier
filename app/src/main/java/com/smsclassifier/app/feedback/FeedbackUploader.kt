@@ -32,6 +32,7 @@ data class FeedbackRequest(
     val bodyRedactionScheme: String = SmsRedactor.TRAINING_REDACTION_SCHEME,
     val predictedIsOtp: Boolean? = null,
     val predictedOtpIntent: String? = null,
+    val correctedOtpIntent: String? = null,
     val predictedIsPhishing: Boolean? = null,
     val predictedPhishScore: Float? = null,
     val userCorrection: String?,

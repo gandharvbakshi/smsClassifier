@@ -53,6 +53,8 @@ class ClassificationWorker(
 
             var serverOfflineSkippedCount = 0
             var serverSuccessCount = 0
+            var serverLatencyTotalMs = 0L
+            var serverLatencyMaxMs = 0L
             var serverRateLimitedCount = 0
             val serverFailureCounts = mutableMapOf<String, Int>()
             unclassifiedMessages.forEach { message ->
@@ -128,6 +130,10 @@ class ClassificationWorker(
                     // Track performance metrics
                     if (prediction.inferenceTimeMs > 0) {
                         PerformanceTracker.recordLatency(applicationContext, prediction.inferenceTimeMs)
+                        if (usedServerResult) {
+                            serverLatencyTotalMs += prediction.inferenceTimeMs
+                            serverLatencyMaxMs = maxOf(serverLatencyMaxMs, prediction.inferenceTimeMs)
+                        }
                     }
 
                     AppLog.d(
@@ -171,7 +177,11 @@ class ClassificationWorker(
             if (serverSuccessCount > 0) {
                 AppContainer.telemetry.logEvent(
                     "server_classify_success",
-                    mapOf("count" to serverSuccessCount)
+                    mapOf(
+                        "count" to serverSuccessCount,
+                        "avg_latency_ms" to (serverLatencyTotalMs / serverSuccessCount),
+                        "max_latency_ms" to serverLatencyMaxMs
+                    )
                 )
             }
             serverFailureCounts.forEach { (reason, count) ->

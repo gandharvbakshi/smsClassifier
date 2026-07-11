@@ -38,15 +38,20 @@ class DetailViewModel(
     fun reportAsWrong(
         correctionKind: String,
         correctionText: String,
+        correctedOtpIntent: String? = null,
         onComplete: (Boolean) -> Unit = {}
     ) {
         viewModelScope.launch {
             var saved = false
             try {
                 val msg = _message.value ?: return@launch
+                val telemetryParams = buildMap<String, Any?> {
+                    put("correction_kind", correctionKind)
+                    correctedOtpIntent?.let { put("corrected_otp_intent", it) }
+                }
                 AppContainer.telemetry.logEvent(
                     "feedback_submitted",
-                    mapOf("correction_kind" to correctionKind)
+                    telemetryParams
                 )
                 database.feedbackDao().insert(
                     FeedbackEntity(
@@ -65,13 +70,18 @@ class DetailViewModel(
                         body = msg.body,
                         predictedIsOtp = msg.isOtp,
                         predictedOtpIntent = msg.otpIntent,
+                        correctedOtpIntent = correctedOtpIntent,
                         predictedIsPhishing = msg.isPhishing,
                         predictedPhishScore = msg.phishScore,
                         feedbackKind = correctionKind,
                         userNote = correctionText.ifBlank { null }
                     )
                 )
-                val correctedMessage = ClassificationUtils.applyUserCorrection(msg, correctionKind)
+                val correctedMessage = ClassificationUtils.applyUserCorrection(
+                    msg,
+                    correctionKind,
+                    correctedOtpIntent
+                )
                 database.messageDao().update(correctedMessage)
                 _message.value = database.messageDao().getById(msg.id) ?: correctedMessage
                 saved = true

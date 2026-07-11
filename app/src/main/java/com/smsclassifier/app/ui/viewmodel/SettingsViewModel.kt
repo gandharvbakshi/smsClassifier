@@ -1,13 +1,17 @@
 package com.smsclassifier.app.ui.viewmodel
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.role.RoleManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Telephony
 import androidx.core.content.FileProvider
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.smsclassifier.app.AppContainer
@@ -166,13 +170,7 @@ class SettingsViewModel(
             else -1
         }.getOrDefault(-1)
 
-        val activeSubs: List<Int> = runCatching {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                val sm = context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE)
-                    as? android.telephony.SubscriptionManager
-                sm?.activeSubscriptionInfoList?.map { it.subscriptionId } ?: emptyList()
-            } else emptyList()
-        }.getOrDefault(emptyList())
+        val activeSubs = activeSubscriptionIds()
 
         return OtpSelfTestResult(
             isDefaultSms = isDefault,
@@ -187,6 +185,24 @@ class SettingsViewModel(
             canInsertProbe = probeOk,
             errorMessage = error
         )
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun activeSubscriptionIds(): List<Int> {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) return emptyList()
+        if (
+            ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            return emptyList()
+        }
+        return try {
+            val manager = context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE)
+                as? android.telephony.SubscriptionManager
+            manager?.activeSubscriptionInfoList?.map { it.subscriptionId } ?: emptyList()
+        } catch (_: SecurityException) {
+            emptyList()
+        }
     }
     
     // Notification settings

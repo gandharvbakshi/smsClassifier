@@ -12,6 +12,7 @@ data class MisclassificationLogEntity(
     val body: String,
     val predictedIsOtp: Boolean?,
     val predictedOtpIntent: String?,
+    val correctedOtpIntent: String? = null,
     val predictedIsPhishing: Boolean?,
     val predictedPhishScore: Float? = null,
     val createdAt: Long = System.currentTimeMillis(),

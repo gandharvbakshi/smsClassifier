@@ -26,7 +26,6 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
-from urllib.parse import urlparse
 
 import numpy as np
 import pickle
@@ -35,11 +34,30 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 from scipy.sparse import csr_matrix, hstack
+from backend.classification.classification_diagnostics import (
+    build_classification_diagnostics,
+    build_subject_key,
+)
+from backend.classification.phishing_policy import (
+    _apply_phishing_policy,
+    _has_strong_phishing_danger_signal,
+)
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("sms_backend_server")
-LOG_MESSAGE_BODY = os.getenv("LOG_RAW_MESSAGES", "").lower() in {"1", "true", "yes"}
+
+
+def _emit_structured_log(event: str, payload: Dict[str, Any], severity: str = "INFO") -> None:
+    print(
+        json.dumps(
+            {"severity": severity, "message": event, **payload},
+            ensure_ascii=True,
+            separators=(",", ":"),
+            default=str,
+        ),
+        flush=True,
+    )
 
 
 def _int_env(name: str, default: int) -> int:
@@ -181,150 +199,10 @@ SENDER_PATTERNS = [
     re.compile(r"^\d{10,12}$"),
 ]
 
-URL_PATTERN = re.compile(r"https?://[^\s<>)\]]+|www\.[^\s<>)\]]+", re.IGNORECASE)
-SHORT_URL_HOSTS = {
-    "bit.ly",
-    "bitly.com",
-    "cutt.ly",
-    "goo.gl",
-    "is.gd",
-    "lnkd.in",
-    "rb.gy",
-    "shorturl.at",
-    "tinyurl.com",
-    "t.co",
-}
-BRAND_TOKEN_PATTERN = re.compile(
-    r"\b(ICICI|HDFC|SBI|AXIS|KOTAK|ZERODHA|GROWW|UPSTOX|PAYTM|PHONEPE|GPAY|"
-    r"SWIGGY|ZOMATO|AMAZON|FLIPKART|DELHIVERY|BLUEDART|NETFLIX|SPOTIFY|"
-    r"INSTAGRAM|FACEBOOK|TWITTER|GODADDY|BSE|VI)\b",
-    re.IGNORECASE,
-)
-
-LEGIT_CONTEXT_PATTERNS = [
-    (
-        "bank transaction / standing-instruction notice",
-        0.15,
-        re.compile(
-            r"\b("
-            r"debit(?:ed)?|credit(?:ed)?|transaction|txn|standing instruction|"
-            r"auto[- ]debit|auto[- ]?pay|mandate|ecs|nach|account statement|statement|"
-            r"emi|scheduled payment|payment received|processed|refund(?:ed)?"
-            r"|payment (?:of )?(?:rs\.?\s*)?\d+(?:[.,]\d+)? (?:was )?successful|receipt"
-            r")\b",
-            re.IGNORECASE,
-        ),
-    ),
-    (
-        "delivery / order confirmation",
-        0.15,
-        re.compile(
-            r"\b("
-            r"order (?:has )?(?:confirmed|placed|shipped|dispatched)|"
-            r"received your .* order|shipment|tracking|"
-            r"delivery(?: update| status)?|out for delivery|courier|package|delivered"
-            r")\b",
-            re.IGNORECASE,
-        ),
-    ),
-    (
-        "bill / data alert",
-        0.18,
-        re.compile(
-            r"\b("
-            r"bill due|due date|invoice|recharge|data balance|data pack|plan validity|"
-            r"validity|usage alert|postpaid|prepaid|mobile data|broadband|"
-            r"electricity bill|gas bill|internet bill"
-            r")\b",
-            re.IGNORECASE,
-        ),
-    ),
-    (
-        "brand unsubscribe / preference link",
-        0.25,
-        re.compile(r"\b(unsubscribe|opt[- ]?out|sms preferences?|email preferences?)\b", re.IGNORECASE),
-    ),
-    (
-        "security education / investor awareness",
-        0.20,
-        re.compile(
-            r"\b(beware|unsolicited tips|take informed decision|attention investors?|security education)\b",
-            re.IGNORECASE,
-        ),
-    ),
-]
-
-LEGIT_OTP_PATTERNS = [
-    re.compile(
-        r"\b(otp|verification code|verify code|login code|sign in code|"
-        r"one[- ]time password|authentication code|auth code|passcode|code\s*[:#]\s*\d{4,8})\b",
-        re.IGNORECASE,
-    )
-]
-
-DANGER_PATTERNS = [
-    (
-        "credential / password collection",
-        re.compile(
-            r"\b("
-            r"cvv|card details|bank details|account details|login details|"
-            r"share otp|send otp|enter otp|confirm credentials|verify credentials|"
-            r"reset password|change password|re[- ]?enter (?:your )?(?:details|credentials|password)"
-            r")\b",
-            re.IGNORECASE,
-        ),
-    ),
-    (
-        "KYC / account-blocked urgency",
-        re.compile(
-            r"\b("
-            r"kyc|account blocked|blocked account|account will be blocked|"
-            r"account suspended|suspended|freeze|deactivate|limited access|"
-            r"verify immediately|verify now|urgent action|expires soon|"
-            r"within \d+\s*(hours?|days?)|parcel is on hold|shipment is on hold|"
-            r"redelivery fee|release (?:it|shipment|parcel|package)"
-            r")\b",
-            re.IGNORECASE,
-        ),
-    ),
-    (
-        "APK / install lure",
-        re.compile(
-            r"\b(apk|install app|download app|sideload|unknown sources|update app)\b",
-            re.IGNORECASE,
-        ),
-    ),
-    (
-        "UPI / payment trap",
-        re.compile(
-            r"\b("
-            r"pay request|collect request|scan qr|request money|"
-            r"send money|transfer money|payment link|refund link"
-            r")\b",
-            re.IGNORECASE,
-        ),
-    ),
-]
-
-PAYMENT_TRAP_PATTERN = re.compile(
-    r"\b(upi|pay request|pay now|transfer money|send money|request money|"
-    r"collect request|scan qr|qr code|payment link|refund link)\b",
-    re.IGNORECASE,
-)
-PAYMENT_ACTION_LURE_PATTERN = re.compile(
-    r"\b("
-    r"pay request|pay now|transfer money|send money|request money|collect request|"
-    r"scan qr|qr code|payment link|refund link|claim (?:your )?refund|"
-    r"approve (?:the )?(?:request|payment|collect)|accept (?:the )?collect|"
-    r"authorize (?:payment|upi|mandate)|verify (?:upi|payment)"
-    r")\b",
-    re.IGNORECASE,
-)
-SHORT_URL_DANGER_PATTERN = re.compile(
-    r"\b(login|verify|update|password|pin|cvv|kyc|install|apk|upi|payment|transfer|"
-    r"send money|request money|collect request|urgent)\b",
-    re.IGNORECASE,
-)
+"""
+The phishing policy is imported from backend.classification.phishing_policy.
+Keep the imports above, but do not duplicate the policy implementation here.
+"""
 
 
 class ClassifyRequest(BaseModel):
@@ -366,6 +244,8 @@ class GroqSmsFullResult:
     is_phishing: bool
     latency_ms: float
     raw_response: Dict[str, Any]
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
 
 
 @dataclass
@@ -429,6 +309,18 @@ ADMIN_API_TOKEN = (
     os.getenv("ADMIN_API_TOKEN", "").strip()
     or os.getenv("SMS_ADMIN_TOKEN", "").strip()
 )
+DIAGNOSTICS_HMAC_SECRET = (
+    os.getenv("DIAGNOSTICS_HMAC_SECRET", "").strip()
+    or ADMIN_API_TOKEN
+)
+CLASSIFIER_MODEL_VERSION = (
+    os.getenv("CLASSIFIER_MODEL_VERSION", "").strip()
+    or os.getenv("K_REVISION", "").strip()
+    or "lightgbm-policy-v1"
+)
+CLASSIFIER_MODEL_PATH = "+".join(
+    (VECTORIZER_PATH.name, LGB_ISOTP_PATH.name, LGB_PHISH_PATH.name)
+)
 PRO_YEARLY_PRODUCT_ID = "pro_yearly"
 PRO_LIFETIME_PRODUCT_ID = "pro_lifetime"
 DEFAULT_TRIAL_DAYS = _int_env("TRIAL_DAYS", 14)
@@ -469,6 +361,7 @@ CLASSIFY_INSTALL_LIMIT_PER_MINUTE = _int_env("CLASSIFY_INSTALL_LIMIT_PER_MINUTE"
 CLASSIFY_INSTALL_LIMIT_PER_DAY = _int_env("CLASSIFY_INSTALL_LIMIT_PER_DAY", 30000)
 CLASSIFY_IP_LIMIT_PER_MINUTE = _int_env("CLASSIFY_IP_LIMIT_PER_MINUTE", 3000)
 CLASSIFY_IP_LIMIT_PER_DAY = _int_env("CLASSIFY_IP_LIMIT_PER_DAY", 150000)
+CLASSIFICATION_DIAGNOSTICS_ENABLED = _bool_env("CLASSIFICATION_DIAGNOSTICS_ENABLED", True)
 FEEDBACK_LOCK = threading.Lock()
 ENTITLEMENT_LOCK = threading.Lock()
 RATE_LIMIT_LOCK = threading.Lock()
@@ -560,6 +453,7 @@ class FeedbackRequest(BaseModel):
     userNote: Optional[str] = None
     clientCreatedAt: int
     feedbackKind: Optional[str] = None
+    correctedOtpIntent: Optional[str] = None
     satisfactionScore: Optional[int] = None
 
 
@@ -635,11 +529,15 @@ def post_feedback(request: FeedbackRequest, http_request: Request) -> FeedbackRe
         **request_payload,
     }
     _persist_feedback(record)
-    logger.info(
-        "feedback stored",
-        extra={
+    _emit_structured_log(
+        "feedback_stored",
+        {
             "id": record_id,
-            "install_id": request.installId,
+            "subject_key": build_subject_key(
+                DIAGNOSTICS_HMAC_SECRET,
+                install_id=request.installId,
+                client_ip=_client_ip(http_request),
+            ),
             "app_version_code": request.appVersionCode,
             "predicted_is_otp": request.predictedIsOtp,
             "predicted_otp_intent": request.predictedOtpIntent,
@@ -1330,11 +1228,14 @@ def delete_user_me(
     gcs_count = _delete_gcs_feedback(installId)
     entitlement_count = _delete_entitlements(installId, uid)
 
-    logger.info(
-        "user data deleted",
-        extra={
-            "installId": installId,
-            "uid": uid,
+    _emit_structured_log(
+        "user_data_deleted",
+        {
+            "subject_key": build_subject_key(
+                DIAGNOSTICS_HMAC_SECRET,
+                install_id=installId,
+                firebase_uid=uid,
+            ),
             "rows_local": local_count,
             "rows_gcs": gcs_count,
             "entitlements": entitlement_count,
@@ -1378,150 +1279,6 @@ def normalize_intent(intent: Optional[str], is_otp: bool) -> str:
     candidate = intent.strip().upper().replace(" ", "_")
     candidate = INTENT_ALIASES.get(candidate, candidate)
     return candidate if candidate in INTENT_LABELS else "NOT_OTP"
-
-
-def _extract_url_hosts(text: str) -> List[str]:
-    hosts: List[str] = []
-    for match in URL_PATTERN.finditer(text or ""):
-        raw_url = match.group(0).rstrip(").,;:!?]")
-        if raw_url.startswith("www."):
-            raw_url = f"http://{raw_url}"
-        parsed = urlparse(raw_url)
-        host = (parsed.netloc or parsed.path).lower().strip(".")
-        if host.startswith("www."):
-            host = host[4:]
-        if host:
-            hosts.append(host)
-    return hosts
-
-
-def _extract_brand_tokens(text: str, sender: Optional[str]) -> List[str]:
-    haystack = f"{sender or ''} {text or ''}"
-    return sorted({match.group(1).upper() for match in BRAND_TOKEN_PATTERN.finditer(haystack)})
-
-
-def _looks_like_low_risk_payment_notice(text: str, sender: Optional[str]) -> bool:
-    normalized = f"{sender or ''} {text or ''}"
-    bank_notice_pattern = LEGIT_CONTEXT_PATTERNS[0][2]
-    if not bank_notice_pattern.search(normalized):
-        return False
-    if PAYMENT_ACTION_LURE_PATTERN.search(normalized):
-        return False
-    if re.search(
-        r"\b(click|open|login|verify now|kyc|blocked|suspended|freeze|deactivate|"
-        r"urgent action|expires soon|install|apk)\b",
-        normalized,
-        re.IGNORECASE,
-    ):
-        return False
-    return bool(
-        re.search(
-            r"\b(upi|card|acct|account|debit(?:ed)?|credit(?:ed)?|txn|transaction|"
-            r"ref|available|avl|balance|bal)\b",
-            normalized,
-            re.IGNORECASE,
-        )
-    )
-
-
-def _has_strong_phishing_danger_signal(text: str, sender: Optional[str]) -> List[str]:
-    normalized = f"{sender or ''} {text or ''}"
-    lowered = normalized.lower()
-    has_link_reference = bool(URL_PATTERN.search(text or "")) or bool(re.search(r"\b(link|url)\b", lowered))
-    signals: List[str] = []
-
-    for label, pattern in DANGER_PATTERNS:
-        if pattern.search(normalized):
-            signals.append(label)
-
-    hosts = _extract_url_hosts(text)
-    brand_tokens = _extract_brand_tokens(text, sender)
-    if hosts and brand_tokens:
-        for host in hosts:
-            if host in SHORT_URL_HOSTS:
-                if SHORT_URL_DANGER_PATTERN.search(normalized):
-                    signals.append("suspicious shortened link in dangerous context")
-                continue
-            if any(token.lower() in host for token in brand_tokens):
-                continue
-            if SHORT_URL_DANGER_PATTERN.search(normalized) or "login" in lowered or "verify" in lowered:
-                signals.append(f"brand-domain mismatch ({host})")
-                break
-
-    if (
-        PAYMENT_TRAP_PATTERN.search(normalized)
-        and has_link_reference
-        and (
-            PAYMENT_ACTION_LURE_PATTERN.search(normalized)
-            or not _looks_like_low_risk_payment_notice(text, sender)
-        )
-    ):
-        signals.append("payment trap with link")
-
-    return list(dict.fromkeys(signals))
-
-
-def _detect_legit_low_risk_context(
-    text: str,
-    sender: Optional[str],
-    is_otp: bool,
-    otp_intent: str,
-) -> Optional[Dict[str, Any]]:
-    normalized = text or ""
-    reasons: List[str] = []
-    if is_otp and otp_intent in {"APP_LOGIN_OTP", "APP_ACCOUNT_CHANGE_OTP", "GENERIC_APP_ACTION_OTP", "DELIVERY_OR_SERVICE_OTP"}:
-        if LEGIT_OTP_PATTERNS[0].search(normalized):
-            reasons.append("app OTP verification")
-            return {"label": "app OTP verification", "cap": 0.08, "reasons": reasons}
-
-    for label, cap, pattern in LEGIT_CONTEXT_PATTERNS:
-        if pattern.search(normalized):
-            reasons.append(label)
-            return {"label": label, "cap": cap, "reasons": reasons}
-
-    return None
-
-
-def _apply_phishing_policy(
-    text: str,
-    sender: Optional[str],
-    is_otp: bool,
-    otp_intent: str,
-    raw_phish_prob: float,
-    is_phishing_ml: bool,
-) -> tuple[bool, float, List[str]]:
-    danger_signals = _has_strong_phishing_danger_signal(text, sender)
-    if danger_signals:
-        if is_phishing_ml:
-            return True, raw_phish_prob, [f"raw phishScore={raw_phish_prob:.3f}"] + [
-                f"phishing calibration skipped: {', '.join(danger_signals)}"
-            ]
-        boosted = max(raw_phish_prob, PHISH_THRESHOLD)
-        return True, boosted, [f"raw phishScore={raw_phish_prob:.3f}"] + [
-            f"phishing promoted by high-risk signals: {', '.join(danger_signals)}"
-        ]
-
-    if not is_phishing_ml:
-        return False, raw_phish_prob, [f"raw phishScore={raw_phish_prob:.3f}"]
-
-    low_risk_context = _detect_legit_low_risk_context(text, sender, is_otp, otp_intent)
-    if not low_risk_context:
-        return True, raw_phish_prob, [f"raw phishScore={raw_phish_prob:.3f}"]
-
-    calibrated_phish_prob = min(raw_phish_prob, float(low_risk_context["cap"]))
-    if calibrated_phish_prob >= PHISH_THRESHOLD:
-        return True, raw_phish_prob, [
-            f"raw phishScore={raw_phish_prob:.3f}",
-            f"legit context matched ({low_risk_context['label']}) but calibrated score stayed above threshold",
-        ]
-
-    return False, calibrated_phish_prob, [
-        f"raw phishScore={raw_phish_prob:.3f}",
-        (
-            f"phishing downgraded by context calibration ({low_risk_context['label']}); "
-            f"calibrated phishScore={calibrated_phish_prob:.3f}"
-        ),
-    ]
 
 
 def heuristic_confident_veto(heuristic_result: Dict[str, Any]) -> bool:
@@ -1586,6 +1343,21 @@ def extract_prediction(raw: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         return None
 
 
+def _groq_token_usage(raw: Dict[str, Any]) -> tuple[int, int]:
+    usage = raw.get("usage") if isinstance(raw, dict) else None
+    if not isinstance(usage, dict):
+        return 0, 0
+    try:
+        prompt_tokens = int(usage.get("prompt_tokens") or 0)
+    except (TypeError, ValueError):
+        prompt_tokens = 0
+    try:
+        completion_tokens = int(usage.get("completion_tokens") or 0)
+    except (TypeError, ValueError):
+        completion_tokens = 0
+    return max(0, prompt_tokens), max(0, completion_tokens)
+
+
 def call_groq_full_classification(text: str, sender: Optional[str]) -> GroqSmsFullResult:
     messages = build_messages(sender or "UNKNOWN", text)
     start = time.time()
@@ -1597,11 +1369,14 @@ def call_groq_full_classification(text: str, sender: Optional[str]) -> GroqSmsFu
     is_otp_flag = normalize_bool(parsed.get("is_otp", True))
     intent = normalize_intent(parsed.get("otp_intent"), is_otp_flag)
     is_phishing = normalize_bool(parsed.get("is_phishing", False))
+    prompt_tokens, completion_tokens = _groq_token_usage(raw_response)
     return GroqSmsFullResult(
         intent=intent,
         is_phishing=is_phishing,
         latency_ms=latency_ms,
         raw_response=raw_response,
+        prompt_tokens=prompt_tokens,
+        completion_tokens=completion_tokens,
     )
 
 
@@ -1622,11 +1397,14 @@ def call_groq_phishing_light(text: str, sender: Optional[str]) -> GroqSmsFullRes
     parsed = extract_prediction(raw_response) or {}
     latency_ms = (time.time() - start) * 1000
     is_phishing = normalize_bool(parsed.get("is_phishing", False))
+    prompt_tokens, completion_tokens = _groq_token_usage(raw_response)
     return GroqSmsFullResult(
         intent="NOT_OTP",
         is_phishing=is_phishing,
         latency_ms=latency_ms,
         raw_response=raw_response,
+        prompt_tokens=prompt_tokens,
+        completion_tokens=completion_tokens,
     )
 
 
@@ -1780,6 +1558,7 @@ def classify(request: ClassifyRequest) -> ClassifyResponse:
 
 
 def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) -> ClassifyResponse:
+    classification_started = time.perf_counter()
     if not APP_CONFIG_SERVER_CLASSIFY_ENABLED:
         raise HTTPException(status_code=503, detail="Server classification is temporarily unavailable.")
     _enforce_not_blocked(request)
@@ -1788,6 +1567,11 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
         raise HTTPException(status_code=400, detail="Request text must not be empty.")
 
     reasons = []
+    classification_path = "unclassified"
+    intent_source = "none"
+    intent_confidence: Optional[float] = None
+    groq_prompt_tokens = 0
+    groq_completion_tokens = 0
 
     # Heuristics-first approach: Run heuristics before ML
     try:
@@ -1817,6 +1601,7 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
     heuristic_veto = heuristic_confident_veto(heuristic_result)
 
     if heuristic_veto:
+        classification_path = "heuristic_veto"
         reasons.extend(heuristic_result.get("reasons", []))
         reasons.append("Heuristic veto blocked ML is_otp override")
         reasons.append("Intent skipped because heuristic veto classified the message as NOT_OTP")
@@ -1825,6 +1610,9 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
         # High confidence heuristic match - use it
         is_otp = True
         otp_intent = heuristic_result.get("suggestedIntent") or "NOT_OTP"
+        classification_path = "heuristic_high_confidence"
+        intent_source = "heuristic"
+        intent_confidence = float(heuristic_result.get("confidence", 0.0) or 0.0)
         reasons.extend(heuristic_result.get("reasons", []))
         reasons.append(f"OTP detected by heuristics (confidence: {heuristic_result.get('confidence', 0.0):.2f})")
         logger.info("Using heuristic classification (high confidence)")
@@ -1834,12 +1622,16 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
         isotp_probs = LGB_ISOTP.predict_proba(feature_matrix)[0]
         isotp_prob = float(isotp_probs[1])
         is_otp = isotp_prob >= OTP_THRESHOLD
+        classification_path = "lightgbm"
         reasons.append(f"is_otp LightGBM prob={isotp_prob:.3f} (threshold={OTP_THRESHOLD})")
 
         # If ML says no but heuristics suggest yes with medium confidence - trust heuristics
         if not is_otp and heuristic_result.get("isOtp") and heuristic_result.get("confidence", 0.0) > 0.5:
             is_otp = True
             otp_intent = heuristic_result.get("suggestedIntent") or "NOT_OTP"
+            classification_path = "heuristic_medium_override"
+            intent_source = "heuristic"
+            intent_confidence = float(heuristic_result.get("confidence", 0.0) or 0.0)
             reasons.extend(heuristic_result.get("reasons", []))
             reasons.append(f"ML negative but heuristics positive (confidence: {heuristic_result.get('confidence', 0.0):.2f})")
             logger.info("Using heuristic classification (ML disagreed)")
@@ -1853,12 +1645,18 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
             try:
                 groq_full = call_groq_full_classification(request.text, request.sender)
                 otp_intent = groq_full.intent
+                groq_prompt_tokens += groq_full.prompt_tokens
+                groq_completion_tokens += groq_full.completion_tokens
+                classification_path = f"{classification_path}+groq_intent"
+                intent_source = "groq"
                 reasons.append(f"Groq intent={otp_intent} ({groq_full.latency_ms:.0f} ms)")
             except Exception as exc:  # noqa: BLE001
                 reasons.append(f"Groq intent failed: {exc}")
                 # Fallback to heuristic intent if available
                 if heuristic_result.get("suggestedIntent"):
                     otp_intent = heuristic_result.get("suggestedIntent")
+                    intent_source = "heuristic_fallback"
+                    intent_confidence = float(heuristic_result.get("confidence", 0.0) or 0.0)
 
         # Add security warnings based on intent
         if otp_intent == "BANK_OR_CARD_TXN_OTP":
@@ -1877,11 +1675,17 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
         otp_intent,
         phish_prob,
         is_phishing_ml,
+        PHISH_THRESHOLD,
     )
     reasons.append(f"is_phishing LightGBM prob={phish_prob:.3f} (threshold={PHISH_THRESHOLD})")
     reasons.extend(phish_policy_reasons)
 
-    phishing_danger_signals = _has_strong_phishing_danger_signal(request.text, request.sender)
+    phishing_danger_signals = _has_strong_phishing_danger_signal(
+        request.text,
+        request.sender,
+        is_otp,
+        otp_intent,
+    )
     if is_phishing and is_otp and _should_suppress_otp_for_phishing(phishing_danger_signals):
         is_otp = False
         otp_intent = "NOT_OTP"
@@ -1900,6 +1704,8 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
                     reasons.append(f"Groq gray-band phishing={is_phishing} (from intent call)")
                 else:
                     g2 = call_groq_phishing_light(request.text, request.sender)
+                    groq_prompt_tokens += g2.prompt_tokens
+                    groq_completion_tokens += g2.completion_tokens
                     is_phishing = g2.is_phishing
                     final_phish_prob = phish_prob if is_phishing else min(final_phish_prob, PHISH_GRAY_LOW)
                     reasons.append(f"Groq gray-band phishing={is_phishing} ({g2.latency_ms:.0f} ms)")
@@ -1915,6 +1721,8 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
                 reasons.append(f"Groq phishing veto groq_phish={groq_full.is_phishing}")
             else:
                 g2 = call_groq_phishing_light(request.text, request.sender)
+                groq_prompt_tokens += g2.prompt_tokens
+                groq_completion_tokens += g2.completion_tokens
                 is_phishing = is_phishing_ml and g2.is_phishing
                 final_phish_prob = phish_prob if is_phishing else min(final_phish_prob, PHISH_GRAY_LOW)
                 reasons.append(f"Groq phishing veto groq_phish={g2.is_phishing} ({g2.latency_ms:.0f} ms)")
@@ -1923,20 +1731,43 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
             is_phishing = is_phishing_ml
             final_phish_prob = phish_prob
 
-    # Build log extra dict, conditionally include isotp_prob if it was computed
-    log_extra = {
-        "text": request.text if LOG_MESSAGE_BODY else request.text[:32] + ("…" if len(request.text) > 32 else ""),
-        "sender": request.sender,
-        "is_otp_true": is_otp,
+    total_latency_ms = (time.perf_counter() - classification_started) * 1000
+    diagnostics = build_classification_diagnostics(
+        subject_secret=DIAGNOSTICS_HMAC_SECRET,
+        install_id=request.installId,
+        firebase_uid=request.firebaseUid,
+        client_ip=_client_ip(http_request),
+        model_version=CLASSIFIER_MODEL_VERSION,
+        model_path=CLASSIFIER_MODEL_PATH,
+        model_source="lightgbm+heuristic_policy",
+        classification_path=classification_path,
+        intent_source=intent_source,
+        total_latency_ms=round(total_latency_ms, 3),
+        intent_confidence=intent_confidence,
+        intent_abstained=bool(is_otp and otp_intent == "NOT_OTP"),
+        intent_shadow=False,
+        groq_prompt_tokens=groq_prompt_tokens,
+        groq_completion_tokens=groq_completion_tokens,
+        groq_model=GROQ_MODEL,
+    )
+    log_payload = {
+        **diagnostics,
+        "app_version_code": request.appVersionCode,
+        "app_version_name": request.appVersionName,
+        "message_length": len(request.text),
+        "has_sender": bool(request.sender),
+        "has_url": bool(re.search(r"https?://|www\.", request.text, re.IGNORECASE)),
+        "is_otp": is_otp,
         "is_phishing": is_phishing,
         "otp_intent": otp_intent,
-        "phish_prob_raw": phish_prob,
-        "phish_prob_final": final_phish_prob,
+        "phish_prob_raw": round(phish_prob, 6),
+        "phish_prob_final": round(final_phish_prob, 6),
     }
     if isotp_prob is not None:
-        log_extra["isotp_prob"] = isotp_prob
+        log_payload["isotp_prob"] = round(isotp_prob, 6)
 
-    logger.info("classified message", extra=log_extra)
+    if CLASSIFICATION_DIAGNOSTICS_ENABLED:
+        _emit_structured_log("classification_diagnostics", log_payload)
 
     return ClassifyResponse(
         isOtp=is_otp,

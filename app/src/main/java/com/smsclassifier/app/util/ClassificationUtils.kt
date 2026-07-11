@@ -69,14 +69,14 @@ object ClassificationUtils {
     fun isScamLikely(message: MessageEntity): Boolean = detailRiskLevel(message) == RiskLevel.HIGH
 
     fun humanizeIntent(intent: String?): String? = when (intent) {
-        "BANK_OR_CARD_TXN_OTP" -> "Bank payment login"
+        "BANK_OR_CARD_TXN_OTP" -> "Bank or card payment"
         "UPI_TXN_OR_PIN_OTP" -> "UPI payment or PIN"
         "FINANCIAL_LOGIN_OTP" -> "Bank login"
         "APP_ACCOUNT_CHANGE_OTP" -> "Account change"
         "APP_LOGIN_OTP" -> "App login"
         "KYC_OR_ESIGN_OTP" -> "KYC / e-sign"
         "DELIVERY_OR_SERVICE_OTP" -> "Delivery confirmation"
-        "GENERIC_APP_ACTION_OTP" -> "App action"
+        "GENERIC_APP_ACTION_OTP" -> "Other app action"
         "NOT_OTP", null -> null
         else -> intent
             .lowercase()
@@ -297,7 +297,11 @@ object ClassificationUtils {
         return extractOtpForCopy(message.body, message.sender, message.isOtp)
     }
 
-    fun applyUserCorrection(message: MessageEntity, correctionKind: String): MessageEntity {
+    fun applyUserCorrection(
+        message: MessageEntity,
+        correctionKind: String,
+        correctedOtpIntent: String? = null
+    ): MessageEntity {
         return when (correctionKind) {
             "actually_otp" -> message.copy(
                 isOtp = true,
@@ -307,6 +311,17 @@ object ClassificationUtils {
                 reviewed = true,
                 userCorrected = true
             )
+            "other" -> if (correctedOtpIntent != null) {
+                message.copy(
+                    isOtp = true,
+                    otpIntent = correctedOtpIntent,
+                    reasonsJson = null,
+                    reviewed = true,
+                    userCorrected = true
+                )
+            } else {
+                message.copy(reasonsJson = null, reviewed = true, userCorrected = true)
+            }
             "not_otp" -> message.copy(
                 isOtp = false,
                 otpIntent = null,

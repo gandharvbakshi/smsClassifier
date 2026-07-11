@@ -1,14 +1,17 @@
 package com.smsclassifier.app.util
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.MainActivity
 import com.smsclassifier.app.R
@@ -237,6 +240,14 @@ object NotificationHelper {
             notification.extras.putCharSequence(NotificationCompat.EXTRA_BIG_TEXT, body)
             notification.extras.putCharSequence(NotificationCompat.EXTRA_TEXT, body)
         }
+        if (
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            AppLog.w("NotificationHelper", "Notification permission is not granted")
+            return
+        }
         NotificationManagerCompat.from(context).notify(messageId.toInt(), notification)
         if (BuildConfig.DEBUG) {
             captureDebugSnapshot(
@@ -295,6 +306,13 @@ object NotificationHelper {
     }
 
     private fun showSummaryNotification(context: Context, channelId: String) {
+        if (
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
         val summaryIntent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }

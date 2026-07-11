@@ -63,6 +63,7 @@ class FeedbackUploadWorker(
                     bodyRedactionScheme = SmsRedactor.TRAINING_REDACTION_SCHEME,
                     predictedIsOtp = row.predictedIsOtp,
                     predictedOtpIntent = row.predictedOtpIntent,
+                    correctedOtpIntent = row.correctedOtpIntent,
                     predictedIsPhishing = row.predictedIsPhishing,
                     predictedPhishScore = row.predictedPhishScore,
                     userCorrection = row.userNote,

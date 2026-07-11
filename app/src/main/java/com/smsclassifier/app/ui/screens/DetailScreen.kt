@@ -72,6 +72,7 @@ fun DetailScreen(
     var showReportDialog by remember { mutableStateOf(false) }
     var reportNote by remember { mutableStateOf("") }
     var reportType by remember { mutableStateOf<ReportIssueOption?>(null) }
+    var reportCorrectedOtpIntent by remember { mutableStateOf<String?>(null) }
     var reportSubmitting by remember { mutableStateOf(false) }
     val reportSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -294,6 +295,7 @@ fun DetailScreen(
                         )
                         reportNote = ""
                         reportType = null
+                        reportCorrectedOtpIntent = null
                         showReportDialog = true
                     }
                 )
@@ -310,6 +312,7 @@ fun DetailScreen(
             showReportDialog = false
             reportNote = ""
             reportType = null
+            reportCorrectedOtpIntent = null
             reportSubmitting = false
         }
         ModalBottomSheet(
@@ -328,9 +331,16 @@ fun DetailScreen(
                     SmsRedactor.redactForTraining(previewMsg.body, installId)
                 },
                 selectedOption = reportType,
+                selectedOtpIntent = reportCorrectedOtpIntent,
                 note = reportNote,
                 submitting = reportSubmitting,
-                onOptionSelected = { reportType = it },
+                onOptionSelected = {
+                    reportType = it
+                    if (it.correctionKind != "other") {
+                        reportCorrectedOtpIntent = null
+                    }
+                },
+                onOtpIntentSelected = { reportCorrectedOtpIntent = it },
                 onNoteChange = { reportNote = it },
                 onCancel = {
                     AppContainer.telemetry.logEvent(
@@ -342,6 +352,11 @@ fun DetailScreen(
                 onSubmit = {
                     if (!reportSubmitting) {
                         val selected = reportType
+                        val correctedIntent = if (selected?.correctionKind == "other") {
+                            reportCorrectedOtpIntent
+                        } else {
+                            null
+                        }
                         val finalNote = buildString {
                             selected?.let { append(it.title).append(". ").append(it.description) }
                             if (reportNote.isNotBlank()) {
@@ -351,16 +366,20 @@ fun DetailScreen(
                         }.trim()
                         reportSubmitting = true
                         val uploadsEnabled = SettingsRepository(context).feedbackUploadEnabled
-                    viewModel.reportAsWrong(selected?.correctionKind ?: "other", finalNote) { saved ->
-                        closeSheet()
-                        coroutineScope.launch {
-                            snackbarHostState.showSnackbar(
-                                if (!saved) {
-                                    "Report could not be saved. Try again."
-                                } else if (uploadsEnabled) {
-                                    "Report saved and queued for redacted upload."
-                                } else {
-                                    "Report saved on this phone. Turn on redacted uploads to send it."
+                        viewModel.reportAsWrong(
+                            selected?.correctionKind ?: "other",
+                            finalNote,
+                            correctedIntent
+                        ) { saved ->
+                            closeSheet()
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(
+                                    if (!saved) {
+                                        "Report could not be saved. Try again."
+                                    } else if (uploadsEnabled) {
+                                        "Report saved and queued for redacted upload."
+                                    } else {
+                                        "Report saved on this phone. Turn on redacted uploads to send it."
                                     }
                                 )
                             }
@@ -406,13 +425,36 @@ private val reportIssueOptions = listOf(
     )
 )
 
+private data class CanonicalOtpIntentOption(
+    val intent: String,
+    val label: String
+)
+
+private val canonicalOtpIntentOptions = listOf(
+    "BANK_OR_CARD_TXN_OTP",
+    "UPI_TXN_OR_PIN_OTP",
+    "FINANCIAL_LOGIN_OTP",
+    "APP_ACCOUNT_CHANGE_OTP",
+    "APP_LOGIN_OTP",
+    "KYC_OR_ESIGN_OTP",
+    "DELIVERY_OR_SERVICE_OTP",
+    "GENERIC_APP_ACTION_OTP"
+).map { intent ->
+    CanonicalOtpIntentOption(
+        intent = intent,
+        label = ClassificationUtils.humanizeIntent(intent) ?: intent
+    )
+}
+
 @Composable
 private fun ReportClassificationSheet(
     redactedPreview: String?,
     selectedOption: ReportIssueOption?,
+    selectedOtpIntent: String?,
     note: String,
     submitting: Boolean,
     onOptionSelected: (ReportIssueOption) -> Unit,
+    onOtpIntentSelected: (String) -> Unit,
     onNoteChange: (String) -> Unit,
     onCancel: () -> Unit,
     onSubmit: () -> Unit
@@ -485,6 +527,29 @@ private fun ReportClassificationSheet(
                 }
             }
 
+            if (selectedOption?.correctionKind == "other") {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        text = "Pick the correct OTP purpose",
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Text(
+                        text = "Choose what the code was meant for.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    canonicalOtpIntentOptions.forEach { option ->
+                        CanonicalIntentOptionRow(
+                            label = option.label,
+                            selected = selectedOtpIntent == option.intent,
+                            enabled = !submitting,
+                            onClick = { onOtpIntentSelected(option.intent) }
+                        )
+                    }
+                }
+            }
+
             OutlinedTextField(
                 value = note,
                 onValueChange = onNoteChange,
@@ -505,9 +570,15 @@ private fun ReportClassificationSheet(
             TextButton(onClick = onCancel, enabled = !submitting) {
                 Text("Cancel")
             }
+            val canSubmit = when {
+                submitting -> false
+                selectedOption == null -> note.isNotBlank()
+                selectedOption.correctionKind == "other" -> selectedOtpIntent != null
+                else -> true
+            }
             Button(
                 onClick = onSubmit,
-                enabled = !submitting && (selectedOption != null || note.isNotBlank())
+                enabled = canSubmit
             ) {
                 if (submitting) {
                     CircularProgressIndicator(
@@ -576,6 +647,54 @@ private fun ReportIssueOptionRow(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun CanonicalIntentOptionRow(
+    label: String,
+    selected: Boolean,
+    enabled: Boolean,
+    onClick: () -> Unit
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(enabled = enabled, onClick = onClick),
+        shape = MaterialTheme.shapes.medium,
+        color = if (selected) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.surface
+        },
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (selected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.outlineVariant
+            }
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 52.dp)
+                .padding(horizontal = 10.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            RadioButton(
+                selected = selected,
+                onClick = null,
+                enabled = enabled
+            )
+            Text(
+                label,
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.SemiBold
+            )
         }
     }
 }
