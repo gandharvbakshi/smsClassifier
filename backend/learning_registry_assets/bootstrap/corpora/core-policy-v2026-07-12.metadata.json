@@ -1,0 +1,27 @@
+{
+  "corpusKind": "core-policy",
+  "policyId": "contextual-phishing-v2",
+  "description": "Sanitized core policy regression cases for OTP, legitimate-link, and phishing invariants.",
+  "expectedCaseCount": 19,
+  "privacyStatus": "deidentified",
+  "sensitivity": "restricted",
+  "reviewApproval": {
+    "status": "approved",
+    "reviewer": "human-review",
+    "approvedAt": "2026-07-12T00:00:00Z"
+  },
+  "privacyApproval": {
+    "status": "approved",
+    "reviewer": "privacy-review",
+    "approvedAt": "2026-07-12T00:00:00Z"
+  },
+  "replay": {
+    "status": "active",
+    "requiredForEveryCandidate": true
+  },
+  "notes": [
+    "This file is publish-corpus input metadata, not a generated corpus manifest.",
+    "The private input JSONL contains 19 deidentified reviewed cases.",
+    "No raw SMS, sender, install ID, UID, key, or source-feedback ID is stored here."
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0",
+  "recordType": "release",
+  "releaseId": "release-2026-07-12-ef6d180",
+  "createdAt": "2026-07-12T00:00:00Z",
+  "gitCommit": "ef6d18001c8201114b603784dbbe7007544f0536",
+  "changeSummary": "Promote contextual-phishing-v2 with fewer phishing false positives while semantic intent remains shadow-only.",
+  "reviewDecision": "approved",
+  "rolloutStatus": "completed",
+  "provenanceCompleteness": "reconstructed_current",
+  "appVersion": "1.2.21",
+  "versionCode": 46,
+  "cloudRunRevision": "sms-ensemble-00025-ldq",
+  "image": "gcr.io/smsclassifier-478611/sms-ensemble:ef6d180",
+  "policyId": "contextual-phishing-v2",
+  "semanticIntentStatus": "shadow-only",
+  "corpusIds": [
+    "core-policy-v2026-07-12"
+  ],
+  "corpusManifestRefs": [
+    "corpora/core-policy-v2026-07-12/manifest.json"
+  ],
+  "sourceEvidence": {
+    "rawReportCount": 68,
+    "deduplicatedReviewGroupCount": 50,
+    "quarantinedConflictCount": 2,
+    "verdictChangesMatchingCorrections": 10,
+    "reportedNotPhishingSafetyHoldCount": 1,
+    "safetyHoldOutcome": "remained_phishing",
+    "sourceFeedbackIdLineage": {
+      "checkedInAsset": "omitted",
+      "privateCloudReleaseRecord": "stored"
+    }
+  },
+  "evaluation": {
+    "feedbackSummary": {
+      "matched": 11,
+      "total": 11,
+      "deterministicEvaluationMessages": 2582
+    },
+    "phishingFalsePositives": {
+      "reducedBy": 50,
+      "recallComparison": "same_recall"
+    }
+  },
+  "rollout": {
+    "cloudRunPercent": 100,
+    "playBetaStatus": "completed"
+  },
+  "knownGaps": [
+    "Semantic intent remains shadow-only and is not a promoted production decision path."
+  ],
+  "notes": [
+    "Exact source-feedback IDs are omitted from Git and stored in the private cloud release record.",
+    "registryImplementationCommit is added only to the post-commit private release record.",
+    "No raw SMS, sender, install ID, UID, or key is stored here."
+  ]
+}

@@ -50,6 +50,22 @@ Use `build_evaluation_corpus_manifest.py` to record path, role, frozen state,
 SHA-256, byte count, and record count without exporting record contents. A
 baseline comparison must fail when a frozen corpus is missing or changed.
 
+## Learning Registry Integration
+
+After reviewer and privacy approval, accepted deidentified cases must be
+published to the private learning registry. Every promoted release must also
+be registered there with its exact corpus linkage and review decision. The
+release record must carry the exact replayed `corpusIds` and
+`corpusManifestRefs`, and registry `verify` revalidates the authoritative
+objects rather than trusting `index.json`. Start at
+`gs://sms-classifier-feedback/learning_registry/v1/START_HERE.md`.
+
+Every candidate must replay all prior active corpus IDs, not only the newest
+corpus. Apply registry tombstones to exclude listed derived `caseIds`; a new
+corpus appends to the replay set and never rewrites a frozen predecessor.
+Checked-in assets must not contain source-feedback IDs. For the reconstructed
+first release, exact lineage belongs only in the private cloud release record.
+
 ## Training And Splits
 
 - Train OTP intent only on reviewed OTP-positive examples. Do not make

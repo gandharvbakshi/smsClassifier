@@ -22,10 +22,12 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 DEFAULT_FEEDBACK_INPUT = ROOT_DIR / "feedback_corpus"
 DEFAULT_REVIEW_QUEUE = ROOT_DIR / "feedback_corpus" / "review_queue.jsonl"
 DEFAULT_REGRESSION_OUTPUT = ROOT_DIR / "feedback_corpus" / "reviewed_feedback_regression_cases.jsonl"
+DEFAULT_REGISTRY_OUTPUT = ROOT_DIR / "feedback_corpus" / "reviewed_feedback_registry_cases.jsonl"
 DEFAULT_QUARANTINE_OUTPUT = ROOT_DIR / "feedback_corpus" / "review_quarantine.jsonl"
 GENERATED_ARTIFACT_NAMES = {
     DEFAULT_REVIEW_QUEUE.name,
     DEFAULT_REGRESSION_OUTPUT.name,
+    DEFAULT_REGISTRY_OUTPUT.name,
     DEFAULT_QUARANTINE_OUTPUT.name,
 }
 
@@ -219,13 +221,18 @@ def _queue_row(row: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         expected_otp = True
     key = _case_key(sender, text, feedback_group)
     feedback_id = str(row.get("id") or row.get("feedbackId") or key)
+    source_feedback_ids = row.get("sourceFeedbackIds")
+    if isinstance(source_feedback_ids, list) and source_feedback_ids:
+        source_feedback_ids = [str(item) for item in source_feedback_ids if item is not None and str(item).strip()]
+    else:
+        source_feedback_ids = [feedback_id]
     category = f"{feedback_group}_feedback"
 
     return {
         "reviewId": f"review_{key}",
         "reviewStatus": "pending",
         "feedbackGroup": feedback_group,
-        "sourceFeedbackIds": [feedback_id],
+        "sourceFeedbackIds": source_feedback_ids,
         "duplicateCount": 1,
         "sender": sender,
         "text": text,
@@ -242,12 +249,19 @@ def _queue_row(row: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         "expectedIsOtp": expected_otp,
         "expectedIsPhishing": expected_phishing,
         "expectedOtpIntent": expected_otp_intent,
-        "reviewer": None,
-        "reviewedAt": None,
-        "reviewConfidence": None,
-        "reviewRationale": "",
-        "reviewRationaleNotes": "",
-        "reviewNote": "",
+        "reviewer": row.get("reviewer"),
+        "reviewedAt": row.get("reviewedAt"),
+        "reviewConfidence": row.get("reviewConfidence"),
+        "reviewRationale": row.get("reviewRationale") or "",
+        "reviewRationaleNotes": row.get("reviewRationaleNotes") or "",
+        "reviewNote": row.get("reviewNote") or "",
+        "privacyStatus": row.get("privacyStatus") or "pending",
+        "privacyReviewer": row.get("privacyReviewer"),
+        "privacyReviewedAt": row.get("privacyReviewedAt"),
+        "privacyRationale": row.get("privacyRationale") or "",
+        "deidentifiedText": row.get("deidentifiedText") or "",
+        "deidentifiedSender": row.get("deidentifiedSender"),
+        "retentionClass": row.get("retentionClass") or "raw_feedback",
     }
 
 
@@ -363,6 +377,7 @@ def export_regression_cases(reviewed_path: Path, output_path: Path) -> Tuple[int
         )
         emitted[key] = {
             "caseId": str(row.get("caseId") or row.get("reviewId") or f"feedback_{key}"),
+            "reviewId": row.get("reviewId"),
             "sender": sender,
             "text": text,
             "expectedIsOtp": expected_otp,
@@ -375,6 +390,13 @@ def export_regression_cases(reviewed_path: Path, output_path: Path) -> Tuple[int
             "reviewConfidence": row.get("reviewConfidence"),
             "reviewRationale": row.get("reviewRationale"),
             "reviewRationaleNotes": row.get("reviewRationaleNotes"),
+            "privacyStatus": row.get("privacyStatus") or "pending",
+            "privacyReviewer": row.get("privacyReviewer"),
+            "privacyReviewedAt": row.get("privacyReviewedAt"),
+            "privacyRationale": row.get("privacyRationale"),
+            "deidentifiedText": row.get("deidentifiedText") or "",
+            "deidentifiedSender": row.get("deidentifiedSender"),
+            "retentionClass": row.get("retentionClass") or "raw_feedback",
         }
         accepted += 1
 
@@ -383,6 +405,68 @@ def export_regression_cases(reviewed_path: Path, output_path: Path) -> Tuple[int
         for row in sorted(emitted.values(), key=lambda item: item["caseId"]):
             handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
     return len(emitted), skipped
+
+
+def export_registry_cases(reviewed_path: Path, output_path: Path) -> Tuple[int, int]:
+    emitted = 0
+    skipped = 0
+    rows: Dict[str, Dict[str, Any]] = {}
+    for row in _iter_json_records([reviewed_path], skip_generated=False):
+        if not _is_accepted(row):
+            skipped += 1
+            continue
+        if str(row.get("privacyStatus") or "").strip().lower() != "deidentified":
+            skipped += 1
+            continue
+        deidentified_text = str(row.get("deidentifiedText") or "").strip()
+        if not deidentified_text:
+            skipped += 1
+            continue
+        if not row.get("reviewer") or not row.get("reviewedAt") or not row.get("privacyReviewer") or not row.get("privacyReviewedAt"):
+            skipped += 1
+            continue
+        expected_otp = _stable_bool(row.get("expectedIsOtp"))
+        expected_phishing = _stable_bool(row.get("expectedIsPhishing"))
+        expected_otp_intent = row.get("expectedOtpIntent") or None
+        if expected_otp is None and expected_phishing is None and not expected_otp_intent:
+            skipped += 1
+            continue
+        sender = str(row.get("deidentifiedSender") or "UNKNOWN").strip()[:128] or "UNKNOWN"
+        key = _regression_case_key(
+            sender,
+            deidentified_text,
+            expected_otp,
+            expected_phishing,
+            expected_otp_intent,
+        )
+        rows[key] = {
+            "caseId": str(row.get("caseId") or row.get("reviewId") or f"feedback_{key}"),
+            "reviewId": row.get("reviewId"),
+            "sourceFeedbackIds": row.get("sourceFeedbackIds") or [],
+            "sender": sender,
+            "text": deidentified_text,
+            "expectedIsOtp": expected_otp,
+            "expectedIsPhishing": expected_phishing,
+            "expectedOtpIntent": expected_otp_intent,
+            "category": row.get("category") or "reviewed_feedback",
+            "reviewer": row.get("reviewer"),
+            "reviewedAt": row.get("reviewedAt"),
+            "reviewConfidence": row.get("reviewConfidence"),
+            "reviewRationale": row.get("reviewRationale"),
+            "reviewRationaleNotes": row.get("reviewRationaleNotes"),
+            "privacyStatus": "deidentified",
+            "privacyReviewer": row.get("privacyReviewer"),
+            "privacyReviewedAt": row.get("privacyReviewedAt"),
+            "privacyRationale": row.get("privacyRationale"),
+            "retentionClass": "deidentified_regression",
+        }
+        emitted += 1
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", encoding="utf-8", newline="\n") as handle:
+        for row in sorted(rows.values(), key=lambda item: item["caseId"]):
+            handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
+    return len(rows), skipped
 
 
 def summarize(path: Path) -> Dict[str, int]:
@@ -406,6 +490,10 @@ def parse_args() -> argparse.Namespace:
     regressions.add_argument("--reviewed", type=Path, default=DEFAULT_REVIEW_QUEUE)
     regressions.add_argument("--output", type=Path, default=DEFAULT_REGRESSION_OUTPUT)
 
+    registry = sub.add_parser("registry-cases", help="Export deidentified registry rows from reviewed feedback.")
+    registry.add_argument("--reviewed", type=Path, default=DEFAULT_REVIEW_QUEUE)
+    registry.add_argument("--output", type=Path, default=DEFAULT_REGISTRY_OUTPUT)
+
     summary = sub.add_parser("summary", help="Summarize review statuses in a queue file.")
     summary.add_argument("--reviewed", type=Path, default=DEFAULT_REVIEW_QUEUE)
     return parser.parse_args()
@@ -425,6 +513,12 @@ def main() -> int:
         if args.command == "regressions":
             count, skipped = export_regression_cases(args.reviewed, args.output)
             print(f"Regression cases exported: {count}")
+            print(f"Skipped rows: {skipped}")
+            print(f"Wrote: {args.output}")
+            return 0
+        if args.command == "registry-cases":
+            count, skipped = export_registry_cases(args.reviewed, args.output)
+            print(f"Registry cases exported: {count}")
             print(f"Skipped rows: {skipped}")
             print(f"Wrote: {args.output}")
             return 0

@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/gandharvbakshi/smsClassifier/main/backend/learning_registry_assets/schemas/release.schema.json",
+  "title": "Learning Registry Release",
+  "description": "Flat append-only promoted release record. Checked-in assets omit exact source-feedback IDs, but promoted releases must still carry corpusIds and corpusManifestRefs for the exact replay set.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "releaseId",
+    "createdAt",
+    "gitCommit",
+    "changeSummary",
+    "reviewDecision",
+    "rolloutStatus",
+    "provenanceCompleteness",
+    "corpusIds",
+    "corpusManifestRefs"
+  ],
+  "properties": {
+    "releaseId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "gitCommit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "changeSummary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewDecision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rolloutStatus": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provenanceCompleteness": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schemaVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recordType": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registryImplementationCommit": {
+      "description": "Commit containing the registry implementation. It may be omitted from the checked-in bootstrap asset and added to the post-commit private release record.",
+      "type": "string",
+      "minLength": 1
+    },
+    "appVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "versionCode": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "cloudRunRevision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cloudRunService": {
+      "type": "string",
+      "minLength": 1
+    },
+    "image": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policyId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "modelVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "semanticIntentStatus": {
+      "type": "string",
+      "minLength": 1
+    },
+    "corpusIds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Exact corpus IDs replayed for the release. Runtime verification resolves them against the live corpus set.",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+      }
+    },
+    "corpusManifestRefs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Exact corpus manifest objects replayed for the release. Runtime verification resolves them against the authoritative manifests.",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "(^|/)corpora/[^/]+/manifest\\.json$"
+      }
+    },
+    "sourceEvidence": {
+      "description": "Permissive safe private evidence object. Live records may use sourceFeedbackIds, rawFeedbackSnapshot, reviewQueue, acceptedPolicyFixes, and rejectedSafetyHolds. No raw message text, raw sender, install ID, UID, credential, or key is allowed.",
+      "type": "object",
+      "properties": {
+        "sourceFeedbackIds": {
+          "description": "Private exact lineage allowed only in release records, never in corpus metadata or the index.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "rawFeedbackSnapshot": {},
+        "reviewQueue": {},
+        "acceptedPolicyFixes": {},
+        "rejectedSafetyHolds": {}
+      },
+      "additionalProperties": true
+    },
+    "evaluation": {
+      "description": "Permissive safe evaluation object. Live records may include jury and additional aggregate evaluation sections.",
+      "type": "object",
+      "properties": {
+        "jury": {}
+      },
+      "additionalProperties": true
+    },
+    "feedbackMatchSummary": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "rollout": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "knownGaps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "notes": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      ]
+    }
+  }
+}

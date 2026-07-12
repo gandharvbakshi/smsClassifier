@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/gandharvbakshi/smsClassifier/main/backend/learning_registry_assets/schemas/tombstone.schema.json",
+  "title": "Learning Registry Case Tombstone",
+  "description": "Append-only instruction excluding derived case IDs from future replay.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "tombstoneId",
+    "createdAt",
+    "reason",
+    "corpusId",
+    "caseIds"
+  ],
+  "properties": {
+    "tombstoneId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "caseIds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Unique, path-safe derived case IDs that must already exist in the referenced corpus.",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+      }
+    },
+    "corpusId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Referenced corpus that owns every listed caseId. Runtime verification resolves the corpus and confirms membership before accepting the tombstone.",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "sourceFeedbackIds": {
+      "description": "Restricted private deletion lineage. Exact values must not be copied into manifests, the index, documentation, or checked-in assets.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "deletionScope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rawDataDeletionStatus": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

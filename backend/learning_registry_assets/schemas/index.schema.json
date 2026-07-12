@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/gandharvbakshi/smsClassifier/main/backend/learning_registry_assets/schemas/index.schema.json",
+  "title": "Learning Registry Materialized Index",
+  "description": "Mutable convenience view generated from authoritative registry objects. It is not authoritative; runtime verify revalidates the corpus, release, and tombstone objects directly, including objects written via objectAdmin bypasses.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "updatedAt",
+    "prefix",
+    "counts",
+    "corpora",
+    "releases",
+    "schemas",
+    "tombstones"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "prefix": {
+      "type": "string"
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "corpora",
+        "releases",
+        "schemas",
+        "tombstones"
+      ],
+      "properties": {
+        "corpora": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "releases": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "schemas": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tombstones": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "corpora": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "caseCount",
+          "casesObject",
+          "casesSha256",
+          "corpusId",
+          "manifestObject"
+        ],
+        "properties": {
+          "caseCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "casesObject": {
+            "type": "string",
+            "minLength": 1
+          },
+          "casesSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "corpusId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "manifestObject": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "releases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "createdAt",
+          "gitCommit",
+          "provenanceCompleteness",
+          "releaseId",
+          "releaseObject",
+          "reviewDecision",
+          "rolloutStatus"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "gitCommit": {
+            "type": "string",
+            "minLength": 1
+          },
+          "provenanceCompleteness": {
+            "type": "string",
+            "minLength": 1
+          },
+          "releaseId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "releaseObject": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reviewDecision": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rolloutStatus": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "schemas": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\.schema\\.json$"
+      }
+    },
+    "tombstones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "caseCount",
+          "createdAt",
+          "tombstoneId",
+          "tombstoneObject"
+        ],
+        "properties": {
+          "caseCount": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tombstoneId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tombstoneObject": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

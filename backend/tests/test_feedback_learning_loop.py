@@ -41,6 +41,29 @@ class FeedbackLearningLoopTests(unittest.TestCase):
         self.assertTrue(queued["expectedIsOtp"])
         self.assertIsNone(queued["expectedIsPhishing"])
 
+    def test_queue_defaults_privacy_state_and_preserves_provenance(self) -> None:
+        queued = fll._queue_row(
+            {
+                "id": "f-preserve",
+                "sender": "BANK",
+                "body": "Code 123456",
+                "sourceFeedbackIds": ["f-original", "f-dup"],
+                "reviewer": "reviewer-1",
+                "reviewedAt": "2026-07-11T10:00:00Z",
+                "privacyReviewer": "privacy-1",
+                "privacyReviewedAt": "2026-07-11T11:00:00Z",
+            }
+        )
+
+        assert queued is not None
+        self.assertEqual(queued["privacyStatus"], "pending")
+        self.assertEqual(queued["retentionClass"], "raw_feedback")
+        self.assertEqual(queued["privacyReviewer"], "privacy-1")
+        self.assertEqual(queued["privacyReviewedAt"], "2026-07-11T11:00:00Z")
+        self.assertEqual(queued["reviewer"], "reviewer-1")
+        self.assertEqual(queued["reviewedAt"], "2026-07-11T10:00:00Z")
+        self.assertEqual(queued["sourceFeedbackIds"], ["f-original", "f-dup"])
+
     def test_dedupe_by_normalized_body_independent_of_expected_labels(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
@@ -285,6 +308,13 @@ class FeedbackLearningLoopTests(unittest.TestCase):
                         "reviewedAt": "2026-07-11T12:00:00Z",
                         "reviewConfidence": 0.95,
                         "reviewRationale": "legitimate_receipt",
+                        "privacyStatus": "deidentified",
+                        "privacyReviewer": "privacy-7",
+                        "privacyReviewedAt": "2026-07-11T12:30:00Z",
+                        "privacyRationale": "safe_to_release",
+                        "deidentifiedText": "Your order is ready to review",
+                        "deidentifiedSender": "BRAND",
+                        "retentionClass": "deidentified_regression",
                     }
                 ],
             )
@@ -297,6 +327,154 @@ class FeedbackLearningLoopTests(unittest.TestCase):
             self.assertFalse(row["expectedIsPhishing"])
             self.assertEqual(row["reviewer"], "reviewer-1")
             self.assertEqual(row["reviewRationale"], "legitimate_receipt")
+            self.assertEqual(row["reviewId"], "review-safe-link")
+            self.assertEqual(row["privacyStatus"], "deidentified")
+            self.assertEqual(row["privacyReviewer"], "privacy-7")
+            self.assertEqual(row["privacyReviewedAt"], "2026-07-11T12:30:00Z")
+            self.assertEqual(row["privacyRationale"], "safe_to_release")
+            self.assertEqual(row["deidentifiedText"], "Your order is ready to review")
+            self.assertEqual(row["deidentifiedSender"], "BRAND")
+            self.assertEqual(row["retentionClass"], "deidentified_regression")
+
+    def test_registry_export_requires_reviewed_deidentified_privacy(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            reviewed_path = temp_path / "reviewed.jsonl"
+            output_path = temp_path / "registry.jsonl"
+            _write_jsonl(
+                reviewed_path,
+                [
+                    {
+                        "reviewId": "review-pending",
+                        "reviewStatus": "accepted",
+                        "reviewer": "reviewer-1",
+                        "reviewedAt": "2026-07-11T12:00:00Z",
+                        "privacyStatus": "pending",
+                        "deidentifiedText": "safe text",
+                        "deidentifiedSender": "SAFE",
+                        "expectedIsOtp": False,
+                    }
+                ],
+            )
+
+            exported, skipped = fll.export_registry_cases(reviewed_path, output_path)
+
+            self.assertEqual(exported, 0)
+            self.assertEqual(skipped, 1)
+            self.assertEqual(output_path.read_text(encoding="utf-8"), "")
+
+    def test_registry_export_uses_safe_field_set(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            reviewed_path = temp_path / "reviewed.jsonl"
+            output_path = temp_path / "registry.jsonl"
+            _write_jsonl(
+                reviewed_path,
+                [
+                    {
+                        "caseId": "case-1",
+                        "reviewId": "review-safe",
+                        "reviewStatus": "approved",
+                        "sourceFeedbackIds": ["src-1"],
+                        "reviewer": "reviewer-1",
+                        "reviewedAt": "2026-07-11T12:00:00Z",
+                        "reviewConfidence": 0.9,
+                        "reviewRationale": "ok",
+                        "reviewRationaleNotes": "notes",
+                        "privacyStatus": "deidentified",
+                        "privacyReviewer": "privacy-1",
+                        "privacyReviewedAt": "2026-07-11T13:00:00Z",
+                        "privacyRationale": "safe",
+                        "deidentifiedText": "masked text",
+                        "deidentifiedSender": "SAFE-SENDER",
+                        "retentionClass": "raw_feedback",
+                        "expectedIsOtp": True,
+                        "expectedIsPhishing": False,
+                        "expectedOtpIntent": "APP_LOGIN_OTP",
+                        "text": "original text",
+                        "body": "original body",
+                        "sender": "original sender",
+                        "installId": "install-1",
+                        "firebaseUid": "uid-1",
+                        "userNote": "note",
+                    }
+                ],
+            )
+
+            exported, skipped = fll.export_registry_cases(reviewed_path, output_path)
+
+            self.assertEqual((exported, skipped), (1, 0))
+            row = json.loads(output_path.read_text(encoding="utf-8"))
+            expected_keys = {
+                "caseId",
+                "reviewId",
+                "sourceFeedbackIds",
+                "sender",
+                "text",
+                "expectedIsOtp",
+                "expectedIsPhishing",
+                "expectedOtpIntent",
+                "category",
+                "reviewer",
+                "reviewedAt",
+                "reviewConfidence",
+                "reviewRationale",
+                "reviewRationaleNotes",
+                "privacyStatus",
+                "privacyReviewer",
+                "privacyReviewedAt",
+                "privacyRationale",
+                "retentionClass",
+            }
+            self.assertEqual(set(row), expected_keys)
+            self.assertEqual(row["text"], "masked text")
+            self.assertEqual(row["sender"], "SAFE-SENDER")
+            self.assertEqual(row["retentionClass"], "deidentified_regression")
+            self.assertNotIn("body", row)
+            self.assertNotIn("installId", row)
+            self.assertNotIn("firebaseUid", row)
+            self.assertNotIn("userNote", row)
+            self.assertNotIn("deidentifiedText", row)
+            self.assertNotIn("deidentifiedSender", row)
+
+    def test_registry_cli_prints_output_path(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            reviewed_path = temp_path / "reviewed.jsonl"
+            output_path = temp_path / "registry.jsonl"
+            _write_jsonl(
+                reviewed_path,
+                [
+                    {
+                        "reviewId": "review-safe",
+                        "reviewStatus": "accepted",
+                        "reviewer": "reviewer-1",
+                        "reviewedAt": "2026-07-11T12:00:00Z",
+                        "privacyStatus": "deidentified",
+                        "privacyReviewer": "privacy-1",
+                        "privacyReviewedAt": "2026-07-11T13:00:00Z",
+                        "deidentifiedText": "masked text",
+                        "deidentifiedSender": "SAFE",
+                        "expectedIsOtp": True,
+                    }
+                ],
+            )
+
+            with patch.object(fll, "parse_args") as mock_parse_args:
+                mock_parse_args.return_value = fll.argparse.Namespace(
+                    command="registry-cases",
+                    reviewed=reviewed_path,
+                    output=output_path,
+                )
+                buffer = io.StringIO()
+                with redirect_stdout(buffer):
+                    exit_code = fll.main()
+
+            self.assertEqual(exit_code, 0)
+            output = buffer.getvalue()
+            self.assertIn("Registry cases exported:", output)
+            self.assertIn("Wrote:", output)
+            self.assertIn(str(output_path), output)
 
 
 if __name__ == "__main__":
