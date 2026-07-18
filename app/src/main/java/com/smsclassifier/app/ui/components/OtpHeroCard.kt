@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.WarningAmber
 import androidx.compose.material3.Button
@@ -23,6 +24,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
@@ -36,6 +43,9 @@ import com.smsclassifier.app.ui.badges.SensitivityType
 import com.smsclassifier.app.util.ClassificationUtils
 import com.smsclassifier.app.util.SenderNameResolver
 import com.smsclassifier.app.util.formatFriendlyTime
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun OtpHeroCard(
@@ -184,7 +194,7 @@ private fun OtpWarningRow() {
         )
         Spacer(modifier = Modifier.width(6.dp))
         Text(
-            text = "Never share this code",
+            text = "Never share this OTP",
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.error,
@@ -195,8 +205,27 @@ private fun OtpWarningRow() {
 
 @Composable
 private fun CopyOtpButton(onClick: () -> Unit) {
+    var copiedState by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    var resetJob by remember { mutableStateOf<Job?>(null) }
+
+    LaunchedEffect(copiedState) {
+        if (!copiedState) {
+            resetJob?.cancel()
+            resetJob = null
+        }
+    }
+
     Button(
-        onClick = onClick,
+        onClick = {
+            onClick()
+            resetJob?.cancel()
+            copiedState = true
+            resetJob = scope.launch {
+                delay(2_000)
+                copiedState = false
+            }
+        },
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 56.dp)
@@ -206,12 +235,15 @@ private fun CopyOtpButton(onClick: () -> Unit) {
             horizontalArrangement = Arrangement.Center
         ) {
             Icon(
-                imageVector = Icons.Default.ContentCopy,
+                imageVector = if (copiedState) Icons.Default.Check else Icons.Default.ContentCopy,
                 contentDescription = null,
                 modifier = Modifier.size(24.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text("Copy OTP", style = MaterialTheme.typography.titleMedium)
+            Text(
+                text = if (copiedState) "OTP copied" else "Copy OTP",
+                style = MaterialTheme.typography.titleMedium
+            )
         }
     }
 }

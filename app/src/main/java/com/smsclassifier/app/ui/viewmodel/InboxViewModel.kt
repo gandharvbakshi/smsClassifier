@@ -65,6 +65,9 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
         }.cachedIn(viewModelScope)
 
     val totalCount = database.messageDao().getTotalCount()
+    val classifiedMessageCount = database.messageDao().getClassifiedCount()
+    val otpMessageCount = database.messageDao().getOtpCount()
+    val phishingMessageCount = database.messageDao().getPhishingCount()
     
     // Count threads instead of individual messages
     private val _otpCount = MutableStateFlow(0)

@@ -212,14 +212,18 @@ class MainActivity : ComponentActivity() {
                                 em.acknowledgeTrialStartedBanner()
                                 refreshEntitlement()
                             },
-                            showTrialEnding = em.shouldShowTrialEndingBanner(),
+                            trialNudgeMilestone = em.trialNudgeMilestone(),
                             trialDaysRemaining = em.trialDaysRemaining(),
                             formattedPrice = formattedPrice,
-                            onTrialEndingBuy = {
+                            onTrialNudgeShown = { milestone ->
+                                em.markTrialNudgeShown(milestone)
+                            },
+                            onTrialNudgeBuy = { milestone ->
+                                AppContainer.telemetry.logTrialNudgeCta(milestone.daysRemaining)
                                 navController.navigate("paywall/trial_ending")
                             },
-                            onTrialEndingDismiss = {
-                                em.dismissTrialEndingBanner24h()
+                            onTrialNudgeDismiss = { milestone ->
+                                em.markTrialNudgeShown(milestone)
                                 refreshEntitlement()
                             },
                             showUnlockPro = em.showInboxUnlockProCta(),
@@ -370,6 +374,11 @@ class MainActivity : ComponentActivity() {
                                 onNewMessageClick = {
                                     AppContainer.telemetry.logCtaTap("inbox", "new_message")
                                     navController.navigate("compose")
+                                },
+                                onOpenOtpTab = {
+                                    navController.navigate("otp") {
+                                        launchSingleTop = true
+                                    }
                                 },
                                 onSetDefaultSms = { startDefaultSmsAndPermissionFlow() },
                                 entitlementUi = inboxEntitlementUi

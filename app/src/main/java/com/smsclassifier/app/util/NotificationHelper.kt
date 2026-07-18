@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.view.View
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -15,6 +16,7 @@ import androidx.core.content.ContextCompat
 import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.MainActivity
 import com.smsclassifier.app.R
+import com.smsclassifier.app.classification.HeuristicOtpClassifier
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.NotificationDebugLogEntity
 import com.smsclassifier.app.data.SettingsRepository
@@ -80,8 +82,11 @@ object NotificationHelper {
             return
         }
 
+        val heuristic = HeuristicOtpClassifier.classify(body, sender)
         val otpCode = extractOtpForCopy(body, sender, null)
         val channelId = if (otpCode != null) CHANNEL_ID_OTP else CHANNEL_ID_DEFAULT
+        val showOtpWarning = otpCode != null &&
+            ClassificationUtils.shouldWarnOnOtpNotification(body, sender, heuristic.suggestedIntent)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = notificationManager.getNotificationChannel(channelId)
@@ -102,7 +107,8 @@ object NotificationHelper {
             body = body,
             threadId = threadId,
             otpCode = otpCode,
-            channelId = channelId
+            channelId = channelId,
+            showOtpWarning = showOtpWarning
         )
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -117,7 +123,8 @@ object NotificationHelper {
                         body = body,
                         threadId = threadId,
                         otpCode = otpCode,
-                        channelId = channelId
+                        channelId = channelId,
+                        showOtpWarning = showOtpWarning
                     )
                 }
             } catch (e: Exception) {
@@ -136,7 +143,8 @@ object NotificationHelper {
         body: String,
         threadId: Long,
         otpCode: String?,
-        channelId: String
+        channelId: String,
+        showOtpWarning: Boolean
     ) {
         val settingsRepository = SettingsRepository(context)
         val soundEnabled = settingsRepository.notificationSoundEnabled
@@ -156,8 +164,8 @@ object NotificationHelper {
         )
 
         val builder = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(android.R.drawable.ic_dialog_email)
-            .setContentTitle(if (otpCode != null) "$displayName · OTP" else displayName)
+            .setSmallIcon(R.drawable.ic_stat_sms)
+            .setContentTitle(if (otpCode != null) "OTP from $displayName" else displayName)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -165,20 +173,24 @@ object NotificationHelper {
             .setAutoCancel(true)
             .setGroup(NOTIFICATION_GROUP)
             .setShowWhen(true)
+            .setAllowSystemGeneratedContextualActions(false)
 
         if (otpCode != null) {
             val collapsed = RemoteViews(context.packageName, R.layout.notification_otp_collapsed)
-            collapsed.setTextViewText(R.id.notif_otp_sender, "$displayName · OTP")
+            collapsed.setTextViewText(R.id.notif_otp_sender, "OTP from $displayName")
             collapsed.setTextViewText(R.id.notif_otp_code, otpCode)
 
             val expanded = RemoteViews(context.packageName, R.layout.notification_otp_expanded)
-            expanded.setTextViewText(R.id.notif_otp_sender, "$displayName · OTP")
+            expanded.setTextViewText(R.id.notif_otp_sender, "OTP from $displayName")
             expanded.setTextViewText(R.id.notif_otp_code, otpCode)
             expanded.setTextViewText(R.id.notif_otp_body, body)
+            expanded.setViewVisibility(
+                R.id.notif_otp_warning,
+                if (showOtpWarning) View.VISIBLE else View.GONE
+            )
 
             builder
                 .setContentText(body)
-                .setSubText("Autofill code: $otpCode")
                 .setCustomContentView(collapsed)
                 .setCustomBigContentView(expanded)
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
@@ -194,15 +206,11 @@ object NotificationHelper {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
             builder.addAction(
-                android.R.drawable.ic_menu_save,
+                android.R.drawable.ic_menu_edit,
                 "Copy OTP",
                 copyOtpPendingIntent
             )
-            builder.addAction(
-                android.R.drawable.ic_menu_view,
-                "Open",
-                pendingIntent
-            )
+            expanded.setOnClickPendingIntent(R.id.notif_copy_otp_button, copyOtpPendingIntent)
         } else {
             builder
                 .setContentText(body)
@@ -313,6 +321,17 @@ object NotificationHelper {
         ) {
             return
         }
+        val platformManager = context.getSystemService(NotificationManager::class.java)
+        val activeChildCount = platformManager.activeNotifications.count { statusBarNotification ->
+                statusBarNotification.id != 0 &&
+                statusBarNotification.notification.group == NOTIFICATION_GROUP &&
+                statusBarNotification.notification.flags and
+                    android.app.Notification.FLAG_GROUP_SUMMARY == 0
+        }
+        if (activeChildCount < 2) {
+            NotificationManagerCompat.from(context).cancel(0)
+            return
+        }
         val summaryIntent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -324,7 +343,7 @@ object NotificationHelper {
         )
 
         val summaryNotification = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(android.R.drawable.ic_dialog_email)
+            .setSmallIcon(R.drawable.ic_stat_sms)
             .setContentTitle("New Messages")
             .setGroup(NOTIFICATION_GROUP)
             .setGroupSummary(true)

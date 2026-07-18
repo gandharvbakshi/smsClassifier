@@ -150,6 +150,23 @@ class EntitlementManager(private val context: Context) {
         return if (days == 1) "1 day" else "$days days"
     }
 
+    fun trialNudgeMilestone(now: Long = System.currentTimeMillis()): TrialNudgeMilestone? {
+        if (currentState(now) != EntitlementState.TRIAL_ACTIVE) return null
+        return TrialNudgePolicy.trialNudgeMilestone(
+            daysRemaining = trialDaysRemaining(now),
+            shownMilestones = trialNudgeShownMilestones()
+        )
+    }
+
+    fun markTrialNudgeShown(milestone: TrialNudgeMilestone) {
+        val editor = prefs.edit()
+        TrialNudgePolicy.lapsedHigherMilestones(milestone).forEach { higher ->
+            editor.putBoolean(trialNudgeShownKey(higher), true)
+        }
+        editor.putBoolean(trialNudgeShownKey(milestone), true)
+            .apply()
+    }
+
     fun onWorkerDetectedOtp() {
         if (!prefs.getBoolean(KEY_FIRST_OTP_EVENT, false)) {
             prefs.edit().putBoolean(KEY_FIRST_OTP_EVENT, true).apply()
@@ -199,6 +216,9 @@ class EntitlementManager(private val context: Context) {
             .remove(KEY_TRIAL_EXPIRES_AT)
             .remove(KEY_TRIAL_DURATION_DAYS)
             .remove(KEY_TRIAL_POLICY_VERSION)
+            .remove(KEY_TRIAL_NUDGE_SHOWN_D5)
+            .remove(KEY_TRIAL_NUDGE_SHOWN_D3)
+            .remove(KEY_TRIAL_NUDGE_SHOWN_D1)
             .remove(KEY_FIRST_OTP_EVENT)
             .remove(KEY_TRIAL_ACK)
             .remove(KEY_TRIAL_END_DISMISS_UNTIL)
@@ -388,6 +408,15 @@ class EntitlementManager(private val context: Context) {
         return DEFAULT_TRIAL_DAYS
     }
 
+    private fun trialNudgeShownMilestones(): Set<TrialNudgeMilestone> =
+        TrialNudgeMilestone.values().filter { prefs.getBoolean(trialNudgeShownKey(it), false) }.toSet()
+
+    private fun trialNudgeShownKey(milestone: TrialNudgeMilestone): String = when (milestone) {
+        TrialNudgeMilestone.DAY_5 -> KEY_TRIAL_NUDGE_SHOWN_D5
+        TrialNudgeMilestone.DAY_3 -> KEY_TRIAL_NUDGE_SHOWN_D3
+        TrialNudgeMilestone.DAY_1 -> KEY_TRIAL_NUDGE_SHOWN_D1
+    }
+
     init {
         refreshCrashlyticsMode()
     }
@@ -399,6 +428,9 @@ class EntitlementManager(private val context: Context) {
         private const val KEY_TRIAL_EXPIRES_AT = "trial_expires_at_ms"
         private const val KEY_TRIAL_DURATION_DAYS = "trial_duration_days"
         private const val KEY_TRIAL_POLICY_VERSION = "trial_policy_version"
+        private const val KEY_TRIAL_NUDGE_SHOWN_D5 = "trial_nudge_shown_d5"
+        private const val KEY_TRIAL_NUDGE_SHOWN_D3 = "trial_nudge_shown_d3"
+        private const val KEY_TRIAL_NUDGE_SHOWN_D1 = "trial_nudge_shown_d1"
         private const val KEY_FIRST_OTP_EVENT = "first_otp_event_sent"
         private const val KEY_TRIAL_ACK = "trial_started_banner_ack"
         private const val KEY_TRIAL_END_DISMISS_UNTIL = "trial_end_banner_dismiss_until_ms"

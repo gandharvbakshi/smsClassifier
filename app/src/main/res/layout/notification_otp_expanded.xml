@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Custom expanded view for OTP notifications. Adds the SMS body underneath the
-  large OTP code. The Copy button itself is supplied by NotificationCompat.Action
-  and is rendered by the system below this view (not in this layout).
--->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -50,7 +45,7 @@
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.Compat.Notification.Line2"
         android:textSize="13sp"
-        android:maxLines="6"
+        android:maxLines="2"
         android:ellipsize="end"
         android:text="Message body" />
 
@@ -63,5 +58,19 @@
         android:textColor="@color/suspicious_amber"
         android:textStyle="bold"
         android:textSize="13sp"
-        android:text="Do not share this OTP with anyone." />
+        android:text="Never share this OTP with anyone."
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/notif_copy_otp_button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_notif_copy_button"
+        android:gravity="center"
+        android:text="Copy OTP"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 </LinearLayout>

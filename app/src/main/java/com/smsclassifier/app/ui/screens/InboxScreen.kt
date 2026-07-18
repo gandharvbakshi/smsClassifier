@@ -62,6 +62,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.R
+import com.smsclassifier.app.entitlement.TrialNudgeMilestone
 import com.smsclassifier.app.ui.components.ConversationItem
 import com.smsclassifier.app.ui.components.FilterChips
 import com.smsclassifier.app.ui.components.MessageItem
@@ -73,11 +74,12 @@ import com.smsclassifier.app.ui.viewmodel.ViewMode
 data class InboxEntitlementUi(
     val showTrialWelcome: Boolean = false,
     val onTrialWelcomeDismiss: () -> Unit = {},
-    val showTrialEnding: Boolean = false,
+    val trialNudgeMilestone: TrialNudgeMilestone? = null,
     val trialDaysRemaining: Int = 0,
     val formattedPrice: String? = null,
-    val onTrialEndingBuy: () -> Unit = {},
-    val onTrialEndingDismiss: () -> Unit = {},
+    val onTrialNudgeShown: (TrialNudgeMilestone) -> Unit = {},
+    val onTrialNudgeBuy: (TrialNudgeMilestone) -> Unit = {},
+    val onTrialNudgeDismiss: (TrialNudgeMilestone) -> Unit = {},
     val showUnlockPro: Boolean = false,
     val onUnlockPro: () -> Unit = {},
 )
@@ -89,6 +91,7 @@ fun InboxScreen(
     onMessageClick: (Long) -> Unit,
     onThreadClick: (Long) -> Unit,
     onNewMessageClick: () -> Unit,
+    onOpenOtpTab: () -> Unit,
     onSetDefaultSms: () -> Unit,
     entitlementUi: InboxEntitlementUi = InboxEntitlementUi(),
     modifier: Modifier = Modifier
@@ -100,6 +103,9 @@ fun InboxScreen(
     val viewMode by viewModel.viewMode.collectAsState()
 
     val totalCount by viewModel.totalCount.collectAsState(initial = 0)
+    val classifiedMessageCount by viewModel.classifiedMessageCount.collectAsState(initial = 0)
+    val otpMessageCount by viewModel.otpMessageCount.collectAsState(initial = 0)
+    val phishingMessageCount by viewModel.phishingMessageCount.collectAsState(initial = 0)
     val otpCount by viewModel.otpCount.collectAsState(initial = 0)
     val phishingCount by viewModel.phishingCount.collectAsState(initial = 0)
     val needsReviewCount by viewModel.needsReviewCount.collectAsState(initial = 0)
@@ -150,7 +156,10 @@ fun InboxScreen(
 
             FilterChips(
                 selectedFilter = filter,
-                onFilterSelected = viewModel::setFilter,
+                onFilterSelected = { selected ->
+                    if (selected == FilterType.OTP) onOpenOtpTab()
+                    else viewModel.setFilter(selected)
+                },
                 counts = mapOf(
                     FilterType.OTP to otpCount,
                     FilterType.PHISHING to phishingCount,
@@ -161,7 +170,12 @@ fun InboxScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            InboxEntitlementBanners(ui = entitlementUi)
+            InboxEntitlementBanners(
+                ui = entitlementUi,
+                classifiedMessageCount = classifiedMessageCount,
+                otpMessageCount = otpMessageCount,
+                phishingMessageCount = phishingMessageCount
+            )
 
             when (viewMode) {
                 ViewMode.THREADS -> {
@@ -486,7 +500,12 @@ private fun InboxHeader(
 }
 
 @Composable
-private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
+private fun InboxEntitlementBanners(
+    ui: InboxEntitlementUi,
+    classifiedMessageCount: Int,
+    otpMessageCount: Int,
+    phishingMessageCount: Int
+) {
     val trialAvailable = !AppContainer.entitlementManager.hasTrialStarted()
     val trialLabel = AppContainer.entitlementManager.trialDurationLabel()
 
@@ -504,14 +523,37 @@ private fun InboxEntitlementBanners(ui: InboxEntitlementUi) {
                 onPrimary = ui.onTrialWelcomeDismiss
             )
         }
-        if (ui.showTrialEnding) {
+        var displayedMilestone by remember { mutableStateOf<TrialNudgeMilestone?>(null) }
+        LaunchedEffect(ui.trialNudgeMilestone) {
+            val pendingMilestone = ui.trialNudgeMilestone
+            if (displayedMilestone == null && pendingMilestone != null) {
+                displayedMilestone = pendingMilestone
+                ui.onTrialNudgeShown(pendingMilestone)
+                AppContainer.telemetry.logTrialNudgeShown(pendingMilestone.daysRemaining)
+            }
+        }
+        val milestone = displayedMilestone
+        if (milestone != null) {
+            val copy = trialNudgeCopy(
+                milestone = milestone.daysRemaining,
+                daysRemaining = ui.trialDaysRemaining.coerceIn(1, milestone.daysRemaining),
+                classifiedMessageCount = classifiedMessageCount,
+                otpMessageCount = otpMessageCount,
+                phishingMessageCount = phishingMessageCount,
+                formattedPrice = ui.formattedPrice
+            )
             EntitlementBannerCard(
-                label = "Trial ending",
-                body = "Trial ends in ${ui.trialDaysRemaining} day(s). Keep Pro for ${ui.formattedPrice ?: "Play price/year"}.",
-                primaryText = "Subscribe",
-                onPrimary = ui.onTrialEndingBuy,
-                secondaryText = "Dismiss",
-                onSecondary = ui.onTrialEndingDismiss
+                label = copy.title,
+                body = copy.body,
+                primaryText = copy.primaryText,
+                onPrimary = { ui.onTrialNudgeBuy(milestone) },
+                secondaryText = if (milestone == TrialNudgeMilestone.DAY_1) null else "Not now",
+                onSecondary = {
+                    displayedMilestone = null
+                    ui.onTrialNudgeDismiss(milestone)
+                },
+                showClose = milestone == TrialNudgeMilestone.DAY_1,
+                onClose = { displayedMilestone = null }
             )
         }
         if (ui.showUnlockPro) {
@@ -536,7 +578,9 @@ private fun EntitlementBannerCard(
     primaryText: String? = null,
     onPrimary: () -> Unit = {},
     secondaryText: String? = null,
-    onSecondary: () -> Unit = {}
+    onSecondary: () -> Unit = {},
+    showClose: Boolean = false,
+    onClose: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -552,12 +596,24 @@ private fun EntitlementBannerCard(
                 .padding(horizontal = 14.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-                fontWeight = FontWeight.SemiBold
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.weight(1f)
+                )
+                if (showClose) {
+                    IconButton(onClick = onClose) {
+                        Icon(Icons.Default.Close, contentDescription = "Close trial reminder")
+                    }
+                }
+            }
             Text(
                 text = body,
                 style = MaterialTheme.typography.bodyLarge,

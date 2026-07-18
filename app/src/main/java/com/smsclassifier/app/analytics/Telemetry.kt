@@ -89,6 +89,14 @@ class Telemetry(
         )
     }
 
+    fun logTrialNudgeShown(milestone: Int) {
+        logEvent("trial_nudge_shown", mapOf("milestone" to milestone))
+    }
+
+    fun logTrialNudgeCta(milestone: Int) {
+        logEvent("trial_nudge_cta", mapOf("milestone" to milestone))
+    }
+
     fun logPurchaseCompleted(sku: String, value: Double, currency: String) {
         val itemId = safeLabel(sku)
         val normalizedCurrency = currency.ifBlank { "XXX" }

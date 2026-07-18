@@ -8,6 +8,18 @@ import com.smsclassifier.app.ui.badges.SensitivityType
 object ClassificationUtils {
     private val OTP_REGEX = Regex("\\b\\d{4,8}\\b")
     private const val OTP_COPY_MIN_CONFIDENCE = 0.8f
+    private val OTP_WARNING_DO_NOT_SHARE_REGEX = Regex(
+        "\\b(do not share|don't share|never share|do not disclose|never disclose|keep\\s+(?:it|this)\\s+confidential|keep\\s+private)\\b",
+        RegexOption.IGNORE_CASE
+    )
+    private val OTP_WARNING_FINANCIAL_CONTEXT_REGEX = Regex(
+        "\\b(upi|vpa|bhim|bank|card|account|pin|payment|transaction|transfer|debit|credit|withdraw|deposit|balance|imps|neft|rtgs|net\\s*banking|wallet)\\b",
+        RegexOption.IGNORE_CASE
+    )
+    private val OTP_WARNING_DELIVERY_CONTEXT_REGEX = Regex(
+        "\\b(delivery|courier|parcel|package|shipment|tracking|delivery\\s+otp|otp\\s+for\\s+delivery|delivery\\s+pin|delivery\\s+code|courier\\s+otp)\\b",
+        RegexOption.IGNORE_CASE
+    )
     private val URL_REGEX = Regex("https?://|www\\.|\\b[a-z0-9.-]+\\.[a-z]{2,}\\b", RegexOption.IGNORE_CASE)
     private val OTP_KEYWORD_REGEX = Regex(
         "\\b(otp|one time password|verification code|authentication code|login code|security code|code)\\b",
@@ -88,6 +100,40 @@ object ClassificationUtils {
                 }
             }
             .takeIf { it.isNotBlank() }
+    }
+
+    /**
+     * High-precision warning policy for OTP notifications.
+     *
+     * Delivery OTP / PIN messages should stay quiet, while explicit "do not
+     * share" language or clear financial / UPI context should surface a
+     * warning.
+     */
+    fun shouldWarnOnOtpNotification(
+        body: String,
+        sender: String?,
+        otpIntent: String?
+    ): Boolean {
+        val normalizedIntent = otpIntent?.uppercase()
+        if (normalizedIntent == "DELIVERY_OR_SERVICE_OTP") return false
+
+        val surface = buildString {
+            append(sender.orEmpty())
+            append(' ')
+            append(body)
+        }
+
+        if (OTP_WARNING_DELIVERY_CONTEXT_REGEX.containsMatchIn(surface)) return false
+        if (normalizedIntent == "BANK_OR_CARD_TXN_OTP" ||
+            normalizedIntent == "UPI_TXN_OR_PIN_OTP" ||
+            normalizedIntent == "FINANCIAL_LOGIN_OTP" ||
+            normalizedIntent == "APP_ACCOUNT_CHANGE_OTP"
+        ) {
+            return true
+        }
+
+        return OTP_WARNING_DO_NOT_SHARE_REGEX.containsMatchIn(surface) ||
+            OTP_WARNING_FINANCIAL_CONTEXT_REGEX.containsMatchIn(surface)
     }
 
     fun plainReasons(message: MessageEntity, rawReasons: List<String>): List<String> {

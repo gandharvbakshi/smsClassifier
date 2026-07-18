@@ -82,6 +82,49 @@ class ClassificationUtilsTest {
     }
 
     @Test
+    fun shouldWarnOnOtpNotification_bankAndUpiContexts_returnTrue() {
+        assertTrue(
+            ClassificationUtils.shouldWarnOnOtpNotification(
+                body = "Your SBI UPI PIN is 482917. Do not share it.",
+                sender = "VM-SBIOTP",
+                otpIntent = "UPI_TXN_OR_PIN_OTP"
+            )
+        )
+        assertTrue(
+            ClassificationUtils.shouldWarnOnOtpNotification(
+                body = "Your ICICI card OTP is 928411. Do not share it.",
+                sender = "VM-ICICIT",
+                otpIntent = "BANK_OR_CARD_TXN_OTP"
+            )
+        )
+        assertTrue(
+            ClassificationUtils.shouldWarnOnOtpNotification(
+                body = "Your login code is 665411. Do not share this OTP with anyone.",
+                sender = "VM-GOOGLE",
+                otpIntent = "APP_LOGIN_OTP"
+            )
+        )
+    }
+
+    @Test
+    fun shouldWarnOnOtpNotification_deliveryOtpAndPin_returnFalse() {
+        assertFalse(
+            ClassificationUtils.shouldWarnOnOtpNotification(
+                body = "Your delivery OTP is 482917. Share it with the delivery partner only.",
+                sender = "VM-SWIGGY",
+                otpIntent = "DELIVERY_OR_SERVICE_OTP"
+            )
+        )
+        assertFalse(
+            ClassificationUtils.shouldWarnOnOtpNotification(
+                body = "Your delivery PIN is 7712. Do not share it with anyone.",
+                sender = "VM-ZOMATO",
+                otpIntent = "DELIVERY_OR_SERVICE_OTP"
+            )
+        )
+    }
+
+    @Test
     fun extractOtpForCopy_amountBeforeOtp_usesActualOtp() {
         val message = baseMessage(
             body = "OTP for txn of INR 4200 at AMAZON is 482917. Valid for 10 min. Do not share with anyone.",

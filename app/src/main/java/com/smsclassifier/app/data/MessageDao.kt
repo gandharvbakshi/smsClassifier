@@ -42,6 +42,9 @@ interface MessageDao {
     @Query("SELECT COUNT(*) FROM messages WHERE isPhishing = 1")
     fun getPhishingCount(): Flow<Int>
 
+    @Query("SELECT COUNT(*) FROM messages WHERE isOtp IS NOT NULL OR isPhishing IS NOT NULL OR phishScore IS NOT NULL")
+    fun getClassifiedCount(): Flow<Int>
+
     @Query("SELECT COUNT(*) FROM messages WHERE reviewed = 0 AND (isPhishing IS NULL OR phishScore IS NULL)")
     fun getNeedsReviewCount(): Flow<Int>
 
