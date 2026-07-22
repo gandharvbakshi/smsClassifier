@@ -73,6 +73,8 @@ class PlayBillingRepository(private val context: Context) {
 
     private val appContext = context.applicationContext
     private var billingClient: BillingClient? = null
+    private val connectionLock = Any()
+    @Volatile private var connectionInProgress = false
     private val billingScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     private val _productDetails = MutableStateFlow<ProductDetails?>(null)
@@ -110,25 +112,30 @@ class PlayBillingRepository(private val context: Context) {
             restorePurchases()
             return
         }
-        val existing = billingClient
-        if (existing != null && !existing.isReady) {
-            existing.endConnection()
-            billingClient = null
-            _connected.value = false
-        }
-        if (billingClient != null) return
 
-        billingClient = BillingClient.newBuilder(appContext)
-            .setListener(listener)
-            .enablePendingPurchases(
-                PendingPurchasesParams.newBuilder()
-                    .enableOneTimeProducts()
-                    .build()
-            )
-            .enableAutoServiceReconnection()
-            .build()
-        billingClient!!.startConnection(object : BillingClientStateListener {
+        val client = synchronized(connectionLock) {
+            if (connectionInProgress) return
+            connectionInProgress = true
+
+            billingClient?.endConnection()
+            _connected.value = false
+            BillingClient.newBuilder(appContext)
+                .setListener(listener)
+                .enablePendingPurchases(
+                    PendingPurchasesParams.newBuilder()
+                        .enableOneTimeProducts()
+                        .build()
+                )
+                .build()
+                .also { billingClient = it }
+        }
+
+        client.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
+                synchronized(connectionLock) {
+                    if (billingClient !== client) return
+                    connectionInProgress = false
+                }
                 if (billingResult.responseCode == BillingResponseCode.OK) {
                     _connected.value = true
                     querySkuDetails()
@@ -136,21 +143,34 @@ class PlayBillingRepository(private val context: Context) {
                 } else {
                     AppLog.w(TAG, "Billing setup failed: ${billingResult.debugMessage}")
                     _connected.value = false
-                    billingClient?.endConnection()
-                    billingClient = null
+                    synchronized(connectionLock) {
+                        if (billingClient === client) {
+                            client.endConnection()
+                            billingClient = null
+                        }
+                    }
                 }
             }
 
             override fun onBillingServiceDisconnected() {
                 _connected.value = false
-                billingClient?.endConnection()
-                billingClient = null
+                synchronized(connectionLock) {
+                    if (billingClient === client) {
+                        connectionInProgress = false
+                        client.endConnection()
+                        billingClient = null
+                    }
+                }
             }
         })
     }
 
     fun querySkuDetails() {
-        val client = billingClient ?: return
+        val client = billingClient
+        if (client == null || !client.isReady) {
+            startConnection()
+            return
+        }
         val params = QueryProductDetailsParams.newBuilder()
             .setProductList(
                 listOf(
@@ -175,7 +195,11 @@ class PlayBillingRepository(private val context: Context) {
     }
 
     fun restorePurchases() {
-        val client = billingClient ?: return
+        val client = billingClient
+        if (client == null || !client.isReady) {
+            startConnection()
+            return
+        }
         restorePurchasesFor(client, BillingClient.ProductType.SUBS)
         restorePurchasesFor(client, BillingClient.ProductType.INAPP)
     }
@@ -306,8 +330,11 @@ class PlayBillingRepository(private val context: Context) {
     }
 
     fun endConnection() {
-        billingClient?.endConnection()
-        billingClient = null
+        synchronized(connectionLock) {
+            billingClient?.endConnection()
+            billingClient = null
+            connectionInProgress = false
+        }
         _connected.value = false
     }
 
