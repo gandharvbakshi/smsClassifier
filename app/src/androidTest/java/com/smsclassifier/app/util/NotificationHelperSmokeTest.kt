@@ -3,6 +3,7 @@ package com.smsclassifier.app.util
 import android.Manifest
 import android.app.NotificationManager
 import android.os.Build
+import android.os.SystemClock
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
@@ -39,7 +40,12 @@ class NotificationHelperSmokeTest {
         )
 
         val manager = context.getSystemService(NotificationManager::class.java)
-        val posted = manager.activeNotifications.firstOrNull { it.id == 910_001 }
+        val deadline = SystemClock.elapsedRealtime() + 2_000L
+        var posted = manager.activeNotifications.firstOrNull { it.id == 910_001 }
+        while (posted == null && SystemClock.elapsedRealtime() < deadline) {
+            SystemClock.sleep(50L)
+            posted = manager.activeNotifications.firstOrNull { it.id == 910_001 }
+        }
         assertNotNull(posted)
         assertNull(posted?.notification?.extras?.getCharSequence("android.subText"))
         val actionTitles = posted?.notification?.actions.orEmpty().map { it.title.toString() }

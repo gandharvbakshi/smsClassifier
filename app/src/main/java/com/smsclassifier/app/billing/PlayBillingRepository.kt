@@ -10,6 +10,7 @@ import com.android.billingclient.api.BillingClient.BillingResponseCode
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
+import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.PurchasesUpdatedListener
@@ -27,7 +28,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * Play Billing 7 for the annual Pro subscription.
+ * Play Billing 9 for the annual Pro subscription.
  *
  * New purchases use [SKU_PRO_YEARLY]. The legacy lifetime SKU is still queried
  * during restore so earlier buyers keep access.
@@ -119,7 +120,12 @@ class PlayBillingRepository(private val context: Context) {
 
         billingClient = BillingClient.newBuilder(appContext)
             .setListener(listener)
-            .enablePendingPurchases()
+            .enablePendingPurchases(
+                PendingPurchasesParams.newBuilder()
+                    .enableOneTimeProducts()
+                    .build()
+            )
+            .enableAutoServiceReconnection()
             .build()
         billingClient!!.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
@@ -154,13 +160,15 @@ class PlayBillingRepository(private val context: Context) {
                         .build()
                 )
             ).build()
-        client.queryProductDetailsAsync(params) { result, list ->
-            if (result.responseCode == BillingResponseCode.OK && list.isNotEmpty()) {
-                _productDetails.value = list.firstOrNull()
+        client.queryProductDetailsAsync(params) { result, queryResult ->
+            val productDetailsList = queryResult.productDetailsList
+            if (result.responseCode == BillingResponseCode.OK && productDetailsList.isNotEmpty()) {
+                _productDetails.value = productDetailsList.firstOrNull()
             } else {
+                val unfetchedCount = queryResult.unfetchedProductList.size
                 AppLog.w(
                     TAG,
-                    "SKU query failed code=${result.responseCode} msg=${result.debugMessage} count=${list.size}"
+                    "SKU query failed code=${result.responseCode} msg=${result.debugMessage} count=${productDetailsList.size} unfetched=$unfetchedCount"
                 )
             }
         }
@@ -317,7 +325,7 @@ class PlayBillingRepository(private val context: Context) {
     }
 
     private fun userFacingPurchaseError(billingResult: BillingResult): String {
-        val debug = billingResult.debugMessage?.trim().orEmpty()
+        val debug = billingResult.debugMessage.trim()
         return when (billingResult.responseCode) {
             BillingResponseCode.BILLING_UNAVAILABLE ->
                 "Google Play Billing is unavailable on this device."

@@ -22,14 +22,18 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.smsclassifier.app"
-    compileSdk = 35
+    compileSdk {
+        version = release(36) {
+            minorApiLevel = 1
+        }
+    }
 
     defaultConfig {
         applicationId = "com.smsclassifier.app"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 47
-        versionName = "1.2.22"
+        targetSdk = 36
+        versionCode = 48
+        versionName = "1.2.23"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -182,7 +186,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0")
 
     // Play Billing & in-app review (monetization plan)
-    implementation("com.android.billingclient:billing-ktx:7.1.1")
+    implementation("com.android.billingclient:billing:9.1.0")
     implementation("com.google.android.play:review-ktx:2.0.1")
 
     // Testing
