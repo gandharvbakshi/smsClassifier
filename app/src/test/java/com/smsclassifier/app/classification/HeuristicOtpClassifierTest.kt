@@ -45,4 +45,16 @@ class HeuristicOtpClassifierTest {
         assertFalse(result.isOtp)
         assertEquals(0f, result.confidence)
     }
+
+    @Test
+    fun classify_porterDeliveryCode_detectsDeliveryOtpDespiteDeliveryStatusText() {
+        val result = HeuristicOtpClassifier.classify(
+            text = "Your rider is out for delivery. Please give the Delivery Code - 537993, to receive your Porter order.",
+            sender = "JX-PORTER-S"
+        )
+
+        assertTrue(result.isOtp)
+        assertTrue(result.confidence > 0.8f)
+        assertEquals("DELIVERY_OR_SERVICE_OTP", result.suggestedIntent)
+    }
 }

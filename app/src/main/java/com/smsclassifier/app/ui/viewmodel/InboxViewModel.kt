@@ -68,8 +68,13 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     val classifiedMessageCount = database.messageDao().getClassifiedCount()
     val otpMessageCount = database.messageDao().getOtpCount()
     val phishingMessageCount = database.messageDao().getPhishingCount()
+    val needsReviewMessageCount = database.messageDao().getNeedsReviewCount()
+    val generalMessageCount = database.messageDao().getGeneralCount()
     
-    // Count threads instead of individual messages
+    // Thread counts back the "By person" view; message counts back "By message".
+    private val _totalThreadCount = MutableStateFlow(0)
+    val totalThreadCount: StateFlow<Int> = _totalThreadCount.asStateFlow()
+
     private val _otpCount = MutableStateFlow(0)
     val otpCount: StateFlow<Int> = _otpCount.asStateFlow()
     
@@ -193,6 +198,11 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
         }
     }
 
+    fun resetToAll() {
+        _searchQuery.value = ""
+        setFilter(FilterType.ALL)
+    }
+
     fun setSearchQuery(query: String) {
         _searchQuery.value = query
     }
@@ -206,6 +216,7 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
 
     private suspend fun updateCounts() {
         val dao = database.messageDao()
+        _totalThreadCount.value = dao.getTotalThreadCount()
         _otpCount.value = dao.getOtpThreadCount()
         _phishingCount.value = dao.getPhishingThreadCount()
         _needsReviewCount.value = dao.getNeedsReviewThreadCount()

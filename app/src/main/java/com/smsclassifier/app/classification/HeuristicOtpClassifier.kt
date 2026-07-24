@@ -27,6 +27,7 @@ object HeuristicOtpClassifier {
         "\\blogin\\s+code\\b",
         "\\bsign[\\s-]?in\\s+code\\b",
         "\\bconfirmation\\s+code\\b",
+        "\\b(?:delivery|courier)\\s+(?:code|pin)\\b",
         "\\bverify\\s+(?:your\\s+)?(?:account|identity|number|email|phone|mobile)\\b"
     ).map { Pattern.compile(it, Pattern.CASE_INSENSITIVE) }
 
@@ -81,7 +82,8 @@ object HeuristicOtpClassifier {
         "FLIPKART", "PAYTM", "PHONEPE", "GPAY", "GOOGLE", "GOOG", "MICROSOFT",
         "MSFT", "META", "FBOOK", "WHATSAPP", "WA", "TELEGRAM", "TG", "INSTA",
         "TWITTER", "LNKD", "LINKD", "SWIGGY", "ZOMATO", "UBER", "OLA", "MMT",
-        "MAKEMYT", "GOIBIBO", "OYO"
+        "MAKEMYT", "GOIBIBO", "OYO", "PORTER", "DELHIVERY", "BLUEDART", "ECOM",
+        "XPRESSBEES", "DUNZO"
     )
 
     data class HeuristicResult(

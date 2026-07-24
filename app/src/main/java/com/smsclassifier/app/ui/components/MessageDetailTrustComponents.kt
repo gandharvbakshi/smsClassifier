@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ContentCopy
@@ -28,14 +30,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.MessageLinkParser
 import com.smsclassifier.app.ui.theme.PhishingRed
 import com.smsclassifier.app.ui.theme.PhishingRedSoft
 import com.smsclassifier.app.ui.theme.SafeGreen
@@ -52,7 +60,10 @@ fun MessageSenderCard(
     rawSender: String,
     timestamp: String,
     body: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    linksEnabled: Boolean = false,
+    onCopyMessage: () -> Unit = {},
+    onOpenLink: (String) -> Unit = {}
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -110,6 +121,89 @@ fun MessageSenderCard(
                     .height(1.dp),
                 color = MaterialTheme.colorScheme.outlineVariant
             ) {}
+            SelectableMessageBody(
+                body = body,
+                linksEnabled = linksEnabled,
+                onOpenLink = onOpenLink
+            )
+            if (!linksEnabled && MessageLinkParser.findLinks(body).isNotEmpty()) {
+                Text(
+                    text = "Links are disabled because this message may be unsafe.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                TextButton(
+                    onClick = onCopyMessage,
+                    modifier = Modifier.heightIn(min = 48.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ContentCopy,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Text(
+                        text = "Copy message",
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SelectableMessageBody(
+    body: String,
+    linksEnabled: Boolean,
+    onOpenLink: (String) -> Unit
+) {
+    val links = remember(body) { MessageLinkParser.findLinks(body) }
+    val linkColor = MaterialTheme.colorScheme.primary
+    val annotatedBody = remember(body, links, linksEnabled, linkColor) {
+        buildAnnotatedString {
+            append(body)
+            if (linksEnabled) {
+                links.forEach { link ->
+                    addStringAnnotation(
+                        tag = "URL",
+                        annotation = link.url,
+                        start = link.start,
+                        end = link.endExclusive
+                    )
+                    addStyle(
+                        style = SpanStyle(
+                            color = linkColor,
+                            textDecoration = TextDecoration.Underline
+                        ),
+                        start = link.start,
+                        end = link.endExclusive
+                    )
+                }
+            }
+        }
+    }
+
+    SelectionContainer {
+        if (linksEnabled && links.isNotEmpty()) {
+            ClickableText(
+                text = annotatedBody,
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    color = MaterialTheme.colorScheme.onSurface,
+                    lineHeight = MaterialTheme.typography.bodyLarge.lineHeight
+                ),
+                onClick = { offset ->
+                    annotatedBody
+                        .getStringAnnotations(tag = "URL", start = offset, end = offset)
+                        .firstOrNull()
+                        ?.let { onOpenLink(it.item) }
+                }
+            )
+        } else {
             Text(
                 text = body,
                 style = MaterialTheme.typography.bodyLarge,

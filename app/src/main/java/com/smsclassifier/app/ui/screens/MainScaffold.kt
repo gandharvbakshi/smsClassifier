@@ -32,7 +32,10 @@ private val TopLevelDestinations = listOf(
 )
 
 @Composable
-fun MainBottomBar(navController: NavHostController) {
+fun MainBottomBar(
+    navController: NavHostController,
+    onInboxReselected: () -> Unit = {}
+) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
     val showBar = TopLevelDestinations.any { it.route == currentRoute }
@@ -43,14 +46,22 @@ fun MainBottomBar(navController: NavHostController) {
             NavigationBarItem(
                 selected = currentRoute == dest.route,
                 onClick = {
-                    if (currentRoute == dest.route) return@NavigationBarItem
+                    if (currentRoute == dest.route) {
+                        if (dest.route == "inbox") {
+                            AppContainer.telemetry.logCtaTap("bottom_nav", "inbox_reset")
+                            onInboxReselected()
+                        }
+                        return@NavigationBarItem
+                    }
                     AppContainer.telemetry.logCtaTap("bottom_nav", dest.route)
                     navController.navigate(dest.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                            // Saving the OTP destination while returning to the
+                            // start destination can immediately restore OTP again.
+                            saveState = dest.route != "inbox"
                         }
                         launchSingleTop = true
-                        restoreState = true
+                        restoreState = dest.route != "inbox"
                     }
                 },
                 icon = { Icon(dest.icon, contentDescription = dest.label) },
