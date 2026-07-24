@@ -136,6 +136,17 @@ class ClassificationUtilsTest {
     }
 
     @Test
+    fun extractOtpForCopy_porterDeliveryCode_exposesProminentCode() {
+        val message = baseMessage(
+            body = "Your rider is out for delivery. Please give the Delivery Code - 537993, to receive your Porter order.",
+            sender = "JX-PORTER-S",
+            otpIntent = "DELIVERY_OR_SERVICE_OTP"
+        )
+
+        assertEquals("537993", ClassificationUtils.extractOtpForCopy(message))
+    }
+
+    @Test
     fun applyUserCorrection_notPhishing_clearsScamRisk() {
         val corrected = ClassificationUtils.applyUserCorrection(
             baseMessage(isPhishing = true, phishScore = 0.93f),

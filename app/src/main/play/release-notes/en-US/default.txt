@@ -1,3 +1,4 @@
-v1.2.20 - Retention telemetry improvements
-- Improves D1, D3, and D7 retention measurement accuracy.
-- A reinstall starts a fresh retention lifecycle so retention tracking resets cleanly.
+v1.2.25 - Inbox and message usability fixes
+- Shows delivery codes such as Porter OTPs prominently.
+- Fixes Inbox, OTP, and Regular filters and their counts.
+- Adds message copying, partial text selection, and safe clickable links.

@@ -37,6 +37,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -183,6 +184,7 @@ class MainActivity : ComponentActivity() {
                             val isDefaultSmsApp by defaultSmsAppState
 
                             var entitlementRefresh by remember { mutableStateOf(0) }
+                            var inboxResetRequest by remember { mutableIntStateOf(0) }
                             val productDetails by AppContainer.billingRepository.productDetails.collectAsState(initial = null)
                             val formattedPrice = PlayBillingRepository.formattedAnnualPrice(productDetails)?.let { "$it/year" }
 
@@ -262,7 +264,10 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         bottomBar = {
                             if (currentRoute != "consent_onboarding") {
-                                MainBottomBar(navController)
+                                MainBottomBar(
+                                    navController = navController,
+                                    onInboxReselected = { inboxResetRequest++ }
+                                )
                             }
                         }
                     ) { innerPadding ->
@@ -375,12 +380,8 @@ class MainActivity : ComponentActivity() {
                                     AppContainer.telemetry.logCtaTap("inbox", "new_message")
                                     navController.navigate("compose")
                                 },
-                                onOpenOtpTab = {
-                                    navController.navigate("otp") {
-                                        launchSingleTop = true
-                                    }
-                                },
                                 onSetDefaultSms = { startDefaultSmsAndPermissionFlow() },
+                                resetToAllRequest = inboxResetRequest,
                                 entitlementUi = inboxEntitlementUi
                             )
                         }

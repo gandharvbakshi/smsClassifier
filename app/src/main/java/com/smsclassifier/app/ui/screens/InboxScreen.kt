@@ -1,5 +1,6 @@
 package com.smsclassifier.app.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -53,7 +54,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -66,10 +70,12 @@ import com.smsclassifier.app.entitlement.TrialNudgeMilestone
 import com.smsclassifier.app.ui.components.ConversationItem
 import com.smsclassifier.app.ui.components.FilterChips
 import com.smsclassifier.app.ui.components.MessageItem
+import com.smsclassifier.app.ui.components.OtpListCard
 import com.smsclassifier.app.ui.components.PrimaryButton
 import com.smsclassifier.app.ui.viewmodel.FilterType
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
 import com.smsclassifier.app.ui.viewmodel.ViewMode
+import com.smsclassifier.app.util.ClassificationUtils
 
 data class InboxEntitlementUi(
     val showTrialWelcome: Boolean = false,
@@ -91,8 +97,8 @@ fun InboxScreen(
     onMessageClick: (Long) -> Unit,
     onThreadClick: (Long) -> Unit,
     onNewMessageClick: () -> Unit,
-    onOpenOtpTab: () -> Unit,
     onSetDefaultSms: () -> Unit,
+    resetToAllRequest: Int = 0,
     entitlementUi: InboxEntitlementUi = InboxEntitlementUi(),
     modifier: Modifier = Modifier
 ) {
@@ -101,11 +107,16 @@ fun InboxScreen(
     val filter by viewModel.filter.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
     val viewMode by viewModel.viewMode.collectAsState()
+    val clipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
 
     val totalCount by viewModel.totalCount.collectAsState(initial = 0)
     val classifiedMessageCount by viewModel.classifiedMessageCount.collectAsState(initial = 0)
     val otpMessageCount by viewModel.otpMessageCount.collectAsState(initial = 0)
     val phishingMessageCount by viewModel.phishingMessageCount.collectAsState(initial = 0)
+    val needsReviewMessageCount by viewModel.needsReviewMessageCount.collectAsState(initial = 0)
+    val generalMessageCount by viewModel.generalMessageCount.collectAsState(initial = 0)
+    val totalThreadCount by viewModel.totalThreadCount.collectAsState(initial = 0)
     val otpCount by viewModel.otpCount.collectAsState(initial = 0)
     val phishingCount by viewModel.phishingCount.collectAsState(initial = 0)
     val needsReviewCount by viewModel.needsReviewCount.collectAsState(initial = 0)
@@ -114,6 +125,12 @@ fun InboxScreen(
     LaunchedEffect(viewMode) {
         if (viewMode == ViewMode.THREADS) {
             viewModel.loadConversations()
+        }
+    }
+
+    LaunchedEffect(resetToAllRequest) {
+        if (resetToAllRequest > 0) {
+            viewModel.resetToAll()
         }
     }
 
@@ -156,17 +173,24 @@ fun InboxScreen(
 
             FilterChips(
                 selectedFilter = filter,
-                onFilterSelected = { selected ->
-                    if (selected == FilterType.OTP) onOpenOtpTab()
-                    else viewModel.setFilter(selected)
+                onFilterSelected = viewModel::setFilter,
+                counts = if (viewMode == ViewMode.MESSAGES) {
+                    mapOf(
+                        FilterType.OTP to otpMessageCount,
+                        FilterType.PHISHING to phishingMessageCount,
+                        FilterType.NEEDS_REVIEW to needsReviewMessageCount,
+                        FilterType.GENERAL to generalMessageCount,
+                        FilterType.ALL to totalCount
+                    )
+                } else {
+                    mapOf(
+                        FilterType.OTP to otpCount,
+                        FilterType.PHISHING to phishingCount,
+                        FilterType.NEEDS_REVIEW to needsReviewCount,
+                        FilterType.GENERAL to generalCount,
+                        FilterType.ALL to totalThreadCount
+                    )
                 },
-                counts = mapOf(
-                    FilterType.OTP to otpCount,
-                    FilterType.PHISHING to phishingCount,
-                    FilterType.NEEDS_REVIEW to needsReviewCount,
-                    FilterType.GENERAL to generalCount,
-                    FilterType.ALL to totalCount
-                ),
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -290,11 +314,36 @@ fun InboxScreen(
                                         key = pagingItems.itemKey { it.id }
                                     ) { idx ->
                                         val msg = pagingItems[idx] ?: return@items
-                                        MessageItem(
-                                            message = msg,
-                                            onClick = { onMessageClick(msg.id) },
-                                            modifier = Modifier.fillMaxWidth()
-                                        )
+                                        val otpCode = if (filter == FilterType.OTP) {
+                                            ClassificationUtils.extractOtpForCopy(msg)
+                                        } else {
+                                            null
+                                        }
+                                        if (otpCode != null) {
+                                            OtpListCard(
+                                                message = msg,
+                                                code = otpCode,
+                                                onClick = { onMessageClick(msg.id) },
+                                                onCopy = {
+                                                    clipboardManager.setText(AnnotatedString(otpCode))
+                                                    AppContainer.telemetry.logOtpCopied("inbox_otp_filter")
+                                                    Toast.makeText(
+                                                        context,
+                                                        "OTP copied",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                },
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(horizontal = 8.dp, vertical = 6.dp)
+                                            )
+                                        } else {
+                                            MessageItem(
+                                                message = msg,
+                                                onClick = { onMessageClick(msg.id) },
+                                                modifier = Modifier.fillMaxWidth()
+                                            )
+                                        }
                                         if (idx < pagingItems.itemCount - 1) {
                                             Divider(
                                                 modifier = Modifier.padding(start = 66.dp),

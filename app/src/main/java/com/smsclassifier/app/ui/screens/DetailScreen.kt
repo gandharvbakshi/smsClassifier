@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -65,6 +66,7 @@ fun DetailScreen(
     val clipboardManager = LocalClipboardManager.current
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
     val entitlementManager = AppContainer.entitlementManager
     val trialAvailable = !entitlementManager.hasTrialStarted()
     val trialLabel = entitlementManager.trialDurationLabel()
@@ -144,7 +146,24 @@ fun DetailScreen(
                     friendlySender = friendlySender,
                     rawSender = msg.sender,
                     timestamp = formatFriendlyTime(msg.ts),
-                    body = msg.body
+                    body = msg.body,
+                    linksEnabled = !scamLikely,
+                    onCopyMessage = {
+                        clipboardManager.setText(AnnotatedString(msg.body))
+                        AppContainer.telemetry.logCtaTap("detail", "copy_message")
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar("Message copied to clipboard")
+                        }
+                    },
+                    onOpenLink = { url ->
+                        AppContainer.telemetry.logCtaTap("detail", "open_safe_link")
+                        runCatching { uriHandler.openUri(url) }
+                            .onFailure {
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar("Could not open this link")
+                                }
+                            }
+                    }
                 )
 
                 if (AppContainer.entitlementManager.shouldShowDetailUnlockPlaceholder(msg)) {

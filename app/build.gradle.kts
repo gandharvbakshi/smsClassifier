@@ -32,8 +32,8 @@ android {
         applicationId = "com.smsclassifier.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 49
-        versionName = "1.2.24"
+        versionCode = 50
+        versionName = "1.2.25"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

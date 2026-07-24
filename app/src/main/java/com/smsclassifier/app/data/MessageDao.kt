@@ -51,7 +51,10 @@ interface MessageDao {
     @Query("SELECT COUNT(*) FROM messages WHERE (isOtp IS NULL OR isOtp = 0) AND (isPhishing IS NULL OR isPhishing = 0)")
     fun getGeneralCount(): Flow<Int>
     
-    // Count distinct threads (conversations) instead of individual messages
+    // Count distinct threads (conversations) for the "By person" view.
+    @Query("SELECT COUNT(DISTINCT threadId) FROM messages")
+    suspend fun getTotalThreadCount(): Int
+
     @Query("SELECT COUNT(DISTINCT threadId) FROM messages WHERE isOtp = 1")
     suspend fun getOtpThreadCount(): Int
 
@@ -61,7 +64,17 @@ interface MessageDao {
     @Query("SELECT COUNT(DISTINCT threadId) FROM messages WHERE reviewed = 0 AND (isPhishing IS NULL OR phishScore IS NULL)")
     suspend fun getNeedsReviewThreadCount(): Int
 
-    @Query("SELECT COUNT(DISTINCT threadId) FROM messages WHERE (isOtp IS NULL OR isOtp = 0) AND (isPhishing IS NULL OR isPhishing = 0)")
+    @Query(
+        """
+        SELECT COUNT(DISTINCT threadId)
+        FROM messages
+        WHERE threadId NOT IN (
+            SELECT DISTINCT threadId
+            FROM messages
+            WHERE isOtp = 1 OR isPhishing = 1
+        )
+        """
+    )
     suspend fun getGeneralThreadCount(): Int
 
     @Query("SELECT * FROM messages WHERE isOtp IS NULL OR (reviewed = 0 AND (isPhishing IS NULL OR phishScore IS NULL)) ORDER BY ts DESC LIMIT :limit")

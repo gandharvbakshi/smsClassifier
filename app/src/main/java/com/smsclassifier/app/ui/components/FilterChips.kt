@@ -89,6 +89,6 @@ private fun filterLabel(filter: FilterType): String = when (filter) {
     FilterType.OTP -> "OTP"
     FilterType.PHISHING -> "Scam"
     FilterType.NEEDS_REVIEW -> "Review"
-    FilterType.GENERAL -> "Other"
+    FilterType.GENERAL -> "Regular"
     FilterType.ALL -> "All"
 }
