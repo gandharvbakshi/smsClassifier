@@ -7,7 +7,7 @@ A Kotlin/Jetpack Compose Android SMS app that sorts messages, detects OTPs, and 
 - **Free/basic mode:** local heuristic OTP sorting runs on the phone. SMS content is stored in the app database on the device.
 - **Trial/Pro mode:** cloud classification can be used for scam warnings, code purpose, risk scores, and explanation reasons. The app sends the SMS body and sender over HTTPS to the backend `/classify` API for real-time classification.
 - **Feedback uploads:** optional and off by default. When enabled, misclassification reports upload a redacted message body for model improvement.
-- **Links in SMS:** SMS bodies are rendered as plain text in the app; URL text is not directly clickable from the message body.
+- **Links in SMS:** HTTP, HTTPS, `www`, and conservative bare-domain links are selectable. In newly cloud-classified messages, links become clickable only when the message is not classified as a scam and every detected link completed a Google Web Risk check with no known threat match.
 
 Routine cloud-classification requests are intended for real-time processing and are not retained after the response. Optional feedback uploads are a separate flow and can be retained for review/model improvement.
 

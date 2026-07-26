@@ -31,6 +31,7 @@ import com.smsclassifier.app.ui.components.ScamRiskMeter
 import com.smsclassifier.app.ui.components.WhyList
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.LinkInteractionPolicy
 import com.smsclassifier.app.util.formatFriendlyTime
 import com.smsclassifier.app.util.SenderNameResolver
 import com.smsclassifier.app.util.SmsRedactor
@@ -117,6 +118,11 @@ fun DetailScreen(
             val riskLevel = ClassificationUtils.detailRiskLevel(msg)
             val riskLabel = ClassificationUtils.riskSummary(msg)
             val scamLikely = ClassificationUtils.isScamLikely(msg)
+            val linkSafetyPassed = LinkInteractionPolicy.isAllowed(
+                scamLikely = scamLikely,
+                linkVerdictsJson = msg.linkVerdictsJson,
+                messageBody = msg.body
+            )
             val showOtpHero = otpCode != null && !scamLikely
             val verdictTone = when {
                 scamLikely -> MessageVerdictTone.SCAM
@@ -147,7 +153,7 @@ fun DetailScreen(
                     rawSender = msg.sender,
                     timestamp = formatFriendlyTime(msg.ts),
                     body = msg.body,
-                    linksEnabled = !scamLikely,
+                    linksEnabled = linkSafetyPassed,
                     onCopyMessage = {
                         clipboardManager.setText(AnnotatedString(msg.body))
                         AppContainer.telemetry.logCtaTap("detail", "copy_message")

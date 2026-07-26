@@ -25,6 +25,83 @@ def _write_jsonl(path: Path, rows: list[dict]) -> None:
 
 
 class FeedbackLearningLoopTests(unittest.TestCase):
+    def test_sanitizer_uses_non_numeric_semantic_digit_tokens(self) -> None:
+        sanitized = fll._sanitize_text(
+            "Order 123456789012 uses OTP 847291 and <DIGITS:6:abc123>"
+        )
+
+        self.assertEqual(
+            sanitized,
+            "Order <DIGITS:12> uses OTP <DIGITS:6> and <DIGITS:6>",
+        )
+        self.assertNotIn("847291", sanitized)
+
+    def test_queue_preserves_redaction_provenance_and_replay_eligibility(self) -> None:
+        queued = fll._queue_row(
+            {
+                "id": "redacted-feedback",
+                "sender": "AD-BRAND-S",
+                "body": "Order <DIGITS:12:hash> at <URL:token>",
+                "bodyRedactionScheme": "training_redaction_v3",
+                "serverBodyRedactionScheme": "server_semantic_v2",
+                "otpReplayEligible": False,
+                "phishingReplayEligible": False,
+                "expectedIsOtp": False,
+                "expectedIsPhishing": False,
+            }
+        )
+
+        assert queued is not None
+        self.assertEqual(queued["bodyRedactionScheme"], "training_redaction_v3")
+        self.assertEqual(queued["serverBodyRedactionScheme"], "server_semantic_v2")
+        self.assertFalse(queued["otpReplayEligible"])
+        self.assertFalse(queued["phishingReplayEligible"])
+
+    def test_queue_redacts_bare_link_and_blocks_phishing_replay(self) -> None:
+        queued = fll._queue_row(
+            {
+                "id": "legacy-bare-link-feedback",
+                "sender": "BRAND",
+                "body": "Track at example.com/pay?token=private123",
+                "phishingReplayEligible": True,
+                "expectedIsPhishing": False,
+            }
+        )
+
+        assert queued is not None
+        self.assertEqual(queued["text"], "Track at <URL:redacted>")
+        self.assertFalse(queued["phishingReplayEligible"])
+        self.assertNotIn("private123", queued["text"])
+
+    def test_export_skips_redacted_axes_that_cannot_be_replayed(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            reviewed_path = temp_path / "reviewed.jsonl"
+            output_path = temp_path / "regressions.jsonl"
+            _write_jsonl(
+                reviewed_path,
+                [
+                    {
+                        "reviewId": "privacy-redacted-both-axes",
+                        "reviewStatus": "accepted",
+                        "sender": "BRAND",
+                        "text": "Order <DIGITS:12> at <URL:token>",
+                        "expectedIsOtp": False,
+                        "expectedIsPhishing": False,
+                        "otpReplayEligible": False,
+                        "phishingReplayEligible": False,
+                    }
+                ],
+            )
+
+            exported, skipped = fll.export_regression_cases(
+                reviewed_path,
+                output_path,
+            )
+
+            self.assertEqual((exported, skipped), (0, 1))
+            self.assertEqual(output_path.read_text(encoding="utf-8"), "")
+
     def test_legacy_correction_kind_inference(self) -> None:
         row = {
             "sender": "BANK",

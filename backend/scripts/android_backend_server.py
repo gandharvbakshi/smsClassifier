@@ -42,6 +42,12 @@ from backend.classification.phishing_policy import (
     _apply_phishing_policy,
     _has_strong_phishing_danger_signal,
 )
+from backend.classification.url_reputation import (
+    UrlReputationChecker,
+    has_url_reference,
+    redact_url_references,
+    verdicts_to_api,
+)
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
@@ -214,12 +220,22 @@ class ClassifyRequest(BaseModel):
     appVersionName: Optional[str] = Field(None, max_length=64)
 
 
+class LinkVerdictResponse(BaseModel):
+    url: str
+    host: str
+    status: str
+    threatTypes: List[str] = Field(default_factory=list)
+    checkedAtEpochMs: Optional[int] = None
+    latencyMs: float = 0.0
+
+
 class ClassifyResponse(BaseModel):
     isOtp: bool
     otpIntent: str
     isPhishing: bool
     phishScore: float
     reasons: List[str]
+    linkVerdicts: List[LinkVerdictResponse] = Field(default_factory=list)
 
 
 class HealthResponse(BaseModel):
@@ -362,6 +378,7 @@ CLASSIFY_INSTALL_LIMIT_PER_DAY = _int_env("CLASSIFY_INSTALL_LIMIT_PER_DAY", 3000
 CLASSIFY_IP_LIMIT_PER_MINUTE = _int_env("CLASSIFY_IP_LIMIT_PER_MINUTE", 3000)
 CLASSIFY_IP_LIMIT_PER_DAY = _int_env("CLASSIFY_IP_LIMIT_PER_DAY", 150000)
 CLASSIFICATION_DIAGNOSTICS_ENABLED = _bool_env("CLASSIFICATION_DIAGNOSTICS_ENABLED", True)
+URL_REPUTATION_CHECKER = UrlReputationChecker.from_env()
 FEEDBACK_LOCK = threading.Lock()
 ENTITLEMENT_LOCK = threading.Lock()
 RATE_LIMIT_LOCK = threading.Lock()
@@ -463,17 +480,27 @@ class FeedbackResponse(BaseModel):
     error: Optional[str] = None
 
 
+SERVER_FEEDBACK_REDACTION_SCHEME = "server_semantic_v3"
+
+
 def _redact_feedback_body(body: str, install_id: str) -> str:
-    """Defensively redact long digit runs from feedback from old app builds."""
+    """Replace links and long digit runs with non-replayable semantic tokens."""
+
+    def redact_url(raw: str) -> str:
+        digest = hashlib.sha256(
+            f"{install_id}:url:{raw}".encode("utf-8")
+        ).hexdigest()[:8]
+        alpha_digest = digest.translate(str.maketrans("0123456789", "abcdefghij"))
+        return f"<URL:u{alpha_digest}>"
 
     def repl(match: re.Match[str]) -> str:
         raw = match.group(0)
         length = min(len(raw), 32)
         digest = hashlib.sha256(f"{install_id}:{raw}".encode("utf-8")).hexdigest()
-        digits = "".join(str(int(ch, 16) % 10) for ch in digest)
-        return digits[:length]
+        return f"<DIGITS:{length}:{digest[:8]}>"
 
-    return re.sub(r"\d{4,}", repl, body or "")
+    without_urls = redact_url_references(body or "", redact_url)
+    return re.sub(r"\d{4,}", repl, without_urls)
 
 
 def _persist_feedback(record: Dict[str, Any]) -> None:
@@ -520,7 +547,15 @@ def post_feedback(request: FeedbackRequest, http_request: Request) -> FeedbackRe
     body_hash = hashlib.sha1(body.encode("utf-8")).hexdigest()[:16]
     request_payload = request.model_dump()
     request_payload["body"] = body
-    request_payload["bodyRedactionScheme"] = "server_digits_v1"
+    request_payload["clientBodyRedactionScheme"] = request.bodyRedactionScheme
+    request_payload["serverBodyRedactionScheme"] = SERVER_FEEDBACK_REDACTION_SCHEME
+    request_payload["effectiveBodyRedactionScheme"] = (
+        f"{request.bodyRedactionScheme}+{SERVER_FEEDBACK_REDACTION_SCHEME}"
+    )
+    request_payload["otpReplayEligible"] = False
+    request_payload["phishingReplayEligible"] = not bool(
+        re.search(r"<URL:[^>]+>", body, re.IGNORECASE)
+    )
     record = {
         "id": record_id,
         "received_at": received_at,
@@ -1557,6 +1592,22 @@ def classify(request: ClassifyRequest) -> ClassifyResponse:
     return _classify_impl(request, None)
 
 
+_SEMANTIC_REDACTION_TOKEN = re.compile(
+    r"<(?:URL|EMAIL|DIGITS|SENDER):[^>]+>",
+    re.IGNORECASE,
+)
+
+
+def _model_input_text(text: str) -> tuple[str, bool]:
+    """Prevent privacy-redaction placeholders from becoming synthetic OTPs."""
+
+    if not _SEMANTIC_REDACTION_TOKEN.search(text or ""):
+        return text, False
+    sanitized = _SEMANTIC_REDACTION_TOKEN.sub(" <REDACTED_VALUE> ", text or "")
+    sanitized = re.sub(r"\d{4,}", " <REDACTED_NUMBER> ", sanitized)
+    return re.sub(r"\s+", " ", sanitized).strip(), True
+
+
 def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) -> ClassifyResponse:
     classification_started = time.perf_counter()
     if not APP_CONFIG_SERVER_CLASSIFY_ENABLED:
@@ -1572,6 +1623,13 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
     intent_confidence: Optional[float] = None
     groq_prompt_tokens = 0
     groq_completion_tokens = 0
+    model_text, semantic_redaction_present = _model_input_text(request.text)
+    if semantic_redaction_present:
+        reasons.append(
+            "Privacy-redacted values excluded from OTP inference"
+        )
+    url_verdict_objects = URL_REPUTATION_CHECKER.check_text(request.text)
+    url_verdicts = verdicts_to_api(url_verdict_objects)
 
     # Heuristics-first approach: Run heuristics before ML
     try:
@@ -1580,14 +1638,14 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
         # Add parent directory to path to import classification module
         sys.path.insert(0, str(Path(__file__).parent.parent))
         from classification.heuristic_classifier import HeuristicOtpClassifier
-        heuristic_result = HeuristicOtpClassifier.classify(request.text, request.sender)
+        heuristic_result = HeuristicOtpClassifier.classify(model_text, request.sender)
     except ImportError as e:
         # Fallback if module not available
         logger.warning(f"Heuristic classifier not available: {e}")
         heuristic_result = {"isOtp": False, "confidence": 0.0, "suggestedIntent": None, "reasons": []}
 
     # Build feature matrix for ML (sparse; LightGBM accepts CSR)
-    feature_matrix = build_feature_matrix(request.text, request.sender)
+    feature_matrix = build_feature_matrix(model_text, request.sender)
 
     phish_probs = LGB_PHISH.predict_proba(feature_matrix)[0]
     phish_prob = float(phish_probs[1])
@@ -1643,7 +1701,7 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
         # Use heuristic intent if available, otherwise use Groq
         if otp_intent == "NOT_OTP" or not otp_intent:
             try:
-                groq_full = call_groq_full_classification(request.text, request.sender)
+                groq_full = call_groq_full_classification(model_text, request.sender)
                 otp_intent = groq_full.intent
                 groq_prompt_tokens += groq_full.prompt_tokens
                 groq_completion_tokens += groq_full.completion_tokens
@@ -1676,6 +1734,8 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
         phish_prob,
         is_phishing_ml,
         PHISH_THRESHOLD,
+        url_verdicts=url_verdicts,
+        url_reputation_enforced=URL_REPUTATION_CHECKER.policy_enforced,
     )
     reasons.append(f"is_phishing LightGBM prob={phish_prob:.3f} (threshold={PHISH_THRESHOLD})")
     reasons.extend(phish_policy_reasons)
@@ -1703,7 +1763,7 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
                     final_phish_prob = phish_prob if is_phishing else min(final_phish_prob, PHISH_GRAY_LOW)
                     reasons.append(f"Groq gray-band phishing={is_phishing} (from intent call)")
                 else:
-                    g2 = call_groq_phishing_light(request.text, request.sender)
+                    g2 = call_groq_phishing_light(model_text, request.sender)
                     groq_prompt_tokens += g2.prompt_tokens
                     groq_completion_tokens += g2.completion_tokens
                     is_phishing = g2.is_phishing
@@ -1720,7 +1780,7 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
                 final_phish_prob = phish_prob if is_phishing else min(final_phish_prob, PHISH_GRAY_LOW)
                 reasons.append(f"Groq phishing veto groq_phish={groq_full.is_phishing}")
             else:
-                g2 = call_groq_phishing_light(request.text, request.sender)
+                g2 = call_groq_phishing_light(model_text, request.sender)
                 groq_prompt_tokens += g2.prompt_tokens
                 groq_completion_tokens += g2.completion_tokens
                 is_phishing = is_phishing_ml and g2.is_phishing
@@ -1756,7 +1816,15 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
         "app_version_name": request.appVersionName,
         "message_length": len(request.text),
         "has_sender": bool(request.sender),
-        "has_url": bool(re.search(r"https?://|www\.", request.text, re.IGNORECASE)),
+        "has_url": has_url_reference(request.text),
+        "url_reputation_mode": URL_REPUTATION_CHECKER.mode,
+        "url_reputation_statuses": sorted(
+            {str(item.get("status") or "") for item in url_verdicts}
+        ),
+        "url_reputation_latency_ms": round(
+            sum(float(item.get("latencyMs") or 0.0) for item in url_verdicts),
+            3,
+        ),
         "is_otp": is_otp,
         "is_phishing": is_phishing,
         "otp_intent": otp_intent,
@@ -1775,6 +1843,7 @@ def _classify_impl(request: ClassifyRequest, http_request: Optional[Request]) ->
         isPhishing=is_phishing,
         phishScore=final_phish_prob,
         reasons=reasons,
+        linkVerdicts=url_verdicts,
     )
 
 

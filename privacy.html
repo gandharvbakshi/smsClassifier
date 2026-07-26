@@ -82,7 +82,7 @@
 <body>
     <div class="container">
         <h1>Privacy Policy for SMS Classifier</h1>
-        <p class="last-updated"><strong>Last Updated:</strong> July 4, 2026</p>
+        <p class="last-updated"><strong>Last Updated:</strong> July 26, 2026</p>
 
         <h2>Introduction</h2>
         <p>SMS Classifier ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our SMS Classifier mobile application ("the App").</p>
@@ -91,7 +91,8 @@
         <h2>Plain-English Summary</h2>
         <ul>
             <li>Most classification runs <strong>on your device</strong>. Your raw SMS bodies are <strong>not sent to our servers</strong> unless (a) you are inside the trial / Pro cloud-classification window, or (b) you opt in to "Help improve classification" feedback uploads.</li>
-            <li>Misclassification feedback uploads, when enabled, send a <strong>digit-redacted</strong> version of the message body. OTP codes and other digit runs of 4 or more characters are deterministically replaced before transmission.</li>
+            <li>Misclassification feedback uploads, when enabled, send a <strong>digit-redacted</strong> version of the message body. OTP codes and other digit runs of 4 or more characters are replaced with labelled, non-numeric placeholders before transmission.</li>
+            <li>For Trial / Pro cloud checks, web links found in an SMS may be checked against Google Web Risk. Google receives the full link for this check, but not the SMS sender or the rest of the message through the Web Risk request.</li>
             <li>We use Firebase services (Google) for analytics, crash reporting, anonymous install IDs, authentication, and remote configuration. Analytics, crash reporting, and feedback uploads are controlled in <strong>Settings &rarr; Privacy &amp; Data</strong>. Install IDs, phone authentication, remote configuration, Play Billing, and entitlement checks run when needed to provide account recovery, app configuration, purchases, and Pro access.</li>
             <li>We never sell your personal information.</li>
             <li>You can delete your data inside the App at <strong>Settings &rarr; Privacy &amp; Data &rarr; Delete my data</strong>, or by emailing us.</li>
@@ -147,7 +148,7 @@
             <li>When it is enabled and you tap <strong>"Report as wrong"</strong>, the App sends to our server over HTTPS:
                 <ul>
                     <li>The sender of the message.</li>
-                    <li>A <strong>redacted</strong> version of the message body. Specifically, every run of 4 or more consecutive digits (typical OTPs, account numbers, amounts) is replaced with a deterministic randomised string per install. So <code>847291</code> becomes a different string for each install id, but the same string each time you report the same message. We never see your real OTP digits.</li>
+                    <li>A <strong>redacted</strong> version of the message body. Specifically, every run of 4 or more consecutive digits (typical OTPs, account numbers, amounts) is replaced with a labelled non-numeric placeholder and a deterministic token. We never see your real OTP digits, and the placeholder cannot be replayed as a real-looking OTP.</li>
                     <li>The predicted labels shown in the app (OTP, intent, phishing, scores when available).</li>
                     <li>Your correction note if you entered one.</li>
                     <li>App version and the anonymous install id.</li>
@@ -186,6 +187,7 @@
         <ul>
             <li>During the 14-day trial you choose to start, and for users with active Pro access, SMS content is sent to our classification API hosted on Google Cloud Run.</li>
             <li>Messages are sent over encrypted HTTPS connections (TLS 1.2+).</li>
+            <li>When a message contains a web link, including a link written without <code>http://</code> or <code>https://</code>, our backend may send the full normalized HTTP or HTTPS link to Google Web Risk to check for a known malware, social-engineering, or unwanted-software match. The separate Web Risk request does not include the SMS sender or the rest of the message. A result with no known match is supporting evidence only and is not a guarantee that a link is safe.</li>
             <li>Classification requests are processed in real time. SMS content sent only for classification is <strong>not retained</strong> on our servers after processing.</li>
             <li>Misclassification feedback (described above), when you explicitly opt in, is stored separately for improving the classifier &mdash; not limited to ephemeral processing.</li>
         </ul>
@@ -248,9 +250,17 @@
             <li>This data flow only activates if you have left analytics consent ON and a paid campaign is live.</li>
         </ul>
 
+        <h3>Google &mdash; Web Risk</h3>
+        <ul>
+            <li>During Trial / Pro cloud classification, web links found in a message, including domains written without an HTTP or HTTPS prefix, may be normalized to HTTP or HTTPS and submitted to Google Web Risk for a known-threat lookup.</li>
+            <li>Google receives the full link, which can include its path and query string. We do not include the SMS sender or other message text in that lookup.</li>
+            <li>The App keeps links disabled when the lookup reports a known threat, is unavailable, or was not completed. A no-match result is combined with sender, domain, message context, and classifier evidence.</li>
+            <li>Google's privacy policy applies: <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a>.</li>
+        </ul>
+
         <h3>Google Cloud Run &amp; Cloud Storage</h3>
         <ul>
-            <li>Our classification API and optional misclassification feedback ingestion run on Google Cloud Run in <code>us-central1</code>.</li>
+            <li>Our classification API and optional misclassification feedback ingestion run on Google Cloud Run in <code>asia-south1</code>.</li>
             <li>Misclassification reports (when you opt in) are persisted to Google Cloud Storage for offline analysis and model retraining.</li>
             <li>Routine classification traffic is processed without long-term storage.</li>
             <li>Google's privacy policy applies to their infrastructure: <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a>.</li>

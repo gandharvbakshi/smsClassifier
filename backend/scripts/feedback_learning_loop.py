@@ -14,11 +14,18 @@ import argparse
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from backend.classification.url_reputation import redact_url_references
+
+
 DEFAULT_FEEDBACK_INPUT = ROOT_DIR / "feedback_corpus"
 DEFAULT_REVIEW_QUEUE = ROOT_DIR / "feedback_corpus" / "review_queue.jsonl"
 DEFAULT_REGRESSION_OUTPUT = ROOT_DIR / "feedback_corpus" / "reviewed_feedback_regression_cases.jsonl"
@@ -105,15 +112,40 @@ def _stable_bool(value: Any) -> Optional[bool]:
 
 def _sanitize_text(text: str) -> str:
     def repl(match: re.Match[str]) -> str:
-        length = len(match.group(0))
-        if length <= 6:
-            return "123456"[:length]
-        if length <= 12:
-            return "123456789012"[:length]
-        return "123456789012"
+        return f"<DIGITS:{min(len(match.group(0)), 32)}>"
 
+    text = redact_url_references(text or "", lambda _raw: "<URL:redacted>")
+    text = re.sub(
+        r"<DIGITS:(\d{1,2})(?::[^>]+)?>",
+        lambda match: f"<DIGITS:{min(int(match.group(1)), 32)}>",
+        text or "",
+        flags=re.IGNORECASE,
+    )
     text = re.sub(r"\d{4,}", repl, text or "")
     return re.sub(r"\s+", " ", text).strip()
+
+
+def _axis_replay_eligible(row: Dict[str, Any], axis: str, text: str) -> bool:
+    if axis == "phishing" and re.search(r"<URL:[^>]+>", text, re.IGNORECASE):
+        return False
+    explicit = _stable_bool(row.get(f"{axis}ReplayEligible"))
+    if explicit is not None:
+        return explicit
+    scheme = " ".join(
+        str(row.get(field) or "").lower()
+        for field in (
+            "bodyRedactionScheme",
+            "clientBodyRedactionScheme",
+            "serverBodyRedactionScheme",
+            "effectiveBodyRedactionScheme",
+        )
+    )
+    if axis == "otp" and any(
+        marker in scheme
+        for marker in ("training_redaction", "server_digits", "server_semantic")
+    ):
+        return False
+    return True
 
 
 def _normalize_feedback_kind(value: Any) -> str:
@@ -227,6 +259,8 @@ def _queue_row(row: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     else:
         source_feedback_ids = [feedback_id]
     category = f"{feedback_group}_feedback"
+    otp_replay_eligible = _axis_replay_eligible(row, "otp", text)
+    phishing_replay_eligible = _axis_replay_eligible(row, "phishing", text)
 
     return {
         "reviewId": f"review_{key}",
@@ -237,6 +271,12 @@ def _queue_row(row: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         "sender": sender,
         "text": text,
         "bodyHash": row.get("body_hash") or row.get("bodyHash"),
+        "bodyRedactionScheme": row.get("bodyRedactionScheme"),
+        "clientBodyRedactionScheme": row.get("clientBodyRedactionScheme"),
+        "serverBodyRedactionScheme": row.get("serverBodyRedactionScheme"),
+        "effectiveBodyRedactionScheme": row.get("effectiveBodyRedactionScheme"),
+        "otpReplayEligible": otp_replay_eligible,
+        "phishingReplayEligible": phishing_replay_eligible,
         "feedbackKind": feedback_kind or None,
         "category": category,
         "appVersionCode": row.get("appVersionCode"),
@@ -318,6 +358,8 @@ def build_review_queue(
         for feedback_id in queued["sourceFeedbackIds"]:
             if feedback_id not in existing["sourceFeedbackIds"]:
                 existing["sourceFeedbackIds"].append(feedback_id)
+        for field in ("otpReplayEligible", "phishingReplayEligible"):
+            existing[field] = bool(existing.get(field)) and bool(queued.get(field))
         conflict_field = _merge_expected(existing, queued)
         if conflict_field is not None:
             quarantine_key = existing["reviewId"]
@@ -360,14 +402,28 @@ def export_regression_cases(reviewed_path: Path, output_path: Path) -> Tuple[int
         if not _is_accepted(row):
             skipped += 1
             continue
-        expected_otp = _stable_bool(row.get("expectedIsOtp"))
-        expected_phishing = _stable_bool(row.get("expectedIsPhishing"))
         text = _sanitize_text(str(row.get("text") or row.get("body") or ""))
+        otp_replay_eligible = _axis_replay_eligible(row, "otp", text)
+        phishing_replay_eligible = _axis_replay_eligible(row, "phishing", text)
+        expected_otp = (
+            _stable_bool(row.get("expectedIsOtp"))
+            if otp_replay_eligible
+            else None
+        )
+        expected_phishing = (
+            _stable_bool(row.get("expectedIsPhishing"))
+            if phishing_replay_eligible
+            else None
+        )
         sender = str(row.get("sender") or "UNKNOWN").strip()[:128] or "UNKNOWN"
         if (expected_otp is None and expected_phishing is None) or not text:
             skipped += 1
             continue
-        expected_otp_intent = row.get("expectedOtpIntent") or None
+        expected_otp_intent = (
+            row.get("expectedOtpIntent") or None
+            if otp_replay_eligible
+            else None
+        )
         key = _regression_case_key(
             sender,
             text,
@@ -383,6 +439,8 @@ def export_regression_cases(reviewed_path: Path, output_path: Path) -> Tuple[int
             "expectedIsOtp": expected_otp,
             "expectedIsPhishing": expected_phishing,
             "expectedOtpIntent": expected_otp_intent,
+            "otpReplayEligible": otp_replay_eligible,
+            "phishingReplayEligible": phishing_replay_eligible,
             "category": row.get("category") or "reviewed_feedback",
             "sourceFeedbackIds": row.get("sourceFeedbackIds") or [],
             "reviewer": row.get("reviewer"),

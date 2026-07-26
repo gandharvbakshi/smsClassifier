@@ -33,7 +33,8 @@ data class ServerResponse(
     val otpIntent: String? = null,
     val isPhishing: Boolean? = null,
     val phishScore: Float = 0f,
-    val reasons: List<String> = emptyList()
+    val reasons: List<String> = emptyList(),
+    val linkVerdicts: List<LinkVerdict> = emptyList()
 )
 
 class ServerClassifyException(
@@ -174,6 +175,7 @@ class ServerClassifier(
                         isPhishing = serverResponse.isPhishing,
                         phishScore = serverResponse.phishScore,
                         reasons = serverResponse.reasons,
+                        linkVerdicts = serverResponse.linkVerdicts,
                         inferenceTimeMs = inferenceTime
                     )
                 }

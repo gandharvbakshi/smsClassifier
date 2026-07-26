@@ -14,9 +14,14 @@ from __future__ import annotations
 
 import re
 from typing import Any, Dict, List, Optional
-from urllib.parse import urlparse
 
-URL_PATTERN = re.compile(r"https?://[^\s<>)\]]+|www\.[^\s<>)\]]+", re.IGNORECASE)
+from backend.classification.url_reputation import (
+    MALICIOUS,
+    NO_MATCH,
+    extract_url_hosts,
+    has_url_reference,
+)
+
 REDACTED_URL_PATTERN = re.compile(r"<URL:[^>]+>", re.IGNORECASE)
 SHORT_URL_HOSTS = {
     "bit.ly",
@@ -72,6 +77,9 @@ SENDER_BRAND_SIGNATURES = [
         re.compile(r"\bMCDONALD(?:'S|S)?\b", re.IGNORECASE),
     ),
 ]
+REGISTERED_PAYMENT_SENDER_PATTERNS = {
+    "SWIGGY": re.compile(r"^[A-Z]{2}-SWIGGY-[A-Z]$", re.IGNORECASE),
+}
 
 LEGIT_CONTEXT_PATTERNS = [
     (
@@ -141,7 +149,7 @@ LEGIT_CONTEXT_PATTERNS = [
         True,
         re.compile(
             r"\b("
-            r"order\s+(?:#?\d+\s+)?(?:confirmed|completed|placed|delivered)|"
+            r"order(?:\s*#?\d+)?\s+(?:(?:is|has been)\s+)?(?:confirmed|completed|placed|delivered)|"
             r"booking\s+(?:confirmed|completed)|"
             r"congratulations\s+on\s+(?:your\s+)?booking|"
             r"booking\s+id\s+is|"
@@ -310,13 +318,15 @@ DANGER_PATTERNS = [
 
 PAYMENT_TRAP_PATTERN = re.compile(
     r"\b(upi|pay request|pay now|transfer money|send money|request money|"
-    r"collect request|scan qr|qr code|payment link|refund link)\b",
+    r"collect request|scan qr|qr code|payment link|refund link|"
+    r"complete payment|payment here)\b",
     re.IGNORECASE,
 )
 PAYMENT_ACTION_LURE_PATTERN = re.compile(
     r"\b("
     r"pay request|pay now|transfer money|send money|request money|collect request|"
     r"scan qr|qr code|payment link|refund link|claim (?:your )?refund|"
+    r"complete (?:the )?payment|payment here|"
     r"approve (?:the )?(?:request|payment|collect)|accept (?:the )?collect|"
     r"authorize (?:payment|upi|mandate)|verify (?:upi|payment)"
     r")\b",
@@ -330,18 +340,7 @@ SHORT_URL_DANGER_PATTERN = re.compile(
 
 
 def _extract_url_hosts(text: str) -> List[str]:
-    hosts: List[str] = []
-    for match in URL_PATTERN.finditer(text or ""):
-        raw_url = match.group(0).rstrip(").,;:!?]")
-        if raw_url.startswith("www."):
-            raw_url = f"http://{raw_url}"
-        parsed = urlparse(raw_url)
-        host = (parsed.netloc or parsed.path).lower().strip(".")
-        if host.startswith("www."):
-            host = host[4:]
-        if host:
-            hosts.append(host)
-    return hosts
+    return extract_url_hosts(text)
 
 
 def _extract_brand_tokens(text: str, sender: Optional[str]) -> List[str]:
@@ -359,14 +358,17 @@ def _has_sender_brand_signature_alignment(text: str, sender: Optional[str]) -> b
 
 
 def _has_link_reference(text: str) -> bool:
-    return bool(URL_PATTERN.search(text or "") or REDACTED_URL_PATTERN.search(text or ""))
+    return bool(has_url_reference(text) or REDACTED_URL_PATTERN.search(text or ""))
 
 
 def _host_matches_brand_token(host: str, token: str) -> bool:
     normalized_host = host.lower().strip(".")
-    for suffix in BRAND_DOMAIN_SUFFIXES.get(token.upper(), ()):
+    registered_suffixes = BRAND_DOMAIN_SUFFIXES.get(token.upper(), ())
+    for suffix in registered_suffixes:
         if normalized_host == suffix or normalized_host.endswith(f".{suffix}"):
             return True
+    if registered_suffixes:
+        return False
     labels = re.split(r"[.-]", normalized_host)
     return token.lower() in labels
 
@@ -534,6 +536,53 @@ def _detect_legit_low_risk_context(
     return None
 
 
+def _is_verified_first_party_payment_workflow(
+    text: str,
+    sender: Optional[str],
+    url_verdicts: Optional[List[Dict[str, Any]]],
+    url_reputation_enforced: bool,
+) -> bool:
+    """Use a no-match verdict only as supporting evidence for a strict workflow."""
+
+    if not url_reputation_enforced or not url_verdicts:
+        return False
+    if any(str(item.get("status") or "") != NO_MATCH for item in url_verdicts):
+        return False
+    sender_tokens = _extract_brand_tokens("", sender)
+    if not sender_tokens:
+        return False
+    if not any(
+        pattern.fullmatch((sender or "").strip())
+        for token in sender_tokens
+        for pattern in (REGISTERED_PAYMENT_SENDER_PATTERNS.get(token),)
+        if pattern is not None
+    ):
+        return False
+    verdict_hosts = [
+        str(item.get("host") or "").strip().lower()
+        for item in url_verdicts
+        if item.get("host")
+    ]
+    if not verdict_hosts or any(
+        not any(_host_matches_brand_token(host, token) for token in sender_tokens)
+        for host in verdict_hosts
+    ):
+        return False
+    normalized = text or ""
+    return bool(
+        re.search(
+            r"\border\s*#?\s*\d*\s+(?:is\s+)?(?:confirmed|placed)\b",
+            normalized,
+            re.IGNORECASE,
+        )
+        and re.search(
+            r"\b(?:complete|make|finish)\s+(?:the\s+)?payment\b|\bpayment\s+here\b",
+            normalized,
+            re.IGNORECASE,
+        )
+    )
+
+
 def _apply_phishing_policy(
     text: str,
     sender: Optional[str],
@@ -542,8 +591,28 @@ def _apply_phishing_policy(
     raw_phish_prob: float,
     is_phishing_ml: bool,
     phish_threshold: float,
+    url_verdicts: Optional[List[Dict[str, Any]]] = None,
+    url_reputation_enforced: bool = False,
 ) -> tuple[bool, float, List[str]]:
+    if url_reputation_enforced and any(
+        str(item.get("status") or "") == MALICIOUS for item in (url_verdicts or [])
+    ):
+        return True, max(raw_phish_prob, phish_threshold), [
+            f"raw phishScore={raw_phish_prob:.3f}",
+            "phishing promoted by a known malicious URL match",
+        ]
+
     danger_signals = _has_strong_phishing_danger_signal(text, sender, is_otp, otp_intent)
+    verified_first_party_payment = _is_verified_first_party_payment_workflow(
+        text,
+        sender,
+        url_verdicts,
+        url_reputation_enforced,
+    )
+    if verified_first_party_payment:
+        danger_signals = [
+            signal for signal in danger_signals if signal != "payment trap with link"
+        ]
     if danger_signals:
         if is_phishing_ml:
             return True, raw_phish_prob, [f"raw phishScore={raw_phish_prob:.3f}"] + [
@@ -558,8 +627,16 @@ def _apply_phishing_policy(
             f"high-risk signals observed below ML threshold: {', '.join(danger_signals)}"
         ]
 
+    supporting_reasons = (
+        ["Web Risk found no known threat for aligned first-party order link"]
+        if verified_first_party_payment
+        else []
+    )
     if not is_phishing_ml:
-        return False, raw_phish_prob, [f"raw phishScore={raw_phish_prob:.3f}"]
+        return False, raw_phish_prob, [
+            f"raw phishScore={raw_phish_prob:.3f}",
+            *supporting_reasons,
+        ]
 
     low_risk_context = _detect_legit_low_risk_context(text, sender, is_otp, otp_intent)
     if not low_risk_context:
@@ -574,6 +651,7 @@ def _apply_phishing_policy(
 
     return False, calibrated_phish_prob, [
         f"raw phishScore={raw_phish_prob:.3f}",
+        *supporting_reasons,
         (
             f"phishing downgraded by context calibration ({low_risk_context['label']}); "
             f"calibrated phishScore={calibrated_phish_prob:.3f}"
