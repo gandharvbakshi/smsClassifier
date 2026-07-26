@@ -8,18 +8,30 @@ import kotlin.math.abs
 object SmsRedactor {
 
     private val digitRun = Regex("\\d{4,}")
-    private val url = Regex("(?i)\\b(?:https?://|www\\.)\\S+")
     private val email = Regex("(?i)\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b")
 
-    const val TRAINING_REDACTION_SCHEME = "training_redaction_v2"
+    const val TRAINING_REDACTION_SCHEME = "training_redaction_v3"
 
     fun redactForTraining(body: String, salt: String): String =
         replaceDigitRuns(
             email.replace(
-                url.replace(body) { "<URL:${stableToken(it.value, salt, 8)}>" }
-            ) { "<EMAIL:${stableToken(it.value, salt, 8)}>" },
+                redactLinks(body, salt)
+            ) { "<EMAIL:${stableAlphaToken(it.value, salt, 8)}>" },
             salt
         )
+
+    private fun redactLinks(body: String, salt: String): String {
+        val redacted = StringBuilder(body)
+        MessageLinkParser.findLinks(body).asReversed().forEach { link ->
+            val raw = body.substring(link.start, link.endExclusive)
+            redacted.replace(
+                link.start,
+                link.endExclusive,
+                "<URL:${stableAlphaToken(raw, salt, 8)}>"
+            )
+        }
+        return redacted.toString()
+    }
 
     fun redactSenderForTraining(sender: String, salt: String): String {
         val trimmed = sender.trim()
@@ -32,17 +44,16 @@ object SmsRedactor {
         digitRun.replace(text) { m ->
             val raw = m.value
             val len = raw.length.coerceAtMost(32)
-            val seed = (salt.hashCode().toLong() * 31L + raw.hashCode().toLong()).xor(len.toLong())
-            buildString(len) {
-                for (i in 0 until len) {
-                    val d = abs((seed shr (i * 3)).toInt() % 10)
-                    append('0' + d)
-                }
-            }
+            "<DIGITS:$len:d${stableToken(raw, salt, 7)}>"
         }
 
     private fun stableToken(raw: String, salt: String, length: Int): String {
         val seed = abs((salt.hashCode().toLong() * 37L + raw.hashCode().toLong()).toInt())
         return seed.toString(36).padStart(length, '0').takeLast(length)
     }
+
+    private fun stableAlphaToken(raw: String, salt: String, length: Int): String =
+        stableToken(raw, salt, length).map { char ->
+            if (char.isDigit()) ('k'.code + char.digitToInt()).toChar() else char
+        }.joinToString("")
 }

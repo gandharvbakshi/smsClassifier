@@ -34,6 +34,7 @@ class ClassificationWorkerPolicyTest {
         assertEquals(false, updated.isOtp)
         assertNull(updated.isPhishing)
         assertNull(updated.phishScore)
+        assertEquals("[]", updated.linkVerdictsJson)
         assertTrue(updated.reviewed)
         assertNotNull(updated.reasonsJson)
         assertFalse(matchesUnclassifiedPredicate(updated))
@@ -60,6 +61,7 @@ class ClassificationWorkerPolicyTest {
         assertEquals("APP_LOGIN_OTP", updated.otpIntent)
         assertEquals(false, updated.isPhishing)
         assertEquals(0.1f, updated.phishScore ?: -1f, 0.0001f)
+        assertEquals("[]", updated.linkVerdictsJson)
         assertTrue(updated.reviewed)
         assertFalse(matchesUnclassifiedPredicate(updated))
     }

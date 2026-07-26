@@ -16,10 +16,12 @@ class SmsRedactorTest {
     }
 
     @Test
-    fun redact_differentSalt_differentDigits() {
+    fun redact_differentSalt_differentTokens() {
         val a = SmsRedactor.redactForTraining("OTP 999999", "salt1")
         val b = SmsRedactor.redactForTraining("OTP 999999", "salt2")
         assertNotEquals(a, b)
+        assertTrue(a.contains("<DIGITS:6:"))
+        assertFalse(Regex("\\b\\d{4,}\\b").containsMatchIn(a))
     }
 
     @Test
@@ -31,10 +33,25 @@ class SmsRedactorTest {
 
         assertTrue(redacted.contains("<URL:"))
         assertTrue(redacted.contains("<EMAIL:"))
+        assertTrue(redacted.contains("<DIGITS:6:"))
+        assertTrue(redacted.contains("<DIGITS:10:"))
         assertFalse(redacted.contains("847291"))
         assertFalse(redacted.contains("9876543210"))
         assertFalse(redacted.contains("https://bad.example"))
         assertFalse(redacted.contains("a@b.co"))
+    }
+
+    @Test
+    fun redact_masksBareDomainsIncludingPathsAndQueries() {
+        val redacted = SmsRedactor.redactForTraining(
+            "Track at example.com/pay?token=private123 and demo.example:8/order#status",
+            "install-a"
+        )
+
+        assertEquals(2, Regex("<URL:[a-z]+>").findAll(redacted).count())
+        assertFalse(redacted.contains("example.com"))
+        assertFalse(redacted.contains("demo.example"))
+        assertFalse(redacted.contains("private123"))
     }
 
     @Test

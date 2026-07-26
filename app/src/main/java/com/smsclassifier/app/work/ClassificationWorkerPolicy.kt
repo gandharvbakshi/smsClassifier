@@ -2,6 +2,8 @@ package com.smsclassifier.app.work
 
 import com.smsclassifier.app.classification.Prediction
 import com.smsclassifier.app.data.MessageEntity
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 object ClassificationWorkerPolicy {
     const val OFFLINE_FALLBACK_REASON =
@@ -30,6 +32,7 @@ object ClassificationWorkerPolicy {
             isPhishing = if (usedServerResult) prediction.isPhishing else null,
             phishScore = if (usedServerResult) prediction.phishScore else null,
             reasonsJson = reasonsJson(prediction.reasons),
+            linkVerdictsJson = Json.encodeToString(prediction.linkVerdicts),
             reviewed = true
         )
     }
@@ -41,6 +44,7 @@ object ClassificationWorkerPolicy {
             isPhishing = null,
             phishScore = null,
             reasonsJson = reasonsJson(listOf("Classification error: ${errorMessage.take(80)}")),
+            linkVerdictsJson = "[]",
             reviewed = true
         )
     }

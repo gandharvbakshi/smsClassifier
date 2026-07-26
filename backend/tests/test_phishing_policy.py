@@ -239,6 +239,131 @@ class PhishingPolicyTest(unittest.TestCase):
         self.assertGreaterEqual(score, 0.5)
         self.assertTrue(any("payment trap with link" in reason for reason in reasons))
 
+    def test_verified_first_party_order_payment_link_can_downgrade(self) -> None:
+        text = (
+            "Your Swiggy order #123456 is confirmed. "
+            "Complete payment here https://swiggy.com/orders/123456/pay"
+        )
+        is_phishing, score, reasons = _apply_phishing_policy(
+            text=text,
+            sender="AD-SWIGGY-S",
+            is_otp=False,
+            otp_intent="NOT_OTP",
+            raw_phish_prob=0.91,
+            is_phishing_ml=True,
+            phish_threshold=0.5,
+            url_verdicts=[
+                {
+                    "url": "https://swiggy.com/orders/123456/pay",
+                    "host": "swiggy.com",
+                    "status": "NO_MATCH",
+                }
+            ],
+            url_reputation_enforced=True,
+        )
+
+        self.assertFalse(is_phishing)
+        self.assertLess(score, 0.5)
+        self.assertTrue(any("aligned first-party order link" in reason for reason in reasons))
+
+    def test_no_match_does_not_allowlist_lookalike_or_sender_only_link(self) -> None:
+        is_phishing, score, _ = _apply_phishing_policy(
+            text=(
+                "Your Swiggy order #123456 is confirmed. "
+                "Complete payment here https://swiggy-support.example/pay"
+            ),
+            sender="AD-SWIGGY-S",
+            is_otp=False,
+            otp_intent="NOT_OTP",
+            raw_phish_prob=0.91,
+            is_phishing_ml=True,
+            phish_threshold=0.5,
+            url_verdicts=[
+                {
+                    "url": "https://swiggy-support.example/pay",
+                    "host": "swiggy-support.example",
+                    "status": "NO_MATCH",
+                }
+            ],
+            url_reputation_enforced=True,
+        )
+
+        self.assertTrue(is_phishing)
+        self.assertGreaterEqual(score, 0.5)
+
+    def test_no_match_does_not_allowlist_unregistered_sender_shape(self) -> None:
+        is_phishing, score, _ = _apply_phishing_policy(
+            text=(
+                "Your Swiggy order #123456 is confirmed. "
+                "Complete payment here https://swiggy.com/orders/123456/pay"
+            ),
+            sender="Swiggy",
+            is_otp=False,
+            otp_intent="NOT_OTP",
+            raw_phish_prob=0.91,
+            is_phishing_ml=True,
+            phish_threshold=0.5,
+            url_verdicts=[
+                {
+                    "url": "https://swiggy.com/orders/123456/pay",
+                    "host": "swiggy.com",
+                    "status": "NO_MATCH",
+                }
+            ],
+            url_reputation_enforced=True,
+        )
+
+        self.assertTrue(is_phishing)
+        self.assertGreaterEqual(score, 0.5)
+
+    def test_malicious_url_match_promotes_even_ml_negative(self) -> None:
+        is_phishing, score, reasons = _apply_phishing_policy(
+            text="See the update at bare-domain.example/login",
+            sender="NOTICE",
+            is_otp=False,
+            otp_intent="NOT_OTP",
+            raw_phish_prob=0.12,
+            is_phishing_ml=False,
+            phish_threshold=0.5,
+            url_verdicts=[
+                {
+                    "url": "https://bare-domain.example/login",
+                    "host": "bare-domain.example",
+                    "status": "MALICIOUS",
+                }
+            ],
+            url_reputation_enforced=True,
+        )
+
+        self.assertTrue(is_phishing)
+        self.assertEqual(score, 0.5)
+        self.assertTrue(any("known malicious URL match" in reason for reason in reasons))
+
+    def test_unavailable_reputation_never_allowlists_payment_link(self) -> None:
+        is_phishing, score, _ = _apply_phishing_policy(
+            text=(
+                "Your Swiggy order #123456 is confirmed. "
+                "Complete payment here swiggy.com/orders/123456/pay"
+            ),
+            sender="AD-SWIGGY-S",
+            is_otp=False,
+            otp_intent="NOT_OTP",
+            raw_phish_prob=0.91,
+            is_phishing_ml=True,
+            phish_threshold=0.5,
+            url_verdicts=[
+                {
+                    "url": "https://swiggy.com/orders/123456/pay",
+                    "host": "swiggy.com",
+                    "status": "UNAVAILABLE",
+                }
+            ],
+            url_reputation_enforced=True,
+        )
+
+        self.assertTrue(is_phishing)
+        self.assertGreaterEqual(score, 0.5)
+
     def test_brand_sales_quote_follow_up_is_downgraded(self) -> None:
         is_phishing, score, _ = _apply_phishing_policy(
             text="Further to your interest in MG_COMET_EV, your advisor sent a detailed quote.",

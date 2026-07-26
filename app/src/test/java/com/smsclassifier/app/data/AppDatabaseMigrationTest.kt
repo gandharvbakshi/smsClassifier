@@ -31,6 +31,21 @@ class AppDatabaseMigrationTest {
         )
     }
 
+    @Test
+    fun migration10To11_addsLinkVerdictsColumn() {
+        val migration = migrationByName("MIGRATION_10_11")
+        val statements = mutableListOf<String>()
+        val database = supportSqliteProxy(statements)
+
+        migration.migrate(database)
+
+        assertTrue(
+            statements.any {
+                it.contains("ALTER TABLE messages ADD COLUMN linkVerdictsJson TEXT")
+            }
+        )
+    }
+
     private fun migrationByName(fieldName: String): androidx.room.migration.Migration {
         val field = AppDatabase::class.java.getDeclaredField(fieldName).apply {
             isAccessible = true

@@ -128,7 +128,7 @@ fun MessageSenderCard(
             )
             if (!linksEnabled && MessageLinkParser.findLinks(body).isNotEmpty()) {
                 Text(
-                    text = "Links are disabled because this message may be unsafe.",
+                    text = "Links are disabled until this message passes a safety check.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.error
                 )
