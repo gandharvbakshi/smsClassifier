@@ -1,4 +1,4 @@
-v1.2.26 - Safer links and better accuracy
-- Checks message links for known threats before enabling them.
-- Recognizes bare-domain links as well as http, https, and www links.
-- Prevents redacted feedback from looking like a real OTP.
+v1.2.27 - More reliable Pro trial setup
+- Saves your privacy choices before starting the free Pro trial.
+- Keeps setup open with a clear retry option if the trial cannot start.
+- Improves trial measurement only when analytics is enabled.
