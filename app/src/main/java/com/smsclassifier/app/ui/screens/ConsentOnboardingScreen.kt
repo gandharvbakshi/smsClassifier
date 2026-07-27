@@ -163,20 +163,39 @@ fun ConsentOnboardingScreen(
                                         entitlementState != EntitlementState.TRIAL_ACTIVE
                                     ) {
                                         trialStartInFlight = true
-                                        val started = onStartProTrial()
+                                        val started = runConsentAwareTrialStart(
+                                            applyConsent = {
+                                                applyConsentChoices(
+                                                    consent = consent,
+                                                    analyticsOn = analyticsOn,
+                                                    crashOn = crashOn
+                                                )
+                                            },
+                                            startTrial = onStartProTrial,
+                                            completeOnboarding = {
+                                                completeOnboarding(
+                                                    context = context,
+                                                    consent = consent
+                                                )
+                                            }
+                                        )
                                         trialStartInFlight = false
                                         if (!started) {
                                             trialStartError =
                                                 "Could not start Pro trial. Check internet and try again, or use the app without Pro for now."
                                             return@launch
                                         }
+                                    } else {
+                                        applyConsentChoices(
+                                            consent = consent,
+                                            analyticsOn = analyticsOn,
+                                            crashOn = crashOn
+                                        )
+                                        completeOnboarding(
+                                            context = context,
+                                            consent = consent
+                                        )
                                     }
-                                    persistConsent(
-                                        context = context,
-                                        consent = consent,
-                                        analyticsOn = analyticsOn,
-                                        crashOn = crashOn
-                                    )
                                     AppContainer.telemetry.logCtaTap("onboarding", "start_pro_trial")
                                     onContinueToInbox()
                                 }
@@ -194,11 +213,14 @@ fun ConsentOnboardingScreen(
                             text = "Use app without Pro",
                             onClick = {
                                 scope.launch {
-                                    persistConsent(
-                                        context = context,
+                                    applyConsentChoices(
                                         consent = consent,
                                         analyticsOn = analyticsOn,
                                         crashOn = crashOn
+                                    )
+                                    completeOnboarding(
+                                        context = context,
+                                        consent = consent
                                     )
                                     AppContainer.telemetry.logCtaTap("onboarding", "continue_basic")
                                     onContinueBasic()
@@ -509,14 +531,19 @@ private fun ConsentToggleRow(
     }
 }
 
-private suspend fun persistConsent(
-    context: Context,
+private suspend fun applyConsentChoices(
     consent: com.smsclassifier.app.analytics.ConsentManager,
     analyticsOn: Boolean,
     crashOn: Boolean
 ) {
     consent.setAnalyticsConsent(analyticsOn)
     consent.setCrashlyticsConsent(crashOn)
+}
+
+private suspend fun completeOnboarding(
+    context: Context,
+    consent: com.smsclassifier.app.analytics.ConsentManager
+) {
     consent.markOnboardingConsentSeen()
 
     val launchPrefs = context.getSharedPreferences("telemetry_launch", Context.MODE_PRIVATE)
