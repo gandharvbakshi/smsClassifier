@@ -39,6 +39,9 @@ jobs:
       - name: Verify intent label contract
         run: python scripts/check_intent_label_contract.py --skip-pickle
 
+      - name: Verify Play release notes version
+        run: python scripts/check_play_release_notes_version.py
+
       # ---- Materialize the release keystore from a base64-encoded secret ----
       - name: Decode release keystore
         env:

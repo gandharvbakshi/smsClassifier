@@ -247,3 +247,42 @@ play {
     resolutionStrategy.set(com.github.triplet.gradle.androidpublisher.ResolutionStrategy.IGNORE)
 }
 
+val verifyPlayReleaseNotesVersion by tasks.registering(Exec::class) {
+    group = "verification"
+    description = "Checks that Play release notes start with the current versionName"
+    workingDir(rootProject.projectDir)
+    inputs.file(rootProject.file("scripts/check_play_release_notes_version.py"))
+    inputs.file(layout.projectDirectory.file("build.gradle.kts"))
+    inputs.file(layout.projectDirectory.file("src/main/play/release-notes/en-US/default.txt"))
+
+    val pythonExecutable =
+        if (System.getProperty("os.name").startsWith("Windows", ignoreCase = true)) {
+            "python"
+        } else {
+            "python3"
+        }
+    commandLine(
+        pythonExecutable,
+        rootProject.file("scripts/check_play_release_notes_version.py").absolutePath,
+    )
+}
+
+// Guard every Gradle Play Publisher task that can upload an app artifact or
+// release listing. Aggregate and release-specific task names are both covered
+// so local publishing cannot bypass the check used in GitHub Actions.
+val guardedPlayUploadTasks =
+    setOf(
+        "publishApk",
+        "publishApps",
+        "publishBundle",
+        "publishListing",
+        "publishReleaseApk",
+        "publishReleaseApps",
+        "publishReleaseBundle",
+        "publishReleaseListing",
+    )
+
+tasks.matching { it.name in guardedPlayUploadTasks }.configureEach {
+    dependsOn(verifyPlayReleaseNotesVersion)
+}
+
