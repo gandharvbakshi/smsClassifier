@@ -69,15 +69,20 @@ created the service account is typical).
 ### Step 3 — Verify locally
 
 ```powershell
+.\gradlew :app:verifyPlayReleaseNotesVersion
 .\gradlew bundleRelease
 .\gradlew publishReleaseBundle
 ```
 
+- `verifyPlayReleaseNotesVersion` requires
+  `app/src/main/play/release-notes/en-US/default.txt` to start with the exact
+  `v<versionName>` from `app/build.gradle.kts` (for example, `v1.2.27 - ...`).
 - `bundleRelease` should succeed without calling Play (the project uses
   `resolutionStrategy = IGNORE` so **release builds do not pull version codes
   from the store** — you bump `versionCode` in `app/build.gradle.kts` yourself).
 - `publishReleaseBundle` **does** call the Android Publisher API — it will
-  fail until step 1b is done and credentials are valid.
+  fail until step 1b is done and credentials are valid. It automatically runs
+  the release-notes version check first and stops before upload on a mismatch.
 
 Successful `publishReleaseBundle` uploads to the **beta** track by default,
 which matches **Open testing** in Play Console. Use `--track=internal` for
@@ -120,7 +125,8 @@ $bytes = [IO.File]::ReadAllBytes("D:\path\to\release-keystore.jks")
 ```powershell
 # 1. Bump versionCode (+ versionName) in app/build.gradle.kts if Play already has that code.
 #    (resolutionStrategy is IGNORE — no silent auto-bump from the store.)
-# 2. Update app/src/main/play/release-notes/en-US/default.txt
+# 2. Update app/src/main/play/release-notes/en-US/default.txt. Its first text
+#    must be the exact current version, for example: v1.2.27 - What's new
 # 3. Build + upload (default track = beta = Open testing):
 .\gradlew publishReleaseBundle
 
@@ -134,11 +140,14 @@ $bytes = [IO.File]::ReadAllBytes("D:\path\to\release-keystore.jks")
 ### Option B — CI, push a tag
 
 ```powershell
-# 1. Bump versionName, commit, push.
+# 1. Bump versionName, update matching Play release notes, commit, and push.
 # 2. Tag and push the tag — CI takes over:
 git tag v1.0.12
 git push origin v1.0.12
 ```
+
+GitHub Actions runs the same release-notes check before materializing signing
+or Play credentials, so a stale version header cannot reach the upload step.
 
 Tag-triggered runs ship to the **beta** track (Open testing); use **Run workflow**
 → choose another track when you want internal-only or production.
