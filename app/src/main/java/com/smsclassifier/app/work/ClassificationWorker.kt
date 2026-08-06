@@ -95,7 +95,10 @@ class ClassificationWorker(
                                 usedServerResult = ClassificationWorkerPolicy.hasUsableServerResult(serverPrediction)
                                 if (usedServerResult) {
                                     serverSuccessCount++
-                                    serverPrediction
+                                    ClassificationWorkerPolicy.mergeServerWithHeuristic(
+                                        serverPrediction = serverPrediction,
+                                        heuristicPrediction = hPred
+                                    )
                                 } else {
                                     recordServerFailure(serverFailureCounts, "empty_result")
                                     ClassificationWorkerPolicy.fallbackPrediction(

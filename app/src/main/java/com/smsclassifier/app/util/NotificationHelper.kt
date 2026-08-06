@@ -85,8 +85,13 @@ object NotificationHelper {
         val heuristic = HeuristicOtpClassifier.classify(body, sender)
         val otpCode = extractOtpForCopy(body, sender, null)
         val channelId = if (otpCode != null) CHANNEL_ID_OTP else CHANNEL_ID_DEFAULT
-        val showOtpWarning = otpCode != null &&
-            ClassificationUtils.shouldWarnOnOtpNotification(body, sender, heuristic.suggestedIntent)
+        val otpPresentation = otpCode?.let {
+            OtpIntentResolver.resolve(
+                otpIntent = heuristic.suggestedIntent,
+                sender = sender,
+                body = body
+            )
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = notificationManager.getNotificationChannel(channelId)
@@ -108,7 +113,7 @@ object NotificationHelper {
             threadId = threadId,
             otpCode = otpCode,
             channelId = channelId,
-            showOtpWarning = showOtpWarning
+            otpPresentation = otpPresentation
         )
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -124,7 +129,7 @@ object NotificationHelper {
                         threadId = threadId,
                         otpCode = otpCode,
                         channelId = channelId,
-                        showOtpWarning = showOtpWarning
+                        otpPresentation = otpPresentation
                     )
                 }
             } catch (e: Exception) {
@@ -144,7 +149,7 @@ object NotificationHelper {
         threadId: Long,
         otpCode: String?,
         channelId: String,
-        showOtpWarning: Boolean
+        otpPresentation: OtpIntentPresentation?
     ) {
         val settingsRepository = SettingsRepository(context)
         val soundEnabled = settingsRepository.notificationSoundEnabled
@@ -176,21 +181,39 @@ object NotificationHelper {
             .setAllowSystemGeneratedContextualActions(false)
 
         if (otpCode != null) {
+            val presentation = otpPresentation ?: OtpIntentResolver.resolve(
+                otpIntent = null,
+                sender = sender,
+                body = body
+            )
+            val talkBackDescription = OtpIntentResolver.talkBackDescription(
+                presentation = presentation,
+                senderName = displayName,
+                code = otpCode
+            )
             val collapsed = RemoteViews(context.packageName, R.layout.notification_otp_collapsed)
-            collapsed.setTextViewText(R.id.notif_otp_sender, "OTP from $displayName")
+            collapsed.setTextViewText(
+                R.id.notif_otp_sender,
+                "${presentation.label} from $displayName"
+            )
             collapsed.setTextViewText(R.id.notif_otp_code, otpCode)
+            collapsed.setContentDescription(R.id.notif_otp_code, talkBackDescription)
 
             val expanded = RemoteViews(context.packageName, R.layout.notification_otp_expanded)
             expanded.setTextViewText(R.id.notif_otp_sender, "OTP from $displayName")
             expanded.setTextViewText(R.id.notif_otp_code, otpCode)
+            expanded.setTextViewText(R.id.notif_otp_purpose, presentation.label)
             expanded.setTextViewText(R.id.notif_otp_body, body)
+            expanded.setTextViewText(R.id.notif_otp_warning, presentation.safetyMessage.orEmpty())
             expanded.setViewVisibility(
                 R.id.notif_otp_warning,
-                if (showOtpWarning) View.VISIBLE else View.GONE
+                if (presentation.safetyMessage != null) View.VISIBLE else View.GONE
             )
+            expanded.setContentDescription(R.id.notif_otp_code, talkBackDescription)
 
             builder
-                .setContentText(body)
+                .setContentTitle("${presentation.label} from $displayName")
+                .setContentText("${presentation.label}: $otpCode")
                 .setCustomContentView(collapsed)
                 .setCustomBigContentView(expanded)
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
@@ -210,7 +233,6 @@ object NotificationHelper {
                 "Copy OTP",
                 copyOtpPendingIntent
             )
-            expanded.setOnClickPendingIntent(R.id.notif_copy_otp_button, copyOtpPendingIntent)
         } else {
             builder
                 .setContentText(body)
@@ -245,8 +267,15 @@ object NotificationHelper {
 
         val notification = builder.build()
         if (otpCode != null) {
-            notification.extras.putCharSequence(NotificationCompat.EXTRA_BIG_TEXT, body)
-            notification.extras.putCharSequence(NotificationCompat.EXTRA_TEXT, body)
+            val label = otpPresentation?.label ?: "OTP"
+            notification.extras.putCharSequence(
+                NotificationCompat.EXTRA_BIG_TEXT,
+                "$label\n$body"
+            )
+            notification.extras.putCharSequence(
+                NotificationCompat.EXTRA_TEXT,
+                "$label: $otpCode"
+            )
         }
         if (
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&

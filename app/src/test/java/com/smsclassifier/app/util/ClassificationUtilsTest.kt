@@ -12,7 +12,7 @@ class ClassificationUtilsTest {
     @Test
     fun humanizeIntent_knownIntent_returnsPlainOtpPurpose() {
         assertEquals(
-            "Bank or card payment",
+            "Bank transaction OTP",
             ClassificationUtils.humanizeIntent("BANK_OR_CARD_TXN_OTP")
         )
         assertNull(ClassificationUtils.humanizeIntent("NOT_OTP"))
@@ -44,7 +44,7 @@ class ClassificationUtilsTest {
         assertTrue(corrected.userCorrected)
         assertTrue(ClassificationUtils.isOtpEffective(corrected))
         assertEquals("847291", ClassificationUtils.extractOtpForCopy(corrected))
-        assertEquals("Other app action", ClassificationUtils.humanizeIntent(corrected.otpIntent))
+        assertEquals("OTP", ClassificationUtils.humanizeIntent(corrected.otpIntent))
     }
 
     @Test
@@ -62,7 +62,7 @@ class ClassificationUtilsTest {
         assertTrue(corrected.userCorrected)
         assertTrue(ClassificationUtils.isOtpEffective(corrected))
         assertEquals("UPI_TXN_OR_PIN_OTP", corrected.otpIntent)
-        assertEquals("UPI payment or PIN", ClassificationUtils.humanizeIntent(corrected.otpIntent))
+        assertEquals("UPI payment OTP", ClassificationUtils.humanizeIntent(corrected.otpIntent))
     }
 
     @Test
@@ -144,6 +144,17 @@ class ClassificationUtilsTest {
         )
 
         assertEquals("537993", ClassificationUtils.extractOtpForCopy(message))
+    }
+
+    @Test
+    fun extractOtpForCopy_whatsAppSeparatedCode_normalizesDigits() {
+        val message = baseMessage(
+            body = "Your WhatsApp code is 123-456. Do not share it.",
+            sender = "VM-WHATSAPP",
+            otpIntent = "APP_LOGIN_OTP"
+        )
+
+        assertEquals("123456", ClassificationUtils.extractOtpForCopy(message))
     }
 
     @Test

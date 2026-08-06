@@ -75,7 +75,7 @@ fun OtpInboxScreen(
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        text = "Verification codes from your messages",
+                        text = "OTPs from your messages",
                         style = androidx.compose.material3.MaterialTheme.typography.bodyLarge,
                         color = androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant
                     )

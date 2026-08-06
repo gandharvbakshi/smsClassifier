@@ -1,4 +1,4 @@
-v1.2.27 - More reliable Pro trial setup
-- Saves your privacy choices before starting the free Pro trial.
-- Keeps setup open with a clear retry option if the trial cannot start.
-- Improves trial measurement only when analytics is enabled.
+v1.2.28 - Know what every OTP is for
+- Shows a clear purpose label wherever an OTP appears.
+- Gives only relevant sharing guidance for bank, login, WhatsApp, and courier OTPs.
+- Labels older OTPs on-device without requiring Pro.

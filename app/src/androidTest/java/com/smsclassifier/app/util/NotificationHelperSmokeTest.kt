@@ -10,6 +10,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -48,6 +49,16 @@ class NotificationHelperSmokeTest {
         }
         assertNotNull(posted)
         assertNull(posted?.notification?.extras?.getCharSequence("android.subText"))
+        assertTrue(
+            posted?.notification?.extras
+                ?.getCharSequence("android.text")
+                ?.contains("UPI payment OTP") == true
+        )
+        assertTrue(
+            posted?.notification?.extras
+                ?.getCharSequence("android.title")
+                ?.contains("UPI payment OTP") == true
+        )
         val actionTitles = posted?.notification?.actions.orEmpty().map { it.title.toString() }
         assertEquals(1, actionTitles.count { it == "Copy OTP" })
         assertFalse(actionTitles.any { it == "Open" })

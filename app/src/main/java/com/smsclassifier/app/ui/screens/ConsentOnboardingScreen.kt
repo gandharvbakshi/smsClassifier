@@ -446,7 +446,7 @@ private fun ProStep(
             fontWeight = FontWeight.SemiBold
         )
         Text(
-            text = "Scam warnings, OTP purpose, and do-not-share alerts are included.",
+            text = "Pro adds cloud scam warnings. OTP purpose and sharing guidance work on-device for everyone.",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

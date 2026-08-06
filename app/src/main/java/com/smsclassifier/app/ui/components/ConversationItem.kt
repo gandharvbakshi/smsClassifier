@@ -35,11 +35,10 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.smsclassifier.app.data.ThreadInfo
 import com.smsclassifier.app.ui.badges.ClassificationBadge
-import com.smsclassifier.app.ui.badges.SensitivityBadge
-import com.smsclassifier.app.ui.badges.SensitivityType
 import com.smsclassifier.app.ui.theme.SuspiciousAmber
 import com.smsclassifier.app.ui.theme.avatarColor
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.OtpIntentResolver
 import com.smsclassifier.app.util.formatFriendlyTime
 import com.smsclassifier.app.util.SenderNameResolver
 
@@ -55,6 +54,10 @@ fun ConversationItem(
 ) {
     val nameToShow = displayName ?: SenderNameResolver.resolve(thread.address)
     val isUnread = thread.unreadCount > 0
+    val latestMessage = thread.latestMessage
+    val latestOtpCode = latestMessage?.let { ClassificationUtils.extractOtpForCopy(it) }
+    val otpPresentation = latestMessage?.takeIf { latestOtpCode != null }
+        ?.let { OtpIntentResolver.resolve(it) }
     val risk = ClassificationUtils.riskLevelForThread(thread.latestMessage)
     val accentColor = when (risk) {
         ClassificationUtils.RiskLevel.HIGH -> MaterialTheme.colorScheme.error
@@ -126,6 +129,12 @@ fun ConversationItem(
 
                 Spacer(modifier = Modifier.height(2.dp))
 
+                if (otpPresentation != null) {
+                    OtpPurposeLabel(presentation = otpPresentation)
+                    OtpSafetyLine(presentation = otpPresentation)
+                    Spacer(modifier = Modifier.height(2.dp))
+                }
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -159,22 +168,16 @@ fun ConversationItem(
                     }
                 }
 
-                thread.latestMessage?.let { message ->
-                    val sensitivity = ClassificationUtils.sensitivityType(message)
-                    val hasCloudRiskResult = message.isPhishing != null || message.phishScore != null
+                latestMessage?.let { message ->
                     val showRiskBadge = message.isPhishing == true ||
-                        (message.phishScore ?: 0f) >= 0.3f ||
-                        (hasCloudRiskResult && message.isOtp == true)
-                    if (showRiskBadge || sensitivity != SensitivityType.NONE) {
+                        (message.phishScore ?: 0f) >= 0.3f
+                    if (showRiskBadge) {
                         Spacer(modifier = Modifier.height(4.dp))
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(6.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            if (showRiskBadge) {
-                                ClassificationBadge(type = ClassificationUtils.riskBadgeType(message))
-                            }
-                            SensitivityBadge(type = sensitivity)
+                            ClassificationBadge(type = ClassificationUtils.riskBadgeType(message))
                         }
                     }
                 }

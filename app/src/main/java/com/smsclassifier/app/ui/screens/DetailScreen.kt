@@ -104,8 +104,6 @@ fun DetailScreen(
     ) { padding ->
         message?.let { msg ->
             val friendlySender = SenderNameResolver.resolve(msg.sender)
-            val sensitivity = ClassificationUtils.sensitivityType(msg)
-            val intentLabel = ClassificationUtils.humanizeIntent(msg.otpIntent)
             val otpCode = remember(msg.id, msg.body, msg.sender, msg.isOtp, msg.userCorrected) {
                 ClassificationUtils.extractOtpForCopy(msg)
             }
@@ -123,7 +121,7 @@ fun DetailScreen(
                 linkVerdictsJson = msg.linkVerdictsJson,
                 messageBody = msg.body
             )
-            val showOtpHero = otpCode != null && !scamLikely
+            val showOtpHero = otpCode != null
             val verdictTone = when {
                 scamLikely -> MessageVerdictTone.SCAM
                 showOtpHero -> MessageVerdictTone.OTP
@@ -190,9 +188,9 @@ fun DetailScreen(
                             )
                             Text(
                                 text = if (trialAvailable) {
-                                    "Scam warnings are unavailable here. Start a Pro trial ($trialLabel) or subscribe for cloud scam warnings and OTP purpose. Cloud checks send message text and sender over HTTPS."
+                                    "Scam warnings are unavailable here. Start a Pro trial ($trialLabel) or subscribe for cloud scam warnings and risk analysis. Cloud checks send message text and sender over HTTPS."
                                 } else {
-                                    "Scam warnings are unavailable here. Subscribe to Pro for cloud scam warnings and OTP purpose. Cloud checks send message text and sender over HTTPS."
+                                    "Scam warnings are unavailable here. Subscribe to Pro for cloud scam warnings and risk analysis. Cloud checks send message text and sender over HTTPS."
                                 },
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -269,9 +267,8 @@ fun DetailScreen(
                 } else {
                     if (showOtpHero && otpCode != null) {
                         OtpHeroCard(
+                            message = msg,
                             code = otpCode,
-                            intentLabel = intentLabel,
-                            sensitivity = sensitivity,
                             onCopy = {
                                 clipboardManager.setText(AnnotatedString(otpCode))
                                 AppContainer.telemetry.logOtpCopied("detail")
@@ -280,6 +277,17 @@ fun DetailScreen(
                                 }
                             }
                         )
+                        if (scamLikely) {
+                            MessageVerdictBand(
+                                tone = verdictTone,
+                                title = verdictTitle,
+                                body = verdictBody
+                            )
+                            ScamRiskMeter(
+                                level = riskLevel,
+                                label = riskLabel
+                            )
+                        }
                     } else {
                         MessageVerdictBand(
                             tone = verdictTone,

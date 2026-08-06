@@ -11,8 +11,8 @@ import java.util.regex.Pattern
  */
 object HeuristicOtpClassifier {
 
-    // -- Required: a 4-8 digit numeric code somewhere in the body.
-    private val CODE_PATTERN = Pattern.compile("(?<![\\d])\\d{4,8}(?![\\d])")
+    // -- Required: a 4-8 digit numeric code, including common 3-3 app codes.
+    private val CODE_PATTERN = Pattern.compile("(?<![\\d])(?:\\d{4,8}|\\d{3}[\\s-]\\d{3})(?![\\d])")
 
     // -- Strong OTP keywords. These almost guarantee OTP intent.
     //    NOTE: kept as word-boundary regexes so "voted" doesn't match "vot".
@@ -27,6 +27,7 @@ object HeuristicOtpClassifier {
         "\\blogin\\s+code\\b",
         "\\bsign[\\s-]?in\\s+code\\b",
         "\\bconfirmation\\s+code\\b",
+        "\\bwhatsapp\\s+(?:verification\\s+)?(?:code|otp)\\b",
         "\\b(?:delivery|courier)\\s+(?:code|pin)\\b",
         "\\bverify\\s+(?:your\\s+)?(?:account|identity|number|email|phone|mobile)\\b"
     ).map { Pattern.compile(it, Pattern.CASE_INSENSITIVE) }
@@ -104,7 +105,7 @@ object HeuristicOtpClassifier {
                 isOtp = false,
                 confidence = 0f,
                 suggestedIntent = null,
-                reasons = listOf("No 4-8 digit numeric code found")
+                reasons = listOf("No OTP-sized numeric code found")
             )
         }
         reasons.add("Numeric code detected")
@@ -190,15 +191,25 @@ object HeuristicOtpClassifier {
             senderUpper.contains("UPI") || senderUpper.contains("BHIM")
         ) return mark("UPI_TXN_OR_PIN_OTP")
 
+        val isWhatsApp = t.contains("whatsapp") ||
+            senderUpper.contains("WHATSAPP") ||
+            Regex("(^|[-_])WA($|[-_])").containsMatchIn(senderUpper)
+        if (isWhatsApp) {
+            val changesAccount = Regex(
+                "\\b(change|changing|changed|update|updating|move|moving|new\\s+(?:phone|device)|phone\\s+number)\\b"
+            ).containsMatchIn(t)
+            return mark(if (changesAccount) "APP_ACCOUNT_CHANGE_OTP" else "APP_LOGIN_OTP")
+        }
+
+        if (Regex("\\b(login|sign[\\s-]?in)\\b").containsMatchIn(t) &&
+            Regex("\\b(net\\s*banking|bank\\s+account|wallet|banking\\s+portal)\\b").containsMatchIn(t)
+        ) return mark("FINANCIAL_LOGIN_OTP")
+
         if (Regex("\\b(bank|debit\\s+card|credit\\s+card|net\\s+banking|transaction|transfer|imps|neft|rtgs)\\b")
                 .containsMatchIn(t) ||
             listOf("ICICI", "HDFC", "SBI", "AXIS", "KOTAK", "YESBNK", "IDFCBK", "INDUSB", "CITI", "AMEX")
                 .any { senderUpper.contains(it) }
         ) return mark("BANK_OR_CARD_TXN_OTP")
-
-        if (Regex("\\b(login|sign[\\s-]?in)\\b").containsMatchIn(t) &&
-            Regex("\\b(net\\s*banking|account|wallet|portal)\\b").containsMatchIn(t)
-        ) return mark("FINANCIAL_LOGIN_OTP")
 
         if (Regex("\\b(delivery|courier|package|parcel|shipment|otp\\s+for\\s+delivery|delivery\\s+otp|delivery\\s+person)\\b")
                 .containsMatchIn(t) ||
