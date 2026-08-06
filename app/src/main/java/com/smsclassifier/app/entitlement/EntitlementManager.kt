@@ -222,7 +222,7 @@ class EntitlementManager(private val context: Context) {
         )
         val state = result.getOrNull()
         if (state?.ok == true && state.proActive) {
-            applyServerPurchaseState(state, purchaseToken, sku, fingerprint)
+            applyServerPurchaseState(state, purchaseToken, sku)
             return PurchaseGrantResult(
                 granted = true,
                 backendVerified = true,
@@ -364,6 +364,8 @@ class EntitlementManager(private val context: Context) {
             .remove(KEY_FIRST_OTP_EVENT)
             .remove(KEY_TRIAL_ACK)
             .remove(KEY_TRIAL_END_DISMISS_UNTIL)
+            .remove(KEY_POST_VALUE_TRIAL_OFFER_IMPRESSIONS)
+            .remove(KEY_POST_VALUE_TRIAL_OFFER_NEXT_ELIGIBLE_AT)
             .apply()
         refreshCrashlyticsMode()
     }
@@ -411,6 +413,39 @@ class EntitlementManager(private val context: Context) {
     fun showInboxUnlockProCta(): Boolean {
         if (isPaidProAt()) return false
         return currentState() == EntitlementState.TRIAL_EXPIRED
+    }
+
+    fun shouldShowPostValueTrialOffer(
+        classifiedMessageCount: Int,
+        now: Long = System.currentTimeMillis(),
+    ): Boolean = PostValueTrialOfferPolicy.shouldShow(
+        classifiedMessageCount = classifiedMessageCount,
+        isPaidPro = isPaidProAt(now),
+        hasTrialStarted = hasTrialStarted(),
+        impressionCount = prefs.getInt(KEY_POST_VALUE_TRIAL_OFFER_IMPRESSIONS, 0),
+        nextEligibleAtMs = prefs.getLong(KEY_POST_VALUE_TRIAL_OFFER_NEXT_ELIGIBLE_AT, 0L),
+        nowMs = now,
+    )
+
+    fun markPostValueTrialOfferShown(now: Long = System.currentTimeMillis()) {
+        val impressions = prefs.getInt(KEY_POST_VALUE_TRIAL_OFFER_IMPRESSIONS, 0)
+        if (impressions >= PostValueTrialOfferPolicy.MAX_IMPRESSIONS) return
+        prefs.edit()
+            .putInt(KEY_POST_VALUE_TRIAL_OFFER_IMPRESSIONS, impressions + 1)
+            .putLong(
+                KEY_POST_VALUE_TRIAL_OFFER_NEXT_ELIGIBLE_AT,
+                PostValueTrialOfferPolicy.nextEligibleAt(now)
+            )
+            .apply()
+    }
+
+    fun markPostValueTrialOfferDismissed(now: Long = System.currentTimeMillis()) {
+        prefs.edit()
+            .putLong(
+                KEY_POST_VALUE_TRIAL_OFFER_NEXT_ELIGIBLE_AT,
+                PostValueTrialOfferPolicy.nextEligibleAt(now)
+            )
+            .apply()
     }
 
     fun shouldShowDetailUnlockPlaceholder(msg: MessageEntity): Boolean {
@@ -472,8 +507,7 @@ class EntitlementManager(private val context: Context) {
     private fun applyServerPurchaseState(
         state: PurchaseVerifyResponse,
         purchaseToken: String,
-        sku: String,
-        tokenFingerprint: String
+        sku: String
     ) {
         val editor = prefs.edit()
             .putBoolean(KEY_PRO, state.proActive)
@@ -589,6 +623,8 @@ class EntitlementManager(private val context: Context) {
         private const val KEY_PURCHASE_POLICY_VERSION = "purchase_policy_version"
         private const val KEY_PRO_EXPIRES_AT = "pro_expires_at_ms"
         private const val KEY_LAST_PURCHASE_VERIFIED_FINGERPRINT = "last_purchase_verified_fingerprint"
+        private const val KEY_POST_VALUE_TRIAL_OFFER_IMPRESSIONS = "post_value_trial_offer_impressions"
+        private const val KEY_POST_VALUE_TRIAL_OFFER_NEXT_ELIGIBLE_AT = "post_value_trial_offer_next_eligible_at"
         private const val PRODUCT_TYPE_SUBS = "subs"
         private const val DEFAULT_TRIAL_DAYS = 14
         private const val DEFAULT_TRIAL_POLICY_VERSION = "trial_14d_v1"

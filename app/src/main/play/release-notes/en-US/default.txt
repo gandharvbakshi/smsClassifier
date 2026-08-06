@@ -1,4 +1,4 @@
-v1.2.28 - Know what every OTP is for
-- Shows a clear purpose label wherever an OTP appears.
-- Gives only relevant sharing guidance for bank, login, WhatsApp, and courier OTPs.
-- Labels older OTPs on-device without requiring Pro.
+v1.2.30 - Know what an OTP does before sharing
+- Shows clear OTP purpose labels and relevant sharing guidance across the app.
+- Offers the Pro trial after your first messages are sorted, with a respectful cooldown.
+- Explains when a trial cannot start and counts purchases only after backend verification.
