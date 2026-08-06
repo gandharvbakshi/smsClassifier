@@ -74,7 +74,21 @@ class Telemetry(
                 FirebaseAnalytics.Param.ITEM_NAME to itemId
             )
         )
-        logEvent("purchase_started", mapOf("sku" to itemId))
+        logEvent("checkout_started", mapOf("sku" to itemId))
+    }
+
+    fun logTrialStartAttempt(source: String, trigger: String) {
+        logEvent(
+            "trial_start_attempt",
+            MonetizationTelemetryPolicy.trialStartAttemptParams(source, trigger)
+        )
+    }
+
+    fun logTrialStartResult(source: String, trigger: String, outcome: String, reason: String? = null) {
+        logEvent(
+            "trial_start_result",
+            MonetizationTelemetryPolicy.trialStartResultParams(source, trigger, outcome, reason)
+        )
     }
 
     fun logTrialStarted(source: String) {
@@ -97,16 +111,24 @@ class Telemetry(
         logEvent("trial_nudge_cta", mapOf("milestone" to milestone))
     }
 
+    fun logPurchaseVerified(sku: String, value: Double, currency: String, tokenFingerprint: String) {
+        val itemId = safeLabel(sku)
+        val normalizedCurrency = currency.ifBlank { "XXX" }
+        logEvent(
+            "purchase_verified",
+            mapOf(
+                "sku" to itemId,
+                "value" to value,
+                "currency" to normalizedCurrency,
+                "purchase_token_fingerprint" to tokenFingerprint
+            )
+        )
+    }
+
+    @Deprecated("Use logPurchaseVerified")
     fun logPurchaseCompleted(sku: String, value: Double, currency: String) {
         val itemId = safeLabel(sku)
         val normalizedCurrency = currency.ifBlank { "XXX" }
-        val params = mapOf(
-            FirebaseAnalytics.Param.ITEM_ID to itemId,
-            FirebaseAnalytics.Param.ITEM_NAME to itemId,
-            FirebaseAnalytics.Param.VALUE to value,
-            FirebaseAnalytics.Param.CURRENCY to normalizedCurrency
-        )
-        logEvent(FirebaseAnalytics.Event.PURCHASE, params)
         logEvent(
             "purchase_completed",
             mapOf(
@@ -269,7 +291,8 @@ class Telemetry(
             "count",
             "skipped",
             "uploaded",
-            "failed"
+            "failed",
+            "purchase_token_fingerprint"
         )
         for ((k, v) in params) {
             if (k in allowedDigitHeavyKeys) continue

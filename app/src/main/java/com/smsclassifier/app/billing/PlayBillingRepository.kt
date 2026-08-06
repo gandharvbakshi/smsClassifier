@@ -233,13 +233,13 @@ class PlayBillingRepository(private val context: Context) {
 
         billingScope.launch {
             val wasPaidPro = AppContainer.entitlementManager.isPaidPro()
-            val verified = AppContainer.entitlementManager.verifyPlayPurchase(
+            val verification = AppContainer.entitlementManager.verifyPlayPurchaseDetailed(
                 purchaseToken = purchase.purchaseToken,
                 sku = productId,
                 packageName = appContext.packageName,
                 productType = productType
             )
-            if (!verified) {
+            if (!verification.granted) {
                 AppLog.w(TAG, "Purchase verification failed for $productId")
                 AppContainer.telemetry.logEvent(
                     "purchase_verification_failed",
@@ -253,7 +253,7 @@ class PlayBillingRepository(private val context: Context) {
 
             acknowledgeIfNeeded(purchase)
 
-            if (!wasPaidPro) {
+            if (verification.backendVerified && AppContainer.entitlementManager.shouldEmitVerifiedPurchase(verification.tokenFingerprint)) {
                 val micros = if (productId == SKU_PRO_YEARLY) {
                     annualPriceAmountMicros(_productDetails.value)
                 } else {
@@ -264,10 +264,11 @@ class PlayBillingRepository(private val context: Context) {
                 } else {
                     ""
                 }
-                AppContainer.telemetry.logPurchaseCompleted(
+                AppContainer.telemetry.logPurchaseVerified(
                     sku = productId,
                     value = micros / 1_000_000.0,
-                    currency = currency
+                    currency = currency,
+                    tokenFingerprint = verification.tokenFingerprint
                 )
             }
 
@@ -313,8 +314,6 @@ class PlayBillingRepository(private val context: Context) {
             return
         }
 
-        AppContainer.telemetry.logBeginCheckout(SKU_PRO_YEARLY)
-        _isLaunchingFlow.value = true
         val detailsParams = BillingFlowParams.ProductDetailsParams.newBuilder()
             .setProductDetails(pd)
             .setOfferToken(offer.offerToken)
@@ -323,7 +322,10 @@ class PlayBillingRepository(private val context: Context) {
             .setProductDetailsParamsList(listOf(detailsParams))
             .build()
         val launchResult = client.launchBillingFlow(activity, flowParams)
-        if (launchResult.responseCode != BillingResponseCode.OK) {
+        if (launchResult.responseCode == BillingResponseCode.OK) {
+            _isLaunchingFlow.value = true
+            AppContainer.telemetry.logBeginCheckout(SKU_PRO_YEARLY)
+        } else {
             _isLaunchingFlow.value = false
             emitPurchaseFailure(launchResult)
         }

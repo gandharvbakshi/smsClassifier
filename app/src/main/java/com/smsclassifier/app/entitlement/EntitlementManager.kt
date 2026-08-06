@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.smsclassifier.app.BuildConfig
+import com.smsclassifier.app.analytics.MonetizationTelemetryPolicy
 import com.smsclassifier.app.analytics.Telemetry
 import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.data.SettingsRepository
@@ -46,8 +47,38 @@ class EntitlementManager(private val context: Context) {
     fun startTrialIfAvailable(): Boolean = startTrial()
 
     fun startTrial(now: Long = System.currentTimeMillis()): Boolean {
-        if (isPaidProAt(now)) return false
-        if (hasTrialStarted()) return false
+        return startTrialInternal(
+            now = now,
+            source = "local",
+            trigger = "manual",
+            logTelemetry = true,
+        )
+    }
+
+    private fun startTrialInternal(
+        now: Long,
+        source: String,
+        trigger: String,
+        logTelemetry: Boolean,
+    ): Boolean {
+        val telemetry = Telemetry.instance
+        val safeSource = MonetizationTelemetryPolicy.safeLabel(source)
+        val safeTrigger = MonetizationTelemetryPolicy.safeLabel(trigger)
+        if (logTelemetry) {
+            telemetry?.logTrialStartAttempt(safeSource, safeTrigger)
+        }
+        if (isPaidProAt(now)) {
+            if (logTelemetry) {
+                telemetry?.logTrialStartResult(safeSource, safeTrigger, "blocked", "paid_pro")
+            }
+            return false
+        }
+        if (hasTrialStarted()) {
+            if (logTelemetry) {
+                telemetry?.logTrialStartResult(safeSource, safeTrigger, "blocked", "already_started")
+            }
+            return false
+        }
 
         prefs.edit()
             .putLong(KEY_TRIAL_START, now)
@@ -55,7 +86,10 @@ class EntitlementManager(private val context: Context) {
             .putInt(KEY_TRIAL_DURATION_DAYS, DEFAULT_TRIAL_DAYS)
             .putString(KEY_TRIAL_POLICY_VERSION, DEFAULT_TRIAL_POLICY_VERSION)
             .apply()
-        Telemetry.instance?.logTrialStarted("local")
+        if (logTelemetry) {
+            telemetry?.logTrialStartResult(safeSource, safeTrigger, "started", null)
+            telemetry?.logTrialStarted(safeSource)
+        }
         refreshCrashlyticsMode()
         return true
     }
@@ -68,23 +102,95 @@ class EntitlementManager(private val context: Context) {
         return true
     }
 
-    suspend fun startTrialIfAvailableRemote(): Boolean {
-        if (isPaidProAt()) return false
-        if (hasTrialStarted()) return false
+    suspend fun startTrialIfAvailableRemote(): Boolean =
+        startTrialIfAvailableRemoteDetailed().started
+
+    suspend fun startTrialIfAvailableRemoteDetailed(
+        source: String = "paywall",
+        trigger: String = "cta",
+    ): RemoteTrialStartResult {
+        val telemetry = Telemetry.instance
+        val safeSource = MonetizationTelemetryPolicy.safeLabel(source)
+        val safeTrigger = MonetizationTelemetryPolicy.safeLabel(trigger)
+        telemetry?.logTrialStartAttempt(safeSource, safeTrigger)
+
+        if (isPaidPro()) {
+            telemetry?.logTrialStartResult(safeSource, safeTrigger, "blocked", "paid_pro")
+            return RemoteTrialStartResult(
+                source = safeSource,
+                trigger = safeTrigger,
+                started = false,
+                outcome = "blocked",
+                reason = "paid_pro"
+            )
+        }
+        if (hasTrialStarted()) {
+            telemetry?.logTrialStartResult(safeSource, safeTrigger, "blocked", "already_started")
+            return RemoteTrialStartResult(
+                source = safeSource,
+                trigger = safeTrigger,
+                started = false,
+                outcome = "blocked",
+                reason = "already_started"
+            )
+        }
 
         val result = syncClient.startTrial(settingsRepository.installId, firebaseUid())
         val state = result.getOrNull()
         if (state?.ok == true) {
             applyServerState(state)
-            if (state.trialActive && state.trialStartedAt != null) {
-                Telemetry.instance?.logTrialStarted("server")
-                return true
+            val started = state.trialActive && state.trialStartedAt != null
+            val outcome = if (started) "started" else "inactive"
+            val reason = if (started) null else "inactive_server_state"
+            telemetry?.logTrialStartResult(safeSource, safeTrigger, outcome, reason)
+            if (started) {
+                telemetry?.logTrialStarted(safeSource)
             }
-            return false
+            return RemoteTrialStartResult(
+                source = safeSource,
+                trigger = safeTrigger,
+                started = started,
+                outcome = outcome,
+                reason = reason,
+                trialActive = state.trialActive,
+                trialStartedAt = state.trialStartedAt
+            )
         }
 
+        val failureReason = when {
+            state != null -> MonetizationTelemetryPolicy.safeLabel(state.status)
+            result.exceptionOrNull() != null -> "network_error"
+            else -> "unknown"
+        }
         AppLog.w(TAG, "Trial start server sync failed: ${result.exceptionOrNull()?.message}")
-        return if (BuildConfig.DEBUG) startTrial() else false
+        return if (BuildConfig.DEBUG) {
+            val started = startTrialInternal(
+                now = System.currentTimeMillis(),
+                source = safeSource,
+                trigger = safeTrigger,
+                logTelemetry = false,
+            )
+            val outcome = if (started) "fallback_started" else "fallback_blocked"
+            telemetry?.logTrialStartResult(safeSource, safeTrigger, outcome, failureReason)
+            RemoteTrialStartResult(
+                source = safeSource,
+                trigger = safeTrigger,
+                started = started,
+                outcome = outcome,
+                reason = failureReason,
+                trialActive = started,
+                trialStartedAt = if (started) System.currentTimeMillis() else null
+            )
+        } else {
+            telemetry?.logTrialStartResult(safeSource, safeTrigger, "failed", failureReason)
+            RemoteTrialStartResult(
+                source = safeSource,
+                trigger = safeTrigger,
+                started = false,
+                outcome = "failed",
+                reason = failureReason
+            )
+        }
     }
 
     suspend fun verifyPlayPurchase(
@@ -92,7 +198,20 @@ class EntitlementManager(private val context: Context) {
         sku: String,
         packageName: String = BuildConfig.APPLICATION_ID,
         productType: String? = null
-    ): Boolean {
+    ): Boolean = verifyPlayPurchaseDetailed(
+        purchaseToken = purchaseToken,
+        sku = sku,
+        packageName = packageName,
+        productType = productType
+    ).granted
+
+    suspend fun verifyPlayPurchaseDetailed(
+        purchaseToken: String,
+        sku: String,
+        packageName: String = BuildConfig.APPLICATION_ID,
+        productType: String? = null
+    ): PurchaseGrantResult {
+        val fingerprint = MonetizationTelemetryPolicy.sha256Fingerprint(purchaseToken)
         val result = syncClient.verifyPurchase(
             installId = settingsRepository.installId,
             firebaseUid = firebaseUid(),
@@ -103,12 +222,23 @@ class EntitlementManager(private val context: Context) {
         )
         val state = result.getOrNull()
         if (state?.ok == true && state.proActive) {
-            applyServerPurchaseState(state, purchaseToken, sku)
-            return true
+            applyServerPurchaseState(state, purchaseToken, sku, fingerprint)
+            return PurchaseGrantResult(
+                granted = true,
+                backendVerified = true,
+                provisional = false,
+                tokenFingerprint = fingerprint
+            )
         }
         if (state?.validationStatus == "invalid") {
             AppLog.w(TAG, "Play purchase rejected by backend for sku=$sku")
-            return false
+            return PurchaseGrantResult(
+                granted = false,
+                backendVerified = false,
+                provisional = false,
+                tokenFingerprint = fingerprint,
+                reason = "invalid"
+            )
         }
 
         val fallbackReason = when {
@@ -124,11 +254,23 @@ class EntitlementManager(private val context: Context) {
                 null
             }
             markPurchasedFromPlay(purchaseToken, sku, provisionalExpiry)
-            return true
+            return PurchaseGrantResult(
+                granted = true,
+                backendVerified = false,
+                provisional = true,
+                tokenFingerprint = fingerprint,
+                reason = fallbackReason
+            )
         }
 
         AppLog.w(TAG, "Play purchase verification failed for sku=$sku")
-        return false
+        return PurchaseGrantResult(
+            granted = false,
+            backendVerified = false,
+            provisional = false,
+            tokenFingerprint = fingerprint,
+            reason = "verification_failed"
+        )
     }
 
     /** Calendar days left in trial, or 0 if not in trial. */
@@ -330,7 +472,8 @@ class EntitlementManager(private val context: Context) {
     private fun applyServerPurchaseState(
         state: PurchaseVerifyResponse,
         purchaseToken: String,
-        sku: String
+        sku: String,
+        tokenFingerprint: String
     ) {
         val editor = prefs.edit()
             .putBoolean(KEY_PRO, state.proActive)
@@ -380,6 +523,13 @@ class EntitlementManager(private val context: Context) {
         purchasePolicyVersion?.takeIf { it.isNotBlank() }?.let {
             editor.putString(KEY_PURCHASE_POLICY_VERSION, it)
         }
+    }
+
+    fun shouldEmitVerifiedPurchase(tokenFingerprint: String): Boolean {
+        val lastFingerprint = prefs.getString(KEY_LAST_PURCHASE_VERIFIED_FINGERPRINT, null)
+        if (!MonetizationTelemetryPolicy.shouldEmitPurchaseVerified(lastFingerprint, tokenFingerprint)) return false
+        prefs.edit().putString(KEY_LAST_PURCHASE_VERIFIED_FINGERPRINT, tokenFingerprint).apply()
+        return true
     }
 
     private fun isPaidProAt(now: Long = System.currentTimeMillis()): Boolean {
@@ -438,6 +588,7 @@ class EntitlementManager(private val context: Context) {
         private const val KEY_PURCHASE_SKU = "pro_sku"
         private const val KEY_PURCHASE_POLICY_VERSION = "purchase_policy_version"
         private const val KEY_PRO_EXPIRES_AT = "pro_expires_at_ms"
+        private const val KEY_LAST_PURCHASE_VERIFIED_FINGERPRINT = "last_purchase_verified_fingerprint"
         private const val PRODUCT_TYPE_SUBS = "subs"
         private const val DEFAULT_TRIAL_DAYS = 14
         private const val DEFAULT_TRIAL_POLICY_VERSION = "trial_14d_v1"
