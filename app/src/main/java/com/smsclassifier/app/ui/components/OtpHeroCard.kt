@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.WarningAmber
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -32,6 +31,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -39,8 +40,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smsclassifier.app.data.MessageEntity
-import com.smsclassifier.app.ui.badges.SensitivityType
-import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.OtpIntentResolver
 import com.smsclassifier.app.util.SenderNameResolver
 import com.smsclassifier.app.util.formatFriendlyTime
 import kotlinx.coroutines.Job
@@ -49,12 +49,18 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun OtpHeroCard(
+    message: MessageEntity,
     code: String,
-    intentLabel: String?,
-    sensitivity: SensitivityType,
     onCopy: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val presentation = OtpIntentResolver.resolve(message)
+    val friendlySender = SenderNameResolver.resolve(message.sender)
+    val talkBackDescription = OtpIntentResolver.talkBackDescription(
+        presentation = presentation,
+        senderName = friendlySender,
+        code = code
+    )
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
@@ -71,20 +77,18 @@ fun OtpHeroCard(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(
-                text = if (intentLabel.isNullOrBlank()) "OTP code" else "For $intentLabel",
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.primary,
-                textAlign = TextAlign.Center,
+            OtpPurposeLabel(
+                presentation = presentation,
+                centered = true,
                 modifier = Modifier.fillMaxWidth()
             )
             OtpCodeText(code = code)
-            if (sensitivity == SensitivityType.DO_NOT_SHARE) {
-                OtpWarningRow()
-            }
+            OtpSafetyLine(presentation = presentation, centered = true)
             Spacer(modifier = Modifier.height(2.dp))
-            CopyOtpButton(onClick = onCopy)
+            CopyOtpButton(
+                onClick = onCopy,
+                accessibilityLabel = talkBackDescription
+            )
         }
     }
 }
@@ -98,8 +102,12 @@ fun OtpListCard(
     modifier: Modifier = Modifier
 ) {
     val friendlySender = SenderNameResolver.resolve(message.sender)
-    val intentLabel = ClassificationUtils.humanizeIntent(message.otpIntent)
-    val sensitivity = ClassificationUtils.sensitivityType(message)
+    val presentation = OtpIntentResolver.resolve(message)
+    val talkBackDescription = OtpIntentResolver.talkBackDescription(
+        presentation = presentation,
+        senderName = friendlySender,
+        code = code
+    )
 
     Card(
         modifier = modifier
@@ -147,18 +155,17 @@ fun OtpListCard(
                     maxLines = 1
                 )
             }
-            Text(
-                text = intentLabel ?: "Verification code",
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
+            OtpPurposeLabel(
+                presentation = presentation,
+                centered = true,
                 modifier = Modifier.fillMaxWidth()
             )
             OtpCodeText(code = code)
-            if (sensitivity == SensitivityType.DO_NOT_SHARE) {
-                OtpWarningRow()
-            }
-            CopyOtpButton(onClick = onCopy)
+            OtpSafetyLine(presentation = presentation, centered = true)
+            CopyOtpButton(
+                onClick = onCopy,
+                accessibilityLabel = talkBackDescription
+            )
         }
     }
 }
@@ -175,36 +182,19 @@ private fun OtpCodeText(code: String) {
         color = MaterialTheme.colorScheme.onSurface,
         textAlign = TextAlign.Center,
         maxLines = 1,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .semantics {
+                contentDescription = code.filter(Char::isDigit).toCharArray().joinToString(" ")
+            }
     )
 }
 
 @Composable
-private fun OtpWarningRow() {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            imageVector = Icons.Default.WarningAmber,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.error,
-            modifier = Modifier.size(20.dp)
-        )
-        Spacer(modifier = Modifier.width(6.dp))
-        Text(
-            text = "Never share this OTP",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.error,
-            textAlign = TextAlign.Center
-        )
-    }
-}
-
-@Composable
-private fun CopyOtpButton(onClick: () -> Unit) {
+private fun CopyOtpButton(
+    onClick: () -> Unit,
+    accessibilityLabel: String
+) {
     var copiedState by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     var resetJob by remember { mutableStateOf<Job?>(null) }
@@ -229,6 +219,7 @@ private fun CopyOtpButton(onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 56.dp)
+            .semantics { contentDescription = accessibilityLabel }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

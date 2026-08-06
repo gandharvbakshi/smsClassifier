@@ -16,6 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -23,8 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.data.MessageEntity
-import com.smsclassifier.app.ui.badges.ClassificationBadge
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.OtpIntentPresentation
+import com.smsclassifier.app.util.OtpIntentResolver
+import com.smsclassifier.app.util.SenderNameResolver
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,6 +49,7 @@ fun MessageBubble(
     val otpCode = remember(message.id, message.body, message.sender, message.isOtp, message.userCorrected) {
         ClassificationUtils.extractOtpForCopy(message)
     }
+    val otpPresentation = otpCode?.let { OtpIntentResolver.resolve(message) }
 
     Row(
         modifier = modifier
@@ -78,6 +83,8 @@ fun MessageBubble(
                     OtpHighlight(
                         otpCode = otpCode,
                         body = message.body,
+                        presentation = otpPresentation ?: OtpIntentResolver.resolve(message),
+                        senderName = SenderNameResolver.resolve(message.sender),
                         onTapCopy = {
                             clipboardManager.setText(AnnotatedString(otpCode))
                             AppContainer.telemetry.logOtpCopied("message_bubble")
@@ -168,20 +175,17 @@ fun MessageBubble(
 private fun OtpHighlight(
     otpCode: String,
     body: String,
+    presentation: OtpIntentPresentation,
+    senderName: String,
     onTapCopy: () -> Unit
 ) {
+    val talkBackDescription = OtpIntentResolver.talkBackDescription(
+        presentation = presentation,
+        senderName = senderName,
+        code = otpCode
+    )
     Column {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            ClassificationBadge(
-                type = com.smsclassifier.app.ui.badges.BadgeType.OTP
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Verification OTP",
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
+        OtpPurposeLabel(presentation = presentation)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = otpCode,
@@ -191,12 +195,17 @@ private fun OtpHighlight(
             letterSpacing = 4.sp,
             color = MaterialTheme.colorScheme.onSurface
         )
+        if (presentation.safetyMessage != null) {
+            Spacer(modifier = Modifier.height(6.dp))
+            OtpSafetyLine(presentation = presentation)
+        }
         Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = onTapCopy,
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 56.dp)
+                .semantics { contentDescription = talkBackDescription }
         ) {
             Icon(
                 Icons.Default.ContentCopy,

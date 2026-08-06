@@ -319,7 +319,7 @@ fun SettingsScreen(
                     subtitle = if (proActive) {
                         "Annual Pro is active on this device"
                     } else {
-                        "Annual subscription for scam warnings and OTP details"
+                        "Annual subscription for scam warnings and deeper risk analysis"
                     },
                     trailing = {
                         if (proActive) {

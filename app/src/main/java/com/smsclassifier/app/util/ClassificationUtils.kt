@@ -6,20 +6,8 @@ import com.smsclassifier.app.ui.badges.BadgeType
 import com.smsclassifier.app.ui.badges.SensitivityType
 
 object ClassificationUtils {
-    private val OTP_REGEX = Regex("\\b\\d{4,8}\\b")
+    private val OTP_REGEX = Regex("(?<!\\d)(?:\\d{4,8}|\\d{3}[\\s-]\\d{3})(?!\\d)")
     private const val OTP_COPY_MIN_CONFIDENCE = 0.8f
-    private val OTP_WARNING_DO_NOT_SHARE_REGEX = Regex(
-        "\\b(do not share|don't share|never share|do not disclose|never disclose|keep\\s+(?:it|this)\\s+confidential|keep\\s+private)\\b",
-        RegexOption.IGNORE_CASE
-    )
-    private val OTP_WARNING_FINANCIAL_CONTEXT_REGEX = Regex(
-        "\\b(upi|vpa|bhim|bank|card|account|pin|payment|transaction|transfer|debit|credit|withdraw|deposit|balance|imps|neft|rtgs|net\\s*banking|wallet)\\b",
-        RegexOption.IGNORE_CASE
-    )
-    private val OTP_WARNING_DELIVERY_CONTEXT_REGEX = Regex(
-        "\\b(delivery|courier|parcel|package|shipment|tracking|delivery\\s+otp|otp\\s+for\\s+delivery|delivery\\s+pin|delivery\\s+code|courier\\s+otp)\\b",
-        RegexOption.IGNORE_CASE
-    )
     private val URL_REGEX = Regex("https?://|www\\.|\\b[a-z0-9.-]+\\.[a-z]{2,}\\b", RegexOption.IGNORE_CASE)
     private val OTP_KEYWORD_REGEX = Regex(
         "\\b(otp|one time password|verification code|authentication code|login code|security code|code)\\b",
@@ -80,26 +68,9 @@ object ClassificationUtils {
 
     fun isScamLikely(message: MessageEntity): Boolean = detailRiskLevel(message) == RiskLevel.HIGH
 
-    fun humanizeIntent(intent: String?): String? = when (intent) {
-        "BANK_OR_CARD_TXN_OTP" -> "Bank or card payment"
-        "UPI_TXN_OR_PIN_OTP" -> "UPI payment or PIN"
-        "FINANCIAL_LOGIN_OTP" -> "Bank login"
-        "APP_ACCOUNT_CHANGE_OTP" -> "Account change"
-        "APP_LOGIN_OTP" -> "App login"
-        "KYC_OR_ESIGN_OTP" -> "KYC / e-sign"
-        "DELIVERY_OR_SERVICE_OTP" -> "Delivery confirmation"
-        "GENERIC_APP_ACTION_OTP" -> "Other app action"
-        "NOT_OTP", null -> null
-        else -> intent
-            .lowercase()
-            .split("_")
-            .filter { it.isNotBlank() && it != "otp" }
-            .joinToString(" ") { part ->
-                part.replaceFirstChar { first ->
-                    if (first.isLowerCase()) first.titlecase() else first.toString()
-                }
-            }
-            .takeIf { it.isNotBlank() }
+    fun humanizeIntent(intent: String?): String? {
+        if (intent == null || intent == "NOT_OTP") return null
+        return OtpIntentResolver.resolve(otpIntent = intent).label
     }
 
     /**
@@ -114,26 +85,8 @@ object ClassificationUtils {
         sender: String?,
         otpIntent: String?
     ): Boolean {
-        val normalizedIntent = otpIntent?.uppercase()
-        if (normalizedIntent == "DELIVERY_OR_SERVICE_OTP") return false
-
-        val surface = buildString {
-            append(sender.orEmpty())
-            append(' ')
-            append(body)
-        }
-
-        if (OTP_WARNING_DELIVERY_CONTEXT_REGEX.containsMatchIn(surface)) return false
-        if (normalizedIntent == "BANK_OR_CARD_TXN_OTP" ||
-            normalizedIntent == "UPI_TXN_OR_PIN_OTP" ||
-            normalizedIntent == "FINANCIAL_LOGIN_OTP" ||
-            normalizedIntent == "APP_ACCOUNT_CHANGE_OTP"
-        ) {
-            return true
-        }
-
-        return OTP_WARNING_DO_NOT_SHARE_REGEX.containsMatchIn(surface) ||
-            OTP_WARNING_FINANCIAL_CONTEXT_REGEX.containsMatchIn(surface)
+        return OtpIntentResolver.resolve(otpIntent, sender, body).sharingGuidance ==
+            OtpSharingGuidance.NEVER_SHARE
     }
 
     fun plainReasons(message: MessageEntity, rawReasons: List<String>): List<String> {
@@ -254,14 +207,10 @@ object ClassificationUtils {
 
     fun sensitivityType(message: MessageEntity): SensitivityType {
         if (!isOtpEffective(message)) return SensitivityType.NONE
-        if (message.otpIntent == null) return SensitivityType.NONE
-        return when (message.otpIntent) {
-            "BANK_OR_CARD_TXN_OTP",
-            "FINANCIAL_LOGIN_OTP",
-            "APP_ACCOUNT_CHANGE_OTP",
-            "UPI_TXN_OR_PIN_OTP" -> SensitivityType.DO_NOT_SHARE
-            "DELIVERY_OR_SERVICE_OTP" -> SensitivityType.COURIER_ONLY
-            else -> SensitivityType.INFO
+        return when (OtpIntentResolver.resolve(message).sharingGuidance) {
+            OtpSharingGuidance.NEVER_SHARE -> SensitivityType.DO_NOT_SHARE
+            OtpSharingGuidance.COURIER_ONLY -> SensitivityType.COURIER_ONLY
+            OtpSharingGuidance.NONE -> SensitivityType.NONE
         }
     }
 
@@ -269,13 +218,18 @@ object ClassificationUtils {
         val matches = OTP_REGEX.findAll(body).toList()
         if (matches.isEmpty()) return null
         return matches
-            .map { match -> OtpCandidate(match.value, scoreOtpCandidate(body, match)) }
+            .map { match ->
+                OtpCandidate(
+                    code = match.value.filter(Char::isDigit),
+                    score = scoreOtpCandidate(body, match)
+                )
+            }
             .maxByOrNull { it.score }
             ?.code
     }
 
     private fun scoreOtpCandidate(body: String, match: MatchResult): Int {
-        val code = match.value
+        val code = match.value.filter(Char::isDigit)
         val start = match.range.first
         val end = match.range.last + 1
         val before = body.substring(maxOf(0, start - 80), start)

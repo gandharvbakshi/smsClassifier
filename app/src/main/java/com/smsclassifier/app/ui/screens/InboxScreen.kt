@@ -567,7 +567,7 @@ private fun InboxEntitlementBanners(
         if (ui.showTrialWelcome) {
             EntitlementBannerCard(
                 label = "Pro trial",
-                body = "Pro is unlocked for $trialLabel: scam warnings, OTP purpose, and do-not-share alerts.",
+                body = "Pro is unlocked for $trialLabel: cloud scam warnings and risk analysis.",
                 primaryText = "Got it",
                 onPrimary = ui.onTrialWelcomeDismiss
             )

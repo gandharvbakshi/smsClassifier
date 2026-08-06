@@ -67,6 +67,122 @@ class ClassificationWorkerPolicyTest {
     }
 
     @Test
+    fun localResultPersistsPurposeButNotCloudRiskFields() {
+        val updated = ClassificationWorkerPolicy.updatedMessage(
+            message = baseMessage(),
+            prediction = Prediction(
+                isOtp = true,
+                otpIntent = "DELIVERY_OR_SERVICE_OTP",
+                isPhishing = null,
+                phishScore = 0f
+            ),
+            usedServerResult = false
+        )
+
+        assertEquals(true, updated.isOtp)
+        assertEquals("DELIVERY_OR_SERVICE_OTP", updated.otpIntent)
+        assertNull(updated.isPhishing)
+        assertNull(updated.phishScore)
+        assertFalse(matchesUnclassifiedPredicate(updated))
+    }
+
+    @Test
+    fun intentBackfillPreservesExistingCloudRiskAndLinkVerdicts() {
+        val message = baseMessage().copy(
+            isOtp = true,
+            otpIntent = null,
+            isPhishing = true,
+            phishScore = 0.91f,
+            linkVerdictsJson = "[{\"status\":\"unsafe\"}]",
+            reviewed = true
+        )
+
+        val updated = ClassificationWorkerPolicy.updatedMessage(
+            message = message,
+            prediction = Prediction(
+                isOtp = true,
+                otpIntent = "APP_LOGIN_OTP",
+                isPhishing = null,
+                phishScore = 0f
+            ),
+            usedServerResult = false
+        )
+
+        assertEquals("APP_LOGIN_OTP", updated.otpIntent)
+        assertEquals(true, updated.isPhishing)
+        assertEquals(0.91f, updated.phishScore ?: -1f, 0.0001f)
+        assertEquals("[{\"status\":\"unsafe\"}]", updated.linkVerdictsJson)
+        assertFalse(matchesUnclassifiedPredicate(updated))
+    }
+
+    @Test
+    fun intentBackfillDoesNotDemoteExistingOtpWhenLocalFallbackMissesIt() {
+        val message = baseMessage().copy(
+            isOtp = true,
+            otpIntent = null,
+            isPhishing = false,
+            phishScore = 0.08f,
+            reviewed = true
+        )
+
+        val updated = ClassificationWorkerPolicy.updatedMessage(
+            message = message,
+            prediction = Prediction(
+                isOtp = false,
+                otpIntent = null,
+                isPhishing = null,
+                phishScore = 0f
+            ),
+            usedServerResult = false
+        )
+
+        assertEquals(true, updated.isOtp)
+        assertEquals("GENERIC_APP_ACTION_OTP", updated.otpIntent)
+        assertEquals(false, updated.isPhishing)
+        assertEquals(0.08f, updated.phishScore ?: -1f, 0.0001f)
+        assertFalse(matchesUnclassifiedPredicate(updated))
+    }
+
+    @Test
+    fun serverRiskOnlyResultKeepsHeuristicOtpPurpose() {
+        val merged = ClassificationWorkerPolicy.mergeServerWithHeuristic(
+            serverPrediction = Prediction(
+                isOtp = null,
+                otpIntent = null,
+                isPhishing = false,
+                phishScore = 0.05f
+            ),
+            heuristicPrediction = Prediction(
+                isOtp = true,
+                otpIntent = "APP_LOGIN_OTP",
+                isPhishing = null,
+                phishScore = 0f
+            )
+        )
+
+        assertEquals(true, merged.isOtp)
+        assertEquals("APP_LOGIN_OTP", merged.otpIntent)
+        assertEquals(false, merged.isPhishing)
+    }
+
+    @Test
+    fun otpWithoutSpecificIntent_getsExactGenericFallbackAndLeavesBackfillQueue() {
+        val updated = ClassificationWorkerPolicy.updatedMessage(
+            message = baseMessage(),
+            prediction = Prediction(
+                isOtp = true,
+                otpIntent = null,
+                isPhishing = false,
+                phishScore = 0.1f
+            ),
+            usedServerResult = true
+        )
+
+        assertEquals("GENERIC_APP_ACTION_OTP", updated.otpIntent)
+        assertFalse(matchesUnclassifiedPredicate(updated))
+    }
+
+    @Test
     fun reasonsJsonEscapesQuotesAndBackslashes() {
         val json = ClassificationWorkerPolicy.reasonsJson(
             listOf("Cloud said \"busy\"", "path C:\\tmp")
@@ -90,6 +206,7 @@ class ClassificationWorkerPolicyTest {
 
     private fun matchesUnclassifiedPredicate(message: MessageEntity): Boolean {
         return message.isOtp == null ||
+            (message.isOtp == true && message.otpIntent == null && !message.userCorrected) ||
             (!message.reviewed && (message.isPhishing == null || message.phishScore == null))
     }
 }

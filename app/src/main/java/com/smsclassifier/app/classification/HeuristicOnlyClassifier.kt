@@ -10,7 +10,7 @@ class HeuristicOnlyClassifier : Classifier {
         val h = HeuristicOtpClassifier.classify(input.text, input.sender)
         return Prediction(
             isOtp = h.isOtp,
-            otpIntent = null,
+            otpIntent = h.suggestedIntent,
             isPhishing = null,
             phishScore = 0f,
             reasons = emptyList(),

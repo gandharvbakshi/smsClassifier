@@ -127,7 +127,7 @@ fun PaywallScreen(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Pro adds cloud scam warnings, risk levels, and clearer explanations for sensitive OTPs. It is designed to help older family members and everyday users in India spot suspicious links, urgent pressure, and sender tricks.",
+                text = "Pro adds cloud scam warnings and risk analysis. OTP purpose and sharing guidance already work on-device for everyone.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -144,13 +144,13 @@ fun PaywallScreen(
                 )
                 ProBenefitLine(
                     icon = Icons.Default.Shield,
-                    title = "Know why an OTP came",
-                    body = "See if an OTP looks like login, payment, account change, delivery, or another action."
+                    title = "See risk reasons",
+                    body = "See why a message looks suspicious."
                 )
                 ProBenefitLine(
                     icon = Icons.Default.Lock,
-                    title = "Warnings on sensitive OTPs",
-                    body = "Adds context when an OTP should stay private."
+                    title = "Check risky links",
+                    body = "Cloud checks flag known dangerous links."
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
