@@ -253,7 +253,11 @@ class PlayBillingRepository(private val context: Context) {
 
             acknowledgeIfNeeded(purchase)
 
-            if (verification.backendVerified && AppContainer.entitlementManager.shouldEmitVerifiedPurchase(verification.tokenFingerprint)) {
+            if (
+                verification.backendVerified &&
+                fromUserFlow &&
+                AppContainer.entitlementManager.shouldEmitVerifiedPurchase(verification.tokenFingerprint)
+            ) {
                 val micros = if (productId == SKU_PRO_YEARLY) {
                     annualPriceAmountMicros(_productDetails.value)
                 } else {
