@@ -119,7 +119,7 @@ fun PaywallScreen(
             )
             Text(
                 text = if (trialAvailable && state != EntitlementState.PRO) {
-                    "Protect OTPs from scam messages"
+                    "Add cloud checks for risky messages"
                 } else {
                     "Keep scam warnings ready"
                 },
@@ -127,7 +127,7 @@ fun PaywallScreen(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Pro adds cloud scam warnings, risk levels, and clearer explanations for sensitive OTPs. It is designed to help older family members and everyday users in India spot suspicious links, urgent pressure, and sender tricks.",
+                text = "Pro adds cloud scam warnings and risk analysis. OTP purpose and sharing guidance already work on-device for everyone.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -139,18 +139,18 @@ fun PaywallScreen(
             InfoCard {
                 ProBenefitLine(
                     icon = Icons.Default.Warning,
-                    title = "Spot risky messages",
-                    body = "Checks suspicious links, urgency, sender patterns, and requests for passwords or OTPs."
+                    title = "See risk reasons",
+                    body = "Cloud checks explain why a message may be suspicious."
                 )
                 ProBenefitLine(
                     icon = Icons.Default.Shield,
-                    title = "Know why an OTP came",
-                    body = "See if an OTP looks like login, payment, account change, delivery, or another action."
+                    title = "Check risky links",
+                    body = "Cloud checks flag known dangerous links and suspicious sender tricks."
                 )
                 ProBenefitLine(
                     icon = Icons.Default.Lock,
-                    title = "Warnings on sensitive OTPs",
-                    body = "Adds context when an OTP should stay private."
+                    title = "Keep on-device OTP guidance",
+                    body = "Purpose labels and sharing guidance remain available even without Pro."
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -174,16 +174,22 @@ fun PaywallScreen(
                     onClick = {
                         AppContainer.telemetry.logCtaTap("paywall", "start_trial")
                         scope.launch {
-                            if (entitlementManager.startTrialIfAvailableRemote()) {
+                            val result = entitlementManager.startTrialIfAvailableRemoteDetailed(
+                                source = telemetryTrigger,
+                                trigger = "cta",
+                            )
+                            if (result.started) {
                                 entitlementRefresh++
-                                AppContainer.telemetry.logEvent(
-                                    "trial_started_from_paywall",
-                                    mapOf("trigger" to telemetryTrigger)
-                                )
                                 onPurchaseFinishedNavigateNext()
                             } else {
                                 snackbarHostState.showSnackbar(
-                                    "Trial could not start. Check your connection and try again."
+                                    when (result.reason) {
+                                        "network_error" -> "Could not reach the trial service. Check your connection and try again."
+                                        "already_started" -> "This trial has already been used on this installation."
+                                        "paid_pro" -> "Pro is already active."
+                                        "inactive_server_state" -> "A trial is not available for this installation."
+                                        else -> "Trial could not start. Please try again."
+                                    }
                                 )
                             }
                         }

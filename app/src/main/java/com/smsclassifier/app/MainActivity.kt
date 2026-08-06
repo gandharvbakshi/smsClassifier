@@ -228,6 +228,22 @@ class MainActivity : ComponentActivity() {
                                 em.markTrialNudgeShown(milestone)
                                 refreshEntitlement()
                             },
+                            shouldShowPostValueTrialOffer = { classifiedMessageCount ->
+                                em.shouldShowPostValueTrialOffer(classifiedMessageCount)
+                            },
+                            onPostValueTrialOfferShown = { classifiedMessageCount ->
+                                em.markPostValueTrialOfferShown()
+                                AppContainer.telemetry.logPostValueTrialOfferShown(classifiedMessageCount)
+                            },
+                            onPostValueTrialOfferStart = {
+                                AppContainer.telemetry.logPostValueTrialOfferAction("start_trial")
+                                navController.navigate("paywall/first_value")
+                            },
+                            onPostValueTrialOfferDismiss = {
+                                em.markPostValueTrialOfferDismissed()
+                                AppContainer.telemetry.logPostValueTrialOfferAction("dismiss")
+                                refreshEntitlement()
+                            },
                             showUnlockPro = em.showInboxUnlockProCta(),
                             onUnlockPro = {
                                 navController.navigate("paywall/trial_expired")

@@ -86,6 +86,10 @@ data class InboxEntitlementUi(
     val onTrialNudgeShown: (TrialNudgeMilestone) -> Unit = {},
     val onTrialNudgeBuy: (TrialNudgeMilestone) -> Unit = {},
     val onTrialNudgeDismiss: (TrialNudgeMilestone) -> Unit = {},
+    val shouldShowPostValueTrialOffer: (Int) -> Boolean = { false },
+    val onPostValueTrialOfferShown: (Int) -> Unit = {},
+    val onPostValueTrialOfferStart: () -> Unit = {},
+    val onPostValueTrialOfferDismiss: () -> Unit = {},
     val showUnlockPro: Boolean = false,
     val onUnlockPro: () -> Unit = {},
 )
@@ -567,7 +571,7 @@ private fun InboxEntitlementBanners(
         if (ui.showTrialWelcome) {
             EntitlementBannerCard(
                 label = "Pro trial",
-                body = "Pro is unlocked for $trialLabel: scam warnings, OTP purpose, and do-not-share alerts.",
+                body = "Pro is unlocked for $trialLabel: cloud scam warnings and clearer risk reasons. OTP purpose and sharing guidance stay available on-device.",
                 primaryText = "Got it",
                 onPrimary = ui.onTrialWelcomeDismiss
             )
@@ -603,6 +607,25 @@ private fun InboxEntitlementBanners(
                 },
                 showClose = milestone == TrialNudgeMilestone.DAY_1,
                 onClose = { displayedMilestone = null }
+            )
+        }
+        val showPostValueTrialOffer = !ui.showTrialWelcome &&
+            milestone == null &&
+            !ui.showUnlockPro &&
+            ui.shouldShowPostValueTrialOffer(classifiedMessageCount)
+        LaunchedEffect(showPostValueTrialOffer) {
+            if (showPostValueTrialOffer) {
+                ui.onPostValueTrialOfferShown(classifiedMessageCount)
+            }
+        }
+        if (showPostValueTrialOffer) {
+            EntitlementBannerCard(
+                label = "Try Pro after seeing it work",
+                body = "Your first messages are sorted. Start a $trialLabel Pro trial for cloud scam warnings and clearer risk reasons.",
+                primaryText = "Start $trialLabel trial",
+                onPrimary = ui.onPostValueTrialOfferStart,
+                secondaryText = "Not now",
+                onSecondary = ui.onPostValueTrialOfferDismiss,
             )
         }
         if (ui.showUnlockPro) {

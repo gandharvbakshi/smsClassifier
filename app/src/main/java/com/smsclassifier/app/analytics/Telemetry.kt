@@ -115,12 +115,41 @@ class Telemetry(
         val itemId = safeLabel(sku)
         val normalizedCurrency = currency.ifBlank { "XXX" }
         logEvent(
+            FirebaseAnalytics.Event.PURCHASE,
+            mapOf(
+                FirebaseAnalytics.Param.ITEM_ID to itemId,
+                FirebaseAnalytics.Param.ITEM_NAME to itemId,
+                FirebaseAnalytics.Param.VALUE to value,
+                FirebaseAnalytics.Param.CURRENCY to normalizedCurrency
+            )
+        )
+        logEvent(
             "purchase_verified",
             mapOf(
                 "sku" to itemId,
                 "value" to value,
                 "currency" to normalizedCurrency,
                 "purchase_token_fingerprint" to tokenFingerprint
+            )
+        )
+    }
+
+    fun logPostValueTrialOfferShown(classifiedMessageCount: Int) {
+        logEvent(
+            "trial_offer_shown",
+            mapOf(
+                "surface" to "inbox_first_value",
+                "classified_count" to classifiedMessageCount.coerceAtLeast(1)
+            )
+        )
+    }
+
+    fun logPostValueTrialOfferAction(action: String) {
+        logEvent(
+            "trial_offer_action",
+            mapOf(
+                "surface" to "inbox_first_value",
+                "action" to safeLabel(action)
             )
         )
     }
@@ -289,6 +318,7 @@ class Telemetry(
             "value",
             "dau_date",
             "count",
+            "classified_count",
             "skipped",
             "uploaded",
             "failed",
