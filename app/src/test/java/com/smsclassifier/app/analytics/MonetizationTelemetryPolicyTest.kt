@@ -65,4 +65,40 @@ class MonetizationTelemetryPolicyTest {
         assertFalse(MonetizationTelemetryPolicy.shouldEmitPurchaseVerified("abc", "abc"))
         assertTrue(MonetizationTelemetryPolicy.shouldEmitPurchaseVerified("abc", "def"))
     }
+
+    @Test
+    fun verified_purchase_attribution_accepts_user_flow_or_matching_pending_purchase_only() {
+        assertTrue(
+            MonetizationTelemetryPolicy.canAttributeVerifiedPurchase(
+                lastFingerprint = null,
+                currentFingerprint = "new",
+                pendingFingerprint = null,
+                fromUserFlow = true,
+            )
+        )
+        assertTrue(
+            MonetizationTelemetryPolicy.canAttributeVerifiedPurchase(
+                lastFingerprint = null,
+                currentFingerprint = "pending",
+                pendingFingerprint = "pending",
+                fromUserFlow = false,
+            )
+        )
+        assertFalse(
+            MonetizationTelemetryPolicy.canAttributeVerifiedPurchase(
+                lastFingerprint = null,
+                currentFingerprint = "restored",
+                pendingFingerprint = null,
+                fromUserFlow = false,
+            )
+        )
+        assertFalse(
+            MonetizationTelemetryPolicy.canAttributeVerifiedPurchase(
+                lastFingerprint = "pending",
+                currentFingerprint = "pending",
+                pendingFingerprint = "pending",
+                fromUserFlow = false,
+            )
+        )
+    }
 }

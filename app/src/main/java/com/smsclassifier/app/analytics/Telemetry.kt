@@ -120,7 +120,8 @@ class Telemetry(
                 FirebaseAnalytics.Param.ITEM_ID to itemId,
                 FirebaseAnalytics.Param.ITEM_NAME to itemId,
                 FirebaseAnalytics.Param.VALUE to value,
-                FirebaseAnalytics.Param.CURRENCY to normalizedCurrency
+                FirebaseAnalytics.Param.CURRENCY to normalizedCurrency,
+                FirebaseAnalytics.Param.TRANSACTION_ID to tokenFingerprint
             )
         )
         logEvent(

@@ -559,10 +559,25 @@ class EntitlementManager(private val context: Context) {
         }
     }
 
-    fun shouldEmitVerifiedPurchase(tokenFingerprint: String): Boolean {
+    fun rememberPendingPurchaseVerification(tokenFingerprint: String) {
+        if (tokenFingerprint.isBlank()) return
+        prefs.edit().putString(KEY_PENDING_PURCHASE_VERIFICATION_FINGERPRINT, tokenFingerprint).apply()
+    }
+
+    fun shouldEmitVerifiedPurchase(tokenFingerprint: String, fromUserFlow: Boolean): Boolean {
         val lastFingerprint = prefs.getString(KEY_LAST_PURCHASE_VERIFIED_FINGERPRINT, null)
-        if (!MonetizationTelemetryPolicy.shouldEmitPurchaseVerified(lastFingerprint, tokenFingerprint)) return false
-        prefs.edit().putString(KEY_LAST_PURCHASE_VERIFIED_FINGERPRINT, tokenFingerprint).apply()
+        val pendingFingerprint = prefs.getString(KEY_PENDING_PURCHASE_VERIFICATION_FINGERPRINT, null)
+        if (!MonetizationTelemetryPolicy.canAttributeVerifiedPurchase(
+                lastFingerprint = lastFingerprint,
+                currentFingerprint = tokenFingerprint,
+                pendingFingerprint = pendingFingerprint,
+                fromUserFlow = fromUserFlow,
+            )
+        ) return false
+        prefs.edit()
+            .putString(KEY_LAST_PURCHASE_VERIFIED_FINGERPRINT, tokenFingerprint)
+            .remove(KEY_PENDING_PURCHASE_VERIFICATION_FINGERPRINT)
+            .apply()
         return true
     }
 
@@ -623,6 +638,7 @@ class EntitlementManager(private val context: Context) {
         private const val KEY_PURCHASE_POLICY_VERSION = "purchase_policy_version"
         private const val KEY_PRO_EXPIRES_AT = "pro_expires_at_ms"
         private const val KEY_LAST_PURCHASE_VERIFIED_FINGERPRINT = "last_purchase_verified_fingerprint"
+        private const val KEY_PENDING_PURCHASE_VERIFICATION_FINGERPRINT = "pending_purchase_verification_fingerprint"
         private const val KEY_POST_VALUE_TRIAL_OFFER_IMPRESSIONS = "post_value_trial_offer_impressions"
         private const val KEY_POST_VALUE_TRIAL_OFFER_NEXT_ELIGIBLE_AT = "post_value_trial_offer_next_eligible_at"
         private const val PRODUCT_TYPE_SUBS = "subs"

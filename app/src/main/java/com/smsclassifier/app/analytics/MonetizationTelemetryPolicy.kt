@@ -44,4 +44,14 @@ object MonetizationTelemetryPolicy {
     fun shouldEmitPurchaseVerified(lastFingerprint: String?, currentFingerprint: String): Boolean {
         return lastFingerprint != currentFingerprint
     }
+
+    fun canAttributeVerifiedPurchase(
+        lastFingerprint: String?,
+        currentFingerprint: String,
+        pendingFingerprint: String?,
+        fromUserFlow: Boolean,
+    ): Boolean {
+        return shouldEmitPurchaseVerified(lastFingerprint, currentFingerprint) &&
+            (fromUserFlow || pendingFingerprint == currentFingerprint)
+    }
 }
