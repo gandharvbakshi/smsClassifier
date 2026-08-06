@@ -14,7 +14,7 @@ Character count: 52 / 80
 
 SMS Classifier is a default SMS app built to make OTPs easier to find and risky texts easier to review.
 
-Use it as your texting app to import and organize SMS on your phone. Basic OTP sorting runs on-device. Trial and Pro cloud checks add scam warnings, OTP purpose hints, and "do not share" alerts when you want stronger protection.
+Use it as your texting app to import and organize SMS on your phone. OTP sorting and purpose labels run on-device for everyone. Trial and Pro add cloud scam warnings and risk analysis.
 
 What it helps with
 
@@ -29,7 +29,7 @@ Privacy and control
 
 SMS Classifier needs to become your default SMS app for full SMS features. Your messages are stored in the app's local database so the inbox can work on your device.
 
-Free mode uses local OTP detection for basic sorting. During the 14-day Pro trial and while Pro is active, cloud classification can send message text and sender information over HTTPS to the app's backend to classify risky messages and OTP purpose. Optional mistake reports are redacted before upload and are off unless you turn them on. Usage diagnostics and crash reports are controlled in Settings. The app does not use ads or the Android advertising ID.
+Free mode uses local OTP detection and purpose labels. During the 14-day Pro trial and while Pro is active, cloud classification can send message text and sender information over HTTPS to the app's backend to analyse scam risk. Optional mistake reports are redacted before upload and are off unless you turn them on. Usage diagnostics and crash reports are controlled in Settings. The app does not use ads or the Android advertising ID.
 
 Free, trial, and Pro
 
@@ -47,5 +47,5 @@ Character count: 1,748 / 4,000
 - Removed old claims that messages never leave the device.
 - Removed broad "no data sharing with third parties" language.
 - Pro is described as an annual Google Play subscription priced at ₹199/year in India.
-- Code-purpose explanations, scam warnings, and 'Do not share' alerts are described as trial/Pro functionality.
+- OTP purpose labels and relevant sharing guidance are described as on-device functionality for everyone; cloud scam warnings remain trial/Pro functionality.
 - Screenshots should continue to be real app screenshots only.

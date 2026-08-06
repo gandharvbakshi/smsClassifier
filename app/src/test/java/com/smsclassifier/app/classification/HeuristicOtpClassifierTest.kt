@@ -57,4 +57,37 @@ class HeuristicOtpClassifierTest {
         assertTrue(result.confidence > 0.8f)
         assertEquals("DELIVERY_OR_SERVICE_OTP", result.suggestedIntent)
     }
+
+    @Test
+    fun classify_bankLogin_detectsLoginBeforeGenericBankTransaction() {
+        val result = HeuristicOtpClassifier.classify(
+            text = "Use OTP 482917 to login to your HDFC net banking account. Never share it.",
+            sender = "VM-HDFCBK"
+        )
+
+        assertTrue(result.isOtp)
+        assertEquals("FINANCIAL_LOGIN_OTP", result.suggestedIntent)
+    }
+
+    @Test
+    fun classify_whatsAppSeparatedCode_detectsLoginIntent() {
+        val result = HeuristicOtpClassifier.classify(
+            text = "Your WhatsApp code is 123-456. Do not share it.",
+            sender = "VM-WHATSAPP"
+        )
+
+        assertTrue(result.isOtp)
+        assertEquals("APP_LOGIN_OTP", result.suggestedIntent)
+    }
+
+    @Test
+    fun classify_whatsAppPhoneChange_detectsAccountChangeIntent() {
+        val result = HeuristicOtpClassifier.classify(
+            text = "Your WhatsApp OTP is 834291 to move your account to a new phone.",
+            sender = "VM-WHATSAPP"
+        )
+
+        assertTrue(result.isOtp)
+        assertEquals("APP_ACCOUNT_CHANGE_OTP", result.suggestedIntent)
+    }
 }

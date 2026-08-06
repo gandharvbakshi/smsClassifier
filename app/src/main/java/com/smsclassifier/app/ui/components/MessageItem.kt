@@ -29,6 +29,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -37,10 +39,9 @@ import androidx.compose.ui.unit.dp
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.ui.badges.ClassificationBadge
-import com.smsclassifier.app.ui.badges.SensitivityBadge
-import com.smsclassifier.app.ui.badges.SensitivityType
 import com.smsclassifier.app.ui.theme.avatarColor
 import com.smsclassifier.app.util.ClassificationUtils
+import com.smsclassifier.app.util.OtpIntentResolver
 import com.smsclassifier.app.util.formatFriendlyTime
 import com.smsclassifier.app.util.SenderNameResolver
 
@@ -53,11 +54,13 @@ fun MessageItem(
     val friendlyName = SenderNameResolver.resolve(message.sender)
     val initial = friendlyName.firstOrNull()?.uppercaseChar()?.toString() ?: "?"
     val avatarColorResolved = avatarColor(friendlyName)
+    val otpCode = ClassificationUtils.extractOtpForCopy(message)
+    val otpPresentation = otpCode?.let { OtpIntentResolver.resolve(message) }
 
     val isPhish = message.isPhishing == true || (message.phishScore ?: 0f) >= 0.3f
     val riskDotColor: Color = when {
         isPhish -> MaterialTheme.colorScheme.error
-        message.isOtp == true -> MaterialTheme.colorScheme.primary
+        otpCode != null -> MaterialTheme.colorScheme.primary
         else -> Color.Transparent
     }
 
@@ -122,6 +125,12 @@ fun MessageItem(
 
                 Spacer(modifier = Modifier.height(2.dp))
 
+                if (otpPresentation != null) {
+                    OtpPurposeLabel(presentation = otpPresentation)
+                    OtpSafetyLine(presentation = otpPresentation)
+                    Spacer(modifier = Modifier.height(2.dp))
+                }
+
                 Text(
                     text = message.body,
                     style = MaterialTheme.typography.bodyMedium,
@@ -130,12 +139,9 @@ fun MessageItem(
                     overflow = TextOverflow.Ellipsis
                 )
 
-                val sensitivity = ClassificationUtils.sensitivityType(message)
-                val hasCloudRiskResult = message.isPhishing != null || message.phishScore != null
-                val showRisk = isPhish || (hasCloudRiskResult && message.isOtp == true)
-                val otpCode = ClassificationUtils.extractOtpForCopy(message)
+                val showRisk = isPhish
 
-                if (showRisk || sensitivity != SensitivityType.NONE || otpCode != null) {
+                if (showRisk || otpCode != null) {
                     Spacer(modifier = Modifier.height(6.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -145,12 +151,16 @@ fun MessageItem(
                         if (showRisk) {
                             ClassificationBadge(type = ClassificationUtils.riskBadgeType(message))
                         }
-                        if (sensitivity != SensitivityType.NONE) {
-                            SensitivityBadge(type = sensitivity)
-                        }
                         Spacer(modifier = Modifier.weight(1f))
                         if (otpCode != null) {
-                            CopyOtpPill(code = otpCode)
+                            CopyOtpPill(
+                                code = otpCode,
+                                accessibilityLabel = OtpIntentResolver.talkBackDescription(
+                                    presentation = otpPresentation ?: OtpIntentResolver.resolve(message),
+                                    senderName = friendlyName,
+                                    code = otpCode
+                                )
+                            )
                         }
                     }
                 }
@@ -160,7 +170,10 @@ fun MessageItem(
 }
 
 @Composable
-private fun CopyOtpPill(code: String) {
+private fun CopyOtpPill(
+    code: String,
+    accessibilityLabel: String
+) {
     val clipboard = LocalClipboardManager.current
     val context = LocalContext.current
     Surface(
@@ -168,7 +181,8 @@ private fun CopyOtpPill(code: String) {
         color = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,
         modifier = Modifier
-            .heightIn(min = 44.dp)
+            .heightIn(min = 48.dp)
+            .semantics { contentDescription = accessibilityLabel }
             .clickable(onClickLabel = "Copy OTP") {
                 clipboard.setText(AnnotatedString(code))
                 AppContainer.telemetry.logOtpCopied("message_item")

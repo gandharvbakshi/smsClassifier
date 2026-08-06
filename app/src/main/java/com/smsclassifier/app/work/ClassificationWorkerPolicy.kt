@@ -21,18 +21,49 @@ object ClassificationWorkerPolicy {
         )
     }
 
+    fun mergeServerWithHeuristic(
+        serverPrediction: Prediction,
+        heuristicPrediction: Prediction
+    ): Prediction {
+        val resolvedIsOtp = serverPrediction.isOtp ?: heuristicPrediction.isOtp
+        val resolvedIntent = when {
+            resolvedIsOtp != true -> null
+            !serverPrediction.otpIntent.isNullOrBlank() -> serverPrediction.otpIntent
+            else -> heuristicPrediction.otpIntent ?: "GENERIC_APP_ACTION_OTP"
+        }
+        return serverPrediction.copy(
+            isOtp = resolvedIsOtp,
+            otpIntent = resolvedIntent
+        )
+    }
+
     fun updatedMessage(
         message: MessageEntity,
         prediction: Prediction,
         usedServerResult: Boolean
     ): MessageEntity {
+        val resolvedIsOtp = if (!usedServerResult && message.isOtp == true) {
+            true
+        } else {
+            prediction.isOtp
+        }
         return message.copy(
-            isOtp = prediction.isOtp,
-            otpIntent = if (usedServerResult) prediction.otpIntent else null,
-            isPhishing = if (usedServerResult) prediction.isPhishing else null,
-            phishScore = if (usedServerResult) prediction.phishScore else null,
+            isOtp = resolvedIsOtp,
+            otpIntent = if (resolvedIsOtp == true) {
+                prediction.otpIntent ?: message.otpIntent ?: "GENERIC_APP_ACTION_OTP"
+            } else {
+                null
+            },
+            // An on-device fallback can add OTP purpose, but it must never erase
+            // a cloud risk result already stored on an older message.
+            isPhishing = if (usedServerResult) prediction.isPhishing else message.isPhishing,
+            phishScore = if (usedServerResult) prediction.phishScore else message.phishScore,
             reasonsJson = reasonsJson(prediction.reasons),
-            linkVerdictsJson = Json.encodeToString(prediction.linkVerdicts),
+            linkVerdictsJson = if (usedServerResult) {
+                Json.encodeToString(prediction.linkVerdicts)
+            } else {
+                message.linkVerdictsJson ?: Json.encodeToString(prediction.linkVerdicts)
+            },
             reviewed = true
         )
     }

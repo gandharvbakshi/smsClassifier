@@ -1,4 +1,4 @@
-v1.2.29 - Clearer trial offers and accurate purchase measurement
+v1.2.30 - Know what an OTP does before sharing
+- Shows clear OTP purpose labels and relevant sharing guidance across the app.
 - Offers the Pro trial after your first messages are sorted, with a respectful cooldown.
-- Shows clearer reasons when a trial cannot start.
-- Counts purchases only after backend verification while keeping temporary access reliable.
+- Explains when a trial cannot start and counts purchases only after backend verification.
