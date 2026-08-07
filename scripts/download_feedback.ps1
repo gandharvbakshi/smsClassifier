@@ -8,8 +8,8 @@
 #   ./feedback_corpus/misclassification/<ts>_<id>.json   (one row each)
 #   ./feedback_corpus/feedback.jsonl                     (concatenated)
 #
-# Requires: gsutil (Google Cloud SDK), authenticated as someone who can read
-#           the bucket. Run `gcloud auth login` first if needed.
+# Requires: gcloud storage (Google Cloud CLI), authenticated as someone who can
+#           read the bucket. Run `gcloud auth login` first if needed.
 
 $ErrorActionPreference = "Stop"
 
@@ -23,7 +23,15 @@ if (-not (Test-Path $OutDir)) {
 }
 
 Write-Host "Syncing gs://$Bucket/$Prefix -> $OutDir/..."
-gsutil -m rsync -r "gs://$Bucket/$Prefix" (Join-Path $OutDir $Prefix)
+$Gcloud = Get-Command gcloud -ErrorAction SilentlyContinue
+if (-not $Gcloud) {
+    throw "Google Cloud CLI is required. Install gcloud and authenticate before retrying."
+}
+
+& $Gcloud.Source storage rsync "gs://$Bucket/$Prefix" (Join-Path $OutDir $Prefix) --recursive
+if ($LASTEXITCODE -ne 0) {
+    throw "gcloud storage rsync failed with exit code $LASTEXITCODE"
+}
 
 # Concatenate everything into one JSONL for easy analysis.
 $AllJson = Join-Path $OutDir "feedback.jsonl"
