@@ -59,6 +59,10 @@ def write_json_atomic(path: Path, payload: dict) -> None:
         raise
 
 
+def canonical_text_bytes(path: Path) -> bytes:
+    return path.read_text(encoding="utf-8").encode("utf-8")
+
+
 def gaql(client, query: str):
     return list(client.get_service("GoogleAdsService").search(customer_id=CUSTOMER_ID, query=query))
 
@@ -75,7 +79,7 @@ def load_plan() -> dict:
     ):
         raise RuntimeError("A required Search model critic rejected the reviewed copy.")
     expected_copy_hash = (evaluation.get("source_hashes") or {}).get("google_search_copy.yaml")
-    if expected_copy_hash != hashlib.sha256(COPY_PATH.read_bytes()).hexdigest():
+    if expected_copy_hash != hashlib.sha256(canonical_text_bytes(COPY_PATH)).hexdigest():
         raise RuntimeError("Search copy changed after evaluation; rerun the review gate.")
     copy_groups = {group["id"]: group for group in search_copy.get("ad_groups") or []}
     metadata = plan["metadata"]
@@ -126,8 +130,8 @@ def load_plan() -> dict:
 
 def plan_hash() -> str:
     digest = hashlib.sha256()
-    digest.update(PLAN_PATH.read_bytes())
-    digest.update(COPY_PATH.read_bytes())
+    digest.update(canonical_text_bytes(PLAN_PATH))
+    digest.update(canonical_text_bytes(COPY_PATH))
     return digest.hexdigest()
 
 
