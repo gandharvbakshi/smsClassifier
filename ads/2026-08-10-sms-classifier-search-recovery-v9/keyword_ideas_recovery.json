@@ -1,0 +1,6698 @@
+{
+  "created_at": "2026-08-10T04:03:06.003659+00:00",
+  "customer_id": "6269702350",
+  "keywords": [
+    "otp scam warning app",
+    "sms scam warning app",
+    "default sms app",
+    "sms organizer app",
+    "fraud text message app"
+  ],
+  "page_url": "https://play.google.com/store/apps/details?id=com.smsclassifier.app",
+  "location_ids": [
+    2356
+  ],
+  "language_id": 1000,
+  "keyword_plan_network": "GOOGLE_SEARCH",
+  "include_adult_keywords": false,
+  "result_count": 98,
+  "ideas": [
+    {
+      "text": "default sms app",
+      "avg_monthly_searches": 720,
+      "competition": "MEDIUM",
+      "competition_index": 37,
+      "low_top_of_page_bid_micros": 1442203,
+      "high_top_of_page_bid_micros": 7116570,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 590
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 590
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 720
+        }
+      ]
+    },
+    {
+      "text": "sms organizer app",
+      "avg_monthly_searches": 50,
+      "competition": "LOW",
+      "competition_index": 9,
+      "low_top_of_page_bid_micros": 11043403,
+      "high_top_of_page_bid_micros": 17548360,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 70
+        }
+      ]
+    },
+    {
+      "text": "set default sms app",
+      "avg_monthly_searches": 1300,
+      "competition": "LOW",
+      "competition_index": 7,
+      "low_top_of_page_bid_micros": 2011448,
+      "high_top_of_page_bid_micros": 9930427,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 1600
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 1600
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 1000
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 1000
+        }
+      ]
+    },
+    {
+      "text": "default messaging app",
+      "avg_monthly_searches": 260,
+      "competition": "LOW",
+      "competition_index": 8,
+      "low_top_of_page_bid_micros": 1240934,
+      "high_top_of_page_bid_micros": 6574077,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 320
+        }
+      ]
+    },
+    {
+      "text": "set default messaging app android",
+      "avg_monthly_searches": 140,
+      "competition": "LOW",
+      "competition_index": 4,
+      "low_top_of_page_bid_micros": 1911004,
+      "high_top_of_page_bid_micros": 9022243,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 140
+        }
+      ]
+    },
+    {
+      "text": "set default sms app android",
+      "avg_monthly_searches": 20,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "default sms",
+      "avg_monthly_searches": 260,
+      "competition": "LOW",
+      "competition_index": 6,
+      "low_top_of_page_bid_micros": 1291299,
+      "high_top_of_page_bid_micros": 6356338,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 390
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 390
+        }
+      ]
+    },
+    {
+      "text": "default sms app android",
+      "avg_monthly_searches": 30,
+      "competition": "MEDIUM",
+      "competition_index": 36,
+      "low_top_of_page_bid_micros": 1845406,
+      "high_top_of_page_bid_micros": 6516382,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 20
+        }
+      ]
+    },
+    {
+      "text": "default messaging app android",
+      "avg_monthly_searches": 390,
+      "competition": "LOW",
+      "competition_index": 1,
+      "low_top_of_page_bid_micros": 2139693,
+      "high_top_of_page_bid_micros": 7078582,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 390
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 590
+        }
+      ]
+    },
+    {
+      "text": "default messages",
+      "avg_monthly_searches": 590,
+      "competition": "LOW",
+      "competition_index": 2,
+      "low_top_of_page_bid_micros": 1329287,
+      "high_top_of_page_bid_micros": 6152023,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 390
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 590
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 590
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 590
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 590
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 880
+        }
+      ]
+    },
+    {
+      "text": "make messenger my default app",
+      "avg_monthly_searches": 0,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "set messages as default sms app",
+      "avg_monthly_searches": 20,
+      "competition": "LOW",
+      "competition_index": 4,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 20
+        }
+      ]
+    },
+    {
+      "text": "set default sms",
+      "avg_monthly_searches": 70,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 50
+        }
+      ]
+    },
+    {
+      "text": "make messages my default app",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "set sms default app",
+      "avg_monthly_searches": 30,
+      "competition": "LOW",
+      "competition_index": 1,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 30
+        }
+      ]
+    },
+    {
+      "text": "set messages as default app",
+      "avg_monthly_searches": 20,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 20
+        }
+      ]
+    },
+    {
+      "text": "make messages my default",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "to use messages make it your default sms app",
+      "avg_monthly_searches": 480,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 590
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 390
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 390
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 390
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 480
+        }
+      ]
+    },
+    {
+      "text": "set default messaging app",
+      "avg_monthly_searches": 20,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 20
+        }
+      ]
+    },
+    {
+      "text": "best sms organizer app",
+      "avg_monthly_searches": 20,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "default sms app for android",
+      "avg_monthly_searches": 30,
+      "competition": "MEDIUM",
+      "competition_index": 36,
+      "low_top_of_page_bid_micros": 1845406,
+      "high_top_of_page_bid_micros": 6516382,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 20
+        }
+      ]
+    },
+    {
+      "text": "message default app",
+      "avg_monthly_searches": 260,
+      "competition": "LOW",
+      "competition_index": 8,
+      "low_top_of_page_bid_micros": 1240934,
+      "high_top_of_page_bid_micros": 6574077,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 320
+        }
+      ]
+    },
+    {
+      "text": "android change default messaging app",
+      "avg_monthly_searches": 140,
+      "competition": "LOW",
+      "competition_index": 4,
+      "low_top_of_page_bid_micros": 1911004,
+      "high_top_of_page_bid_micros": 9022243,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 140
+        }
+      ]
+    },
+    {
+      "text": "android change sms app",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 14,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "android default messenger",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "android default messenger app",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "android default sms",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "android default text app",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "android default text message app",
+      "avg_monthly_searches": 0,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "android message app settings",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "best sms organizer app for android",
+      "avg_monthly_searches": 30,
+      "competition": "LOW",
+      "competition_index": 3,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 30
+        }
+      ]
+    },
+    {
+      "text": "change default message app",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "change default message app android",
+      "avg_monthly_searches": 140,
+      "competition": "LOW",
+      "competition_index": 4,
+      "low_top_of_page_bid_micros": 1911004,
+      "high_top_of_page_bid_micros": 9022243,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 140
+        }
+      ]
+    },
+    {
+      "text": "change default messaging app",
+      "avg_monthly_searches": 30,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 20
+        }
+      ]
+    },
+    {
+      "text": "change default messaging app android",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "change default sms",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "change default sms android",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "change default sms app",
+      "avg_monthly_searches": 20,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "change default sms app android",
+      "avg_monthly_searches": 30,
+      "competition": "LOW",
+      "competition_index": 5,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 30
+        }
+      ]
+    },
+    {
+      "text": "change sms app",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "change sms default app android",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "change the default messaging app",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "default android text app",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "default message app for android",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 23,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "default message app meaning",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "default message settings android",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "default messaging app change",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "default messaging app on android",
+      "avg_monthly_searches": 390,
+      "competition": "LOW",
+      "competition_index": 1,
+      "low_top_of_page_bid_micros": 2139693,
+      "high_top_of_page_bid_micros": 7078582,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 320
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 390
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 480
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 720
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 590
+        }
+      ]
+    },
+    {
+      "text": "default messenger app android",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "default sms android",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "default sms app meaning",
+      "avg_monthly_searches": 70,
+      "competition": "LOW",
+      "competition_index": 3,
+      "low_top_of_page_bid_micros": 4511597,
+      "high_top_of_page_bid_micros": 17804468,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 70
+        }
+      ]
+    },
+    {
+      "text": "default sms app means",
+      "avg_monthly_searches": 70,
+      "competition": "LOW",
+      "competition_index": 3,
+      "low_top_of_page_bid_micros": 4511597,
+      "high_top_of_page_bid_micros": 17804468,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 70
+        }
+      ]
+    },
+    {
+      "text": "default sms app on android",
+      "avg_monthly_searches": 30,
+      "competition": "MEDIUM",
+      "competition_index": 36,
+      "low_top_of_page_bid_micros": 1845406,
+      "high_top_of_page_bid_micros": 6516382,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 20
+        }
+      ]
+    },
+    {
+      "text": "default sms app settings",
+      "avg_monthly_searches": 170,
+      "competition": "LOW",
+      "competition_index": 13,
+      "low_top_of_page_bid_micros": 3622740,
+      "high_top_of_page_bid_micros": 8570198,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 110
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 260
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 90
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 30
+        }
+      ]
+    },
+    {
+      "text": "default sms messages",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "default text app",
+      "avg_monthly_searches": 10,
+      "competition": "MEDIUM",
+      "competition_index": 43,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "default text message app",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "make default sms app android",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "make it your default sms app",
+      "avg_monthly_searches": 50,
+      "competition": "LOW",
+      "competition_index": 1,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 70
+        }
+      ]
+    },
+    {
+      "text": "make messages default",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "make messages your default sms app",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "make messenger default sms",
+      "avg_monthly_searches": 0,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "make messenger default sms app",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "make messenger your default sms app",
+      "avg_monthly_searches": 0,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "make sms default",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 10,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "message is currently not the default messaging app",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "message organizer app",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "messages default app android",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "messenger default sms app",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "open default messaging app",
+      "avg_monthly_searches": 10,
+      "competition": "MEDIUM",
+      "competition_index": 36,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "phone sms app is set as default",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "remove messenger as default sms app",
+      "avg_monthly_searches": 0,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "reset default messaging app android",
+      "avg_monthly_searches": 0,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "set as default sms app",
+      "avg_monthly_searches": 20,
+      "competition": "LOW",
+      "competition_index": 7,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "set default message app",
+      "avg_monthly_searches": 50,
+      "competition": "LOW",
+      "competition_index": 5,
+      "low_top_of_page_bid_micros": 1935378,
+      "high_top_of_page_bid_micros": 6207243,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 50
+        }
+      ]
+    },
+    {
+      "text": "set default sms app meaning",
+      "avg_monthly_searches": 30,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 30
+        }
+      ]
+    },
+    {
+      "text": "set messages as the default sms app",
+      "avg_monthly_searches": 50,
+      "competition": "LOW",
+      "competition_index": 2,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 50
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 70
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 50
+        }
+      ]
+    },
+    {
+      "text": "set messages as your default sms app",
+      "avg_monthly_searches": 20,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 30
+        }
+      ]
+    },
+    {
+      "text": "set messaging app as default",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "set messaging as my default app",
+      "avg_monthly_searches": 0,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "set messenger as default sms app",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "set messenger as your default sms app",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "set phone sms app as the default app for messages",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "set sms default app android",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "set your default sms app",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "setting default sms app",
+      "avg_monthly_searches": 1300,
+      "competition": "LOW",
+      "competition_index": 7,
+      "low_top_of_page_bid_micros": 2011448,
+      "high_top_of_page_bid_micros": 9930427,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 1600
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 1600
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 1000
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 1300
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 1000
+        }
+      ]
+    },
+    {
+      "text": "sms app default",
+      "avg_monthly_searches": 10,
+      "competition": "MEDIUM",
+      "competition_index": 41,
+      "low_top_of_page_bid_micros": 2492532,
+      "high_top_of_page_bid_micros": 6086044,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "sms default messenger",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "sms organiser app",
+      "avg_monthly_searches": 20,
+      "competition": "LOW",
+      "competition_index": 2,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 30
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 40
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "sms organizer for pc",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "sms organizer review",
+      "avg_monthly_searches": 10,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 0
+        }
+      ]
+    },
+    {
+      "text": "standard messaging app android",
+      "avg_monthly_searches": 10,
+      "competition": "HIGH",
+      "competition_index": 71,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "text message organizer app",
+      "avg_monthly_searches": 10,
+      "competition": "MEDIUM",
+      "competition_index": 57,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 0
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 10
+        }
+      ]
+    },
+    {
+      "text": "to send set message as the default sms app",
+      "avg_monthly_searches": 10,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 10
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 20
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 20
+        }
+      ]
+    },
+    {
+      "text": "to use messages make it your default",
+      "avg_monthly_searches": 170,
+      "competition": "LOW",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": [
+        {
+          "year": 2025,
+          "month": "JULY",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2025,
+          "month": "AUGUST",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "SEPTEMBER",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2025,
+          "month": "OCTOBER",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2025,
+          "month": "NOVEMBER",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2025,
+          "month": "DECEMBER",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2026,
+          "month": "JANUARY",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2026,
+          "month": "FEBRUARY",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2026,
+          "month": "MARCH",
+          "monthly_searches": 210
+        },
+        {
+          "year": 2026,
+          "month": "APRIL",
+          "monthly_searches": 170
+        },
+        {
+          "year": 2026,
+          "month": "MAY",
+          "monthly_searches": 140
+        },
+        {
+          "year": 2026,
+          "month": "JUNE",
+          "monthly_searches": 140
+        }
+      ]
+    },
+    {
+      "text": "otp scam warning app",
+      "avg_monthly_searches": 0,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": []
+    },
+    {
+      "text": "sms scam warning app",
+      "avg_monthly_searches": 0,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": []
+    },
+    {
+      "text": "fraud text message app",
+      "avg_monthly_searches": 0,
+      "competition": "UNSPECIFIED",
+      "competition_index": 0,
+      "low_top_of_page_bid_micros": 0,
+      "high_top_of_page_bid_micros": 0,
+      "monthly_search_volumes": []
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+metadata:
+  source: 'https://support.google.com/google-ads/answer/9948381?hl=en'
+  last_verified: '2026-08-06'
+  notes: Official Google App campaign asset requirements checked live; no material limit change from the engine registry.
+google_app_campaign:
+  text_limits: {headlines_max_count: 5, headline_chars: 30, descriptions_max_count: 5, description_chars: 90}
+  image_assets:
+    square: {ratio: '1:1', hard_limits: {min_px: [200, 200], max_file_bytes: 5242880, formats: [JPG, PNG]}, recommendations: {recommended_px: [1200, 1200]}}
+    landscape: {ratio: '1.91:1', hard_limits: {min_px: [600, 314], max_file_bytes: 5242880, formats: [JPG, PNG]}, recommendations: {recommended_px: [1200, 628]}}
+    portrait: {ratio: '4:5', hard_limits: {min_px: [320, 400], max_file_bytes: 5242880, formats: [JPG, PNG]}, recommendations: {recommended_px: [1200, 1500]}}
+  video_assets: {delivery: youtube_url, recommended_duration_sec: 12, orientations: ['16:9', '1:1', '9:16', '4:5'], burned_in_captions_required: true}
+google_app_video_asset:
+  format: '9:16'
+  target_duration_sec: 12
+  caption_limit_words: 10
+  first_caption_required: true

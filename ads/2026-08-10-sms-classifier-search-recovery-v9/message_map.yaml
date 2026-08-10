@@ -1,0 +1,45 @@
+messages:
+  - hook_id: H_OTP_FRAUD_EXPLICIT
+    persona_id: otp_fraud_concerned_user
+    scenario_id: otp_fraud_account_change
+    proof_id: proof_account_change
+    on_image_headline: OTP fraud? SMS Classifier shows if code changes your account before sharing.
+    first_read_requirements:
+      required_concepts:
+        - {id: fraud_problem, any_of: [otp fraud]}
+        - {id: code_request, any_of: [otp, code]}
+        - {id: protected_action, any_of: [account change, changes]}
+        - {id: decision_context, any_of: [shows, before sharing, share]}
+    headline_tests:
+      - id: otp_fraud_primary
+        status: approved
+        on_image_headline: OTP fraud? SMS Classifier shows if code changes your account before sharing.
+        proof_claim_ids: [claim_action_level_otp_purpose, claim_account_change_label]
+      - id: otp_fraud_short
+        status: approved_test
+        on_image_headline: OTP fraud? SMS Classifier shows account change before sharing.
+        proof_claim_ids: [claim_action_level_otp_purpose, claim_account_change_label]
+    optional_subtext: See the protected action before sharing.
+    platform_headlines:
+      - OTP Fraud Warning
+      - See What the OTP Changes
+      - Check Before Sharing OTPs
+      - Help Avoid OTP Fraud
+      - SMS Classifier
+    long_headlines:
+      - Help protect yourself from OTP fraud by checking what a code may authorize before sharing.
+      - See whether an OTP is for an account change, payment, login, UPI, or delivery.
+    platform_descriptions:
+      - See what a code may authorize before sharing it with a caller.
+      - Help protect yourself from OTP fraud with clear context before you share a code.
+      - A delivery OTP can change an account. Review what the message says first.
+      - Try cloud scam warnings free for 14 days. ₹199/year after trial.
+    cta_variants: [Start 14-day Pro trial, Open on Google Play]
+    claim_ids_used: [claim_action_level_otp_purpose, claim_account_change_label, claim_do_not_share_guidance]
+    proof_claim_ids: [claim_action_level_otp_purpose, claim_account_change_label, claim_do_not_share_guidance]
+    callout_text: For Account change
+    claim_boundary: Purpose is probabilistic and message-derived; no absolute fraud-prevention claim.
+    category_context: SMS safety app
+    plain_language_pain: An OTP can authorize an action the user did not intend.
+    story_framework: problem_agitate_solve
+    emotional_payoff: Confidence to avoid sharing an OTP that could change your account access.

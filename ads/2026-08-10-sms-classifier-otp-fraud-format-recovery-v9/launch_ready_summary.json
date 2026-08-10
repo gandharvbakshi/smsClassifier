@@ -1,0 +1,24 @@
+{
+  "decision": "pass",
+  "canonical_asset_count": 7,
+  "canonical_ship_count": 4,
+  "launch_ready_count": 4,
+  "held_count": 3,
+  "required_review_modes": [
+    "blind_one_second",
+    "depth_critic",
+    "skeptic_critic",
+    "standard"
+  ],
+  "launch_ready_asset_ids": [
+    "otp_fraud_explicit_benefit_headline_landscape",
+    "otp_fraud_explicit_benefit_headline_square",
+    "otp_fraud_explicit_otp_fraud_short_benefit_headline_landscape",
+    "otp_fraud_explicit_otp_fraud_short_benefit_headline_square"
+  ],
+  "held_asset_ids": [
+    "VID_OTP_FRAUD_EXPLICIT_9x16",
+    "otp_fraud_explicit_benefit_headline_portrait",
+    "otp_fraud_explicit_otp_fraud_short_benefit_headline_portrait"
+  ]
+}

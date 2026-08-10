@@ -1,0 +1,44 @@
+schema_version: 1
+as_of: '2026-08-06'
+research_status: current
+category: Android SMS organization and fraud protection
+market: India
+competitors:
+  - id: google_messages
+    name: Google Messages
+    competitor_type: platform_default_and_spam_protection
+    user_job: Use a default messaging app that detects suspected spam and hides it in a spam folder.
+    headline_claim: Spam protection detects suspected spam and can prevent delivery into the inbox.
+    mechanism: On-device spam detection with limited message data sent to Google when enabled.
+    overlap: Broad spam protection and default-messaging trust.
+    difference: The public promise is broad spam protection, not action-level OTP authorization context.
+    sources:
+      - {url: 'https://support.google.com/messages/answer/9327903?hl=en', title: 'How Google protects your privacy with spam detection', checked_at: '2026-08-06'}
+  - id: truecaller
+    name: Truecaller
+    competitor_type: broad_fraud_and_sender_intelligence
+    user_job: Recognize fraudulent senders and SMS messages before acting.
+    headline_claim: Fraud protection identifies fraudulent senders and messages and shows visible warnings.
+    mechanism: AI, sender intelligence, community reports, and suspicious-link handling.
+    overlap: SMS fraud protection and messaging trust.
+    difference: Its public mechanism centers broad fraud and sender recognition rather than the protected action an OTP appears to authorize.
+    sources:
+      - {url: 'https://www.truecaller.com/blog/features/protect-yourself-from-sms-scams-with-truecallers-fraud', title: 'Protect Yourself from SMS Scams with Truecaller Fraud Protection', checked_at: '2026-08-06'}
+      - {url: 'https://www.truecaller.com/messaging', title: 'Truecaller Messaging', checked_at: '2026-08-06'}
+  - id: sms_organizer
+    name: Microsoft SMS Organizer
+    competitor_type: established_default_sms_organizer
+    user_job: Organize messages, reminders, tasks, and spending information.
+    headline_claim: Automatically organize SMS and surface reminders and useful tasks.
+    mechanism: On-device organization, reminders, task assistance, and spam handling.
+    overlap: Default-SMS utility and inbox organization.
+    difference: Its official positioning centers organization and productivity rather than action-level OTP purpose.
+    sources:
+      - {url: 'https://www.microsoft.com/en-us/garage/profiles/sms-organizer/', title: 'SMS Organizer', checked_at: '2026-08-06'}
+market_baseline:
+  - Broad spam and fraud protection is already a table-stakes claim.
+  - Default-SMS products must establish trust before users grant sensitive permissions.
+  - Generic protection language alone does not explain why this app is different.
+whitespace:
+  - Name the OTP-fraud problem in ordinary language, then prove the intervention with the protected action behind the code.
+  - Let the user compare account change, payment, UPI, login, or delivery purpose before sharing.

@@ -1,0 +1,93 @@
+schema_version: 1
+source_mode: repo_store_and_owner_direction
+repo_available: true
+evidence:
+  - id: ev_intent_taxonomy
+    source_type: code
+    reference: 'backend/scripts/android_backend_server.py:98-137'
+    observed_behavior: The classifier defines separate OTP purposes for account change, app login, bank or card transaction, delivery or service, financial login, KYC or e-sign, UPI or PIN, and generic app action.
+    verification_status: verified
+    supports: [m_otp_authorization_context]
+  - id: ev_intent_classifier
+    source_type: code
+    reference: 'backend/classification/heuristic_classifier.py:356-376'
+    observed_behavior: The backend assigns distinct delivery, bank or card, UPI, and account-change OTP purposes from message wording.
+    verification_status: verified
+    supports: [m_otp_authorization_context]
+  - id: ev_human_labels
+    source_type: code
+    reference: 'app/src/main/java/com/smsclassifier/app/util/ClassificationUtils.kt:70-80'
+    observed_behavior: The Android app converts model purposes into user-facing labels such as Bank payment login, UPI payment or PIN, Account change, and Delivery confirmation.
+    verification_status: verified
+    supports: [m_otp_authorization_context]
+  - id: ev_sensitivity
+    source_type: code
+    reference: 'app/src/main/java/com/smsclassifier/app/util/ClassificationUtils.kt:211-217'
+    observed_behavior: Bank, financial-login, account-change, and UPI purposes become DO_NOT_SHARE while delivery purpose becomes COURIER_ONLY.
+    verification_status: verified
+    supports: [m_otp_authorization_context]
+  - id: ev_otp_hero
+    source_type: code
+    reference: 'app/src/main/java/com/smsclassifier/app/ui/components/OtpHeroCard.kt:65-91'
+    observed_behavior: The OTP hero surface displays a humanized purpose label as For plus the classified purpose.
+    verification_status: verified
+    supports: [m_otp_authorization_context]
+  - id: ev_detail_guidance
+    source_type: code
+    reference: 'app/src/main/java/com/smsclassifier/app/ui/screens/DetailScreen.kt:125-130'
+    observed_behavior: The detail screen tells the user to use an OTP only for the action they requested.
+    verification_status: verified
+    supports: [m_otp_authorization_context]
+  - id: ev_store_position
+    source_type: repo_and_current_release_copy
+    reference: 'app/src/main/java/com/smsclassifier/app/ui/screens/PaywallScreen.kt'
+    observed_behavior: OTP purpose and sharing guidance work on-device for everyone; Pro adds cloud scam warnings and risk analysis after a 14-day trial.
+    verification_status: verified
+    supports: [m_otp_authorization_context, m_latest_otp, m_inbox_organization]
+  - id: ev_owner_intent
+    source_type: owner_confirmed
+    reference: owner_direction_2026-07-11
+    observed_behavior: The owner identifies fraud detection through action-level OTP intent as the main product promise.
+    verification_status: verified
+    supports: [m_otp_authorization_context]
+mechanisms:
+  - id: m_otp_authorization_context
+    name: Action-level OTP purpose
+    role: core_mechanism
+    description: Classify and display what an OTP appears to authorize, such as account change, card transaction, UPI action, login, or delivery confirmation.
+    decision_enabled: Compare the purpose shown by the app with the action or story the user expects before sharing or using the code.
+    outcome: Reduce the chance of sharing a code that authorizes a different and higher-risk action.
+    claim_boundary: The app classifies message text; it does not hear a caller, verify the caller's story, guarantee fraud detection, or block every scam.
+    evidence_ids: [ev_intent_taxonomy, ev_intent_classifier, ev_human_labels, ev_sensitivity, ev_otp_hero, ev_detail_guidance, ev_store_position, ev_owner_intent]
+    confidence: 0.98
+  - id: m_latest_otp
+    name: Latest OTP surfacing
+    role: acquisition_wedge
+    description: Bring recent OTPs into a focused surface for quicker finding and copying.
+    decision_enabled: Find and use a recent code without searching the full inbox.
+    outcome: Reduce login friction.
+    claim_boundary: Does not promise perfect ordering or that every OTP is detected.
+    evidence_ids: [ev_store_position]
+    confidence: 0.86
+  - id: m_inbox_organization
+    name: SMS organization
+    role: table_stake
+    description: Group messages and provide a cleaner SMS inbox.
+    decision_enabled: Review messages by category.
+    outcome: Reduce inbox clutter.
+    claim_boundary: Organization alone is not differentiated from established SMS apps.
+    evidence_ids: [ev_store_position]
+    confidence: 0.88
+  - id: m_broad_scam_warning
+    name: Broad scam warning
+    role: supporting_feature
+    description: Flag messages that appear risky or suspicious.
+    decision_enabled: Review a suspicious text before acting.
+    outcome: Reduce exposure to message-based fraud.
+    claim_boundary: Broad scam detection is probabilistic and is already a crowded competitor claim.
+    evidence_ids: [ev_store_position]
+    confidence: 0.82
+unknowns:
+  - Production notifications currently emphasize the OTP code; action-level purpose is strongest on the in-app OTP and detail surfaces.
+  - Action-level OTP purpose and sharing guidance work on-device; Pro cloud scam checks and deeper risk reasons depend on entitlement and network availability.
+  - The app enables a user comparison but does not automatically know the caller's stated pretext.

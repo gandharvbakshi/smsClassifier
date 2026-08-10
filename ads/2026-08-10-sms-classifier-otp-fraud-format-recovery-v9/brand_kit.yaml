@@ -1,0 +1,53 @@
+brand_name: SMS Classifier
+logo_files:
+- path: inputs/logo-primary.png
+  variant: primary
+  min_clearspace_pct: 0.25
+- path: inputs/logo-primary.png
+  variant: icon
+  min_clearspace_pct: 0.25
+- path: inputs/logo-primary.png
+  variant: mono_dark
+  min_clearspace_pct: 0.25
+- path: inputs/logo-primary.png
+  variant: mono_light
+  min_clearspace_pct: 0.25
+palette:
+  primary: '#0B6EC7'
+  secondary:
+  - '#EAF4FF'
+  - '#102033'
+  - '#0F7A5A'
+  - '#B42318'
+  background_light: '#F7FBFF'
+  background_dark: '#102033'
+  text_on_light: '#102033'
+  text_on_dark: '#FFFFFF'
+fonts:
+  heading: Inter
+  body: Inter
+  fallback: Segoe UI, Arial, sans-serif
+tone:
+- clear
+- practical
+- calm
+- privacy-aware
+voice_dos:
+- Use natural Indian English.
+- Keep copy direct and easy to scan.
+- Keep claims bounded with helps, shows, surfaces, and reviews.
+voice_donts:
+- Do not claim the app stops every scam.
+- Do not use bare-free language.
+- Do not use fake OS warnings or real OTPs.
+logo_rules:
+  preferred_corner: top-left
+  max_width_pct: 12
+  min_width_pct: 8
+forbidden:
+- 100% safe
+- safe and secure
+- blocks all scams
+- install free
+- download free
+- messages never leave the device

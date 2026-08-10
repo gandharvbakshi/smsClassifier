@@ -1,0 +1,249 @@
+metadata:
+  product: SMS Classifier
+  campaign_type: Google Search RSA
+  status: bounded_search_recovery_live_candidate_2026_08_10
+  metric_provenance: keyword_ideas_recovery.json and keyword_ideas_fraud_only.json
+  dynamic_copy_plan: Static RSAs only; no DKI, broad match, AI Max, or automatically created assets.
+  negative_strategy: Keep existing campaign negatives unchanged; inspect live search terms within 72 hours.
+  volume_gate: Fresh India Keyword Planner evidence plus zero-delivery live diagnosis and owner approval.
+brand_name: SMS Classifier
+require_brand_ad_group: false
+brand_ad_group_rationale: Brand demand is negligible; the Google Play business name carries brand while RSA headlines use natural query language.
+require_trust_ad_group: false
+trust_ad_group_rationale: Claim boundaries and classification limits are explicit in both ad groups.
+approved_hooks:
+- id: H_DEFAULT_SMS_ORGANIZER
+  status: approved
+  hook: Bank OTPs buried? An Android SMS app organizes OTPs and service alerts in one inbox.
+product_value_propositions:
+- id: VP_DEFAULT_SMS
+  rank: 1
+  status: approved
+  value_proposition: Organizes OTPs, service alerts, and review-needed texts in one default SMS app.
+- id: VP_SCAM_REVIEW
+  rank: 2
+  status: approved
+  value_proposition: Shows warning reasons and OTP context to help review suspicious-looking SMS before acting.
+ad_groups:
+- id: default_sms_organizer_high_relevance
+  persona_id: android_sms_switcher
+  search_moment: solution_aware_category
+  primary_query: default messaging app android
+  keyword_intent: Find and install a default SMS app that organizes a cluttered Android inbox.
+  searcher_problem: Bank OTPs are buried among service alerts and review-needed texts in a cluttered SMS inbox.
+  desired_outcome: Use one Android SMS app to find codes and review messages faster.
+  selected_value_proposition: VP_DEFAULT_SMS
+  selected_hook_id: H_DEFAULT_SMS_ORGANIZER
+  intent_product_bridge: The default SMS app organizes buried bank OTPs, service alerts, and review-needed texts.
+  intent_fit: direct
+  action: bid
+  category_terms: [default SMS app, SMS organizer for Android, OTP organizer]
+  primary_promise: Organize OTPs, service alerts, and review-needed texts in one Android SMS inbox.
+  claim_boundary: Organization and review help only; results may be wrong and the app does not prevent fraud.
+  landing_page_h1: SMS Classifier
+  landing_page_proof:
+  - Default SMS app support
+  - OTP sorting and one-tap copy
+  - Warning labels and risky-link review cues
+  - Basic mode plus a 14-day Pro trial
+  keywords:
+  - default sms app
+  - sms organizer
+  - best sms app for android
+  - default messaging app android
+  - default sms app android
+  - sms organizer app
+  - best sms organizer app for android
+  match_type_plan:
+    exact: [default sms app, sms organizer, best sms app for android, default messaging app android, best sms organizer app for android]
+    phrase: [default sms app, sms organizer, default messaging app android, default sms app android, sms organizer app]
+    broad: []
+  estimated_monthly_searches: 5050
+  volume_note: Gross volumes overlap; fresh planner evidence is used for directional auction recovery only.
+  priority: 1
+  negative_keywords: [bulk sms, sms gateway, sms api, otp api, otp service, sms marketing, virtual number, receive sms online, fake sms, authenticator, totp, 2fa, whatsapp, telegram, messenger, google messages, samsung messages, iphone, ios, jobs, career, course, meaning, definition, examples, tutorial, github, android studio]
+  landing_page: https://play.google.com/store/apps/details?id=com.smsclassifier.app
+  rsas:
+  - id: default_sms_organizer_recovery_v9
+    paths: {path1: default-sms, path2: otp-organizer}
+    headlines:
+    - {text: App Organizes Buried Bank OTPs, role: intent_bridge}
+    - {text: Find Codes in an Android App, role: benefit}
+    - {text: Inbox Tool Shows SMS Alerts, role: benefit}
+    - {text: Android Tool Highlights OTPs, role: proof}
+    - {text: Default SMS App Finds Codes, role: query_echo}
+    - {text: Bank Alerts Found by SMS Tool, role: mechanism}
+    - {text: OTP Tool Organizes Login Codes, role: benefit}
+    - {text: Recent OTPs Shown in One App, role: proof}
+    - {text: Default SMS App for Android, role: category}
+    - {text: One-Tap OTP Copy, role: mechanism}
+    - {text: Basic OTP Sorting Included, role: objection}
+    - {text: Try Pro Context for 14 Days, role: offer}
+    - {text: INR 199/Year After Trial, role: offer}
+    - {text: Set Up Your SMS Inbox, role: cta}
+    - {text: Install from Google Play, role: cta}
+    descriptions:
+    - {text: Choose this Android default app to bring bank OTPs and service alerts into one inbox., role: proof}
+    - {text: One-tap copy reduces code-entry steps; recent login codes stay easy to find., role: benefit}
+    - {text: Basic sorting is included; Pro adds deeper message context after a 14-day trial., role: offer}
+    - {text: Google Play lists required permissions, known limits and INR 199/year Pro pricing., role: claim_boundary}
+    callouts: [14-day Pro trial, Basic OTP sorting, One-tap OTP copy, Default SMS app, Review risky links, INR 199/year Pro]
+    structured_snippets:
+    - {header: Types, values: [OTP, Service SMS, Bank alerts, Review-needed texts]}
+    business_name: SMS Classifier
+  - id: default_sms_organizer_recovery_v9_b
+    paths: {path1: android-sms, path2: find-otps}
+    headlines:
+    - {text: 'Buried OTPs? App Organizes', role: intent_bridge}
+    - {text: Codes Surface in Android Inbox, role: query_echo}
+    - {text: Service SMS Grouped in One App, role: benefit}
+    - {text: Bank OTPs Found in One App, role: proof}
+    - {text: Recent Codes Get Highlighted, role: benefit}
+    - {text: Default App Shows Service SMS, role: mechanism}
+    - {text: Inbox Shows Recent Service SMS, role: differentiator}
+    - {text: Android App Organizes Alerts, role: benefit}
+    - {text: Default Messaging App, role: category}
+    - {text: Copy a Code in One Tap, role: mechanism}
+    - {text: Recent OTPs in One Inbox, role: benefit}
+    - {text: Starter OTP Sorting, role: objection}
+    - {text: Explore Pro Before Billing, role: offer}
+    - {text: Pro Costs INR 199/Year, role: offer}
+    - {text: Get the Android SMS App, role: cta}
+    descriptions:
+    - {text: Buried bank OTPs and service alerts are organized after you choose this default SMS app., role: proof}
+    - {text: Recent codes stay easy to find while service messages remain grouped., role: benefit}
+    - {text: Required permissions and known product limits are listed on Google Play., role: claim_boundary}
+    - {text: Try Pro cloud context for 14 days. Google Play shows INR 199/year pricing., role: offer}
+    callouts: [14-day Pro trial, Basic OTP sorting, One-tap OTP copy, Default SMS app, Review risky links, INR 199/year Pro]
+    structured_snippets:
+    - {header: Types, values: [OTP, Service SMS, Bank alerts, Review-needed texts]}
+    business_name: SMS Classifier
+- id: scam_otp_review_high_relevance
+  persona_id: otp_fraud_worrier
+  search_moment: problem_aware_review
+  primary_query: otp scam
+  keyword_intent: Review a suspicious SMS or OTP message before tapping a link or sharing a code.
+  searcher_problem: A caller asks for an OTP, but warning reasons or account-change context are unclear.
+  desired_outcome: See warning reasons and OTP context before deciding what to do.
+  selected_value_proposition: VP_SCAM_REVIEW
+  selected_hook_id: H_OTP_FRAUD_EXPLICIT
+  intent_product_bridge: The app shows OTP warning reasons and account-change context before a code is shared.
+  intent_fit: direct
+  action: bid
+  category_terms: [scam SMS review app, OTP context app, SMS warning app]
+  primary_promise: Help review suspicious-looking SMS and OTP context before acting.
+  claim_boundary: Decision aid only; results may be wrong and the app does not certify safety or prevent every fraud attempt.
+  landing_page_h1: SMS Classifier
+  landing_page_proof:
+  - Warning labels and review reasons
+  - Suspicious-link cues
+  - OTP-purpose context
+  - Basic mode plus a 14-day Pro trial
+  keywords: [otp scam, sms scam, phishing sms, sms fraud, bank scam text, bank scam text message, fraud text message, scam text messages, phishing scam text]
+  match_type_plan:
+    exact: [otp scam, sms scam, phishing sms, sms fraud, bank scam text, bank scam text message, fraud text message, scam text messages, phishing scam text]
+    phrase: [otp scam, scam text messages, fraud text message, phishing sms, sms scam]
+    broad: []
+  estimated_monthly_searches: 13760
+  volume_note: Gross volumes overlap; fresh planner evidence is used for directional auction recovery only.
+  priority: 2
+  negative_keywords: [bulk sms, sms gateway, sms api, otp api, otp service, sms marketing, virtual number, receive sms online, fake sms, authenticator, totp, 2fa, whatsapp, telegram, messenger, google messages, samsung messages, iphone, ios, jobs, career, course, meaning, definition, examples, tutorial, github, android studio]
+  landing_page: https://play.google.com/store/apps/details?id=com.smsclassifier.app
+  rsas:
+  - id: scam_otp_review_recovery_v9
+    paths: {path1: otp-fraud, path2: message-review}
+    headlines:
+    - {text: App Shows OTP Warning Reasons, role: proof}
+    - {text: Tool Flags Scam-Like Texts, role: query_echo}
+    - {text: OTP Tool Shows Account Change, role: proof}
+    - {text: Tool Compares Caller Claims, role: hook}
+    - {text: Review App Highlights Links, role: proof}
+    - {text: SMS App Reveals Code Purpose, role: mechanism}
+    - {text: OTP App Flags Sharing Risk, role: safety}
+    - {text: SMS App Shows Review Cues, role: differentiator}
+    - {text: 'OTP Fraud? Check the Message', role: query_echo}
+    - {text: Check Before Sharing an OTP, role: safety}
+    - {text: Android SMS Warning App, role: category}
+    - {text: Basic Review Cues Included, role: objection}
+    - {text: 14-Day OTP Context Trial, role: offer}
+    - {text: Review the Message Context, role: claim_boundary}
+    - {text: Get the SMS Review App, role: cta}
+    descriptions:
+    - {text: Account-change context and warning reasons help review an OTP before a code is shared., role: intent_bridge}
+    - {text: "The app compares a caller's story with OTP account-change context; results may be wrong.", role: safety}
+    - {text: Suspicious-link and details-request cues appear in Review before you act., role: proof}
+    - {text: Basic sorting is included; Pro adds cloud scam checks after a 14-day trial., role: offer}
+    callouts: [14-day Pro trial, Basic OTP sorting, One-tap OTP copy, Default SMS app, Review risky links, INR 199/year Pro]
+    structured_snippets:
+    - {header: Types, values: [OTP, Service SMS, Bank alerts, Review-needed texts]}
+    business_name: SMS Classifier
+  - id: scam_otp_review_recovery_v9_b
+    paths: {path1: scam-sms, path2: otp-context}
+    headlines:
+    - {text: Warning Tool Shows OTP Purpose, role: intent_bridge}
+    - {text: Review App Flags Scam-Like SMS, role: query_echo}
+    - {text: App Reveals Account Change, role: proof}
+    - {text: Compare Caller Claims in App, role: hook}
+    - {text: Link Review Highlights Risks, role: proof}
+    - {text: OTP Context Shows the Action, role: mechanism}
+    - {text: SMS Tool Flags Sharing Risk, role: safety}
+    - {text: App Reveals Warning Reasons, role: differentiator}
+    - {text: 'OTP Scam? Review the SMS', role: query_echo}
+    - {text: Check the Code Purpose, role: safety}
+    - {text: Android SMS Review Tool, role: category}
+    - {text: Results May Be Wrong, role: claim_boundary}
+    - {text: Network Access Adds Pro Checks, role: offer}
+    - {text: Trial Pro for 14 Days, role: offer}
+    - {text: Start Your Message Review, role: cta}
+    descriptions:
+    - {text: OTP warning reasons and account-change context help review a code before sharing it., role: intent_bridge}
+    - {text: Purpose hints identify the account action described by the message, not what a caller said., role: proof}
+    - {text: Review reasons may be wrong and do not certify that an SMS is safe., role: claim_boundary}
+    - {text: Cloud scam checks need Pro and network access; the trial lasts 14 days., role: offer}
+    callouts: [14-day Pro trial, OTP-purpose hints, Account-change context, Review warning reasons, INR 199/year Pro]
+    structured_snippets:
+    - {header: Types, values: [OTP, Scam-like SMS, Bank alerts, Review-needed texts]}
+    business_name: SMS Classifier
+- id: privacy_trust_research_hold
+  persona_id: privacy_concerned_android_user
+  search_moment: trust_objection
+  primary_query: private sms app
+  keyword_intent: Understand how an SMS app handles sensitive messages, permissions, on-device features and cloud checks.
+  searcher_problem: OTPs and bank alerts are sensitive, so the user wants clear data and permission boundaries.
+  desired_outcome: Know which features work on-device and which Pro checks require network access.
+  selected_value_proposition: VP_DEFAULT_SMS
+  selected_hook_id: H_DEFAULT_SMS_ORGANIZER
+  intent_product_bridge: The default SMS app organizes OTPs and service alerts on-device with clear cloud boundaries.
+  intent_fit: direct
+  action: hold
+  category_terms: [private SMS app, offline SMS organizer, SMS permissions Android]
+  primary_promise: Explain on-device OTP guidance and the network requirement for Pro cloud checks.
+  claim_boundary: Research-only until the store listing provides a complete, current privacy and data-use proof surface.
+  keywords: [private sms app, offline sms organizer, sms permissions android]
+  match_type_plan:
+    exact: [private sms app, offline sms organizer, sms permissions android]
+    phrase: []
+    broad: []
+  priority: 3
+  negative_keywords: [vault, hide messages, secret chat, fake sms, receive sms online, temporary number]
+  landing_page: https://play.google.com/store/apps/details?id=com.smsclassifier.app
+  rsas:
+  - id: privacy_trust_research_copy_hold
+    paths: {path1: sms-privacy, path2: data-boundaries}
+    headlines:
+    - {text: Core OTP Guidance Is On-Device, role: intent_bridge}
+    - {text: Network Required for Pro Review, role: proof}
+    - {text: Google Play Shows Permissions, role: proof}
+    - {text: Review Data Safety on Play, role: trust}
+    - {text: On-Device Purpose Guidance, role: benefit}
+    - {text: Network Needed for Pro Checks, role: claim_boundary}
+    - {text: Android SMS Permission Guide, role: query_echo}
+    - {text: Understand Default SMS Access, role: trust}
+    - {text: Core OTP Context Works Locally, role: proof}
+    - {text: Pro Review Uses Cloud Checks, role: offer}
+    - {text: See Product Limits on Play, role: claim_boundary}
+    descriptions:
+    - {text: Core OTP-purpose guidance works on-device; Pro cloud scam checks require network access., role: intent_bridge}
+    - {text: "Google Play lists required SMS permissions and the app's data-safety disclosures.", role: proof}
+    - {text: This trust group remains held until every privacy statement has current store proof., role: claim_boundary}
+    - {text: No privacy-keyword bidding is included in this bounded Search recovery., role: claim_boundary}

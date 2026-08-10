@@ -1,0 +1,231 @@
+{
+  "run_dir": "D:\\Projects\\SMS datasets and project\\ads\\2026-08-10-sms-classifier-search-recovery-v9",
+  "strict": true,
+  "decision": "pass",
+  "summary": {
+    "ad_groups_checked": 3,
+    "rsas_checked": 4,
+    "non_bid_ad_groups": 1,
+    "failure_count": 0,
+    "warning_count": 4
+  },
+  "keyword_metrics": {
+    "source": "keyword_ideas_fraud_only.json",
+    "row_count": 200,
+    "metric_row_count": 200,
+    "status": "available"
+  },
+  "source_hashes": {
+    "google_search_copy.yaml": "f6af27ba1028a2c57aabdf5cbc92cf0150bcf5be2f37a13ebb69f2ae4caba082",
+    "keyword_clusters.yaml": "31c6b254d6e498608d250608f7d92f01682f95d75b19c054223835edc9407d7c",
+    "hooks.yaml": "59e4c153fe65894fd595a708f54ce4e58f3dfc61dea1aea1b9d01e4d8af314db",
+    "stakes_map.yaml": "ce6e9bff086a146f9f672b82cfc4186edba28263e233a9a088750502ae2fd44f",
+    "product_context.md": "a710b5fbf40dcb9441cff124e9bb288509509d17e2fb94ad8fd8a65c6ca27bdf",
+    "monetization.yaml": "ab77c14410bb25f0fe3dce00e23e124350252250acb4cb6769b73533c7970b57",
+    "keyword_ideas_fraud_only.json": "f957a108b04e95bb3cf585e81e99d0a454711982c7c1b26f17f9560f75de1190"
+  },
+  "portfolio_scores": {
+    "keyword_metric_quality": 5,
+    "portfolio_distinctness": 4,
+    "coverage": 5,
+    "claim_safety": 5,
+    "combination_quality": 5
+  },
+  "rsa_results": [
+    {
+      "rsa_id": "default_sms_organizer_recovery_v9",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "default_sms_organizer_high_relevance"
+    },
+    {
+      "rsa_id": "default_sms_organizer_recovery_v9_b",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 5,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 5
+      },
+      "predicted_ad_strength_label": "Excellent",
+      "ad_group_id": "default_sms_organizer_high_relevance"
+    },
+    {
+      "rsa_id": "scam_otp_review_recovery_v9",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 4,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "scam_otp_review_high_relevance"
+    },
+    {
+      "rsa_id": "scam_otp_review_recovery_v9_b",
+      "scores": {
+        "intent_fit": 5,
+        "register_plain_language": 5,
+        "category_clarity": 5,
+        "distinctness": 4,
+        "message_match": 5,
+        "claim_safety": 5,
+        "combination_quality": 5,
+        "predicted_ad_strength": 4
+      },
+      "predicted_ad_strength_label": "Good",
+      "ad_group_id": "scam_otp_review_high_relevance"
+    }
+  ],
+  "non_bid_groups": [
+    {
+      "ad_group_id": "privacy_trust_research_hold",
+      "action": "hold",
+      "intent_fit": "direct"
+    }
+  ],
+  "model_reviews": {
+    "blind_serp_scan": {
+      "verdict": "ship",
+      "scores": {
+        "serp_clarity": 5,
+        "intent_fit": 5,
+        "distinctness": 4,
+        "message_match": 5,
+        "claim_safety": 5,
+        "click_power": 5
+      },
+      "hard_fails": [],
+      "strengths": [
+        "Clear product category and value proposition (Android SMS organizer app).",
+        "Strong intent fit, directly addressing the problem of cluttered inboxes and buried OTPs.",
+        "Good call to action with clear pricing and trial information, encouraging clicks."
+      ],
+      "fixes": [
+        "Consider further refining headlines to enhance distinctness beyond common 'SMS app' and 'Android app' phrases, if unique features allow."
+      ],
+      "checker_provider": "google",
+      "checker_model": "gemini-2.5-flash"
+    },
+    "intent_fit_critic": {
+      "verdict": "revise",
+      "scores": {
+        "serp_clarity": 4,
+        "intent_fit": 5,
+        "distinctness": 3,
+        "message_match": 4,
+        "claim_safety": 5,
+        "click_power": 4
+      },
+      "hard_fails": [],
+      "strengths": [
+        "Excellent intent fit across all ad groups, directly addressing searcher problems and desired outcomes.",
+        "Strong claim safety, particularly in the 'scam_otp_review' group, with explicit disclaimers preventing implied recovery claims for a prevention-focused product.",
+        "Clear articulation of value propositions and hooks for each distinct search moment.",
+        "The 'privacy_trust_research_hold' group demonstrates good internal controls by holding bids until store proof is confirmed."
+      ],
+      "fixes": [
+        "Address the 'search_headline_start_repetition' in 'scam_otp_review_high_relevance' by varying headline beginnings to improve distinctness and ad strength.",
+        "Improve 'search_keyword_coverage_low' for 'privacy_trust_research_hold' by incorporating 'private sms app' or a close variant into 2-3 headlines.",
+        "Revise descriptions in 'scam_otp_review_high_relevance' to avoid repeating headlines and instead add unique proof, motivation, or complementary information.",
+        "Reduce 'search_portfolio_phrase_repetition' (e.g., 'android sms', 'sms app') across the entire portfolio to enhance distinctness and avoid generic product copy.",
+        "Ensure all privacy statements for the 'privacy_trust_research_hold' group have current and verifiable store proof before activating bids."
+      ],
+      "checker_provider": "google",
+      "checker_model": "gemini-2.5-flash"
+    },
+    "skeptic_critic": {
+      "verdict": "revise",
+      "scores": {
+        "serp_clarity": 4,
+        "intent_fit": 5,
+        "distinctness": 3,
+        "message_match": 5,
+        "claim_safety": 5,
+        "click_power": 4
+      },
+      "hard_fails": [],
+      "strengths": [
+        "Clearly addresses the user's problem of cluttered SMS inboxes and buried OTPs.",
+        "Transparent about trial duration and post-trial pricing.",
+        "Mentions Google Play for permissions and product limits, deferring detailed disclosures.",
+        "Claims are generally hedged (e.g., 'reduces code-entry steps')."
+      ],
+      "fixes": [
+        "Diversify headline phrasing to reduce repetition of common terms like 'Android SMS' and 'SMS App' to improve distinctness, as noted by the portfolio phrase repetition warning.",
+        "Explore more unique benefits or features beyond basic organization to stand out."
+      ],
+      "checker_provider": "google",
+      "checker_model": "gemini-2.5-flash"
+    },
+    "combination_critic": {
+      "verdict": "ship",
+      "scores": {
+        "serp_clarity": 5,
+        "intent_fit": 5,
+        "distinctness": 4,
+        "message_match": 5,
+        "claim_safety": 5,
+        "click_power": 5
+      },
+      "hard_fails": [],
+      "strengths": [
+        "Strong intent fit, clearly addresses organizing a cluttered Android inbox.",
+        "Good coverage of features and benefits like 'One-Tap OTP Copy' and 'Basic OTP Sorting'.",
+        "Clear value proposition with headlines like 'Default SMS App for Android'."
+      ],
+      "fixes": [
+        "Vary headline starts to reduce repetition of 'OTP' across the portfolio.",
+        "Address 'android sms' and 'sms app' portfolio phrase repetition by finding synonyms or more specific phrasing."
+      ],
+      "checker_provider": "google",
+      "checker_model": "gemini-2.5-flash"
+    }
+  },
+  "issues": [
+    {
+      "scope": "rsa",
+      "item_id": "scam_otp_review_high_relevance/scam_otp_review_recovery_v9",
+      "severity": "warn",
+      "code": "search_headline_start_repetition",
+      "message": "More than two headlines start with: otp"
+    },
+    {
+      "scope": "rsa",
+      "item_id": "scam_otp_review_high_relevance/scam_otp_review_recovery_v9",
+      "severity": "warn",
+      "code": "search_keyword_coverage_low",
+      "message": "Include the primary query or close variant in 2-3 readable headlines."
+    },
+    {
+      "scope": "description",
+      "item_id": "scam_otp_review_high_relevance/scam_otp_review_recovery_v9_b",
+      "severity": "warn",
+      "code": "search_description_repeats_headline",
+      "message": "Description mostly repeats a headline instead of adding proof or motivation: 'Cloud scam checks need Pro and network access; the trial lasts 14 days.'"
+    },
+    {
+      "scope": "portfolio",
+      "item_id": "portfolio",
+      "severity": "warn",
+      "code": "search_portfolio_phrase_repetition",
+      "message": "Repeated portfolio headline phrase(s) reduce distinctness: android sms, sms app."
+    }
+  ]
+}

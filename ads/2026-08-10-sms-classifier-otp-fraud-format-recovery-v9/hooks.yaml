@@ -1,0 +1,33 @@
+approved_hooks:
+  - id: H_OTP_FRAUD_EXPLICIT
+    status: primary
+    rank: 1
+    hook: OTP fraud? SMS Classifier shows if code changes your account before sharing.
+    hook_type: pain_led
+    mechanism_id: m_otp_authorization_context
+    positioning_role: reason_to_exist
+    differentiation_test:
+      status: pass
+      compared_against: [google_messages, truecaller, sms_organizer]
+      rationale: Names the familiar fraud problem but makes action-level OTP purpose—not a generic shield—the product proof.
+    persona_id: otp_fraud_concerned_user
+    moment_id: before_sharing
+    scenario_id: otp_fraud_account_change
+    feature_id: otp_action_purpose
+    proof_id: proof_account_change
+    claim_boundary: The app helps a user review message-derived purpose; it does not detect or prevent every fraud attempt.
+    proof_feasibility: high
+    evidence_status: source_confirmed
+    confidence: owner_confirmed
+    outcome_type: fraud_avoidance
+    so_what_ladder: [See that the OTP is for an account change., Compare it with what you intended., Avoid sharing a mismatched OTP before sharing it.]
+    scores: {pain_magnitude: 5, frequency: 4, breadth_of_audience: 5, proofability: 5, differentiation: 5, one_second_clarity: 5, claim_safety: 5}
+discarded_hooks:
+  - hook: Stop OTP fraud now.
+    mechanism_id: m_broad_scam_warning
+    positioning_role: supporting_feature
+    reason: Absolute prevention claim exceeds the product evidence.
+  - hook: AI-powered SMS protection.
+    mechanism_id: m_broad_scam_warning
+    positioning_role: supporting_feature
+    reason: Generic, crowded, and does not explain the action-level proof.

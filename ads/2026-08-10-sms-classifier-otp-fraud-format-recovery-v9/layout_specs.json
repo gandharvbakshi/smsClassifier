@@ -1,0 +1,458 @@
+[
+  {
+    "asset_id": "otp_fraud_explicit_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 15,
+          "w": 86,
+          "h": 12
+        },
+        "font_role": "hero",
+        "text": "OTP fraud? SMS Classifier may show account change before sharing.",
+        "color": "#FFFFFF",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 14,
+          "y": 29,
+          "w": 72,
+          "h": 66
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-08-10-sms-classifier-otp-fraud-format-recovery-v9\\screenshots\\proof_account_change.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 82
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 7,
+          "y": 6,
+          "w": 30,
+          "h": 7
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_fraud_explicit_benefit_headline_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 5,
+          "y": 20,
+          "w": 42,
+          "h": 24
+        },
+        "font_role": "hero",
+        "text": "OTP fraud? SMS Classifier shows if code changes your account before sharing.",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 47,
+          "y": 3,
+          "w": 51,
+          "h": 94
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-08-10-sms-classifier-otp-fraud-format-recovery-v9\\screenshots\\proof_account_change.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 82
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 5,
+          "y": 6,
+          "w": 25,
+          "h": 8
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_fraud_explicit_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 12,
+          "w": 86,
+          "h": 10
+        },
+        "font_role": "hero",
+        "text": "OTP fraud? SMS Classifier shows if code changes your account before sharing.",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 8,
+          "y": 24,
+          "w": 84,
+          "h": 62
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-08-10-sms-classifier-otp-fraud-format-recovery-v9\\screenshots\\proof_account_change.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 82
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 7,
+          "y": 5,
+          "w": 30,
+          "h": 6
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_fraud_explicit_otp_fraud_short_benefit_headline_square",
+    "spec": "google_app_square",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1200
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 15,
+          "w": 86,
+          "h": 12
+        },
+        "font_role": "hero",
+        "text": "OTP fraud? SMS Classifier may show account change.",
+        "color": "#FFFFFF",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 14,
+          "y": 29,
+          "w": 72,
+          "h": 66
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-08-10-sms-classifier-otp-fraud-format-recovery-v9\\screenshots\\proof_account_change.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 82
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 7,
+          "y": 6,
+          "w": 30,
+          "h": 7
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_fraud_explicit_otp_fraud_short_benefit_headline_landscape",
+    "spec": "google_app_landscape",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 628
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 5,
+          "y": 20,
+          "w": 42,
+          "h": 24
+        },
+        "font_role": "hero",
+        "text": "OTP fraud? SMS Classifier shows account change before sharing.",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 47,
+          "y": 3,
+          "w": 51,
+          "h": 94
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-08-10-sms-classifier-otp-fraud-format-recovery-v9\\screenshots\\proof_account_change.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 82
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 5,
+          "y": 6,
+          "w": 25,
+          "h": 8
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  },
+  {
+    "asset_id": "otp_fraud_explicit_otp_fraud_short_benefit_headline_portrait",
+    "spec": "google_app_portrait",
+    "canvas": {
+      "width_px": 1200,
+      "height_px": 1500
+    },
+    "background_mode": "dark",
+    "elements": [
+      {
+        "type": "background",
+        "bbox_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 100
+        },
+        "font_role": "none",
+        "color": "#0F172A",
+        "align": "stretch"
+      },
+      {
+        "type": "headline",
+        "bbox_pct": {
+          "x": 7,
+          "y": 12,
+          "w": 86,
+          "h": 10
+        },
+        "font_role": "hero",
+        "text": "OTP fraud? SMS Classifier shows account change before sharing.",
+        "color": "#F8FAFC",
+        "align": "left"
+      },
+      {
+        "type": "product_ui",
+        "bbox_pct": {
+          "x": 8,
+          "y": 24,
+          "w": 84,
+          "h": 62
+        },
+        "font_role": "none",
+        "src": "D:\\Projects\\SMS datasets and project\\ads\\2026-08-10-sms-classifier-otp-fraud-format-recovery-v9\\screenshots\\proof_account_change.png",
+        "device_frame": true,
+        "shadow": true,
+        "corner_radius": 26,
+        "align": "center",
+        "crop_pct": {
+          "top": 0,
+          "right": 0,
+          "bottom": 18,
+          "left": 0
+        },
+        "focus_pct": {
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 82
+        }
+      },
+      {
+        "type": "logo",
+        "bbox_pct": {
+          "x": 7,
+          "y": 5,
+          "w": 30,
+          "h": 6
+        },
+        "font_role": "logo",
+        "color": "#F8FAFC",
+        "align": "center",
+        "show_name": true
+      }
+    ]
+  }
+]

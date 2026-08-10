@@ -1,0 +1,24 @@
+product_type: mobile_app
+pricing_model: freemium
+free_mode: basic
+trial:
+  days: 14
+  name: Pro trial
+subscription:
+  cadence: annual
+  price_inr: 199
+cloud_checks:
+  availability: trial_and_pro_only
+cta_policy:
+  allowed:
+  - Start 14-day Pro trial
+  - Open on Google Play
+  - Try SMS Classifier
+  avoid:
+  - Install free
+  - Download free
+  - Free forever
+copy_notes:
+  - Do not present the app as permanently free.
+  - Use the trial-qualified CTA when the copy mentions pricing.
+  - Keep cloud-check language behind the claim boundary.
