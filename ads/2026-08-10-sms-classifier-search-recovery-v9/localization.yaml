@@ -1,0 +1,13 @@
+schema_version: 1
+market: India
+primary_locale: en-IN
+copy_locales: [en-IN]
+voiceover:
+  enabled: true
+  locale: en-IN
+  accent: Indian English
+  provider_order: [gemini, elevenlabs]
+  allowed_providers: [gemini, elevenlabs]
+  fallback_policy: fail_closed
+  style_prompt: Speak in natural Indian English with a calm, alert, trustworthy tone. Sound like a helpful consumer-tech guide. Pronounce OTP as O-T-P. Make the OTP-fraud concern and account-change proof clear without fearmongering.
+  pronunciation_notes: [Pronounce OTP as O-T-P., Pronounce SMS as S-M-S., Keep account change crisp and unhurried.]

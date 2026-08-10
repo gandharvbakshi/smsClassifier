@@ -1,0 +1,683 @@
+{
+  "mode": "validate_only",
+  "validated_at": "2026-08-10T05:10:51.672350+00:00",
+  "plan_hash": "2a4286fd8fd158c3563a98287ea97040906954918aab6a373828cd9794bb97bd",
+  "customer_id": "6269702350",
+  "campaign_id": "23973905019",
+  "mutations": {
+    "keyword_count": 9,
+    "rsa_count": 4,
+    "poor_rsa_pause_count": 2,
+    "cpc_ceiling_from_micros": 10000000,
+    "cpc_ceiling_to_micros": 18000000,
+    "daily_budget_change": false,
+    "targeting_change": false,
+    "network_change": false,
+    "conversion_change": false,
+    "negative_keyword_change": false,
+    "app_campaign_change": false
+  },
+  "before": {
+    "captured_at": "2026-08-10T05:10:40.250692+00:00",
+    "campaign": {
+      "id": "23973905019",
+      "name": "SMS Classifier India Search 2026-06-27 20260627090012",
+      "status": "ENABLED",
+      "serving_status": "SERVING",
+      "primary_status": "ELIGIBLE",
+      "primary_status_reasons": [],
+      "bidding_strategy_type": "TARGET_SPEND",
+      "cpc_bid_ceiling_micros": 10000000,
+      "budget_resource": "customers/6269702350/campaignBudgets/15677972862",
+      "budget_amount_micros": 20000000,
+      "networks": {
+        "google_search": true,
+        "search_network": false,
+        "content_network": false,
+        "partner_search_network": false
+      }
+    },
+    "targeting": {
+      "locations": [
+        {
+          "resource_name": "customers/6269702350/campaignCriteria/23973905019~2356",
+          "status": "ENABLED",
+          "negative": false,
+          "geo_target_constant": "geoTargetConstants/2356"
+        }
+      ],
+      "languages": [
+        {
+          "resource_name": "customers/6269702350/campaignCriteria/23973905019~1000",
+          "status": "ENABLED",
+          "language_constant": "languageConstants/1000"
+        }
+      ]
+    },
+    "campaign_negative_keywords": [
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~333796704",
+        "status": "ENABLED",
+        "text": "apk",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~442201367643",
+        "status": "ENABLED",
+        "text": "best message app for android",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~405011559768",
+        "status": "ENABLED",
+        "text": "best messaging app for android",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~300031393811",
+        "status": "ENABLED",
+        "text": "best sms app",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~416786821369",
+        "status": "ENABLED",
+        "text": "best sms application",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~10093811",
+        "status": "ENABLED",
+        "text": "bulk sms",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~351793956167",
+        "status": "ENABLED",
+        "text": "call blocker",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~2380905943418",
+        "status": "ENABLED",
+        "text": "download app messages",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~5683367611",
+        "status": "ENABLED",
+        "text": "facebook messenger",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~302345287865",
+        "status": "ENABLED",
+        "text": "fake sms",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~2267312613748",
+        "status": "ENABLED",
+        "text": "free app for text messages",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~103004257",
+        "status": "ENABLED",
+        "text": "free text",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~117584355",
+        "status": "ENABLED",
+        "text": "free texting",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~49249575641",
+        "status": "ENABLED",
+        "text": "google massage",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~1395701471405",
+        "status": "ENABLED",
+        "text": "google message app",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~304317925618",
+        "status": "ENABLED",
+        "text": "google messages",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~321863589776",
+        "status": "ENABLED",
+        "text": "google messaging app",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~824309337966",
+        "status": "ENABLED",
+        "text": "instal message",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~1395611499556",
+        "status": "ENABLED",
+        "text": "install sms app",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~171481862",
+        "status": "ENABLED",
+        "text": "ios",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~252579546",
+        "status": "ENABLED",
+        "text": "iphone",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~313563448458",
+        "status": "ENABLED",
+        "text": "massage app",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~42150324823",
+        "status": "ENABLED",
+        "text": "message app",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~329955061326",
+        "status": "ENABLED",
+        "text": "message app download",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~814702803774",
+        "status": "ENABLED",
+        "text": "message message app",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~13039466",
+        "status": "ENABLED",
+        "text": "messages",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~13196326683",
+        "status": "ENABLED",
+        "text": "messages app",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~771144283626",
+        "status": "ENABLED",
+        "text": "messages for web",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~315909820540",
+        "status": "ENABLED",
+        "text": "messaging apps for android",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~35431281",
+        "status": "ENABLED",
+        "text": "messenger",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~298681419742",
+        "status": "ENABLED",
+        "text": "mod apk",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~1854976036952",
+        "status": "ENABLED",
+        "text": "normal message app",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~399511494917",
+        "status": "ENABLED",
+        "text": "open my text messages",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~333716223736",
+        "status": "ENABLED",
+        "text": "open sms app",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~362066977119",
+        "status": "ENABLED",
+        "text": "otp api",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~362066977879",
+        "status": "ENABLED",
+        "text": "otp service",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~1943000373082",
+        "status": "ENABLED",
+        "text": "play store message app",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~172757402",
+        "status": "ENABLED",
+        "text": "rcs",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~657442999",
+        "status": "ENABLED",
+        "text": "receive sms online",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~338652178683",
+        "status": "ENABLED",
+        "text": "samsung messages",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~2491603544325",
+        "status": "ENABLED",
+        "text": "simple message app",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~134115037",
+        "status": "ENABLED",
+        "text": "sms api",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~78142061",
+        "status": "ENABLED",
+        "text": "sms app",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~78142341",
+        "status": "ENABLED",
+        "text": "sms apps",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~6035756637",
+        "status": "ENABLED",
+        "text": "sms blast",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~346975603813",
+        "status": "ENABLED",
+        "text": "sms blast app",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~10161481",
+        "status": "ENABLED",
+        "text": "sms gateway",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~10363121",
+        "status": "ENABLED",
+        "text": "sms marketing",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~303647841240",
+        "status": "ENABLED",
+        "text": "sms message app",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~123409869",
+        "status": "ENABLED",
+        "text": "sms messages",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~10232350",
+        "status": "ENABLED",
+        "text": "software",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~172799802",
+        "status": "ENABLED",
+        "text": "telegram",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~309794610623",
+        "status": "ENABLED",
+        "text": "text me app",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~319584152852",
+        "status": "ENABLED",
+        "text": "text me free",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~314892554590",
+        "status": "ENABLED",
+        "text": "text me free app",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~1301765207",
+        "status": "ENABLED",
+        "text": "text message app",
+        "match_type": "EXACT"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~120340793",
+        "status": "ENABLED",
+        "text": "virtual number",
+        "match_type": "PHRASE"
+      },
+      {
+        "resource_name": "customers/6269702350/campaignCriteria/23973905019~18776312212",
+        "status": "ENABLED",
+        "text": "whatsapp",
+        "match_type": "PHRASE"
+      }
+    ],
+    "ad_groups": {
+      "default_sms_organizer_high_relevance": {
+        "ad_group": {
+          "id": "196635975805",
+          "name": "SMS Search High Relevance 20260712 01 Default SMS Organizer",
+          "resource_name": "customers/6269702350/adGroups/196635975805",
+          "status": "ENABLED",
+          "primary_status": "ELIGIBLE",
+          "primary_status_reasons": []
+        },
+        "keywords": [
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635975805~305728637648",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "best sms app for android",
+            "match_type": "EXACT"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635975805~346859781097",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "default sms app",
+            "match_type": "PHRASE"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635975805~354402847825",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "sms organizer",
+            "match_type": "PHRASE"
+          }
+        ],
+        "rsas": [
+          {
+            "resource_name": "customers/6269702350/adGroupAds/196635975805~816503766390",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "ad_strength": "GOOD",
+            "approval_status": "APPROVED",
+            "review_status": "REVIEWED",
+            "final_urls": [
+              "https://play.google.com/store/apps/details?id=com.smsclassifier.app"
+            ],
+            "headlines": [
+              "Default App Organizes OTPs",
+              "SMS Organizer Finds Codes",
+              "App Organizes OTPs And Alerts",
+              "App Finds Buried Bank OTPs",
+              "SMS App Shows Login Codes",
+              "App Flags Risky-Looking Texts",
+              "Organizer Shows Service Alerts",
+              "Default App Highlights Links",
+              "Copy OTPs In One Tap",
+              "Review Before You Tap",
+              "SMS Classifier OTP Inbox",
+              "14-Day Pro Context Trial",
+              "Basic OTP Sort Is Included",
+              "Install The Android SMS App",
+              "INR 199/Year Pro"
+            ],
+            "descriptions": [
+              "A focused inbox brings buried bank OTPs forward while keeping service alerts together.",
+              "One-tap copy reduces code entry steps; review cues add context for suspicious links.",
+              "Basic sorting runs in the app; a 14-day Pro trial adds cloud-check context.",
+              "Google Play lists setup permissions, INR 199/year Pro pricing and known limits."
+            ],
+            "path1": "sms-app",
+            "path2": "otp-organizer"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupAds/196635975805~816503766393",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "ad_strength": "POOR",
+            "approval_status": "APPROVED",
+            "review_status": "REVIEWED",
+            "final_urls": [
+              "https://play.google.com/store/apps/details?id=com.smsclassifier.app"
+            ],
+            "headlines": [
+              "Android App Organizes SMS",
+              "Default App Finds OTPs",
+              "Inbox App Highlights Alerts",
+              "App Organizes Buried OTPs",
+              "SMS App Finds Bank OTPs",
+              "App Shows Login Codes Faster",
+              "Organizer Flags Risky Links",
+              "Default App Shows OTP Inbox",
+              "One Tap Copies A Code",
+              "Delivery Alerts Stay Grouped",
+              "SMS Classifier Organizer",
+              "Try Cloud Context 14 Days",
+              "Basic Sorting Mode Included",
+              "Get The Default SMS App",
+              "See Yearly Pro Terms"
+            ],
+            "descriptions": [
+              "A cleaner Android inbox surfaces bank login codes among delivery and service alerts.",
+              "Warning labels explain why a link or details request may deserve closer review.",
+              "Start with included OTP sorting; trial Pro context for 14 days before yearly billing.",
+              "The Play listing covers permissions, INR 199/year pricing and product limits."
+            ],
+            "path1": "sms-app",
+            "path2": "message-review"
+          }
+        ]
+      },
+      "scam_otp_review_high_relevance": {
+        "ad_group": {
+          "id": "196635982045",
+          "name": "SMS Search High Relevance 20260712 02 Scam OTP Review",
+          "resource_name": "customers/6269702350/adGroups/196635982045",
+          "status": "ENABLED",
+          "primary_status": "ELIGIBLE",
+          "primary_status_reasons": []
+        },
+        "keywords": [
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635982045~1394052507534",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "bank scam text",
+            "match_type": "EXACT"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635982045~772569553616",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "bank scam text message",
+            "match_type": "EXACT"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635982045~928981880153",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "fraud text message",
+            "match_type": "EXACT"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635982045~2372785962613",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "otp scam",
+            "match_type": "PHRASE"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635982045~801736153856",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "phishing scam text",
+            "match_type": "EXACT"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635982045~377781451110",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "phishing sms",
+            "match_type": "EXACT"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635982045~419078011654",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "scam text messages",
+            "match_type": "EXACT"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635982045~408013499657",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "sms fraud",
+            "match_type": "EXACT"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupCriteria/196635982045~448409294846",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "text": "sms scam",
+            "match_type": "EXACT"
+          }
+        ],
+        "rsas": [
+          {
+            "resource_name": "customers/6269702350/adGroupAds/196635982045~816538967752",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "ad_strength": "POOR",
+            "approval_status": "APPROVED",
+            "review_status": "REVIEWED",
+            "final_urls": [
+              "https://play.google.com/store/apps/details?id=com.smsclassifier.app"
+            ],
+            "headlines": [
+              "App Shows Reasons And Context",
+              "SMS App Flags Scam-Like Texts",
+              "App Shows Account-Change Text",
+              "Scam SMS App Highlights Links",
+              "App Flags Bank Scam Texts",
+              "SMS Tool Shows Why OTP Arrived",
+              "App Warns Before Code Sharing",
+              "OTP App Reveals Review Cues",
+              "Check Delivery OTP Claims",
+              "Caller Asked For Your OTP?",
+              "SMS Classifier Scam Review",
+              "Use Pro Context For 14 Days",
+              "Basic SMS Sorting Included",
+              "Install The SMS Review App",
+              "See Pro Price On Google Play"
+            ],
+            "descriptions": [
+              "Warning reasons help compare a caller's claim with the account-change text you received.",
+              "Suspicious-link and details-request cues appear in the Review tab before you act.",
+              "OTP purpose hints add context before a code is shared; results may be wrong.",
+              "Google Play lists setup, the 14-day Pro trial, INR 199/year pricing and limits."
+            ],
+            "path1": "scam-sms",
+            "path2": "otp-review"
+          },
+          {
+            "resource_name": "customers/6269702350/adGroupAds/196635982045~816538967755",
+            "status": "ENABLED",
+            "primary_status": "ELIGIBLE",
+            "primary_status_reasons": [],
+            "ad_strength": "POOR",
+            "approval_status": "APPROVED",
+            "review_status": "REVIEWED",
+            "final_urls": [
+              "https://play.google.com/store/apps/details?id=com.smsclassifier.app"
+            ],
+            "headlines": [
+              "Phishing SMS App Flags Cues",
+              "Fraud Text App Shows Reasons",
+              "Bank Scam App Highlights Links",
+              "OTP Tool Shows Caller Context",
+              "SMS Tool Flags Risky Links",
+              "App Reveals Why Codes Arrive",
+              "Tool Reveals Account Change",
+              "OTP Tool Alerts Before Sharing",
+              "Compare Caller And OTP Text",
+              "Purpose Hints Add Context",
+              "SMS Classifier OTP Context",
+              "Try Pro Context 14 Days",
+              "Included OTP Organizer",
+              "Open The Warning App",
+              "Review Yearly Pro Price"
+            ],
+            "descriptions": [
+              "Warning labels highlight suspicious SMS links and details requests for closer review.",
+              "Account-change context helps compare an OTP with what a caller says it is for.",
+              "Review cues support your decision; classification can be wrong and is not a final verdict.",
+              "Basic sorting is included; Pro context has a 14-day trial and INR 199/year price."
+            ],
+            "path1": "phishing-sms",
+            "path2": "message-review"
+          }
+        ]
+      }
+    }
+  },
+  "rollback": "Restore the INR 10 CPC ceiling, pause resources created by this plan, and re-enable the two displaced poor-strength RSAs."
+}

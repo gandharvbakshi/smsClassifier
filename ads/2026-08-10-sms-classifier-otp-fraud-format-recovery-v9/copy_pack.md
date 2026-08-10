@@ -1,0 +1,11 @@
+# Text Asset Pack
+
+| Asset ID | Headline | Long Headline | Description | CTA |
+|---|---|---|---|---|
+| otp_fraud_explicit_benefit_headline_square | OTP Fraud Warning | Help protect yourself from OTP fraud by checking what a code may authorize before sharing. | See what a code may authorize before sharing it with a caller. | Get started free |
+| otp_fraud_explicit_benefit_headline_landscape | OTP Fraud Warning | Help protect yourself from OTP fraud by checking what a code may authorize before sharing. | See what a code may authorize before sharing it with a caller. | Get started free |
+| otp_fraud_explicit_benefit_headline_portrait | OTP Fraud Warning | Help protect yourself from OTP fraud by checking what a code may authorize before sharing. | See what a code may authorize before sharing it with a caller. | Get started free |
+| otp_fraud_explicit_otp_fraud_short_benefit_headline_square | OTP Fraud Warning | Help protect yourself from OTP fraud by checking what a code may authorize before sharing. | See what a code may authorize before sharing it with a caller. | Get started free |
+| otp_fraud_explicit_otp_fraud_short_benefit_headline_landscape | OTP Fraud Warning | Help protect yourself from OTP fraud by checking what a code may authorize before sharing. | See what a code may authorize before sharing it with a caller. | Get started free |
+| otp_fraud_explicit_otp_fraud_short_benefit_headline_portrait | OTP Fraud Warning | Help protect yourself from OTP fraud by checking what a code may authorize before sharing. | See what a code may authorize before sharing it with a caller. | Get started free |
+| VID_OTP_FRAUD_EXPLICIT_9x16 | OTP Fraud Warning | Help protect yourself from OTP fraud by checking what a code may authorize before sharing. | See what a code may authorize before sharing it with a caller. | Start 14-day Pro trial |

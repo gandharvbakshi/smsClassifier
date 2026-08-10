@@ -1,0 +1,54 @@
+market: India
+language: English
+geo_target: geoTargetConstants/2356
+language_id: languageConstants/1000
+network: GOOGLE_SEARCH
+refreshed_at: '2026-08-10'
+sources:
+- type: live_google_ads
+  scope: campaign_23973905019
+  evidence: search_campaign_live_baseline_2026-07-12.json
+- type: keyword_planner_api
+  scope: India recovery seeds with and without Play URL
+  evidence: keyword_ideas_recovery.json and keyword_ideas_fraud_only.json
+- type: google_play_listing
+  scope: product_language_and_claims
+  evidence: official_google_play_pages_checked_2026-07-12
+- type: user_decision
+  scope: launch_gate
+  evidence: High relevance groups may launch even below 50-100 clicks.
+seed_families:
+- id: default_sms_organizer
+  seeds:
+  - default sms app
+  - sms organizer
+  - best sms app for android
+  - default messaging app android
+  - default sms app android
+  - sms organizer app
+  - best sms organizer app for android
+- id: scam_otp_review
+  seeds:
+  - otp scam
+  - sms scam
+  - phishing sms
+  - sms fraud
+  - bank scam text message
+  - scam text messages
+- id: privacy_research_only
+  seeds:
+  - sms permissions android
+  - private sms app
+  - offline sms organizer
+- id: competitors_research_only
+  seeds:
+  - microsoft sms organizer
+  - google messages alternative
+  - samsung messages alternative
+  - mezo sms
+decision_rules:
+- High product relevance can justify a bounded launch even when projected clicks are below 50-100.
+- Use exact match by default; bounded phrase match is allowed for fresh, directly relevant India demand when exact-heavy groups have zero delivery.
+- Do not use broad match, generic messages-app terms, competitor terms, or privacy-only terms in this launch.
+- Do not change budget based on Google recommendations without explicit user approval.
+- Keep the daily Search budget fixed at INR 20 while testing recovery; the CPC ceiling may rise only to the fresh planner high-range bound.

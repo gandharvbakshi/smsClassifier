@@ -1,0 +1,21 @@
+concepts:
+  - id: otp_fraud_explicit
+    hook_id: H_OTP_FRAUD_EXPLICIT
+    hook_type: pain_led
+    rank: 1
+    angle: Explicit OTP-fraud concern plus account-change proof
+    user_promise: Worried about OTP fraud? SMS Classifier helps you check what the code changes before sharing.
+    ui_proof: proof_account_change
+    proof_id: proof_account_change
+    callout_text: For Account change
+    claim_risk: low
+    asset_family: static_app_install_and_ui_video
+    asset_format: square_landscape_portrait_and_vertical_video
+    likely_placement: Google App campaign images and YouTube/App video
+    measurement_hypothesis: Explicit OTP-fraud language will improve qualified default-SMS adoption relative to current mechanism-led copy while the proof, offer, and campaign controls stay fixed.
+    test_variable: fraud_problem_explicitness
+    category_context: SMS safety app
+    plain_language_pain: A code that sounds routine can change an account or approve money movement.
+    story_framework: problem_agitate_solve
+    emotional_payoff: Confidence to avoid sharing an OTP that could change your account access.
+    treatments: [benefit_headline]

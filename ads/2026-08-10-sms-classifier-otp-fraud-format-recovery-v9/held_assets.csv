@@ -1,0 +1,4 @@
+asset_id,asset_type,decision,reasons
+VID_OTP_FRAUD_EXPLICIT_9x16,video,revise,model_message_clarity_low_score
+otp_fraud_explicit_benefit_headline_portrait,image,revise,
+otp_fraud_explicit_otp_fraud_short_benefit_headline_portrait,image,revise,

@@ -1,0 +1,32 @@
+schema_version: 1
+target_project: 'D:\Projects\SMS datasets and project'
+campaign_slug: sms-classifier-otp-fraud-format-recovery-v9
+created_at: '2026-08-10T11:00:00+05:30'
+central_engine_path: 'D:\Projects\ad creatives'
+central_engine_commit: 2485b847f963fbe1a40e9ab553d9be45fb9aa193
+central_engine_branch: main
+production_mode: production
+strategy_foundation_required: true
+strategy_foundation_status: pending
+competitor_research_status: current_2026_08_06
+localization_status: verified_indian_english
+product_type: mobile_app
+requested_outputs: [product_truth, competitor_analysis, positioning_decision, localization, stakes_map, hooks, concepts, copy, image, video, voiceover, evals]
+product_context_status: owner_confirmed_and_code_verified
+user_approval_status: owner_approved_revision_preparation_2026_08_10
+experiment:
+  id: otp_fraud_format_recovery_v9
+  control: The live v8 explicit OTP-fraud challenger, still inside its minimum learning window.
+  challenger: The same explicit OTP-fraud concept with accessibility-safe contrast and a shorter video opening tied directly to account-change proof.
+  single_variable: format_legibility_and_video_clarity
+  unchanged: [campaign, budget, bidding, geo, optimization_events, proof_state, offer, app]
+  ratio_set_override: Owner requested one creative experiment; one challenger concept is rendered natively in three required image ratios plus one vertical video.
+  primary_metric: cost_per_distinct_paid_attributed_default_sms_set
+  secondary_metrics: [first_sms_classified, trial_started, purchase_verified]
+  guardrails: [app_remove, cost_per_install, spend_share]
+  minimum_read: do_not_launch_until_v8_reaches_7_days_and_20_total_qualified_conversions_with_2_day_lag
+notes:
+  - The ad must explicitly name OTP fraud, but its proof remains the action-level purpose shown by the app.
+  - Use helps protect or check before sharing; do not claim guaranteed fraud prevention.
+  - Existing campaign controls remain unchanged so the creative variable is interpretable.
+  - This revision is prepared and fully evaluated now but must not be attached to the live App campaign while v8 is still learning.

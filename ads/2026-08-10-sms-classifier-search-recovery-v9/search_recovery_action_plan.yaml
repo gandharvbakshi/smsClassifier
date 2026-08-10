@@ -1,0 +1,43 @@
+metadata:
+  customer_id: '6269702350'
+  campaign_id: '23973905019'
+  campaign_name: SMS Classifier India Search 2026-06-27 20260627090012
+  final_url: https://play.google.com/store/apps/details?id=com.smsclassifier.app
+  decision: Owner approved live Search recovery on 2026-08-10 after API reauthentication.
+  diagnosis: Campaign is enabled, eligible and serving, but the exact-heavy replacement groups have had zero impressions since 2026-07-12 despite fresh India demand.
+  primary_variable: auction_coverage_recovery_package
+  current_cpc_ceiling_micros: 10000000
+  target_cpc_ceiling_micros: 18000000
+  fixed_daily_budget_micros: 20000000
+  observation_window: 7 days plus 2-day conversion lag
+  rollback: Restore the INR 10 CPC ceiling, pause resources created by this plan, and re-enable the two displaced poor-strength RSAs.
+protected_controls:
+  budget_change: false
+  geo_change: false
+  language_change: false
+  network_change: false
+  conversion_change: false
+  negative_keyword_change: false
+  app_campaign_change: false
+ad_groups:
+- id: default_sms_organizer_high_relevance
+  ad_group_id: '196635975805'
+  name: SMS Search High Relevance 20260712 01 Default SMS Organizer
+  pause_ad_resource: customers/6269702350/adGroupAds/196635975805~816503766393
+  keywords:
+  - {text: default messaging app android, match_type: PHRASE}
+  - {text: default messaging app android, match_type: EXACT}
+  - {text: default sms app android, match_type: PHRASE}
+  - {text: sms organizer app, match_type: PHRASE}
+  - {text: best sms organizer app for android, match_type: EXACT}
+  rsa_ids: [default_sms_organizer_recovery_v9, default_sms_organizer_recovery_v9_b]
+- id: scam_otp_review_high_relevance
+  ad_group_id: '196635982045'
+  name: SMS Search High Relevance 20260712 02 Scam OTP Review
+  pause_ad_resource: customers/6269702350/adGroupAds/196635982045~816538967755
+  keywords:
+  - {text: scam text messages, match_type: PHRASE}
+  - {text: fraud text message, match_type: PHRASE}
+  - {text: phishing sms, match_type: PHRASE}
+  - {text: sms scam, match_type: PHRASE}
+  rsa_ids: [scam_otp_review_recovery_v9, scam_otp_review_recovery_v9_b]

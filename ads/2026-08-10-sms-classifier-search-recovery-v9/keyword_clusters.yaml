@@ -1,0 +1,199 @@
+metadata:
+  product: SMS Classifier
+  market: India
+  language: English
+  refreshed_at: '2026-08-10'
+  metric_source: Fresh Google Ads Keyword Planner API and zero-delivery live Search diagnosis
+  live_campaign_id: 23973905019
+  broad_match_enabled: false
+  brand_group_required: false
+  brand_group_rationale: Brand demand is negligible; brand appears in every RSA.
+  trust_group_required: false
+  trust_group_rationale: Trust copy is embedded; privacy-only terms remain research-only.
+product_value_propositions:
+- id: VP_DEFAULT_SMS
+  rank: 1
+  status: approved
+  value_proposition: Organizes OTPs, service alerts, and review-needed texts in one default SMS app.
+- id: VP_SCAM_REVIEW
+  rank: 2
+  status: approved
+  value_proposition: Shows warning reasons and OTP context to help review suspicious-looking SMS before acting.
+clusters:
+- id: default_sms_organizer_high_relevance
+  launch_status: high_relevance_live_candidate
+  persona_id: android_sms_switcher
+  search_moment: solution_aware_category
+  primary_query: default sms app
+  keyword_intent: Find and install a default SMS app that organizes a cluttered Android inbox.
+  searcher_problem: Bank OTPs are buried among service alerts and review-needed texts in a cluttered SMS inbox.
+  desired_outcome: Use one Android SMS app to find codes and review messages faster.
+  selected_value_proposition: VP_DEFAULT_SMS
+  selected_hook_id: H_OTP_INBOX
+  intent_product_bridge: The default SMS app organizes buried bank OTPs, service alerts, and review-needed texts.
+  intent_fit: direct
+  action: bid
+  keywords:
+  - default sms app
+  - sms organizer
+  - best sms app for android
+  - default messaging app android
+  - default sms app android
+  - sms organizer app
+  - best sms organizer app for android
+  match_type_plan:
+    exact:
+    - default sms app
+    - sms organizer
+    - best sms app for android
+    - default messaging app android
+    - best sms organizer app for android
+    phrase:
+    - default sms app
+    - sms organizer
+    - default messaging app android
+    - default sms app android
+    - sms organizer app
+    broad: []
+  volume_evidence:
+    gross_avg_monthly_searches: 5050
+    note: Gross volume overlaps. Fresh India planner evidence shows 390 searches for default messaging app android and 50 for sms organizer app.
+    launch_gate: zero_delivery_plus_fresh_transactional_demand_plus_owner_approval
+  category_terms:
+  - default SMS app
+  - SMS organizer for Android
+  - OTP organizer
+  primary_promise: Organize OTPs, service alerts, and review-needed texts in one Android SMS inbox.
+  claim_boundary: Organization and review help only; classification may be wrong and does not prevent fraud.
+  landing_page: https://play.google.com/store/apps/details?id=com.smsclassifier.app
+  landing_page_h1: SMS Classifier
+  landing_page_proof:
+  - Default SMS app support
+  - OTP sorting and one-tap copy
+  - Warning labels and risky-link review cues
+  - Basic mode plus a 14-day Pro trial
+  negative_keywords:
+  - bulk sms
+  - sms gateway
+  - sms api
+  - otp api
+  - otp service
+  - sms marketing
+  - virtual number
+  - receive sms online
+  - fake sms
+  - authenticator
+  - totp
+  - 2fa
+  - whatsapp
+  - telegram
+  - messenger
+  - google messages
+  - samsung messages
+  - iphone
+  - ios
+  - jobs
+  - career
+  - course
+  - meaning
+  - definition
+  - examples
+  - tutorial
+  - github
+  - android studio
+  priority: 1
+- id: scam_otp_review_high_relevance
+  launch_status: high_relevance_live_candidate
+  persona_id: otp_fraud_worrier
+  search_moment: problem_aware_review
+  primary_query: otp scam
+  keyword_intent: Review a suspicious SMS or OTP message before tapping a link or sharing a code.
+  searcher_problem: A caller asks for an OTP, but warning reasons or account-change context are unclear.
+  desired_outcome: See warning reasons and OTP context before deciding what to do.
+  selected_value_proposition: VP_SCAM_REVIEW
+  selected_hook_id: H_OTP_ACCOUNT
+  intent_product_bridge: The app shows OTP warning reasons and account-change context before a code is shared.
+  intent_fit: direct
+  action: bid
+  keywords:
+  - otp scam
+  - sms scam
+  - phishing sms
+  - sms fraud
+  - bank scam text
+  - bank scam text message
+  - fraud text message
+  - scam text messages
+  - phishing scam text
+  match_type_plan:
+    exact:
+    - otp scam
+    - sms scam
+    - phishing sms
+    - sms fraud
+    - bank scam text
+    - bank scam text message
+    - fraud text message
+    - scam text messages
+    - phishing scam text
+    phrase:
+    - otp scam
+    - scam text messages
+    - fraud text message
+    - phishing sms
+    - sms scam
+    broad: []
+  volume_evidence:
+    gross_avg_monthly_searches: 13760
+    note: Gross volume overlaps. Fresh India planner evidence shows 8,100 for scam text messages, 720 each for otp scam, fraud text message, phishing sms and sms scam, and 320 for sms fraud.
+    launch_gate: zero_delivery_plus_fresh_problem_aware_demand_plus_owner_approval
+  category_terms:
+  - scam SMS review app
+  - OTP context app
+  - SMS warning app
+  primary_promise: Help review suspicious-looking SMS and OTP context before acting.
+  claim_boundary: Decision aid only; no safe-or-unsafe certification and no fraud-prevention guarantee.
+  landing_page: https://play.google.com/store/apps/details?id=com.smsclassifier.app
+  landing_page_h1: SMS Classifier
+  landing_page_proof:
+  - Warning labels and review reasons
+  - Suspicious-link cues
+  - OTP-purpose context
+  - Basic mode plus a 14-day Pro trial
+  negative_keywords:
+  - bulk sms
+  - sms gateway
+  - sms api
+  - otp api
+  - otp service
+  - sms marketing
+  - virtual number
+  - receive sms online
+  - fake sms
+  - authenticator
+  - totp
+  - 2fa
+  - whatsapp
+  - telegram
+  - messenger
+  - google messages
+  - samsung messages
+  - iphone
+  - ios
+  - jobs
+  - career
+  - course
+  - meaning
+  - definition
+  - examples
+  - tutorial
+  - github
+  - android studio
+  priority: 2
+research_only_clusters:
+- id: generic_messages_app
+  reason: Prior generic traffic spent without conversions and has weak product specificity.
+- id: competitors
+  reason: Conquesting is not approved and volumes are low.
+- id: privacy_permissions
+  reason: Low demand and weaker landing-page scent than the two direct intent groups.

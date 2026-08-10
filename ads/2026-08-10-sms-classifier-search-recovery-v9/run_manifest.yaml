@@ -1,0 +1,24 @@
+schema_version: 1
+target_project: 'D:\Projects\SMS datasets and project'
+campaign_slug: sms-classifier-search-recovery-v9
+created_at: '2026-08-10T10:30:00+05:30'
+central_engine_path: 'D:\Projects\ad creatives'
+production_mode: production
+strategy_foundation_required: true
+strategy_foundation_status: complete
+competitor_research_status: current_2026_08_06
+localization_status: verified_indian_english
+product_type: mobile_app
+requested_outputs: [keyword_research, search_copy, deterministic_eval, model_eval, guarded_live_publish, live_readback]
+product_context_status: owner_confirmed_and_code_verified
+user_approval_status: owner_approved_live_reauthentication_and_recovery_2026_08_10
+experiment:
+  id: search_auction_coverage_recovery_v9
+  control: Eligible exact-heavy Search groups with INR 10 CPC ceiling and effectively zero delivery since 2026-07-12.
+  challenger: Same groups with bounded high-intent phrase coverage, one new RSA per group, and INR 18 CPC ceiling.
+  primary_variable: auction_coverage_recovery_package
+  unchanged: [campaign, daily_budget, geo, language, networks, conversions, negatives, app_campaign, landing_page]
+  primary_metric: paid_attributed_default_sms_set
+  secondary_metrics: [impressions, clicks, first_open, trial_started, purchase_verified]
+  guardrails: [search_term_relevance, app_remove, cost_per_default_sms_set, daily_spend]
+  minimum_read: 7_days_with_2_day_conversion_lag

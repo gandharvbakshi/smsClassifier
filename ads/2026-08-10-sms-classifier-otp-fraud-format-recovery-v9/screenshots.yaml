@@ -1,0 +1,36 @@
+source: deterministic_synthetic_ui_from_verified_product_behavior
+created_at: '2026-07-12T16:30:00+05:30'
+screenshots:
+  - id: proof_sms_context
+    screen_name: Message details - SMS action focus
+    key_label: This OTP changes your account
+    key_state: Recognizable SMS context before the purpose reveal
+    state: account_change_sms_context
+    synthetic: true
+    context_type: realistic_sms_otp_state
+    suggested_use: [ui_led_video, scenario_context]
+    crop_pct: {top: 0, right: 0, bottom: 18, left: 0}
+    focus_pct: {x: 0, y: 0, w: 100, h: 82}
+    path: screenshots/proof_sms_context.png
+  - id: proof_account_change
+    screen_name: Message details - OTP purpose focus
+    key_label: For Account change
+    key_state: Account-change purpose before sharing
+    state: account_change_otp
+    synthetic: true
+    context_type: realistic_sms_otp_state
+    suggested_use: [strict_app_install, ad_scale_product_proof, ui_led_video]
+    crop_pct: {top: 0, right: 0, bottom: 18, left: 0}
+    focus_pct: {x: 0, y: 0, w: 100, h: 82}
+    path: screenshots/proof_account_change.png
+  - id: proof_safe_decision
+    screen_name: Message details - safety guidance focus
+    key_label: Never share this code
+    key_state: Compare the SMS purpose before sharing
+    state: account_change_safe_decision
+    synthetic: true
+    context_type: realistic_sms_otp_state
+    suggested_use: [ui_led_video, decision_guidance]
+    crop_pct: {top: 0, right: 0, bottom: 18, left: 0}
+    focus_pct: {x: 0, y: 0, w: 100, h: 82}
+    path: screenshots/proof_safe_decision.png

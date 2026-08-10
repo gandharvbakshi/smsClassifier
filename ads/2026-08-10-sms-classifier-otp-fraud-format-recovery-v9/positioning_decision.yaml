@@ -1,0 +1,16 @@
+schema_version: 1
+status: owner_confirmed_and_source_verified
+target_user: Indian Android users who worry that a caller or message may pressure them to share an OTP.
+decision_moment: After an OTP arrives and before the user shares or uses it.
+reason_to_exist: Help protect the user from OTP fraud by showing what the code appears to authorize before sharing.
+primary_mechanism_id: m_otp_authorization_context
+acquisition_wedge_ids: [m_latest_otp]
+table_stake_ids: [m_inbox_organization]
+market_alternative: Established messaging apps already organize SMS and warn broadly about spam or fraud.
+unique_value: SMS Classifier exposes action-level OTP purpose so a user can compare a harmless story with account change, payment, UPI, login, or delivery.
+decision_enabled: Decide whether the displayed purpose matches the action the user intended before sharing the code.
+claim_boundary: Say helps protect and shows what an OTP appears to authorize; never promise that all OTP fraud is detected or prevented.
+evidence_ids: [ev_intent_taxonomy, ev_intent_classifier, ev_human_labels, ev_sensitivity, ev_otp_hero, ev_detail_guidance, ev_owner_intent]
+competitor_ids: [google_messages, truecaller, sms_organizer]
+hook_requirements:
+  required_elements: [otp_fraud_problem, protected_action, product_revealed_purpose, before_sharing_decision]

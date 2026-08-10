@@ -1,0 +1,1380 @@
+{
+  "metadata": {
+    "engine_git_hash": "c7724329ff66c37d157c4fef9f9dbbdd428306e6",
+    "linter_version": "2026-06-13-stakes-strict-v3"
+  },
+  "results": [
+    {
+      "asset_id": "otp_fraud_explicit_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 4,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [
+        "blind_one_second: The main headline 'OTP fraud? SMS Classifier shows if code changes your account before sharing.' is quite long and requires more than a one-second glance to fully process.",
+        "blind_one_second: While legible, some text within the phone screen, particularly 'This OTP changes your account', could be slightly larger to ensure instant readability for all mobile users.",
+        "skeptic_critic: Consider adding a brief visual cue or icon to enhance the urgency of the message.",
+        "skeptic_critic: Ensure that the visual proof explicitly connects to the headline for maximum impact."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "The headline is clear, concise, and directly addresses a relevant user pain point (OTP fraud) with a strong value proposition.",
+          "The visual proof (synthetic app UI) directly supports the headline by showing the 'Account change' purpose and 'Never share this code' guidance, making the product's benefit immediately understandable.",
+          "Excellent mobile legibility for both the headline and the in-app text, with high contrast and appropriate font sizes.",
+          "The visual hierarchy is well-executed, guiding the eye from the hook to the proof, and highlighting critical information within the proof.",
+          "The overall composition is clean, professional, and aesthetically pleasing, reinforcing brand credibility.",
+          "The creative fully complies with all policy rules, including no misleading pricing claims, no fake OS alerts, and appropriate use of declared synthetic UI."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline is clear, concise, and directly addresses a relevant user pain point (OTP fraud) with a strong value proposition.",
+            "The visual proof (synthetic app UI) directly supports the headline by showing the 'Account change' purpose and 'Never share this code' guidance, making the product's benefit immediately understandable.",
+            "Excellent mobile legibility for both the headline and the in-app text, with high contrast and appropriate font sizes.",
+            "The visual hierarchy is well-executed, guiding the eye from the hook to the proof, and highlighting critical information within the proof.",
+            "The overall composition is clean, professional, and aesthetically pleasing, reinforcing brand credibility.",
+            "The creative fully complies with all policy rules, including no misleading pricing claims, no fake OS alerts, and appropriate use of declared synthetic UI."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 4,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 4,
+            "brand_consistency": 4,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The ad clearly identifies the problem of 'OTP fraud' and presents 'SMS Classifier' as the solution.",
+            "The product proof visually demonstrates the app's function by showing a phone screen with an OTP message and the app's classification of its purpose.",
+            "The use of red highlighting for 'For Account change' and 'Never share this code' effectively draws attention to critical information and warnings.",
+            "The brand name 'SMS Classifier' and its associated icon are clearly visible at the top."
+          ],
+          "fixes": [
+            "The main headline 'OTP fraud? SMS Classifier shows if code changes your account before sharing.' is quite long and requires more than a one-second glance to fully process.",
+            "While legible, some text within the phone screen, particularly 'This OTP changes your account', could be slightly larger to ensure instant readability for all mobile users."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline effectively addresses the deep user stake of OTP fraud, offering risk reduction and decision confidence by showing what a code changes before sharing.",
+            "The visual proof (app UI) is exceptionally clear and directly supports the headline's claim, explicitly showing 'OTP PURPOSE For Account change' and 'Never share this code'.",
+            "Excellent message clarity and visual hierarchy, ensuring the core message and proof are immediately understandable and legible, even at small mobile sizes.",
+            "The creative avoids selling a surface feature, instead focusing on the critical benefit of preventing account changes due to fraudulent OTPs.",
+            "Fully compliant with all policy constraints and pricing honesty guidelines."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 4,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "Clear headline that addresses the user's concern about OTP fraud.",
+            "Visual proof effectively illustrates the app's functionality and purpose.",
+            "High contrast and legibility of text ensure readability on mobile devices."
+          ],
+          "fixes": [
+            "Consider adding a brief visual cue or icon to enhance the urgency of the message.",
+            "Ensure that the visual proof explicitly connects to the headline for maximum impact."
+          ],
+          "checker_provider": "openai",
+          "checker_model": "gpt-4o-mini"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "otp_fraud_explicit_benefit_headline_square",
+          "hook_id": "H_OTP_FRAUD_EXPLICIT"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 1,
+        "messages_checked": 1,
+        "videos_checked": 1,
+        "failure_count": 0,
+        "strategy_foundation": {
+          "artifacts_present": 4,
+          "failures": 0,
+          "warnings": 0,
+          "required_artifacts_present": true
+        }
+      },
+      "strategy_foundation": {
+        "artifacts_present": 4,
+        "failures": 0,
+        "warnings": 0,
+        "required_artifacts_present": true
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.4752,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.185,
+          "y": 0.0,
+          "w": 0.628,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.0652,
+        "proof_inner_bottom_empty_fraction": 0.0265,
+        "proof_top_edge_ink_fraction": 0.0227,
+        "proof_density_limit": 0.38
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "c7724329ff66c37d157c4fef9f9dbbdd428306e6",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "otp_fraud_explicit_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 4,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [
+        "blind_one_second: Consider adding a clear call to action (e.g., 'Get SMS Classifier', 'Protect Your Account') to guide users on the next step.",
+        "blind_one_second: The text 'OTP PURPOSE' within the product UI could be slightly larger to improve legibility for all mobile users, though the main message is clear.",
+        "skeptic_critic: Consider adding a brief visual cue to emphasize the importance of not sharing the OTP."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "The headline clearly articulates the problem (OTP fraud) and the app's solution, directly addressing the target user's pain.",
+          "The visual proof effectively demonstrates the app's core functionality by showing the 'Account change' purpose and 'Never share this code' warning, making the promised advantage believable.",
+          "All on-image text, including the headline and text within the synthetic product UI, is highly legible and has excellent contrast, ensuring readability on mobile devices and thumbnails.",
+          "The composition is clean, balanced, and aesthetically pleasing, with a clear visual hierarchy that guides the viewer's eye from the headline to the proof.",
+          "The creative fully adheres to all policy constraints and monetization facts, with no misleading claims or prohibited elements."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline clearly articulates the problem (OTP fraud) and the app's solution, directly addressing the target user's pain.",
+            "The visual proof effectively demonstrates the app's core functionality by showing the 'Account change' purpose and 'Never share this code' warning, making the promised advantage believable.",
+            "All on-image text, including the headline and text within the synthetic product UI, is highly legible and has excellent contrast, ensuring readability on mobile devices and thumbnails.",
+            "The composition is clean, balanced, and aesthetically pleasing, with a clear visual hierarchy that guides the viewer's eye from the headline to the proof.",
+            "The creative fully adheres to all policy constraints and monetization facts, with no misleading claims or prohibited elements."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 5,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 4,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The ad clearly states the problem ('OTP fraud?') and the solution ('SMS Classifier shows if code changes your account before sharing.') with large, legible text.",
+            "The right side of the ad provides a clear visual demonstration of the product's functionality, showing how it identifies an OTP's purpose ('For Account change') and provides a warning ('Never share this code').",
+            "The brand name 'SMS Classifier' and its logo are prominently displayed.",
+            "The overall composition is clean, professional, and uses good contrast for readability on mobile."
+          ],
+          "fixes": [
+            "Consider adding a clear call to action (e.g., 'Get SMS Classifier', 'Protect Your Account') to guide users on the next step.",
+            "The text 'OTP PURPOSE' within the product UI could be slightly larger to improve legibility for all mobile users, though the main message is clear."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The hook directly addresses a high-stakes user pain (OTP fraud leading to account changes) and offers a clear, actionable solution.",
+            "The visual proof is exceptionally clear and immediately validates the headline's claim by showing the 'OTP PURPOSE For Account change' and 'Never share this code' guidance.",
+            "Excellent mobile-first design with concise, high-impact text and a clean, legible product UI.",
+            "The creative effectively employs a problem-agitate-solve framework, leading to a strong emotional payoff of decision confidence.",
+            "High contrast, appropriate font sizes, and balanced composition ensure strong legibility and aesthetic appeal across various display sizes.",
+            "Strict adherence to all policy constraints, including the use of allowed synthetic UI and avoidance of unsupported claims or PII."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 4,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "Clear headline that directly addresses the user's concern about OTP fraud.",
+            "Visual proof effectively illustrates the product's functionality and purpose.",
+            "High contrast and legible typography enhance readability."
+          ],
+          "fixes": [
+            "Consider adding a brief visual cue to emphasize the importance of not sharing the OTP."
+          ],
+          "checker_provider": "openai",
+          "checker_model": "gpt-4o-mini"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "otp_fraud_explicit_benefit_headline_landscape",
+          "hook_id": "H_OTP_FRAUD_EXPLICIT"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 1,
+        "messages_checked": 1,
+        "videos_checked": 1,
+        "failure_count": 0,
+        "strategy_foundation": {
+          "artifacts_present": 4,
+          "failures": 0,
+          "warnings": 0,
+          "required_artifacts_present": true
+        }
+      },
+      "strategy_foundation": {
+        "artifacts_present": 4,
+        "failures": 0,
+        "warnings": 0,
+        "required_artifacts_present": true
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.4791,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.113,
+          "y": 0.0,
+          "w": 0.775,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.0583,
+        "proof_inner_bottom_empty_fraction": 0.2169,
+        "proof_top_edge_ink_fraction": 0.0959,
+        "proof_density_limit": 0.38
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "c7724329ff66c37d157c4fef9f9dbbdd428306e6",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "otp_fraud_explicit_benefit_headline_portrait",
+      "decision": "revise",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 4,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 3,
+        "composition_aesthetics": 4,
+        "policy_safety": 4,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [
+        "blind_one_second: While the brand name and icon are present, the overall ad could incorporate more distinct visual branding elements to enhance brand consistency.",
+        "blind_one_second: Consider adding a clear call to action to guide users on the next step after seeing the ad.",
+        "skeptic_critic: Enhance visual hierarchy to better emphasize the key message.",
+        "skeptic_critic: Consider adding a more explicit call to action in the visual proof to guide user behavior."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "The headline clearly articulates the problem (OTP fraud) and the product's solution (SMS Classifier shows if code changes your account before sharing).",
+          "The visual proof directly supports the headline by showing a clear 'Account change' purpose and 'Never share this code' warning, effectively demonstrating product agency.",
+          "Excellent mobile legibility; the headline is prominent, and critical information within the synthetic product UI (e.g., 'For Account change', 'Never share this code') is highlighted with high-contrast colors and appears readable.",
+          "The creative adheres to the clutter budget, featuring only the logo, headline, and a single, clear product proof.",
+          "No policy violations are present; the synthetic UI is declared and used appropriately without fake OS alerts or PII.",
+          "The composition is clean, professional, and aesthetically pleasing, effectively guiding the user's eye to the key message and proof.",
+          "The creative effectively executes the problem-agitate-solve framework, leading to a clear emotional payoff of confidence."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline clearly articulates the problem (OTP fraud) and the product's solution (SMS Classifier shows if code changes your account before sharing).",
+            "The visual proof directly supports the headline by showing a clear 'Account change' purpose and 'Never share this code' warning, effectively demonstrating product agency.",
+            "Excellent mobile legibility; the headline is prominent, and critical information within the synthetic product UI (e.g., 'For Account change', 'Never share this code') is highlighted with high-contrast colors and appears readable.",
+            "The creative adheres to the clutter budget, featuring only the logo, headline, and a single, clear product proof.",
+            "No policy violations are present; the synthetic UI is declared and used appropriately without fake OS alerts or PII.",
+            "The composition is clean, professional, and aesthetically pleasing, effectively guiding the user's eye to the key message and proof.",
+            "The creative effectively executes the problem-agitate-solve framework, leading to a clear emotional payoff of confidence."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 5,
+            "brand_consistency": 3,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline 'OTP fraud? SMS Classifier shows if code changes your account before sharing.' clearly states the problem and the product's core value proposition.",
+            "The visual proof, an app screenshot, effectively demonstrates the product's functionality by showing an OTP classified as 'For Account change' with a prominent 'Never share this code' warning.",
+            "All text elements, including the headline and the text within the app UI, are highly legible and have good contrast on a mobile screen.",
+            "The use of red for the warning messages ('For Account change', 'Never share this code') creates an immediate and effective visual alert, reinforcing the message clarity."
+          ],
+          "fixes": [
+            "While the brand name and icon are present, the overall ad could incorporate more distinct visual branding elements to enhance brand consistency.",
+            "Consider adding a clear call to action to guide users on the next step after seeing the ad."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The hook directly addresses a deep user stake (avoided loss, risk reduction, decision confidence) by focusing on preventing unauthorized account changes due to OTP fraud, rather than a surface feature or convenience.",
+            "The headline uses plain problem language ('OTP fraud?') before introducing the product's mechanism and benefit, aligning with audience needs.",
+            "The visual proof is exceptionally clear and directly supports the headline's claim, showing the 'Account change' purpose and 'Never share this code' guidance.",
+            "Message clarity is excellent; the headline and visual proof work together to convey the product's value proposition immediately and understandably.",
+            "The creative adheres to all policy constraints, including synthetic UI allowance, lack of absolute safety guarantees, and appropriate content.",
+            "Mobile legibility is high, with clear fonts, good contrast, and an uncluttered layout that should perform well at thumbnail sizes.",
+            "The composition is aesthetically pleasing, with a clean design and effective visual hierarchy."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "revise",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 4,
+            "visual_hierarchy": 3,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 4,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline clearly addresses the concern of OTP fraud.",
+            "The visual proof effectively shows the potential consequence of sharing an OTP.",
+            "Mobile legibility is strong, with clear text and appropriate font sizes."
+          ],
+          "fixes": [
+            "Enhance visual hierarchy to better emphasize the key message.",
+            "Consider adding a more explicit call to action in the visual proof to guide user behavior."
+          ],
+          "checker_provider": "openai",
+          "checker_model": "gpt-4o-mini"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "otp_fraud_explicit_benefit_headline_portrait",
+          "hook_id": "H_OTP_FRAUD_EXPLICIT"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 1,
+        "messages_checked": 1,
+        "videos_checked": 1,
+        "failure_count": 0,
+        "strategy_foundation": {
+          "artifacts_present": 4,
+          "failures": 0,
+          "warnings": 0,
+          "required_artifacts_present": true
+        }
+      },
+      "strategy_foundation": {
+        "artifacts_present": 4,
+        "failures": 0,
+        "warnings": 0,
+        "required_artifacts_present": true
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.5208,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.184,
+          "y": 0.0,
+          "w": 0.633,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.0655,
+        "proof_inner_bottom_empty_fraction": 0.0269,
+        "proof_top_edge_ink_fraction": 0.0193,
+        "proof_density_limit": 0.38
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "c7724329ff66c37d157c4fef9f9dbbdd428306e6",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "otp_fraud_explicit_otp_fraud_short_benefit_headline_square",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 4,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [
+        "blind_one_second: While the UI shows the classification, it could more explicitly state that the classification is 'by SMS Classifier' within the red box to reinforce the product's action.",
+        "blind_one_second: The ad lacks a clear call to action, which would guide users on the next step (e.g., 'Download now', 'Learn more').",
+        "skeptic_critic: Consider simplifying the headline for even greater clarity.",
+        "skeptic_critic: Ensure the visual proof maintains a clear connection to the claim without excessive detail."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "The headline is clear, concise, and directly addresses the target user's pain point (OTP fraud) and the product's solution.",
+          "The visual proof (synthetic app UI) strongly and clearly demonstrates the product's core value proposition by showing the OTP's purpose and a 'Never share' warning.",
+          "Excellent visual hierarchy with the logo, headline, and product proof clearly defined and easy to follow.",
+          "High mobile legibility due to sufficient text size, good contrast, and a clean, uncluttered layout.",
+          "The creative is fully compliant with all policy rules and monetization facts, with no misleading claims or prohibited elements."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline is clear, concise, and directly addresses the target user's pain point (OTP fraud) and the product's solution.",
+            "The visual proof (synthetic app UI) strongly and clearly demonstrates the product's core value proposition by showing the OTP's purpose and a 'Never share' warning.",
+            "Excellent visual hierarchy with the logo, headline, and product proof clearly defined and easy to follow.",
+            "High mobile legibility due to sufficient text size, good contrast, and a clean, uncluttered layout.",
+            "The creative is fully compliant with all policy rules and monetization facts, with no misleading claims or prohibited elements."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 5,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 5,
+            "brand_consistency": 4,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline 'OTP fraud? SMS Classifier shows account change before sharing.' clearly states the problem and the product's core benefit.",
+            "The visual proof, a simulated phone UI, effectively demonstrates the product's function by classifying an OTP message and highlighting its purpose with a prominent red warning box.",
+            "All text, including the smaller details within the phone UI, is highly legible and has good contrast against the background.",
+            "The composition is clean and professional, with a clear visual hierarchy that draws attention to the product's functionality."
+          ],
+          "fixes": [
+            "While the UI shows the classification, it could more explicitly state that the classification is 'by SMS Classifier' within the red box to reinforce the product's action.",
+            "The ad lacks a clear call to action, which would guide users on the next step (e.g., 'Download now', 'Learn more')."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The hook 'OTP fraud? SMS Classifier shows account change before sharing.' directly addresses a deep user stake (avoided loss, risk reduction, decision confidence) and uses plain problem language first, aligning perfectly with the brief's intent for security products.",
+            "The visual proof (app UI showing 'OTP PURPOSE For Account change' and 'Never share this code') is exceptionally clear and directly supports the headline, making the promised advantage believable.",
+            "Excellent mobile legibility and visual hierarchy; the headline is prominent, and key information within the app UI is easily readable even at small sizes.",
+            "The creative is clean, uncluttered, and adheres to all layout, legibility, and policy constraints, including the use of allowed synthetic UI.",
+            "The creative effectively communicates the product's agency and resolution to the user's pain point."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 4,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline clearly addresses the target user's concern about OTP fraud.",
+            "The visual proof effectively illustrates the app's functionality regarding account changes.",
+            "High contrast and legibility of text enhance readability on mobile devices."
+          ],
+          "fixes": [
+            "Consider simplifying the headline for even greater clarity.",
+            "Ensure the visual proof maintains a clear connection to the claim without excessive detail."
+          ],
+          "checker_provider": "openai",
+          "checker_model": "gpt-4o-mini"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "otp_fraud_explicit_otp_fraud_short_benefit_headline_square",
+          "hook_id": "H_OTP_FRAUD_EXPLICIT"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 1,
+        "messages_checked": 1,
+        "videos_checked": 1,
+        "failure_count": 0,
+        "strategy_foundation": {
+          "artifacts_present": 4,
+          "failures": 0,
+          "warnings": 0,
+          "required_artifacts_present": true
+        }
+      },
+      "strategy_foundation": {
+        "artifacts_present": 4,
+        "failures": 0,
+        "warnings": 0,
+        "required_artifacts_present": true
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.4752,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.185,
+          "y": 0.0,
+          "w": 0.628,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.0652,
+        "proof_inner_bottom_empty_fraction": 0.0265,
+        "proof_top_edge_ink_fraction": 0.0227,
+        "proof_density_limit": 0.38
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "c7724329ff66c37d157c4fef9f9dbbdd428306e6",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "otp_fraud_explicit_otp_fraud_short_benefit_headline_landscape",
+      "decision": "ship",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 4,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 5,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [
+        "blind_one_second: Add a clear call to action (e.g., 'Download Now', 'Learn More') to guide users on the next step after seeing the ad.",
+        "blind_one_second: Consider subtly animating or highlighting the 'SMS Classifier' brand within the phone screen UI to reinforce brand presence in the product demonstration.",
+        "skeptic_critic: Consider simplifying the headline to enhance immediate understanding.",
+        "skeptic_critic: Ensure that the visual proof explicitly connects to the claim of preventing OTP fraud."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "The headline is clear, concise, and effectively communicates the problem and solution.",
+          "The visual proof (synthetic app UI) directly supports the headline by showing the OTP's purpose and a 'Never share' warning, enhancing message clarity and product agency.",
+          "Excellent mobile legibility for both the headline and the in-app text, adhering to declared typography and contrast requirements.",
+          "Clean and balanced composition with good visual hierarchy, directing attention to the key elements.",
+          "The creative is fully compliant with all policy rules and monetization facts, with no misleading claims or prohibited elements."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline is clear, concise, and effectively communicates the problem and solution.",
+            "The visual proof (synthetic app UI) directly supports the headline by showing the OTP's purpose and a 'Never share' warning, enhancing message clarity and product agency.",
+            "Excellent mobile legibility for both the headline and the in-app text, adhering to declared typography and contrast requirements.",
+            "Clean and balanced composition with good visual hierarchy, directing attention to the key elements.",
+            "The creative is fully compliant with all policy rules and monetization facts, with no misleading claims or prohibited elements."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The ad clearly identifies the problem of 'OTP fraud' and presents 'SMS Classifier' as the solution.",
+            "The main headline 'OTP fraud? SMS Classifier shows account change before sharing.' is highly legible and immediately conveys the product's value proposition.",
+            "The phone screen on the right provides clear visual proof of the product's functionality, showing how an SMS is classified with its purpose and a safety warning.",
+            "The brand name 'SMS Classifier' and its logo are prominently displayed and align well with the product's function.",
+            "The overall design uses good contrast with white text on a dark background, making key information easy to read quickly."
+          ],
+          "fixes": [
+            "Add a clear call to action (e.g., 'Download Now', 'Learn More') to guide users on the next step after seeing the ad.",
+            "Consider subtly animating or highlighting the 'SMS Classifier' brand within the phone screen UI to reinforce brand presence in the product demonstration."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The hook directly addresses a deep user stake (avoided loss, risk reduction, decision confidence) by starting with 'OTP fraud?' and immediately offering a solution that shows account change before sharing, which is not a mere surface feature or convenience benefit.",
+            "The headline uses plain problem language first ('OTP fraud?') before introducing the product mechanism, aligning with audience needs.",
+            "The visual proof is exceptionally clear and directly supports the headline, demonstrating the product's core value proposition and mechanism effectively.",
+            "Excellent message clarity, concisely communicating the problem and solution.",
+            "Strong visual hierarchy and composition, guiding the viewer's eye from the problem to the solution.",
+            "High mobile legibility for both headline and in-app proof text, suitable for thumbnail views.",
+            "Full adherence to policy constraints, avoiding unsupported claims and using allowed synthetic UI.",
+            "The creative effectively delivers on the 'problem-agitate-solve' story framework and the emotional payoff of confidence."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 4,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline clearly addresses the concern of OTP fraud.",
+            "The visual proof effectively illustrates the app's functionality regarding account changes.",
+            "High contrast and legibility of text enhance readability."
+          ],
+          "fixes": [
+            "Consider simplifying the headline to enhance immediate understanding.",
+            "Ensure that the visual proof explicitly connects to the claim of preventing OTP fraud."
+          ],
+          "checker_provider": "openai",
+          "checker_model": "gpt-4o-mini"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "otp_fraud_explicit_otp_fraud_short_benefit_headline_landscape",
+          "hook_id": "H_OTP_FRAUD_EXPLICIT"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 1,
+        "messages_checked": 1,
+        "videos_checked": 1,
+        "failure_count": 0,
+        "strategy_foundation": {
+          "artifacts_present": 4,
+          "failures": 0,
+          "warnings": 0,
+          "required_artifacts_present": true
+        }
+      },
+      "strategy_foundation": {
+        "artifacts_present": 4,
+        "failures": 0,
+        "warnings": 0,
+        "required_artifacts_present": true
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.4791,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.168,
+          "y": 0.0,
+          "w": 0.662,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.0704,
+        "proof_inner_bottom_empty_fraction": 0.0,
+        "proof_top_edge_ink_fraction": 0.0302,
+        "proof_density_limit": 0.38
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "c7724329ff66c37d157c4fef9f9dbbdd428306e6",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "otp_fraud_explicit_otp_fraud_short_benefit_headline_portrait",
+      "decision": "revise",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 4,
+        "message_clarity": 4,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 4,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [],
+      "recommendations": [
+        "blind_one_second: While effective, the ad could potentially benefit from a very brief, clear call to action if space allows, without cluttering the one-second impression.",
+        "skeptic_critic: Enhance visual hierarchy to emphasize the most critical information.",
+        "skeptic_critic: Consider simplifying the headline for quicker comprehension."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "ship",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 5,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "The headline is clear, concise, and directly addresses the user's pain point and the product's solution.",
+          "The visual proof perfectly illustrates the product's core feature, showing the 'Account change' purpose and 'Never share this code' guidance, directly supporting the headline.",
+          "Excellent mobile legibility with large, high-contrast text for both the headline and the in-app proof.",
+          "The visual hierarchy is well-executed, guiding the viewer from the brand and hook to the compelling product proof.",
+          "The creative adheres to all policy rules and maintains a clean, professional aesthetic."
+        ],
+        "fixes": [],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline is clear, concise, and directly addresses the user's pain point and the product's solution.",
+            "The visual proof perfectly illustrates the product's core feature, showing the 'Account change' purpose and 'Never share this code' guidance, directly supporting the headline.",
+            "Excellent mobile legibility with large, high-contrast text for both the headline and the in-app proof.",
+            "The visual hierarchy is well-executed, guiding the viewer from the brand and hook to the compelling product proof.",
+            "The creative adheres to all policy rules and maintains a clean, professional aesthetic."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 5,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 4,
+            "brand_consistency": 4,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The ad clearly communicates the product's purpose, 'SMS Classifier', and the problem it solves (OTP fraud) through a concise headline.",
+            "The visual proof, a mock-up of a classified SMS message within a mobile UI, effectively demonstrates the product's functionality by highlighting the OTP's purpose and a clear warning.",
+            "Key information like the brand name, headline, and warning messages ('For Account change', 'Never share this code') are highly legible and stand out due to good contrast and use of red color."
+          ],
+          "fixes": [
+            "While effective, the ad could potentially benefit from a very brief, clear call to action if space allows, without cluttering the one-second impression."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The hook directly addresses a deep user stake (avoided loss, risk reduction, decision confidence) by starting with 'OTP fraud?' and offering a clear solution.",
+            "The message clarity is excellent, with the headline concisely stating the problem and the product's agency, strongly supported by the visual proof.",
+            "The visual proof clearly demonstrates the product's core value proposition ('shows account change before sharing') and provides actionable guidance ('Never share this code').",
+            "Excellent mobile legibility and visual hierarchy; all on-image text is clear, well-sized, and high-contrast, making it readable at small sizes.",
+            "The asset fully complies with all policy constraints, including the use of synthetic UI and avoiding unsupported claims or guarantees."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "revise",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 4,
+            "visual_hierarchy": 3,
+            "mobile_legibility": 4,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 4,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "Clear messaging about OTP fraud and its implications.",
+            "Visual proof effectively illustrates the app's functionality."
+          ],
+          "fixes": [
+            "Enhance visual hierarchy to emphasize the most critical information.",
+            "Consider simplifying the headline for quicker comprehension."
+          ],
+          "checker_provider": "openai",
+          "checker_model": "gpt-4o-mini"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "otp_fraud_explicit_otp_fraud_short_benefit_headline_portrait",
+          "hook_id": "H_OTP_FRAUD_EXPLICIT"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 1,
+        "messages_checked": 1,
+        "videos_checked": 1,
+        "failure_count": 0,
+        "strategy_foundation": {
+          "artifacts_present": 4,
+          "failures": 0,
+          "warnings": 0,
+          "required_artifacts_present": true
+        }
+      },
+      "strategy_foundation": {
+        "artifacts_present": 4,
+        "failures": 0,
+        "warnings": 0,
+        "required_artifacts_present": true
+      },
+      "visual_metrics": {
+        "product_ui_area_fraction": 0.5208,
+        "proof_inner_detection": "light_ui_bbox",
+        "proof_inner_bbox_pct": {
+          "x": 0.184,
+          "y": 0.0,
+          "w": 0.633,
+          "h": 1.0
+        },
+        "proof_inner_ink_fraction": 0.0655,
+        "proof_inner_bottom_empty_fraction": 0.0269,
+        "proof_top_edge_ink_fraction": 0.0193,
+        "proof_density_limit": 0.38
+      },
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "c7724329ff66c37d157c4fef9f9dbbdd428306e6",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    },
+    {
+      "asset_id": "VID_OTP_FRAUD_EXPLICIT_9x16",
+      "decision": "revise",
+      "scores": {
+        "technical_compliance": 5,
+        "creative_quality": 5,
+        "product_proof": 4,
+        "message_clarity": 3,
+        "visual_hierarchy": 4,
+        "mobile_legibility": 4,
+        "brand_consistency": 4,
+        "composition_aesthetics": 4,
+        "policy_safety": 4,
+        "pricing_honesty": 5
+      },
+      "hard_failures": [
+        "model_message_clarity_low_score"
+      ],
+      "recommendations": [
+        "Score gate triggered: model_message_clarity_low_score.",
+        "Align the on-image headline in the first frame more closely with the brief's declared hook: 'OTP fraud? SMS Classifier shows if code changes your account before sharing.' The current 'may show account change' is a slight deviation from the specified hook.",
+        "blind_one_second: Consider slightly increasing the font size of the descriptive text within the phone screen ('This OTP changes your account.') for even quicker legibility at a glance.",
+        "skeptic_critic: Adjust the headline to avoid implying absolute safety; consider hedging language.",
+        "skeptic_critic: Ensure that the visual proof explicitly supports the claim without ambiguity."
+      ],
+      "deterministic_failures": [],
+      "deterministic_warnings": [],
+      "model_review": {
+        "verdict": "revise",
+        "scores": {
+          "product_proof": 5,
+          "message_clarity": 4,
+          "visual_hierarchy": 5,
+          "mobile_legibility": 5,
+          "brand_consistency": 5,
+          "composition_aesthetics": 5,
+          "policy_safety": 5,
+          "pricing_honesty": 5
+        },
+        "hard_fails": [],
+        "strengths": [
+          "Clear and concise headline that addresses a specific user pain (OTP fraud).",
+          "Strong visual proof showing the app's core functionality (identifying account changes) as declared synthetic UI.",
+          "Excellent mobile legibility for all on-image text, including within the synthetic UI.",
+          "Clean and professional aesthetic with effective use of color and layout.",
+          "Adheres to all policy rules and clutter budget, with no misleading claims or fake OS elements.",
+          "The video effectively uses different headlines in later frames to advance the same core message."
+        ],
+        "fixes": [
+          "Align the on-image headline in the first frame more closely with the brief's declared hook: 'OTP fraud? SMS Classifier shows if code changes your account before sharing.' The current 'may show account change' is a slight deviation from the specified hook."
+        ],
+        "checker_provider": "google",
+        "checker_model": "gemini-2.5-flash"
+      },
+      "model_reviews": {
+        "standard": {
+          "verdict": "revise",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 4,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "Clear and concise headline that addresses a specific user pain (OTP fraud).",
+            "Strong visual proof showing the app's core functionality (identifying account changes) as declared synthetic UI.",
+            "Excellent mobile legibility for all on-image text, including within the synthetic UI.",
+            "Clean and professional aesthetic with effective use of color and layout.",
+            "Adheres to all policy rules and clutter budget, with no misleading claims or fake OS elements.",
+            "The video effectively uses different headlines in later frames to advance the same core message."
+          ],
+          "fixes": [
+            "Align the on-image headline in the first frame more closely with the brief's declared hook: 'OTP fraud? SMS Classifier shows if code changes your account before sharing.' The current 'may show account change' is a slight deviation from the specified hook."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "blind_one_second": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 4,
+            "brand_consistency": 5,
+            "composition_aesthetics": 4,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The headline clearly poses a problem ('OTP fraud?') and introduces the product's solution ('SMS Classifier may show account change before sharing.').",
+            "The phone screen visually demonstrates the product classifying an OTP as 'For Account change' and providing a clear warning 'Never share this code', directly proving the headline's claim.",
+            "The brand 'SMS Classifier' is prominently displayed at the top."
+          ],
+          "fixes": [
+            "Consider slightly increasing the font size of the descriptive text within the phone screen ('This OTP changes your account.') for even quicker legibility at a glance."
+          ],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "depth_critic": {
+          "verdict": "ship",
+          "scores": {
+            "product_proof": 5,
+            "message_clarity": 5,
+            "visual_hierarchy": 5,
+            "mobile_legibility": 5,
+            "brand_consistency": 5,
+            "composition_aesthetics": 5,
+            "policy_safety": 5,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The hook directly addresses the deep user stake of avoided loss and risk reduction (unexpected account change) rather than a surface convenience, aligning perfectly with the brief's requirements for security products.",
+            "Visual proof is exceptionally clear, directly illustrating the 'account change purpose' and 'never share' guidance, making the product's agency and benefit immediately understandable.",
+            "Message clarity is high, with concise on-image text that effectively communicates the problem and the app's solution.",
+            "Excellent mobile-first legibility and visual hierarchy, ensuring the key message and proof are prominent and readable even at small thumbnail sizes.",
+            "Fully compliant with all policy constraints, avoiding unsupported claims or deceptive UI elements."
+          ],
+          "fixes": [],
+          "checker_provider": "google",
+          "checker_model": "gemini-2.5-flash"
+        },
+        "skeptic_critic": {
+          "verdict": "revise",
+          "scores": {
+            "product_proof": 4,
+            "message_clarity": 3,
+            "visual_hierarchy": 4,
+            "mobile_legibility": 5,
+            "brand_consistency": 4,
+            "composition_aesthetics": 4,
+            "policy_safety": 4,
+            "pricing_honesty": 5
+          },
+          "hard_fails": [],
+          "strengths": [
+            "The visual proof effectively illustrates the potential consequences of sharing an OTP.",
+            "The headline is clear and addresses a relevant user concern."
+          ],
+          "fixes": [
+            "Adjust the headline to avoid implying absolute safety; consider hedging language.",
+            "Ensure that the visual proof explicitly supports the claim without ambiguity."
+          ],
+          "checker_provider": "openai",
+          "checker_model": "gpt-4o-mini"
+        }
+      },
+      "contract_gates": {
+        "failures": [],
+        "warnings": [],
+        "evidence": {
+          "asset_id": "VID_OTP_FRAUD_EXPLICIT_9x16",
+          "hook_id": "H_OTP_FRAUD_EXPLICIT"
+        }
+      },
+      "copy_preflight": {
+        "hooks_checked": 1,
+        "messages_checked": 1,
+        "videos_checked": 1,
+        "failure_count": 0,
+        "strategy_foundation": {
+          "artifacts_present": 4,
+          "failures": 0,
+          "warnings": 0,
+          "required_artifacts_present": true
+        }
+      },
+      "strategy_foundation": {
+        "artifacts_present": 4,
+        "failures": 0,
+        "warnings": 0,
+        "required_artifacts_present": true
+      },
+      "visual_metrics": {},
+      "strict_app_install": true,
+      "checker_model": "deterministic_rules+google/gemini-2.5-flash",
+      "eval_metadata": {
+        "engine_git_hash": "c7724329ff66c37d157c4fef9f9dbbdd428306e6",
+        "linter_version": "2026-06-13-stakes-strict-v3"
+      }
+    }
+  ]
+}

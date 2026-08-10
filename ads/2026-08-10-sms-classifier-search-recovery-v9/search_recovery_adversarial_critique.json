@@ -1,0 +1,19 @@
+{
+  "reviewed_at": "2026-08-10T10:30:00+05:30",
+  "verdict": "approve_with_guardrails",
+  "evidence_state": "directional_but_sufficient_for_zero_delivery_recovery",
+  "strongest_case_against": "The phrase-match expansion and higher CPC ceiling change auction coverage together, so attribution between those two sub-levers will be imperfect; problem-aware fraud searches may also be informational rather than install-ready.",
+  "why_action_is_still_bounded": [
+    "The campaign has delivered zero impressions since the exact-heavy replacement groups went live.",
+    "Fresh India Keyword Planner evidence confirms directly relevant category and OTP-fraud demand.",
+    "The daily Search budget remains INR 20, limiting financial exposure.",
+    "No App campaign, conversion, location, language, network, landing-page, or negative-keyword control changes.",
+    "All created resources can be paused and the CPC ceiling restored to INR 10 from immutable evidence."
+  ],
+  "guardrails": [
+    "Do not judge before seven days plus a two-day conversion lag.",
+    "Review search terms within 72 hours and add only evidence-backed negatives if irrelevant demand appears.",
+    "Pause the recovery resources if spend resumes but paid-attributed default_sms_set remains zero after the minimum read.",
+    "Do not alter the still-learning App v8 creative experiment."
+  ]
+}

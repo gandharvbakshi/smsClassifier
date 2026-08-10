@@ -1,0 +1,36 @@
+target_user_profile:
+  market: India
+  locale: en-IN
+  awareness: problem_aware
+  natural_terms: [OTP fraud, OTP, code, account change, payment, do not share, SMS app]
+  domain_terms: [intent, classification, signals]
+  avoid_terms: [classifier detects intent, guaranteed fraud protection, blocks every scam]
+personas:
+  - id: otp_fraud_concerned_user
+    name: Everyday OTP recipient worried about fraud
+    description: An Indian Android user who may be pressured to share a code during a call or chat.
+moments:
+  - id: before_sharing
+    trigger: An OTP arrives and someone asks for it.
+    pressure_or_confusion: The digits are visible, but the protected action is easy to overlook.
+features:
+  - id: otp_action_purpose
+    mechanism: Classifies and displays what the OTP appears to authorize.
+    decision_enabled: Compare displayed purpose with the action the user intended.
+    bad_outcome_defeated: Sharing a code that changes an account or authorizes money movement.
+    outcome_type: fraud_avoidance
+    claim_boundary: Shows a message-derived purpose signal, not a fraud guarantee.
+    evidence_refs: [ev_intent_taxonomy, ev_human_labels, ev_sensitivity, ev_otp_hero]
+    confidence: owner_confirmed_and_source_verified
+scenarios:
+  - id: otp_fraud_account_change
+    persona_id: otp_fraud_concerned_user
+    moment_id: before_sharing
+    feature_id: otp_action_purpose
+    user_belief: The OTP request may be harmless.
+    actual_risk: The SMS says the code changes account details.
+    product_intervention: SMS Classifier displays For Account change and Never share this code.
+    outcome_type: fraud_avoidance
+    so_what_ladder: [See the action behind the OTP., Notice an unexpected account change., Refuse a mismatched request before sharing.]
+baselines:
+  - {id: broad_fraud_warning, name: Broad fraud warning, product_difference: Warns broadly; SMS Classifier can name the action behind the OTP.}

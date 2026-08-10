@@ -1,0 +1,12 @@
+{
+  "decision": "pass",
+  "required": true,
+  "failures": [],
+  "warnings": [],
+  "summary": {
+    "artifacts_present": 4,
+    "failures": 0,
+    "warnings": 0,
+    "required_artifacts_present": true
+  }
+}

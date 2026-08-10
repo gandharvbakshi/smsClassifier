@@ -1,0 +1,8 @@
+candidates:
+  - hook_id: H_OTP_FRAUD_EXPLICIT
+    selected: OTP fraud? SMS Classifier shows if code changes your account before sharing.
+    rationale: Says OTP fraud immediately, keeps the claim as a user check rather than a guarantee, and lets the visible product proof answer how.
+    alternatives:
+      - {text: 'OTP fraud? SMS Classifier shows account change before sharing.', status: approved_test}
+      - {text: 'Stop OTP fraud now.', status: rejected, reason: Absolute prevention claim is unsupported.}
+      - {text: 'AI detects OTP fraud.', status: rejected, reason: Overstates model certainty and hides the differentiating action-level proof.}

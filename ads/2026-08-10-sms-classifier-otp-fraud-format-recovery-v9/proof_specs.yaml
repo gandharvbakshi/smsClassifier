@@ -1,0 +1,28 @@
+proofs:
+  - id: proof_account_change
+    source: screenshots/proof_account_change.png
+    proof_type: synthetic_ad_scale_product_ui
+    synthetic_data: true
+    max_visible_rows: 1
+    visible_chip_count: 1
+    visible_text_regions: 3
+    highlighted_state: The SMS says the OTP changes the account, the OTP purpose is Account change, and the app says Never share this code.
+    intended_proof_moment: The user sees the protected action behind the OTP before deciding whether to share it.
+    required_visible_text: [This OTP changes your account, For Account change, Never share this code]
+    supported_claim_ids: [claim_action_level_otp_purpose, claim_account_change_label, claim_do_not_share_guidance]
+    forbidden_surfaces: [settings, debug, fake_os_alert, real_bank_brand, real_url, real_otp, caller_transcript]
+    crop_pct: {top: 0, right: 0, bottom: 18, left: 0}
+    focus_pct: {x: 0, y: 0, w: 100, h: 82}
+    ad_scale_readability: thumbnail_safe
+    proof_typography:
+      min_important_text_px: 54
+      max_visible_text_blocks: 3
+      max_words_per_block: 6
+    product_surface: otp_detail
+    visual_adds: Shows a recognizable SMS action, the Account change purpose label, and do-not-share guidance without pretending the app heard a caller's delivery claim.
+    context_type: realistic_sms_otp_state
+    contrast_checks:
+      - {fg: '#102033', bg: '#FFFFFF', min_ratio: 4.5}
+      - {fg: '#46556A', bg: '#FFFFFF', min_ratio: 4.5}
+      - {fg: '#B42318', bg: '#FDE8E5', min_ratio: 4.5}
+      - {fg: '#FFFFFF', bg: '#B42318', min_ratio: 4.5}

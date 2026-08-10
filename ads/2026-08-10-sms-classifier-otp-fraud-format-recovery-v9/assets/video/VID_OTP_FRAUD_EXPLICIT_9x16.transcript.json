@@ -1,0 +1,37 @@
+{
+  "asset_id": "VID_OTP_FRAUD_EXPLICIT_9x16",
+  "source": "generated_voiceover_cues",
+  "voiceover_text": "Worried about O-T-P fraud? SMS Classifier shows what the code may change. Unexpected account change? Do not share it. Start a fourteen-day Pro trial.",
+  "audio_duration_seconds": 11.28,
+  "video_duration_seconds": 12.0,
+  "cue_count": 5,
+  "cues": [
+    {
+      "start_seconds": 0.0,
+      "end_seconds": 1.9466666666666668,
+      "text": "Worried about O-T-P fraud?"
+    },
+    {
+      "start_seconds": 1.9466666666666668,
+      "end_seconds": 5.4399999999999995,
+      "text": "SMS Classifier shows what the code may change."
+    },
+    {
+      "start_seconds": 5.4399999999999995,
+      "end_seconds": 7.0,
+      "text": "Unexpected account change?"
+    },
+    {
+      "start_seconds": 7.0,
+      "end_seconds": 8.946666666666667,
+      "text": "Do not share it."
+    },
+    {
+      "start_seconds": 8.946666666666667,
+      "end_seconds": 11.28,
+      "text": "Start a fourteen-day Pro trial."
+    }
+  ],
+  "srt_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-08-10-sms-classifier-otp-fraud-format-recovery-v9\\assets\\video\\VID_OTP_FRAUD_EXPLICIT_9x16.srt",
+  "vtt_path": "D:\\Projects\\SMS datasets and project\\ads\\2026-08-10-sms-classifier-otp-fraud-format-recovery-v9\\assets\\video\\VID_OTP_FRAUD_EXPLICIT_9x16.vtt"
+}

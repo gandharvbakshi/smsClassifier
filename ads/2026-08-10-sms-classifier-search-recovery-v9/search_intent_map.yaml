@@ -1,0 +1,54 @@
+metadata:
+  product: SMS Classifier
+  market: India
+  language: English
+  refreshed_at: '2026-08-10'
+  source: live_zero_delivery_diagnosis_plus_fresh_keyword_planner_api_plus_owner_recovery_approval
+intents:
+- ad_group_id: default_sms_organizer_high_relevance
+  persona_id: android_sms_switcher
+  search_moment: solution_aware_category
+  primary_query: default sms app
+  searcher_language:
+  - default sms app
+  - sms organizer
+  - best sms app for android
+  - default messaging app android
+  - default sms app android
+  - sms organizer app
+  pain_or_job: Bank OTPs are buried among service alerts and review-needed texts in a cluttered SMS inbox.
+  desired_outcome: Use one Android SMS app to find codes and review messages faster.
+  approved_promise: Organize OTPs, service alerts, and review-needed texts in one Android SMS inbox.
+  proof_or_evidence:
+  - Default SMS app support
+  - OTP sorting and one-tap copy
+  - Warning labels and risky-link review cues
+  - Basic mode plus a 14-day Pro trial
+  landing_page: https://play.google.com/store/apps/details?id=com.smsclassifier.app
+  claim_boundary: Organization and review help only; classification may be wrong and does not prevent fraud.
+  confidence: fresh_planner_confirmed_owner_approved_bounded_recovery
+- ad_group_id: scam_otp_review_high_relevance
+  persona_id: otp_fraud_worrier
+  search_moment: problem_aware_review
+  primary_query: otp scam
+  searcher_language:
+  - otp scam
+  - sms scam
+  - phishing sms
+  - sms fraud
+  - bank scam text
+  - bank scam text message
+  - fraud text message
+  - scam text messages
+  - phishing scam text
+  pain_or_job: A caller asks for an OTP, but warning reasons or account-change context are unclear.
+  desired_outcome: See warning reasons and OTP context before deciding what to do.
+  approved_promise: Help review suspicious-looking SMS and OTP context before acting.
+  proof_or_evidence:
+  - Warning labels and review reasons
+  - Suspicious-link cues
+  - OTP-purpose context
+  - Basic mode plus a 14-day Pro trial
+  landing_page: https://play.google.com/store/apps/details?id=com.smsclassifier.app
+  claim_boundary: Decision aid only; no safe-or-unsafe certification and no fraud-prevention guarantee.
+  confidence: fresh_planner_confirmed_owner_approved_bounded_recovery

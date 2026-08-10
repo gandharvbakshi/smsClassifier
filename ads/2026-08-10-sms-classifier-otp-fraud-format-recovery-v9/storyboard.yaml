@@ -1,0 +1,11 @@
+videos:
+  - asset_id: VID_OTP_FRAUD_EXPLICIT_9x16
+    hook_id: H_OTP_FRAUD_EXPLICIT
+    story_framework: problem_agitate_solve
+    production_mode: deterministic_ui
+    allow_no_voiceover: false
+    beats:
+      - {proof_id: proof_account_change, screen: screenshots/proof_sms_context.png, caption: 'OTP fraud? SMS Classifier may show account change before sharing.', hold_sec: 3.2, story_role: explicit_problem_and_product_agency}
+      - {proof_id: proof_account_change, screen: screenshots/proof_account_change.png, caption: 'OTP fraud can hide an account change.', hold_sec: 3.4, story_role: problem_first_product_reveal}
+      - {proof_id: proof_account_change, screen: screenshots/proof_safe_decision.png, caption: 'Unexpected account change? Do not share it.', hold_sec: 3.4, story_role: product_aided_decision}
+    outro: {title: 'Start a 14-day Pro trial', subtitle: 'Cloud scam checks, then ₹199/year', hold_sec: 2.0}
