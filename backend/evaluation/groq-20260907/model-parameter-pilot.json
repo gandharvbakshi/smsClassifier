@@ -1,0 +1,206 @@
+{
+  "available_models": [
+    "canopylabs/orpheus-v1-english",
+    "groq/compound",
+    "meta-llama/llama-prompt-guard-2-22m",
+    "openai/gpt-oss-safeguard-20b",
+    "qwen/qwen3.6-27b",
+    "qwen/qwen3.8-27b",
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-120b",
+    "allam-2-7b",
+    "whisper-large-v3-turbo",
+    "groq/compound-mini",
+    "meta-llama/llama-prompt-guard-2-86m",
+    "whisper-large-v3",
+    "canopylabs/orpheus-arabic-saudi"
+  ],
+  "results": [
+    {
+      "model": "openai/gpt-oss-20b",
+      "max_tokens": 256,
+      "effort": null,
+      "status": 200,
+      "elapsed_ms": 406,
+      "error": null,
+      "finish": "stop",
+      "usage": {
+        "queue_time": 0.043984525,
+        "prompt_tokens": 389,
+        "prompt_time": 0.012358315,
+        "completion_tokens": 222,
+        "completion_time": 0.262366917,
+        "total_tokens": 611,
+        "total_time": 0.274725232,
+        "prompt_tokens_details": {
+          "cached_tokens": 256
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 184
+        }
+      },
+      "prediction": {
+        "is_otp": true,
+        "otp_intent": "UPI_TXN_OR_PIN_OTP",
+        "is_phishing": false
+      }
+    },
+    {
+      "model": "openai/gpt-oss-20b",
+      "max_tokens": 1024,
+      "effort": "low",
+      "status": 200,
+      "elapsed_ms": 531,
+      "error": null,
+      "finish": "stop",
+      "usage": {
+        "queue_time": 0.278085135,
+        "prompt_tokens": 389,
+        "prompt_time": 0.024471601,
+        "completion_tokens": 79,
+        "completion_time": 0.084987831,
+        "total_tokens": 468,
+        "total_time": 0.109459432,
+        "completion_tokens_details": {
+          "reasoning_tokens": 44
+        }
+      },
+      "prediction": {
+        "is_otp": true,
+        "otp_intent": "UPI_TXN_OR_PIN_OTP",
+        "is_phishing": false
+      }
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "max_tokens": 256,
+      "effort": null,
+      "status": 200,
+      "elapsed_ms": 1109,
+      "error": null,
+      "finish": "stop",
+      "usage": {
+        "queue_time": 0.549083625,
+        "prompt_tokens": 389,
+        "prompt_time": 0.14103421,
+        "completion_tokens": 176,
+        "completion_time": 0.370255061,
+        "total_tokens": 565,
+        "total_time": 0.511289271,
+        "completion_tokens_details": {
+          "reasoning_tokens": 141
+        }
+      },
+      "prediction": {
+        "is_otp": true,
+        "otp_intent": "UPI_TXN_OR_PIN_OTP",
+        "is_phishing": false
+      }
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "max_tokens": 1024,
+      "effort": "low",
+      "status": 200,
+      "elapsed_ms": 344,
+      "error": null,
+      "finish": "stop",
+      "usage": {
+        "queue_time": 0.046051191,
+        "prompt_tokens": 389,
+        "prompt_time": 0.017841619,
+        "completion_tokens": 86,
+        "completion_time": 0.189840394,
+        "total_tokens": 475,
+        "total_time": 0.207682013,
+        "completion_tokens_details": {
+          "reasoning_tokens": 51
+        }
+      },
+      "prediction": {
+        "is_otp": true,
+        "otp_intent": "UPI_TXN_OR_PIN_OTP",
+        "is_phishing": false
+      }
+    },
+    {
+      "model": "qwen/qwen3.6-27b",
+      "max_tokens": 256,
+      "effort": null,
+      "status": 400,
+      "elapsed_ms": 594,
+      "error": "json_validate_failed",
+      "finish": null,
+      "usage": null
+    },
+    {
+      "model": "qwen/qwen3.6-27b",
+      "max_tokens": 1024,
+      "effort": "none",
+      "status": 200,
+      "elapsed_ms": 187,
+      "error": null,
+      "finish": "stop",
+      "usage": {
+        "queue_time": 0.04457632,
+        "prompt_tokens": 328,
+        "prompt_time": 0.02767365,
+        "completion_tokens": 31,
+        "completion_time": 0.061548012,
+        "total_tokens": 359,
+        "total_time": 0.089221662
+      },
+      "prediction": {
+        "is_otp": true,
+        "otp_intent": "UPI_TXN_OR_PIN_OTP",
+        "is_phishing": false
+      }
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "max_tokens": 256,
+      "effort": null,
+      "status": 200,
+      "elapsed_ms": 454,
+      "error": null,
+      "finish": "stop",
+      "usage": {
+        "queue_time": 0.210947524,
+        "prompt_tokens": 323,
+        "prompt_time": 0.026636794,
+        "completion_tokens": 36,
+        "completion_time": 0.070778057,
+        "total_tokens": 359,
+        "total_time": 0.097414851
+      },
+      "prediction": {
+        "is_otp": true,
+        "otp_intent": "UPI_TXN_OR_PIN_OTP",
+        "is_phishing": false
+      }
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "max_tokens": 1024,
+      "effort": "none",
+      "status": 200,
+      "elapsed_ms": 390,
+      "error": null,
+      "finish": "stop",
+      "usage": {
+        "queue_time": 0.211561434,
+        "prompt_tokens": 323,
+        "prompt_time": 0.026640814,
+        "completion_tokens": 36,
+        "completion_time": 0.070914924,
+        "total_tokens": 359,
+        "total_time": 0.097555738
+      },
+      "prediction": {
+        "is_otp": true,
+        "otp_intent": "UPI_TXN_OR_PIN_OTP",
+        "is_phishing": false
+      }
+    }
+  ]
+}

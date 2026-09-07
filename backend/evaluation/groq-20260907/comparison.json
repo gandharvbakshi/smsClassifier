@@ -1,0 +1,143 @@
+{
+  "total_calls": 1168,
+  "unique_cases": 146,
+  "unique_intent_scored_cases": 141,
+  "rounds": 2,
+  "config": "same production prompt; temp=0; json_object; max_tokens=1024; GPT low reasoning; Qwen none",
+  "prices_source": "https://console.groq.com/docs/models",
+  "cost_caveat": "uncached text-token list prices; provider calls only, not every SMS; network/CloudRun costs excluded",
+  "results": [
+    {
+      "model": "openai/gpt-oss-120b",
+      "calls": 292,
+      "unique_cases": 146,
+      "intent_correct": 271,
+      "intent_scored": 282,
+      "intent_accuracy": 0.9609929078014184,
+      "intent_macro_f1": 0.9354483834438015,
+      "otp_intent_accuracy": 0.9510869565217391,
+      "p50_ms": 409.48895004112273,
+      "p95_ms": 1848.1095350056419,
+      "max_ms": 5494.335200055502,
+      "output_failures": 0,
+      "estimated_usd_per_1000_calls": 0.1060972602739726,
+      "reference_price_input_usd_per_million": 0.15,
+      "reference_price_output_usd_per_million": 0.6,
+      "fresh_intent_correct": 70,
+      "fresh_cases": 72,
+      "slices": {
+        "existing_synthetic": {
+          "intent_correct": 177,
+          "intent_scored": 182
+        },
+        "fresh_challenge": {
+          "intent_correct": 70,
+          "intent_scored": 72
+        },
+        "sanitized_regression": {
+          "intent_correct": 24,
+          "intent_scored": 28
+        }
+      }
+    },
+    {
+      "model": "openai/gpt-oss-20b",
+      "calls": 292,
+      "unique_cases": 146,
+      "intent_correct": 264,
+      "intent_scored": 282,
+      "intent_accuracy": 0.9361702127659575,
+      "intent_macro_f1": 0.9041802193599453,
+      "otp_intent_accuracy": 0.9130434782608695,
+      "p50_ms": 205.705999978818,
+      "p95_ms": 753.2213650003541,
+      "max_ms": 1085.1368000730872,
+      "output_failures": 0,
+      "estimated_usd_per_1000_calls": 0.04961506849315068,
+      "reference_price_input_usd_per_million": 0.075,
+      "reference_price_output_usd_per_million": 0.3,
+      "fresh_intent_correct": 70,
+      "fresh_cases": 72,
+      "slices": {
+        "existing_synthetic": {
+          "intent_correct": 170,
+          "intent_scored": 182
+        },
+        "fresh_challenge": {
+          "intent_correct": 70,
+          "intent_scored": 72
+        },
+        "sanitized_regression": {
+          "intent_correct": 24,
+          "intent_scored": 28
+        }
+      }
+    },
+    {
+      "model": "qwen/qwen3.6-27b",
+      "calls": 292,
+      "unique_cases": 146,
+      "intent_correct": 276,
+      "intent_scored": 282,
+      "intent_accuracy": 0.9787234042553191,
+      "intent_macro_f1": 0.9634761634429078,
+      "otp_intent_accuracy": 0.9782608695652174,
+      "p50_ms": 192.25264998385683,
+      "p95_ms": 484.85186495818186,
+      "max_ms": 819.8546000057831,
+      "output_failures": 0,
+      "estimated_usd_per_1000_calls": 0.28463219178082194,
+      "reference_price_input_usd_per_million": 0.6,
+      "reference_price_output_usd_per_million": 3,
+      "fresh_intent_correct": 72,
+      "fresh_cases": 72,
+      "slices": {
+        "existing_synthetic": {
+          "intent_correct": 180,
+          "intent_scored": 182
+        },
+        "fresh_challenge": {
+          "intent_correct": 72,
+          "intent_scored": 72
+        },
+        "sanitized_regression": {
+          "intent_correct": 24,
+          "intent_scored": 28
+        }
+      }
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "calls": 292,
+      "unique_cases": 146,
+      "intent_correct": 276,
+      "intent_scored": 282,
+      "intent_accuracy": 0.9787234042553191,
+      "intent_macro_f1": 0.9599440599108041,
+      "otp_intent_accuracy": 0.9782608695652174,
+      "p50_ms": 409.50129996053874,
+      "p95_ms": 875.353845028439,
+      "max_ms": 1231.1058000195771,
+      "output_failures": 0,
+      "estimated_usd_per_1000_calls": 0.4045643835616438,
+      "reference_price_input_usd_per_million": 0.8,
+      "reference_price_output_usd_per_million": 4,
+      "fresh_intent_correct": 70,
+      "fresh_cases": 72,
+      "slices": {
+        "existing_synthetic": {
+          "intent_correct": 182,
+          "intent_scored": 182
+        },
+        "fresh_challenge": {
+          "intent_correct": 70,
+          "intent_scored": 72
+        },
+        "sanitized_regression": {
+          "intent_correct": 24,
+          "intent_scored": 28
+        }
+      }
+    }
+  ]
+}

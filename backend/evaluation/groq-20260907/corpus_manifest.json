@@ -1,0 +1,28 @@
+{
+  "original_synthetic_rows": 200,
+  "unique_synthetic_rows": 91,
+  "duplicates_removed": 109,
+  "total_cases": 146,
+  "slices": {
+    "existing_synthetic": 91,
+    "sanitized_regression": 19,
+    "fresh_challenge": 36
+  },
+  "intent_counts": {
+    "NOT_OTP": 49,
+    "GENERIC_APP_ACTION_OTP": 18,
+    "FINANCIAL_LOGIN_OTP": 15,
+    "KYC_OR_ESIGN_OTP": 12,
+    "BANK_OR_CARD_TXN_OTP": 13,
+    "UPI_TXN_OR_PIN_OTP": 10,
+    "APP_ACCOUNT_CHANGE_OTP": 6,
+    "DELIVERY_OR_SERVICE_OTP": 13,
+    "APP_LOGIN_OTP": 5,
+    "UNSCORED": 5
+  },
+  "groq_needed": 0,
+  "groq_needed_intent_scored": 0,
+  "source_sha256": "dbe2f309a38cca604a7820d911f2ea7d7f240466401ec5e98cadbee98615036b",
+  "cases_sha256": "35acd24e1e5feee1836fc3753ffea2033711ab53a674cdc29c3edc62c3bba3e9",
+  "caveat": "Synthetic/project reference labels, not a random production sample. Routing uses exact deployed models with Web Risk off and provider unavailable. Unknown intent labels remain unscored."
+}

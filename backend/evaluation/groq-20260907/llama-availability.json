@@ -1,0 +1,32 @@
+{
+  "models_available": [
+    "whisper-large-v3-turbo",
+    "openai/gpt-oss-120b",
+    "qwen/qwen3.6-27b",
+    "meta-llama/llama-prompt-guard-2-86m",
+    "canopylabs/orpheus-v1-english",
+    "groq/compound-mini",
+    "openai/gpt-oss-safeguard-20b",
+    "qwen/qwen3.8-27b",
+    "canopylabs/orpheus-arabic-saudi",
+    "allam-2-7b",
+    "meta-llama/llama-prompt-guard-2-22m",
+    "openai/gpt-oss-20b",
+    "groq/compound",
+    "whisper-large-v3"
+  ],
+  "llama_probes": [
+    {
+      "model": "llama-3.1-8b-instant",
+      "status": 404,
+      "error_code": "model_not_found",
+      "latency_ms": 47
+    },
+    {
+      "model": "llama-3.3-70b-versatile",
+      "status": 404,
+      "error_code": "model_not_found",
+      "latency_ms": 47
+    }
+  ]
+}
