@@ -15,11 +15,13 @@ import com.smsclassifier.app.classification.FeatureExtractor
 import com.smsclassifier.app.classification.HeuristicOnlyClassifier
 import com.smsclassifier.app.classification.ServerClassifyException
 import com.smsclassifier.app.classification.ServerClassifier
+import com.smsclassifier.app.classification.ServerRateLimitPolicy
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.util.PerformanceTracker
 import com.smsclassifier.app.util.SafeError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import android.os.SystemClock
 
 class ClassificationWorker(
     context: Context,
@@ -56,6 +58,7 @@ class ClassificationWorker(
             var serverLatencyTotalMs = 0L
             var serverLatencyMaxMs = 0L
             var serverRateLimitedCount = 0
+            var serverCooldownSkippedCount = 0
             val serverFailureCounts = mutableMapOf<String, Int>()
             unclassifiedMessages.forEach { message ->
                 try {
@@ -82,7 +85,18 @@ class ClassificationWorker(
 
                     var usedServerResult = false
                     val prediction = if (useServer) {
-                        if (!hasInternet()) {
+                        val nowElapsedMs = SystemClock.elapsedRealtime()
+                        if (ServerRateLimitPolicy.isCooldownActive(nowElapsedMs)) {
+                            AppLog.d(
+                                TAG,
+                                "Skipping server classify (cooldown ${ServerRateLimitPolicy.remainingCooldownMs(nowElapsedMs)}ms); using heuristic for message ${message.id}"
+                            )
+                            serverCooldownSkippedCount++
+                            ClassificationWorkerPolicy.fallbackPrediction(
+                                hPred,
+                                ClassificationWorkerPolicy.SERVER_FALLBACK_REASON
+                            )
+                        } else if (!hasInternet()) {
                             AppLog.d(TAG, "Skipping server classify (offline); using heuristic for message ${message.id}")
                             serverOfflineSkippedCount++
                             ClassificationWorkerPolicy.fallbackPrediction(
@@ -111,6 +125,9 @@ class ClassificationWorker(
                                 recordServerFailure(serverFailureCounts, e.telemetryReason)
                                 if (e.kind == ServerClassifyException.Kind.RATE_LIMITED) {
                                     serverRateLimitedCount++
+                                    ServerRateLimitPolicy.noteRateLimit(
+                                        retryAfterDelayMs = e.retryAfterDelayMs
+                                    )
                                 }
                                 ClassificationWorkerPolicy.fallbackPrediction(
                                     hPred,
@@ -196,7 +213,16 @@ class ClassificationWorker(
             if (serverRateLimitedCount > 0) {
                 AppContainer.telemetry.logEvent(
                     "server_classify_rate_limited",
-                    mapOf("count" to serverRateLimitedCount)
+                    mapOf(
+                        "count" to serverRateLimitedCount,
+                        "cooldown_skipped" to serverCooldownSkippedCount
+                    )
+                )
+            }
+            if (serverCooldownSkippedCount > 0 && serverRateLimitedCount == 0) {
+                AppContainer.telemetry.logEvent(
+                    "server_classify_cooldown_skipped",
+                    mapOf("count" to serverCooldownSkippedCount)
                 )
             }
 
