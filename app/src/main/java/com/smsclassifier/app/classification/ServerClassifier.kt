@@ -1,11 +1,13 @@
 package com.smsclassifier.app.classification
 
 import android.content.Context
+import android.os.SystemClock
 import com.google.firebase.auth.FirebaseAuth
 import com.smsclassifier.app.BuildConfig
 import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.util.AppLog
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -14,6 +16,7 @@ import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 
 @Serializable
@@ -40,6 +43,7 @@ data class ServerResponse(
 class ServerClassifyException(
     val kind: Kind,
     val statusCode: Int? = null,
+    val retryAfterDelayMs: Long? = null,
     message: String,
     cause: Throwable? = null
 ) : IOException(message, cause) {
@@ -77,6 +81,10 @@ class ServerClassifyException(
 
     companion object {
         fun fromStatus(code: Int): ServerClassifyException {
+            return fromStatus(code, retryAfterDelayMs = null)
+        }
+
+        fun fromStatus(code: Int, retryAfterDelayMs: Long?): ServerClassifyException {
             val kind = when (code) {
                 429 -> Kind.RATE_LIMITED
                 in 500..599 -> Kind.SERVER
@@ -86,6 +94,7 @@ class ServerClassifyException(
             return ServerClassifyException(
                 kind = kind,
                 statusCode = code,
+                retryAfterDelayMs = retryAfterDelayMs,
                 message = "Server error: $code"
             )
         }
@@ -120,16 +129,32 @@ class ServerClassifier(
     
     companion object {
         private const val TAG = "ServerClassifier"
+        private val clients = ConcurrentHashMap<Int, OkHttpClient>()
+
+        private fun clientFor(timeoutSeconds: Int): OkHttpClient {
+            return clients.computeIfAbsent(timeoutSeconds) {
+                OkHttpClient.Builder()
+                    .connectTimeout(timeoutSeconds.toLong(), TimeUnit.SECONDS)
+                    .readTimeout(timeoutSeconds.toLong(), TimeUnit.SECONDS)
+                    .writeTimeout(timeoutSeconds.toLong(), TimeUnit.SECONDS)
+                    .build()
+            }
+        }
     }
-    private val client = OkHttpClient.Builder()
-        .connectTimeout(timeoutSeconds.toLong(), TimeUnit.SECONDS)
-        .readTimeout(timeoutSeconds.toLong(), TimeUnit.SECONDS)
-        .writeTimeout(timeoutSeconds.toLong(), TimeUnit.SECONDS)
-        .build()
+    private val client = clientFor(timeoutSeconds)
 
     private val maxRetries = 3
 
     override suspend fun predict(input: MessageFeatures): Prediction = withContext(Dispatchers.IO) {
+        val nowElapsedMs = SystemClock.elapsedRealtime()
+        if (ServerRateLimitPolicy.isCooldownActive(nowElapsedMs)) {
+            throw ServerClassifyException(
+                kind = ServerClassifyException.Kind.RATE_LIMITED,
+                retryAfterDelayMs = ServerRateLimitPolicy.remainingCooldownMs(nowElapsedMs),
+                message = "Server classify is cooling down"
+            )
+        }
+
         val startTime = System.currentTimeMillis()
         val url = "$baseUrl/classify"
         AppLog.d(TAG, "Making request to $url")
@@ -163,7 +188,21 @@ class ServerClassifier(
                     val responseBody = response.body?.string() ?: throw IOException("Empty response")
 
                     if (!response.isSuccessful) {
-                        throw ServerClassifyException.fromStatus(response.code)
+                        val retryAfterDelayMs =
+                            if (response.code == 429) {
+                                ServerRateLimitPolicy.parseRetryAfterDelayMs(
+                                    response.header("Retry-After"),
+                                    System.currentTimeMillis()
+                                )
+                            } else {
+                                null
+                            }
+                        if (response.code == 429) {
+                            ServerRateLimitPolicy.noteRateLimit(
+                                retryAfterDelayMs = retryAfterDelayMs
+                            )
+                        }
+                        throw ServerClassifyException.fromStatus(response.code, retryAfterDelayMs)
                     }
 
                     val serverResponse = Json.decodeFromString<ServerResponse>(responseBody)
@@ -191,7 +230,7 @@ class ServerClassifier(
 
                 // Exponential backoff
                 val delayMs = (1000 * (1 shl attempt)).toLong()
-                Thread.sleep(delayMs)
+                delay(delayMs)
             }
         }
         

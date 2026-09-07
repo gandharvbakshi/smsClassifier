@@ -22,6 +22,7 @@ import threading
 import time
 import uuid
 from collections import defaultdict, deque
+from contextvars import ContextVar
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -29,7 +30,6 @@ from typing import Any, Dict, List, Optional, Set
 
 import numpy as np
 import pickle
-import requests
 from dotenv import load_dotenv
 from fastapi import APIRouter, FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field
@@ -38,6 +38,8 @@ from backend.classification.classification_diagnostics import (
     build_classification_diagnostics,
     build_subject_key,
 )
+from backend.classification.purchase_transport import AndroidPublisherTransport
+from backend.classification.provider_transport import GroqTransport, GroqTransportConfig
 from backend.classification.phishing_policy import (
     _apply_phishing_policy,
     _has_strong_phishing_danger_signal,
@@ -74,6 +76,17 @@ def _int_env(name: str, default: int) -> int:
         return int(raw.strip())
     except ValueError:
         logger.warning("Invalid integer env %s=%r; using default %s", name, raw, default)
+        return default
+
+
+def _float_env(name: str, default: float) -> float:
+    raw = os.getenv(name)
+    if not raw:
+        return default
+    try:
+        return float(raw.strip())
+    except ValueError:
+        logger.warning("Invalid float env %s=%r; using default %s", name, raw, default)
         return default
 
 
@@ -114,7 +127,10 @@ GROQ_PHISHING_MODE = os.getenv("GROQ_PHISHING_MODE", "off").strip().lower()
 PHISH_GRAY_LOW = float(os.getenv("PHISH_GRAY_LOW", "0.35"))
 PHISH_GRAY_HIGH = float(os.getenv("PHISH_GRAY_HIGH", "0.72"))
 GROQ_MODEL = os.getenv("GROQ_INTENT_MODEL", "llama-3.1-8b-instant")
-GROQ_TIMEOUT = float(os.getenv("GROQ_TIMEOUT", "45"))
+GROQ_CONNECT_TIMEOUT = _float_env("GROQ_CONNECT_TIMEOUT", 1.5)
+GROQ_READ_TIMEOUT = _float_env("GROQ_READ_TIMEOUT", 6.0)
+GROQ_PROVIDER_COOLDOWN_SECONDS = _float_env("GROQ_PROVIDER_COOLDOWN_SECONDS", 8.0)
+GROQ_MAX_INFLIGHT_REQUESTS = _int_env("GROQ_MAX_INFLIGHT_REQUESTS", 128)
 
 # Intent metadata reused from synthetic evaluation script
 INTENT_LABELS = [
@@ -287,7 +303,18 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 if not GROQ_API_KEY:
     raise EnvironmentError("GROQ_API_KEY is required to start the backend server.")
 
-REQUEST_SESSION = requests.Session()
+GROQ_TRANSPORT = GroqTransport(
+    api_key=GROQ_API_KEY,
+    model=GROQ_MODEL,
+    config=GroqTransportConfig(
+        connect_timeout_seconds=GROQ_CONNECT_TIMEOUT,
+        read_timeout_seconds=GROQ_READ_TIMEOUT,
+        cooldown_seconds=GROQ_PROVIDER_COOLDOWN_SECONDS,
+        max_inflight_requests=GROQ_MAX_INFLIGHT_REQUESTS,
+    ),
+    clock=time.monotonic,
+    log_callback=_emit_structured_log,
+)
 
 app = FastAPI(title="SMS Ensemble Backend", version="0.1.0")
 api_router = APIRouter(prefix="/api")
@@ -385,7 +412,17 @@ RATE_LIMIT_LOCK = threading.Lock()
 CLASSIFY_RATE_BUCKETS: Dict[str, deque[float]] = defaultdict(deque)
 
 _GCS_CLIENT = None
-_ANDROID_PUBLISHER_SERVICE = None
+_ANDROID_PUBLISHER_TRANSPORT = None
+ENTITLEMENT_IO_TIMEOUT = float(os.getenv("ENTITLEMENT_IO_TIMEOUT", "3"))
+_PURCHASE_DEADLINE: ContextVar[Optional[float]] = ContextVar("purchase_deadline", default=None)
+
+
+def _entitlement_io_timeout() -> float:
+    deadline = _PURCHASE_DEADLINE.get()
+    remaining = deadline - time.monotonic() if deadline is not None else ENTITLEMENT_IO_TIMEOUT
+    if remaining <= 0:
+        raise TimeoutError("Purchase storage budget exhausted")
+    return min(ENTITLEMENT_IO_TIMEOUT, remaining)
 
 
 def _gcs_client():
@@ -441,18 +478,20 @@ def _android_publisher_credentials():
     )
 
 
-def _android_publisher_service():
-    global _ANDROID_PUBLISHER_SERVICE
-    if _ANDROID_PUBLISHER_SERVICE is None:
+def _android_publisher_transport():
+    global _ANDROID_PUBLISHER_TRANSPORT
+    if _ANDROID_PUBLISHER_TRANSPORT is None:
         from googleapiclient.discovery import build  # type: ignore
 
-        _ANDROID_PUBLISHER_SERVICE = build(
-            "androidpublisher",
-            "v3",
-            credentials=_android_publisher_credentials(),
-            cache_discovery=False,
+        _ANDROID_PUBLISHER_TRANSPORT = AndroidPublisherTransport(
+            credentials_factory=_android_publisher_credentials,
+            build_fn=build,
         )
-    return _ANDROID_PUBLISHER_SERVICE
+    return _ANDROID_PUBLISHER_TRANSPORT
+
+
+def _android_publisher_service():
+    return _android_publisher_transport().service()
 
 
 class FeedbackRequest(BaseModel):
@@ -683,10 +722,15 @@ def _read_entitlement_blob(blob_name: str) -> Optional[Dict[str, Any]]:
         try:
             bucket = client.bucket(FEEDBACK_GCS_BUCKET)
             blob = bucket.blob(blob_name)
-            if blob.exists():
-                return json.loads(blob.download_as_text(encoding="utf-8"))
+            # A direct download avoids a second round trip for every entitlement.
+            return json.loads(blob.download_as_text(
+                encoding="utf-8", timeout=_entitlement_io_timeout(), retry=None,
+            ))
         except Exception as exc:  # noqa: BLE001
-            logger.warning("GCS entitlement read failed for %s: %s", blob_name, exc)
+            from google.api_core.exceptions import NotFound
+
+            if not isinstance(exc, NotFound):
+                logger.warning("GCS entitlement read failed: %s", type(exc).__name__)
     path = _local_entitlement_path(blob_name)
     if path.exists():
         try:
@@ -774,19 +818,23 @@ def _write_entitlement(record: Dict[str, Any]) -> None:
         record.get("firebaseUid"),
     )
     client = _gcs_client()
-    with ENTITLEMENT_LOCK:
-        for blob_name in blob_names:
-            wrote_gcs = False
-            if client is not None and FEEDBACK_GCS_BUCKET:
-                try:
-                    client.bucket(FEEDBACK_GCS_BUCKET).blob(blob_name).upload_from_string(
-                        line,
-                        content_type="application/json",
-                    )
-                    wrote_gcs = True
-                except Exception as exc:  # noqa: BLE001
-                    logger.warning("GCS entitlement write failed for %s: %s", blob_name, exc)
-            if not wrote_gcs:
+    for blob_name in blob_names:
+        wrote_gcs = False
+        if client is not None and FEEDBACK_GCS_BUCKET:
+            try:
+                client.bucket(FEEDBACK_GCS_BUCKET).blob(blob_name).upload_from_string(
+                    line,
+                    content_type="application/json",
+                    timeout=_entitlement_io_timeout(),
+                    retry=None,
+                )
+                wrote_gcs = True
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("GCS entitlement write failed: %s", type(exc).__name__)
+        if not wrote_gcs:
+            # Only local file writes need this process lock. Holding it during
+            # network I/O stalls unrelated users when storage is slow.
+            with ENTITLEMENT_LOCK:
                 path = _local_entitlement_path(blob_name)
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text(line, encoding="utf-8")
@@ -1154,7 +1202,8 @@ def _play_validation_error(exc: Exception) -> PlayValidationResult:
         if isinstance(status, int) and status >= 500:
             logger.warning("Play purchase validation service failure: status=%s", status)
             return PlayValidationResult(status="unavailable", valid=None)
-    logger.warning("Play purchase validation unavailable: %s", exc)
+    # HttpError text can include a request URL containing the purchase token.
+    logger.warning("Play purchase validation unavailable: %s", type(exc).__name__)
     return PlayValidationResult(status="unavailable", valid=None)
 
 
@@ -1163,7 +1212,7 @@ def _validate_subscription_purchase(req: PurchaseVerifyRequest) -> PlayValidatio
         result = _android_publisher_service().purchases().subscriptionsv2().get(
             packageName=req.packageName or PLAY_PACKAGE_NAME,
             token=req.purchaseToken,
-        ).execute()
+        ).execute(num_retries=0)
         matching_items = [
             item
             for item in result.get("lineItems", [])
@@ -1203,7 +1252,7 @@ def _validate_one_time_purchase(req: PurchaseVerifyRequest) -> PlayValidationRes
             packageName=req.packageName or PLAY_PACKAGE_NAME,
             productId=req.productId,
             token=req.purchaseToken,
-        ).execute()
+        ).execute(num_retries=0)
         state = result.get("purchaseState", 0)
         return PlayValidationResult(status="verified", valid=state == 0, product_type="inapp")
     except Exception as exc:  # noqa: BLE001
@@ -1220,6 +1269,22 @@ def _validate_play_purchase(req: PurchaseVerifyRequest) -> PlayValidationResult:
 
 @api_router.post("/purchases/verify", response_model=PurchaseVerifyResponse)
 def verify_purchase(request: PurchaseVerifyRequest) -> Dict[str, Any]:
+    started = time.monotonic()
+    deadline_token = _PURCHASE_DEADLINE.set(started + 8.0)
+    status = "error"
+    try:
+        response = _verify_purchase(request)
+        status = response["validationStatus"]
+        return response
+    finally:
+        _PURCHASE_DEADLINE.reset(deadline_token)
+        _emit_structured_log("purchase_verification", {
+            "validation_status": status,
+            "elapsed_ms": round((time.monotonic() - started) * 1000),
+        }, severity="WARNING" if status in {"error", "unavailable"} else "INFO")
+
+
+def _verify_purchase(request: PurchaseVerifyRequest) -> Dict[str, Any]:
     validation = _validate_play_purchase(request)
     record = _load_entitlement(request.installId, request.firebaseUid)
     if validation.valid is False:
@@ -1348,23 +1413,11 @@ def build_messages(sender: Optional[str], sms_text: str) -> List[Dict[str, str]]
 
 
 def call_groq(messages: List[Dict[str, str]]) -> Dict[str, Any]:
-    response = REQUEST_SESSION.post(
-        "https://api.groq.com/openai/v1/chat/completions",
-        headers={
-            "Authorization": f"Bearer {GROQ_API_KEY}",
-            "Content-Type": "application/json",
-        },
-        json={
-            "model": GROQ_MODEL,
-            "messages": messages,
-            "temperature": 0.0,
-            "max_tokens": 256,
-            "response_format": {"type": "json_object"},
-        },
-        timeout=GROQ_TIMEOUT,
+    return GROQ_TRANSPORT.post_chat_completions(
+        messages,
+        temperature=0.0,
+        max_tokens=256,
     )
-    response.raise_for_status()
-    return response.json()
 
 
 def extract_prediction(raw: Dict[str, Any]) -> Optional[Dict[str, Any]]:
