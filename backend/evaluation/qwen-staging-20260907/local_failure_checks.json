@@ -1,0 +1,34 @@
+[
+  {
+    "mode": "404",
+    "isOtp": true,
+    "otpIntent": "NOT_OTP",
+    "isPhishing": false,
+    "reasoning_effort": "none",
+    "max_tokens": 1024
+  },
+  {
+    "mode": "429",
+    "isOtp": true,
+    "otpIntent": "NOT_OTP",
+    "isPhishing": false,
+    "reasoning_effort": "none",
+    "max_tokens": 1024
+  },
+  {
+    "mode": "timeout",
+    "isOtp": true,
+    "otpIntent": "NOT_OTP",
+    "isPhishing": false,
+    "reasoning_effort": "none",
+    "max_tokens": 1024
+  },
+  {
+    "mode": "malformed",
+    "isOtp": true,
+    "otpIntent": "NOT_OTP",
+    "isPhishing": false,
+    "reasoning_effort": "none",
+    "max_tokens": 1024
+  }
+]

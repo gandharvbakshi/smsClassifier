@@ -1,0 +1,3402 @@
+[
+  {
+    "case_id": "synthetic_000",
+    "status": 200,
+    "elapsed_ms": 463.2054000394419,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_001",
+    "status": 200,
+    "elapsed_ms": 457.8203000128269,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_002",
+    "status": 200,
+    "elapsed_ms": 1765.2680000755936,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_003",
+    "status": 200,
+    "elapsed_ms": 457.6999000273645,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_004",
+    "status": 200,
+    "elapsed_ms": 1645.3224000288174,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_006",
+    "status": 200,
+    "elapsed_ms": 58.31300001591444,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_007",
+    "status": 200,
+    "elapsed_ms": 1356.8118999246508,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_008",
+    "status": 200,
+    "elapsed_ms": 48.4631999861449,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_010",
+    "status": 200,
+    "elapsed_ms": 1539.7946001030505,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_011",
+    "status": 200,
+    "elapsed_ms": 41.12309997435659,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "KYC_OR_ESIGN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_015",
+    "status": 200,
+    "elapsed_ms": 151.32710000034422,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_017",
+    "status": 200,
+    "elapsed_ms": 49.17000001296401,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_018",
+    "status": 200,
+    "elapsed_ms": 119.79260004591197,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_019",
+    "status": 200,
+    "elapsed_ms": 46.18039994966239,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "KYC_OR_ESIGN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_021",
+    "status": 200,
+    "elapsed_ms": 171.81169998366386,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_022",
+    "status": 200,
+    "elapsed_ms": 47.78879997320473,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_024",
+    "status": 200,
+    "elapsed_ms": 130.06879994645715,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_027",
+    "status": 200,
+    "elapsed_ms": 144.15279997047037,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_028",
+    "status": 200,
+    "elapsed_ms": 45.15030002221465,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_031",
+    "status": 200,
+    "elapsed_ms": 41.80240002460778,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_033",
+    "status": 200,
+    "elapsed_ms": 592.2515999991447,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_035",
+    "status": 200,
+    "elapsed_ms": 56.60109990276396,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "KYC_OR_ESIGN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_038",
+    "status": 200,
+    "elapsed_ms": 41.74420004710555,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_039",
+    "status": 200,
+    "elapsed_ms": 555.9100999962538,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_040",
+    "status": 200,
+    "elapsed_ms": 51.507099997252226,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_042",
+    "status": 200,
+    "elapsed_ms": 154.84370000194758,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_043",
+    "status": 200,
+    "elapsed_ms": 48.88670006766915,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "KYC_OR_ESIGN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_045",
+    "status": 200,
+    "elapsed_ms": 141.86159998644143,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_046",
+    "status": 200,
+    "elapsed_ms": 47.1236000303179,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_047",
+    "status": 200,
+    "elapsed_ms": 246.70380004681647,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_049",
+    "status": 200,
+    "elapsed_ms": 139.64549999218434,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_051",
+    "status": 200,
+    "elapsed_ms": 182.30340001173317,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_054",
+    "status": 200,
+    "elapsed_ms": 121.27299990970641,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_059",
+    "status": 200,
+    "elapsed_ms": 142.1103999018669,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_060",
+    "status": 200,
+    "elapsed_ms": 43.301799916662276,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_064",
+    "status": 200,
+    "elapsed_ms": 129.75690001621842,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_066",
+    "status": 200,
+    "elapsed_ms": 45.19590002018958,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_067",
+    "status": 200,
+    "elapsed_ms": 555.4601999465376,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_068",
+    "status": 200,
+    "elapsed_ms": 49.16539997793734,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_070",
+    "status": 200,
+    "elapsed_ms": 44.96630001813173,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_073",
+    "status": 200,
+    "elapsed_ms": 50.73210003320128,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_075",
+    "status": 200,
+    "elapsed_ms": 217.3859999747947,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_076",
+    "status": 200,
+    "elapsed_ms": 50.42750004213303,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_081",
+    "status": 200,
+    "elapsed_ms": 126.22729991562665,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_086",
+    "status": 200,
+    "elapsed_ms": 140.95989998895675,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_087",
+    "status": 200,
+    "elapsed_ms": 51.45450006239116,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_088",
+    "status": 200,
+    "elapsed_ms": 125.89629995636642,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_091",
+    "status": 200,
+    "elapsed_ms": 126.78510008845478,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_097",
+    "status": 200,
+    "elapsed_ms": 140.68870001938194,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_104",
+    "status": 200,
+    "elapsed_ms": 129.65170003008097,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_106",
+    "status": 200,
+    "elapsed_ms": 131.97719992604107,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_107",
+    "status": 200,
+    "elapsed_ms": 49.52320002485067,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_109",
+    "status": 200,
+    "elapsed_ms": 137.1078999945894,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_113",
+    "status": 200,
+    "elapsed_ms": 44.715800089761615,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_114",
+    "status": 200,
+    "elapsed_ms": 153.10150000732392,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_115",
+    "status": 200,
+    "elapsed_ms": 41.787900030612946,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_117",
+    "status": 200,
+    "elapsed_ms": 144.20740003697574,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_122",
+    "status": 200,
+    "elapsed_ms": 138.31189996562898,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_127",
+    "status": 200,
+    "elapsed_ms": 188.78469988703728,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_130",
+    "status": 200,
+    "elapsed_ms": 526.8185999011621,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_131",
+    "status": 200,
+    "elapsed_ms": 39.27129996009171,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_136",
+    "status": 200,
+    "elapsed_ms": 135.0766000105068,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_140",
+    "status": 200,
+    "elapsed_ms": 47.54189995583147,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_142",
+    "status": 200,
+    "elapsed_ms": 52.631999948062,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_ACCOUNT_CHANGE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_144",
+    "status": 200,
+    "elapsed_ms": 142.81800005119294,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_146",
+    "status": 200,
+    "elapsed_ms": 53.53819997981191,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_149",
+    "status": 200,
+    "elapsed_ms": 51.24910001177341,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_150",
+    "status": 200,
+    "elapsed_ms": 134.5785999437794,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_157",
+    "status": 200,
+    "elapsed_ms": 171.92579992115498,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_158",
+    "status": 200,
+    "elapsed_ms": 186.5377000067383,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_159",
+    "status": 200,
+    "elapsed_ms": 298.1188000412658,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_160",
+    "status": 200,
+    "elapsed_ms": 127.88879999425262,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_161",
+    "status": 200,
+    "elapsed_ms": 133.4212999790907,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_162",
+    "status": 200,
+    "elapsed_ms": 136.15859998390079,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_163",
+    "status": 200,
+    "elapsed_ms": 548.612599959597,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_164",
+    "status": 200,
+    "elapsed_ms": 415.00519996043295,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_166",
+    "status": 200,
+    "elapsed_ms": 560.6690000277013,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_169",
+    "status": 200,
+    "elapsed_ms": 131.92320009693503,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_171",
+    "status": 200,
+    "elapsed_ms": 123.69849998503923,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "UPI_TXN_OR_PIN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_173",
+    "status": 200,
+    "elapsed_ms": 258.2990999799222,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_177",
+    "status": 200,
+    "elapsed_ms": 175.31740001868457,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_179",
+    "status": 200,
+    "elapsed_ms": 137.751100002788,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_180",
+    "status": 200,
+    "elapsed_ms": 132.70610000472516,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_184",
+    "status": 200,
+    "elapsed_ms": 162.53860003780574,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_186",
+    "status": 200,
+    "elapsed_ms": 136.7940999334678,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "UPI_TXN_OR_PIN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_187",
+    "status": 200,
+    "elapsed_ms": 150.57649998925626,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_188",
+    "status": 200,
+    "elapsed_ms": 184.86100004520267,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_189",
+    "status": 200,
+    "elapsed_ms": 125.81650004722178,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_190",
+    "status": 200,
+    "elapsed_ms": 136.87829999253154,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_192",
+    "status": 200,
+    "elapsed_ms": 126.20289996266365,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "synthetic_194",
+    "status": 200,
+    "elapsed_ms": 112.24509996827692,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_bank_card_txn_01",
+    "status": 200,
+    "elapsed_ms": 65.02720003481954,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_bank_card_txn_02",
+    "status": 200,
+    "elapsed_ms": 63.315299921669066,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_bank_upi_txn_icici_feedback",
+    "status": 200,
+    "elapsed_ms": 63.47019993700087,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_otp_decathlon_login",
+    "status": 200,
+    "elapsed_ms": 55.31620001420379,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_otp_snapchat_signin",
+    "status": 200,
+    "elapsed_ms": 57.85490002017468,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_otp_indmoney_login",
+    "status": 200,
+    "elapsed_ms": 54.178499965928495,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_otp_jiohotstar_signin",
+    "status": 200,
+    "elapsed_ms": 58.40019998140633,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_otp_whatsapp_phone_change",
+    "status": 200,
+    "elapsed_ms": 54.54629997257143,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_ACCOUNT_CHANGE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_otp_delivery_code_01",
+    "status": 200,
+    "elapsed_ms": 45.280200080014765,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_otp_service_guest_code",
+    "status": 200,
+    "elapsed_ms": 52.267199964262545,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_brand_order_link",
+    "status": 200,
+    "elapsed_ms": 128.78999998793006,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_brand_bill_link",
+    "status": 200,
+    "elapsed_ms": 123.50270000752062,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_brand_payment_link",
+    "status": 200,
+    "elapsed_ms": 572.0297999214381,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_phish_bank_login_link",
+    "status": 200,
+    "elapsed_ms": 131.04939996264875,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_phish_redelivery_fee",
+    "status": 200,
+    "elapsed_ms": 131.26990001183003,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_phish_brand_redelivery_fee",
+    "status": 200,
+    "elapsed_ms": 226.2456000316888,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_phish_upi_refund_link",
+    "status": 200,
+    "elapsed_ms": 128.03669995628297,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_phish_prize_claim",
+    "status": 200,
+    "elapsed_ms": 174.8531999764964,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "regression_phish_fake_security_code",
+    "status": 200,
+    "elapsed_ms": 147.5402000360191,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_not_1",
+    "status": 200,
+    "elapsed_ms": 61.894799931906164,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_not_2",
+    "status": 200,
+    "elapsed_ms": 55.0224999897182,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_not_3",
+    "status": 200,
+    "elapsed_ms": 53.50100004579872,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_not_4",
+    "status": 200,
+    "elapsed_ms": 58.18209995049983,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_account_1",
+    "status": 200,
+    "elapsed_ms": 46.900899964384735,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_account_2",
+    "status": 200,
+    "elapsed_ms": 47.73019999265671,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_account_3",
+    "status": 200,
+    "elapsed_ms": 50.42009998578578,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_account_4",
+    "status": 200,
+    "elapsed_ms": 58.159500011242926,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_login_1",
+    "status": 200,
+    "elapsed_ms": 48.8292999798432,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_login_2",
+    "status": 200,
+    "elapsed_ms": 52.855700021609664,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_login_3",
+    "status": 200,
+    "elapsed_ms": 71.49360002949834,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_login_4",
+    "status": 200,
+    "elapsed_ms": 57.447200058959424,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_bank_1",
+    "status": 200,
+    "elapsed_ms": 56.75260000862181,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_bank_2",
+    "status": 200,
+    "elapsed_ms": 57.37409996800125,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_bank_3",
+    "status": 200,
+    "elapsed_ms": 39.80909998062998,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_bank_4",
+    "status": 200,
+    "elapsed_ms": 58.3783999318257,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_delivery_1",
+    "status": 200,
+    "elapsed_ms": 53.802400012500584,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_delivery_2",
+    "status": 200,
+    "elapsed_ms": 49.49000000488013,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_delivery_3",
+    "status": 200,
+    "elapsed_ms": 45.999899972230196,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_delivery_4",
+    "status": 200,
+    "elapsed_ms": 49.14080002345145,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_financial_1",
+    "status": 200,
+    "elapsed_ms": 47.22329997457564,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_financial_2",
+    "status": 200,
+    "elapsed_ms": 46.74030002206564,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_financial_3",
+    "status": 200,
+    "elapsed_ms": 50.94990006182343,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_financial_4",
+    "status": 200,
+    "elapsed_ms": 63.820800045505166,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_generic_1",
+    "status": 200,
+    "elapsed_ms": 60.51039998419583,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_generic_2",
+    "status": 200,
+    "elapsed_ms": 50.26789999101311,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_generic_3",
+    "status": 200,
+    "elapsed_ms": 38.55259995907545,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_generic_4",
+    "status": 200,
+    "elapsed_ms": 56.5049999859184,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_kyc_1",
+    "status": 200,
+    "elapsed_ms": 51.8026000354439,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_kyc_2",
+    "status": 200,
+    "elapsed_ms": 49.23530004452914,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "KYC_OR_ESIGN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_kyc_3",
+    "status": 200,
+    "elapsed_ms": 48.66329999640584,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "KYC_OR_ESIGN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_kyc_4",
+    "status": 200,
+    "elapsed_ms": 71.34039991069585,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "KYC_OR_ESIGN_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_upi_1",
+    "status": 200,
+    "elapsed_ms": 62.22479999996722,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "UPI_TXN_OR_PIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_upi_2",
+    "status": 200,
+    "elapsed_ms": 66.73570000566542,
+    "semantic": {
+      "isOtp": false,
+      "otpIntent": "NOT_OTP",
+      "isPhishing": true
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_upi_3",
+    "status": 200,
+    "elapsed_ms": 57.81689996365458,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "UPI_TXN_OR_PIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "fresh_upi_4",
+    "status": 200,
+    "elapsed_ms": 60.33329991623759,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": false,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_APP_LOGIN_OTP_0",
+    "status": 200,
+    "elapsed_ms": 278.112499974668,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_APP_LOGIN_OTP_1",
+    "status": 200,
+    "elapsed_ms": 247.94749997090548,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_APP_LOGIN_OTP_2",
+    "status": 200,
+    "elapsed_ms": 321.2575000943616,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_FINANCIAL_LOGIN_OTP_0",
+    "status": 200,
+    "elapsed_ms": 297.8767999447882,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "FINANCIAL_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_FINANCIAL_LOGIN_OTP_1",
+    "status": 200,
+    "elapsed_ms": 204.0565999923274,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "FINANCIAL_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_FINANCIAL_LOGIN_OTP_2",
+    "status": 200,
+    "elapsed_ms": 206.91700000315905,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "FINANCIAL_LOGIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_APP_ACCOUNT_CHANGE_OTP_0",
+    "status": 200,
+    "elapsed_ms": 213.19250005763024,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_ACCOUNT_CHANGE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_APP_ACCOUNT_CHANGE_OTP_1",
+    "status": 200,
+    "elapsed_ms": 217.7791999420151,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_ACCOUNT_CHANGE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_APP_ACCOUNT_CHANGE_OTP_2",
+    "status": 200,
+    "elapsed_ms": 380.0044999225065,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "APP_ACCOUNT_CHANGE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_BANK_OR_CARD_TXN_OTP_0",
+    "status": 200,
+    "elapsed_ms": 377.5243000127375,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_BANK_OR_CARD_TXN_OTP_1",
+    "status": 200,
+    "elapsed_ms": 232.49660001602024,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_BANK_OR_CARD_TXN_OTP_2",
+    "status": 200,
+    "elapsed_ms": 196.875499910675,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "BANK_OR_CARD_TXN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_UPI_TXN_OR_PIN_OTP_0",
+    "status": 200,
+    "elapsed_ms": 222.58369997143745,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "UPI_TXN_OR_PIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_UPI_TXN_OR_PIN_OTP_1",
+    "status": 200,
+    "elapsed_ms": 208.8709999807179,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "UPI_TXN_OR_PIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_UPI_TXN_OR_PIN_OTP_2",
+    "status": 200,
+    "elapsed_ms": 208.90099997632205,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "UPI_TXN_OR_PIN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_DELIVERY_OR_SERVICE_OTP_0",
+    "status": 200,
+    "elapsed_ms": 199.22690000385046,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_DELIVERY_OR_SERVICE_OTP_1",
+    "status": 200,
+    "elapsed_ms": 259.4309999840334,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_DELIVERY_OR_SERVICE_OTP_2",
+    "status": 200,
+    "elapsed_ms": 200.1370000652969,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "DELIVERY_OR_SERVICE_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_KYC_OR_ESIGN_OTP_0",
+    "status": 200,
+    "elapsed_ms": 211.659700027667,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "KYC_OR_ESIGN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_KYC_OR_ESIGN_OTP_1",
+    "status": 200,
+    "elapsed_ms": 216.03130002040416,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "KYC_OR_ESIGN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_KYC_OR_ESIGN_OTP_2",
+    "status": 200,
+    "elapsed_ms": 201.0528000537306,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "KYC_OR_ESIGN_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_GENERIC_APP_ACTION_OTP_0",
+    "status": 200,
+    "elapsed_ms": 200.71100001223385,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_GENERIC_APP_ACTION_OTP_1",
+    "status": 200,
+    "elapsed_ms": 209.49799998197705,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  },
+  {
+    "case_id": "routed_GENERIC_APP_ACTION_OTP_2",
+    "status": 200,
+    "elapsed_ms": 217.72439999040216,
+    "semantic": {
+      "isOtp": true,
+      "otpIntent": "GENERIC_APP_ACTION_OTP",
+      "isPhishing": false
+    },
+    "response_keys": [
+      "isOtp",
+      "isPhishing",
+      "linkVerdicts",
+      "otpIntent",
+      "phishScore",
+      "reasons"
+    ],
+    "groq_succeeded": true,
+    "groq_failed": false
+  }
+]

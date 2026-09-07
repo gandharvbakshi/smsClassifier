@@ -1,0 +1,56 @@
+{
+  "traffic": [
+    {
+      "revisionName": "sms-ensemble-qwen0907b",
+      "tag": "qwen-staging",
+      "url": "https://qwen-staging---sms-ensemble-hhpimusmbq-el.a.run.app"
+    },
+    {
+      "percent": 100,
+      "revisionName": "sms-ensemble-reliability0907",
+      "tag": "reliability-check",
+      "url": "https://reliability-check---sms-ensemble-hhpimusmbq-el.a.run.app"
+    }
+  ],
+  "latest_ready": "sms-ensemble-qwen0907b",
+  "image": "asia-south1-docker.pkg.dev/smsclassifier-478611/cloud-run-source-deploy/sms-ensemble@sha256:d230667c24662811fd5de26f4be0c2d8f28a798e5bf233abc3c9e46d8e1c7194",
+  "safe_env": [
+    {
+      "name": "WEB_RISK_MODE",
+      "value": "enforce"
+    },
+    {
+      "name": "GROQ_INTENT_MODEL",
+      "value": "qwen/qwen3.6-27b"
+    },
+    {
+      "name": "GROQ_REASONING_EFFORT",
+      "value": "none"
+    },
+    {
+      "name": "GROQ_MAX_TOKENS",
+      "value": "1024"
+    },
+    {
+      "name": "GROQ_PROMPT_COST_PER_MILLION_MICROS",
+      "value": "600000"
+    },
+    {
+      "name": "GROQ_COMPLETION_COST_PER_MILLION_MICROS",
+      "value": "3000000"
+    }
+  ],
+  "resources": {
+    "limits": {
+      "cpu": "1",
+      "memory": "512Mi"
+    }
+  },
+  "concurrency": 80,
+  "annotations": {
+    "autoscaling.knative.dev/maxScale": "10",
+    "run.googleapis.com/client-name": "gcloud",
+    "run.googleapis.com/client-version": "567.0.0"
+  },
+  "build_id": "75ea944f-772c-4709-9f65-120af844abcb"
+}

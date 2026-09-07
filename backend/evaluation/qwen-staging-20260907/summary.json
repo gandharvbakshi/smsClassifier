@@ -1,0 +1,42 @@
+{
+  "health": {
+    "baseline": {
+      "status": 200,
+      "elapsed_ms": 293.54990005958825,
+      "body": {
+        "status": "ok",
+        "modelsLoaded": true,
+        "groqModel": "llama-3.1-8b-instant"
+      }
+    },
+    "candidate": {
+      "status": 200,
+      "elapsed_ms": 296.69500002637506,
+      "body": {
+        "status": "ok",
+        "modelsLoaded": true,
+        "groqModel": "qwen/qwen3.6-27b"
+      }
+    }
+  },
+  "baseline_url": "https://sms-ensemble-hhpimusmbq-el.a.run.app",
+  "candidate_url": "https://qwen-staging---sms-ensemble-hhpimusmbq-el.a.run.app",
+  "stable_cases": 146,
+  "stable_mismatches": [],
+  "routed_cases": 24,
+  "routed_intent_mismatches": [],
+  "routed_flag_mismatches": [],
+  "response_key_mismatches": [],
+  "baseline_routed_failures": 24,
+  "candidate_routed_successes": 24,
+  "baseline_routed_latency_ms": {
+    "p50": 66.02860003476962,
+    "p95": 76.48709007771686,
+    "max": 82.6409999281168
+  },
+  "candidate_routed_latency_ms": {
+    "p50": 214.6119000390172,
+    "p95": 369.084280024981,
+    "max": 380.0044999225065
+  }
+}

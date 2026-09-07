@@ -79,6 +79,21 @@ def _int_env(name: str, default: int) -> int:
         return default
 
 
+def _positive_int_env(name: str, default: int) -> int:
+    raw = os.getenv(name)
+    if not raw:
+        return default
+    try:
+        value = int(raw.strip())
+    except ValueError:
+        logger.warning("Invalid positive integer env %s=%r; using default %s", name, raw, default)
+        return default
+    if value <= 0:
+        logger.warning("Invalid positive integer env %s=%r; using default %s", name, raw, default)
+        return default
+    return value
+
+
 def _float_env(name: str, default: float) -> float:
     raw = os.getenv(name)
     if not raw:
@@ -112,6 +127,18 @@ def _csv_env_set(name: str) -> Set[str]:
     raw = os.getenv(name, "")
     return {item.strip() for item in raw.split(",") if item.strip()}
 
+
+def _reasoning_effort_env(name: str) -> Optional[str]:
+    raw = os.getenv(name)
+    if raw is None or not raw.strip():
+        return None
+    value = raw.strip().lower()
+    if value in {"none", "default", "low", "medium", "high"}:
+        return value
+    raise EnvironmentError(
+        f"Invalid {name}={raw!r}; expected unset, none, default, low, medium, or high."
+    )
+
 ROOT_DIR = Path(__file__).resolve().parents[1]
 MODEL_DIR = ROOT_DIR / "trained_models"
 
@@ -131,6 +158,8 @@ GROQ_CONNECT_TIMEOUT = _float_env("GROQ_CONNECT_TIMEOUT", 1.5)
 GROQ_READ_TIMEOUT = _float_env("GROQ_READ_TIMEOUT", 6.0)
 GROQ_PROVIDER_COOLDOWN_SECONDS = _float_env("GROQ_PROVIDER_COOLDOWN_SECONDS", 8.0)
 GROQ_MAX_INFLIGHT_REQUESTS = _int_env("GROQ_MAX_INFLIGHT_REQUESTS", 128)
+GROQ_MAX_TOKENS = _positive_int_env("GROQ_MAX_TOKENS", 256)
+GROQ_REASONING_EFFORT = _reasoning_effort_env("GROQ_REASONING_EFFORT")
 
 # Intent metadata reused from synthetic evaluation script
 INTENT_LABELS = [
@@ -1413,10 +1442,15 @@ def build_messages(sender: Optional[str], sms_text: str) -> List[Dict[str, str]]
 
 
 def call_groq(messages: List[Dict[str, str]]) -> Dict[str, Any]:
+    kwargs: Dict[str, Any] = {
+        "temperature": 0.0,
+        "max_tokens": GROQ_MAX_TOKENS,
+    }
+    if GROQ_REASONING_EFFORT is not None:
+        kwargs["reasoning_effort"] = GROQ_REASONING_EFFORT
     return GROQ_TRANSPORT.post_chat_completions(
         messages,
-        temperature=0.0,
-        max_tokens=256,
+        **kwargs,
     )
 
 

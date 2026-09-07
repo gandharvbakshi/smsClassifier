@@ -152,6 +152,16 @@ class ProviderTransportTests(TestCase):
         self.assertNotIn("messages", payload)
         self.assertNotIn("Authorization", payload)
 
+    def test_reasoning_effort_is_omitted_when_unspecified(self) -> None:
+        clock = MutableClock(125.0)
+        response = FakeResponse(200, {"choices": [{"message": {"content": '{"ok":true}'}}]})
+        session = QueueSession([response], clock)
+        transport = _make_transport(session=session, clock=clock)
+
+        transport.post_chat_completions([{"role": "user", "content": "hi"}])
+
+        self.assertNotIn("reasoning_effort", session.calls[0]["json"])
+
     def test_429_sets_cooldown_and_expires_after_retry_after(self) -> None:
         clock = MutableClock(200.0)
         first = FakeResponse(429, {"detail": "rate limited"}, headers={"Retry-After": "2"})
