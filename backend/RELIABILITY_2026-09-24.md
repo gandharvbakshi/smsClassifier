@@ -42,6 +42,7 @@ Revision readback exactly matched the prior serving specification except for the
 
 - Final backend suite: 136 tests and 41 subtests passed, with the same test-tool warning.
 - Final public endpoint: health HTTP 200, GPT-OSS 120B reported, 8/8 provider-routed smoke cases succeeded with expected intents, and synthetic purchase HTTP 200 / `invalid` in 945 ms.
+- Final Cloud Run readback confirmed 100% on the new revision. A last-hour log query scoped to that revision found zero severity-ERROR entries, Groq transport errors, unavailable purchase results or HTTP 5xx. This is a short observation window, not proof of long-term recovery.
 - Candidate evidence: `.tmp/provider-deploy-20260924/verification.json`, `production-verification.json` and per-case comparison files.
 - Both candidates had zero user traffic until their checks passed. Older revision tags remain available for rollback/testing.
 
