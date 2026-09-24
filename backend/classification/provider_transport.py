@@ -132,6 +132,7 @@ class GroqTransport:
         temperature: float = 0.0,
         max_tokens: int = 256,
         response_format: Optional[dict[str, str]] = None,
+        reasoning_effort: Optional[str] = None,
     ) -> JsonDict:
         payload: JsonDict = {
             "model": self._model,
@@ -140,6 +141,8 @@ class GroqTransport:
             "max_tokens": max_tokens,
             "response_format": response_format or {"type": "json_object"},
         }
+        if reasoning_effort is not None:
+            payload["reasoning_effort"] = reasoning_effort
         request_key = hashlib.sha256(_canonical_json(payload).encode("utf-8")).hexdigest()
 
         while True:
