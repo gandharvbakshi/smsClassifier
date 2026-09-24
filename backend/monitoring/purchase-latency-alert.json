@@ -1,0 +1,26 @@
+{
+  "displayName": "SMS Classifier slow purchase verification",
+  "combiner": "OR",
+  "enabled": true,
+  "documentation": {
+    "content": "A purchase verification request exceeded 8 seconds. This is a latency alert and may include a successful purchase or Cloud Run cold start. Check HTTP status and the purchase_verification validation_status before classifying it as a failure.",
+    "mimeType": "text/markdown"
+  },
+  "conditions": [
+    {
+      "displayName": "Purchase verification request exceeds 8 seconds",
+      "conditionMatchedLog": {
+        "filter": "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"sms-ensemble\" AND httpRequest.requestUrl:\"/api/purchases/verify\" AND httpRequest.latency>\"8s\""
+      }
+    }
+  ],
+  "notificationChannels": [
+    "projects/smsclassifier-478611/notificationChannels/10025920133590498906"
+  ],
+  "alertStrategy": {
+    "notificationRateLimit": {
+      "period": "3600s"
+    },
+    "autoClose": "1800s"
+  }
+}

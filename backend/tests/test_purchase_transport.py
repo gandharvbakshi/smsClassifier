@@ -8,8 +8,10 @@ from googleapiclient.discovery import build
 from backend.classification.purchase_transport import (
     AndroidPublisherTransport,
     AndroidPublisherTransportConfig,
+    _ANDROID_PUBLISHER_DEADLINE,
     _DeadlineHttp,
 )
+from google_auth_httplib2 import AuthorizedHttp
 
 
 class FakeCredentials:
@@ -161,7 +163,7 @@ def test_bounded_http_deadline_is_sanitized_and_blocks_request(monkeypatch):
 
     monkeypatch.setattr("backend.classification.purchase_transport.httplib2.Http", FakeHttp)
 
-    clock_values = iter([100.0, 100.2])
+    clock_values = iter([100.0, 100.2, 100.2])
 
     transport = AndroidPublisherTransport(
         credentials_factory=lambda: FakeCredentials("credential-b", []),
@@ -218,3 +220,132 @@ def test_real_discovery_build_uses_the_bounded_transport(monkeypatch):
     assert result["purchaseState"] == 0
     assert len(requests) == 1
     assert "androidpublisher" in requests[0][0]
+
+
+def _retry_test_http(clock):
+    return AndroidPublisherTransport(
+        credentials_factory=lambda: object(),
+        build_fn=lambda *_args, **kwargs: kwargs["http"],
+        config=AndroidPublisherTransportConfig(request_deadline_seconds=5.0),
+        clock=clock,
+    ).service()
+
+
+def test_get_timeout_retries_once_with_same_deadline(monkeypatch):
+    now = [10.0]
+    seen_deadlines = []
+    responses = iter([TimeoutError("first attempt"), (SimpleNamespace(status=200), b"ok")])
+
+    def request(_self, *args, **kwargs):
+        seen_deadlines.append(_ANDROID_PUBLISHER_DEADLINE.get())
+        result = next(responses)
+        if isinstance(result, Exception):
+            now[0] += 0.25
+            raise result
+        return result
+
+    monkeypatch.setattr(AuthorizedHttp, "request", request)
+    response, content = _retry_test_http(lambda: now[0]).request("https://example.com", method="GET")
+
+    assert response.status == 200
+    assert content == b"ok"
+    assert seen_deadlines == [15.0, 15.0]
+    assert _ANDROID_PUBLISHER_DEADLINE.get() is None
+
+
+def test_retry_shares_auth_and_per_attempt_remaining_deadline(monkeypatch):
+    now = [10.0]
+    timeouts = []
+    requests = []
+    events = []
+
+    class FakeHttp:
+        def __init__(self, timeout=None, **_kwargs):
+            timeouts.append(timeout)
+
+        def request(self, uri, method="GET", body=None, headers=None, **kwargs):
+            requests.append((uri, method, dict(headers or {}), dict(kwargs)))
+            if len(requests) == 1:
+                now[0] += 4.0
+                raise TimeoutError()
+            return SimpleNamespace(status=200), b"ok"
+
+    monkeypatch.setattr("backend.classification.purchase_transport.httplib2.Http", FakeHttp)
+    transport = AndroidPublisherTransport(
+        credentials_factory=lambda: FakeCredentials("retry-credential", events),
+        build_fn=lambda *_args, **kwargs: kwargs["http"],
+        config=AndroidPublisherTransportConfig(request_timeout_seconds=2.0, request_deadline_seconds=5.0),
+        clock=lambda: now[0],
+    )
+
+    response, content = transport.service().request("https://example.com", method="GET")
+
+    assert response.status == 200
+    assert content == b"ok"
+    assert timeouts == [2.0, 1.0]
+    assert len(events) == 2
+    assert all(item[2]["Authorization"] == "Bearer retry-credential" for item in requests)
+    assert _ANDROID_PUBLISHER_DEADLINE.get() is None
+
+
+def test_get_timeout_retries_at_most_once(monkeypatch):
+    attempts = []
+    monkeypatch.setattr(
+        AuthorizedHttp,
+        "request",
+        lambda *_args, **_kwargs: (attempts.append(1), (_ for _ in ()).throw(TimeoutError()))[1],
+    )
+
+    with pytest.raises(TimeoutError):
+        _retry_test_http(lambda: 10.0).request("https://example.com", method="GET")
+
+    assert len(attempts) == 2
+    assert _ANDROID_PUBLISHER_DEADLINE.get() is None
+
+
+def test_get_timeout_does_not_retry_after_deadline_is_exhausted(monkeypatch):
+    now = [10.0]
+    attempts = []
+
+    def request(*_args, **_kwargs):
+        attempts.append(1)
+        now[0] = 15.0
+        raise TimeoutError()
+
+    monkeypatch.setattr(AuthorizedHttp, "request", request)
+    with pytest.raises(TimeoutError):
+        _retry_test_http(lambda: now[0]).request("https://example.com", method="GET")
+
+    assert len(attempts) == 1
+    assert _ANDROID_PUBLISHER_DEADLINE.get() is None
+
+
+@pytest.mark.parametrize("method", ["POST", "PUT", "DELETE"])
+def test_non_get_timeout_does_not_retry(monkeypatch, method):
+    attempts = []
+
+    def request(*_args, **_kwargs):
+        attempts.append(1)
+        raise TimeoutError()
+
+    monkeypatch.setattr(AuthorizedHttp, "request", request)
+    with pytest.raises(TimeoutError):
+        _retry_test_http(lambda: 10.0).request("https://example.com", method=method)
+
+    assert len(attempts) == 1
+    assert _ANDROID_PUBLISHER_DEADLINE.get() is None
+
+
+def test_get_non_timeout_exception_does_not_retry(monkeypatch):
+    attempts = []
+
+    def request(*_args, **_kwargs):
+        attempts.append(1)
+        raise ValueError("failure")
+
+    monkeypatch.setattr(AuthorizedHttp, "request", request)
+    with pytest.raises(ValueError, match="failure"):
+        _retry_test_http(lambda: 10.0).request("https://example.com", method="GET")
+
+    assert len(attempts) == 1
+    assert _ANDROID_PUBLISHER_DEADLINE.get() is None

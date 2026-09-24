@@ -139,15 +139,23 @@ class _BoundedAuthorizedHttp(AuthorizedHttp):
         if _ANDROID_PUBLISHER_DEADLINE.get() is None:
             token = _ANDROID_PUBLISHER_DEADLINE.set(self._clock() + self._request_deadline_seconds)
         try:
-            return super().request(
-                uri,
-                method=method,
-                body=body,
-                headers=headers,
-                redirections=redirections,
-                connection_type=connection_type,
-                **kwargs,
-            )
+            for attempt in range(2):
+                try:
+                    return super().request(
+                        uri,
+                        method=method,
+                        body=body,
+                        headers=headers,
+                        redirections=redirections,
+                        connection_type=connection_type,
+                        **kwargs,
+                    )
+                except TimeoutError:
+                    deadline = _ANDROID_PUBLISHER_DEADLINE.get()
+                    if method.upper() != "GET" or attempt != 0 or deadline is None:
+                        raise
+                    if float(deadline) - self._clock() <= 0:
+                        raise
         finally:
             if token is not None:
                 _ANDROID_PUBLISHER_DEADLINE.reset(token)

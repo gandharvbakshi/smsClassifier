@@ -2,11 +2,15 @@
   "displayName": "SMS Classifier purchase verification failures",
   "combiner": "OR",
   "enabled": true,
+  "documentation": {
+    "content": "Purchase verification returned HTTP 5xx or logged validation_status unavailable/error. Slow requests have a separate latency policy. Inspect validation_status and Play timeout warnings; an auto-closed incident does not prove a later successful purchase.",
+    "mimeType": "text/markdown"
+  },
   "conditions": [
     {
       "displayName": "SMS Classifier purchase verification failures",
       "conditionMatchedLog": {
-        "filter": "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"sms-ensemble\" AND ((httpRequest.requestUrl:\"/api/purchases/verify\" AND (httpRequest.status>=500 OR httpRequest.latency>\"8s\")) OR (jsonPayload.message=\"purchase_verification\" AND (jsonPayload.validation_status=\"unavailable\" OR jsonPayload.validation_status=\"error\")))"
+        "filter": "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"sms-ensemble\" AND ((httpRequest.requestUrl:\"/api/purchases/verify\" AND httpRequest.status>=500) OR (jsonPayload.message=\"purchase_verification\" AND (jsonPayload.validation_status=\"unavailable\" OR jsonPayload.validation_status=\"error\")))"
       }
     }
   ],
