@@ -36,6 +36,8 @@ object NotificationHelper {
     private const val CHANNEL_ID_OTP = "sms_otp_notifications"
     private const val CHANNEL_NAME_OTP = "OTP Notifications"
     private const val NOTIFICATION_GROUP = "sms_group"
+    const val ACTION_REPLY = "com.smsclassifier.app.action.REPLY"
+    const val EXTRA_REPLY_MESSAGE_ID = "replyMessageId"
 
     fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
@@ -238,16 +240,6 @@ object NotificationHelper {
                 .setContentText(body)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(body))
 
-            val replyIntent = Intent(context, QuickReplyReceiver::class.java).apply {
-                putExtra("threadId", threadId)
-                putExtra("sender", sender)
-            }
-            val replyPendingIntent = PendingIntent.getBroadcast(
-                context,
-                (messageId + 10000).toInt(),
-                replyIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
             val markReadIntent = Intent(context, MarkAsReadReceiver::class.java).apply {
                 putExtra("threadId", threadId)
             }
@@ -257,9 +249,21 @@ object NotificationHelper {
                 markReadIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
-            builder
-                .addAction(android.R.drawable.ic_menu_send, "Reply", replyPendingIntent)
-                .addAction(android.R.drawable.ic_menu_view, "Mark as read", markReadPendingIntent)
+            if (ReplyPolicy.recipient(sender) != null) {
+                val replyIntent = Intent(context, MainActivity::class.java).apply {
+                    action = ACTION_REPLY
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    putExtra(EXTRA_REPLY_MESSAGE_ID, messageId)
+                }
+                val replyPendingIntent = PendingIntent.getActivity(
+                    context,
+                    (messageId + 10_000).toInt(),
+                    replyIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+                builder.addAction(android.R.drawable.ic_menu_send, "Reply", replyPendingIntent)
+            }
+            builder.addAction(android.R.drawable.ic_menu_view, "Mark as read", markReadPendingIntent)
         }
 
         if (!soundEnabled) builder.setSilent(true)

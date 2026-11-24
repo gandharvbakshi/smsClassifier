@@ -34,8 +34,11 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.smsclassifier.app.AppContainer
+import com.smsclassifier.app.ui.components.BulkDeleteControls
+import com.smsclassifier.app.ui.components.BulkDeleteMessageRow
 import com.smsclassifier.app.ui.components.MessageItem
 import com.smsclassifier.app.ui.components.OtpListCard
+import com.smsclassifier.app.ui.components.rememberBulkDeleteSelection
 import com.smsclassifier.app.ui.viewmodel.OtpInboxViewModel
 import com.smsclassifier.app.util.ClassificationUtils
 import kotlinx.coroutines.launch
@@ -51,10 +54,16 @@ fun OtpInboxScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val clipboardManager = LocalClipboardManager.current
     val coroutineScope = rememberCoroutineScope()
+    val selection = rememberBulkDeleteSelection()
 
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text("OTPs") }) },
+        topBar = {
+            Column {
+                TopAppBar(title = { Text("OTPs") })
+                BulkDeleteControls(selection, viewModel.bulkDelete, canSelect = pagingItems.itemCount > 0)
+            }
+        },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
         LazyColumn(
@@ -121,7 +130,9 @@ fun OtpInboxScreen(
                     ) { idx ->
                         val msg = pagingItems[idx] ?: return@items
                         val otpCode = ClassificationUtils.extractOtpForCopy(msg)
-                        if (otpCode != null) {
+                        if (selection.active) {
+                            BulkDeleteMessageRow(selection, msg)
+                        } else if (otpCode != null) {
                             OtpListCard(
                                 message = msg,
                                 code = otpCode,

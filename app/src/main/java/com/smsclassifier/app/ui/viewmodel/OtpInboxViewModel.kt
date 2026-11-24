@@ -7,10 +7,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.smsclassifier.app.data.AppDatabase
+import com.smsclassifier.app.data.BulkSmsDeletion
 import com.smsclassifier.app.data.MessageEntity
 import kotlinx.coroutines.flow.Flow
 
 class OtpInboxViewModel(private val database: AppDatabase) : ViewModel() {
+    internal val bulkDelete = BulkSmsDeletion(database)
 
     val messages: Flow<PagingData<MessageEntity>> =
         Pager(

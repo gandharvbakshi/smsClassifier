@@ -20,11 +20,21 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.smsclassifier.app.ReplyDraftsViewModel
+import com.smsclassifier.app.ui.components.BulkDeleteControls
+import com.smsclassifier.app.ui.components.BulkDeleteMessageRow
 import com.smsclassifier.app.ui.components.ContactAvatar
 import com.smsclassifier.app.ui.components.MessageBubble
+import com.smsclassifier.app.ui.components.rememberBulkDeleteSelection
 import com.smsclassifier.app.ui.viewmodel.ThreadViewModel
+import com.smsclassifier.app.util.ReplyPolicy
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,18 +43,48 @@ fun ThreadScreen(
     threadId: Long,
     viewModel: ThreadViewModel,
     onBack: () -> Unit,
+    drafts: ReplyDraftsViewModel,
+    replyRecipient: String? = null,
+    focusReply: Boolean = false,
+    onReplyFocused: () -> Unit = {},
     onMessageClick: (Long) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val messages by viewModel.messages.collectAsState()
     val threadAddress by viewModel.threadAddress.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
+    val selection = rememberBulkDeleteSelection(threadId)
 
-    var messageText by remember { mutableStateOf("") }
+    val recipient = replyRecipient ?: ReplyPolicy.recipient(threadAddress)
+    val messageText = recipient?.let(drafts::get).orEmpty()
     val focusRequester = remember { FocusRequester() }
+    val focusManager = LocalFocusManager.current
+    val keyboard = LocalSoftwareKeyboardController.current
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    val replySnackbar = remember { SnackbarHostState() }
+
+    LaunchedEffect(focusReply, recipient, selection.active) {
+        if (focusReply && recipient != null && !selection.active) {
+            withFrameNanos { }
+            focusRequester.requestFocus()
+            keyboard?.show()
+            onReplyFocused()
+        }
+    }
+    LaunchedEffect(selection.active) {
+        if (selection.active) {
+            focusManager.clearFocus()
+            keyboard?.hide()
+        }
+    }
+
+    val navigateBack = {
+        focusManager.clearFocus()
+        keyboard?.hide()
+        onBack()
+    }
 
     var firstLoad by remember { mutableStateOf(true) }
     var previousMessageCount by remember { mutableStateOf(0) }
@@ -73,15 +113,28 @@ fun ThreadScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(replySnackbar) },
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            ThreadTopBar(address = threadAddress, onBack = onBack)
+            Column {
+                ThreadTopBar(
+                    address = replyRecipient ?: threadAddress,
+                    backContentDescription = if (selection.active) "Cancel selection" else "Back",
+                    onBack = {
+                        if (!selection.active) navigateBack()
+                        else if (!selection.busy && selection.plan == null) selection.clear()
+                    }
+                )
+                BulkDeleteControls(selection, viewModel.bulkDelete, canSelect = messages.isNotEmpty() && !isLoading)
+            }
         }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
+                .consumeWindowInsets(paddingValues)
+                .imePadding()
                 .background(MaterialTheme.colorScheme.background)
         ) {
             Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
@@ -105,7 +158,10 @@ fun ThreadScreen(
                             verticalArrangement = Arrangement.spacedBy(2.dp)
                         ) {
                             items(items = messages, key = { it.id }) { message ->
-                                MessageBubble(
+                                if (selection.active) {
+                                    val sender = if (message.type == 1) message.sender else "You"
+                                    BulkDeleteMessageRow(selection, message, title = sender)
+                                } else MessageBubble(
                                     message = message,
                                     modifier = Modifier.fillMaxWidth(),
                                     onCopy = { /* handled in bubble */ },
@@ -119,24 +175,34 @@ fun ThreadScreen(
                 }
             }
 
-            ThreadInputBar(
-                text = messageText,
-                onTextChange = { messageText = it },
-                focusRequester = focusRequester,
-                onSend = {
-                    if (messageText.isNotBlank()) {
-                        viewModel.sendMessage(context, threadAddress, messageText)
-                        messageText = ""
+            if (!selection.active && recipient != null) {
+                ThreadInputBar(
+                    text = messageText,
+                    onTextChange = { drafts.update(recipient, it) },
+                    focusRequester = focusRequester,
+                    onSend = {
+                        if (viewModel.sendMessage(context, threadId, recipient, messageText)) {
+                            drafts.update(recipient, "")
+                        } else {
+                            scope.launch { replySnackbar.showSnackbar("Could not send the message. Try again.") }
+                        }
                     }
-                }
-            )
+                )
+            } else if (!selection.active && threadAddress.isNotBlank()) {
+                Text(
+                    text = ReplyPolicy.UNAVAILABLE_MESSAGE,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ThreadTopBar(address: String, onBack: () -> Unit) {
+private fun ThreadTopBar(address: String, backContentDescription: String, onBack: () -> Unit) {
     TopAppBar(
         title = {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -154,7 +220,7 @@ private fun ThreadTopBar(address: String, onBack: () -> Unit) {
         },
         navigationIcon = {
             IconButton(onClick = onBack) {
-                Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                Icon(Icons.Default.ArrowBack, contentDescription = backContentDescription)
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
@@ -192,6 +258,7 @@ private fun ThreadInputBar(
                     if (text.isEmpty()) {
                         Text(
                             text = "Type a message...",
+                            modifier = Modifier.clearAndSetSemantics {},
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -205,7 +272,8 @@ private fun ThreadInputBar(
                         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .focusRequester(focusRequester),
+                            .focusRequester(focusRequester)
+                            .semantics { contentDescription = "Message" },
                         maxLines = 5
                     )
                 }

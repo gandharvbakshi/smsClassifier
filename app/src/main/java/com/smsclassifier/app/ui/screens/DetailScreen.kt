@@ -3,23 +3,27 @@ package com.smsclassifier.app.ui.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextOverflow
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.data.SettingsRepository
+import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.ui.badges.SensitivityType
 import com.smsclassifier.app.ui.components.DeleteMessageButton
 import com.smsclassifier.app.ui.components.MessageSenderCard
@@ -32,6 +36,7 @@ import com.smsclassifier.app.ui.components.WhyList
 import com.smsclassifier.app.ui.viewmodel.DetailViewModel
 import com.smsclassifier.app.util.ClassificationUtils
 import com.smsclassifier.app.util.LinkInteractionPolicy
+import com.smsclassifier.app.util.ReplyPolicy
 import com.smsclassifier.app.util.formatFriendlyTime
 import com.smsclassifier.app.util.SenderNameResolver
 import com.smsclassifier.app.util.SmsRedactor
@@ -46,6 +51,9 @@ fun DetailScreen(
     messageId: Long,
     viewModel: DetailViewModel,
     onBack: () -> Unit,
+    onReply: (MessageEntity) -> Unit,
+    showReplyWarningOnOpen: Boolean = false,
+    onReplyWarningShown: () -> Unit = {},
     onOpenPaywall: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
@@ -56,13 +64,6 @@ fun DetailScreen(
         viewModel.loadMessage(messageId)
     }
     
-    // Reload message when retry completes
-    LaunchedEffect(isRetrying) {
-        if (!isRetrying) {
-            viewModel.loadMessage(messageId)
-        }
-    }
-
     val snackbarHostState = remember { SnackbarHostState() }
     val clipboardManager = LocalClipboardManager.current
     val coroutineScope = rememberCoroutineScope()
@@ -78,6 +79,16 @@ fun DetailScreen(
     var reportCorrectedOtpIntent by remember { mutableStateOf<String?>(null) }
     var reportSubmitting by remember { mutableStateOf(false) }
     val reportSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val canReply = message?.let { ReplyPolicy.recipient(it.sender) != null } == true
+    val riskyReply = message?.let(ReplyPolicy::requiresConfirmation) == true
+    var showReplyWarning by rememberSaveable(messageId) { mutableStateOf(false) }
+    LaunchedEffect(showReplyWarningOnOpen, message) {
+        val loaded = message ?: return@LaunchedEffect
+        if (showReplyWarningOnOpen) {
+            showReplyWarning = ReplyPolicy.route(loaded) == ReplyPolicy.Route.CONFIRM
+            onReplyWarningShown()
+        }
+    }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -100,6 +111,43 @@ fun DetailScreen(
                     containerColor = MaterialTheme.colorScheme.surface
                 )
             )
+        },
+        bottomBar = {
+            message?.let { loaded ->
+                Surface(color = MaterialTheme.colorScheme.surface, tonalElevation = 3.dp) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 12.dp)
+                            .testTag("detail-reply-bar")
+                    ) {
+                        if (canReply) {
+                            OutlinedButton(
+                                onClick = {
+                                    AppContainer.telemetry.logCtaTap("detail", "reply")
+                                    if (riskyReply) showReplyWarning = true else onReply(loaded)
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .defaultMinSize(minHeight = 48.dp)
+                                    .testTag("detail-reply")
+                            ) {
+                                Text(if (riskyReply) "Reply…" else "Reply")
+                            }
+                        } else {
+                            Text(
+                                text = ReplyPolicy.UNAVAILABLE_MESSAGE,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .defaultMinSize(minHeight = 48.dp)
+                                    .testTag("detail-reply-unavailable"),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
         }
     ) { padding ->
         message?.let { msg ->
@@ -142,8 +190,9 @@ fun DetailScreen(
                 modifier = modifier
                     .fillMaxSize()
                     .padding(padding)
-                    .verticalScroll(rememberScrollState())
-                    .padding(16.dp),
+                    .verticalScroll(remember(msg.id) { ScrollState(0) })
+                    .padding(16.dp)
+                    .testTag("detail-scroll"),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 MessageSenderCard(
@@ -169,6 +218,20 @@ fun DetailScreen(
                             }
                     }
                 )
+
+                if (!hasError && otpCode != null) {
+                    OtpHeroCard(
+                        message = msg,
+                        code = otpCode,
+                        onCopy = {
+                            clipboardManager.setText(AnnotatedString(otpCode))
+                            AppContainer.telemetry.logOtpCopied("detail")
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar("OTP copied to clipboard")
+                            }
+                        }
+                    )
+                }
 
                 if (AppContainer.entitlementManager.shouldShowDetailUnlockPlaceholder(msg)) {
                     Card(
@@ -265,30 +328,7 @@ fun DetailScreen(
                         }
                     }
                 } else {
-                    if (showOtpHero && otpCode != null) {
-                        OtpHeroCard(
-                            message = msg,
-                            code = otpCode,
-                            onCopy = {
-                                clipboardManager.setText(AnnotatedString(otpCode))
-                                AppContainer.telemetry.logOtpCopied("detail")
-                                coroutineScope.launch {
-                                    snackbarHostState.showSnackbar("OTP copied to clipboard")
-                                }
-                            }
-                        )
-                        if (scamLikely) {
-                            MessageVerdictBand(
-                                tone = verdictTone,
-                                title = verdictTitle,
-                                body = verdictBody
-                            )
-                            ScamRiskMeter(
-                                level = riskLevel,
-                                label = riskLabel
-                            )
-                        }
-                    } else {
+                    if (!showOtpHero || scamLikely) {
                         MessageVerdictBand(
                             tone = verdictTone,
                             title = verdictTitle,
@@ -338,6 +378,31 @@ fun DetailScreen(
                 CircularProgressIndicator()
             }
         }
+    }
+
+    if (showReplyWarning && riskyReply) {
+        AlertDialog(
+            onDismissRequest = { showReplyWarning = false },
+            title = { Text("Reply to this sender?") },
+            text = {
+                Text("This message was flagged as suspicious. Replying may confirm your number is active. Keep passwords, verification codes, and financial details private.")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showReplyWarning = false
+                        message?.let(onReply)
+                    },
+                    modifier = Modifier.defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
+                ) { Text("Reply anyway") }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { showReplyWarning = false },
+                    modifier = Modifier.defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
+                ) { Text("Cancel") }
+            }
+        )
     }
 
     if (showReportDialog) {

@@ -15,9 +15,11 @@ import androidx.work.WorkerParameters
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.data.AppDatabase
 import com.smsclassifier.app.data.MessageEntity
+import com.smsclassifier.app.data.smsImportDeletionMutex
 import com.smsclassifier.app.util.AppLog
 import com.smsclassifier.app.util.ThreadUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
 class SmsImportWorker(
@@ -32,7 +34,7 @@ class SmsImportWorker(
         }
 
         val prefs = applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val imported = runCatching { importBatch(prefs) }.getOrElse { throwable ->
+        val imported = runCatching { smsImportDeletionMutex.withLock { importBatch(prefs) } }.getOrElse { throwable ->
             AppLog.e(TAG, "SMS import failed", throwable)
             AppContainer.telemetry.logEvent(
                 "sms_import_failed",

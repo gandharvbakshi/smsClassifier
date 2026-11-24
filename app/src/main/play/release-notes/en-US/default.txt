@@ -1,4 +1,3 @@
-v1.2.31 - Clear OTP purpose and reliable Pro verification
-- Shows clear OTP purpose labels and relevant sharing guidance across the app.
-- Offers the Pro trial after your first messages are sorted, with a respectful cooldown.
-- Confirms new purchases once when backend verification recovers after a delay.
+v1.2.32 - Reply and delete multiple messages
+- Reply directly to phone numbers from conversations, message details, and notifications.
+- Select multiple messages or conversations and confirm before deleting them.

@@ -1,5 +1,6 @@
 package com.smsclassifier.app.ui.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,15 +12,15 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.smsclassifier.app.ui.components.BulkDeleteControls
+import com.smsclassifier.app.ui.components.BulkDeleteMessageRow
 import com.smsclassifier.app.ui.components.MessageItem
-import com.smsclassifier.app.ui.viewmodel.FilterType
+import com.smsclassifier.app.ui.components.rememberBulkDeleteSelection
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
-import com.smsclassifier.app.ui.viewmodel.ViewMode
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,27 +29,31 @@ fun FlaggedScreen(
     onMessageClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LaunchedEffect(Unit) {
-        viewModel.setFilter(FilterType.PHISHING)
-        viewModel.setViewMode(ViewMode.MESSAGES)
-    }
-    val pagingItems = viewModel.messages.collectAsLazyPagingItems()
+    val pagingItems = viewModel.flaggedMessages.collectAsLazyPagingItems()
+    val selection = rememberBulkDeleteSelection()
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text("Flagged") }) }
+        topBar = {
+            Column {
+                TopAppBar(title = { Text("Flagged") })
+                BulkDeleteControls(selection, viewModel.bulkDelete, canSelect = pagingItems.itemCount > 0)
+            }
+        }
     ) { padding ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
-            contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 6.dp)
+            contentPadding = PaddingValues(vertical = 6.dp)
         ) {
             items(
                 count = pagingItems.itemCount,
                 key = pagingItems.itemKey { it.id }
             ) { idx ->
                 val msg = pagingItems[idx] ?: return@items
-                MessageItem(
+                if (selection.active) {
+                    BulkDeleteMessageRow(selection, msg)
+                } else MessageItem(
                     message = msg,
                     onClick = { onMessageClick(msg.id) },
                     modifier = Modifier.fillMaxWidth()

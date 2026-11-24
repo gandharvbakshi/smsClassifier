@@ -8,6 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.data.AppDatabase
+import com.smsclassifier.app.data.BulkSmsDeletion
 import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.data.ThreadInfo
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +16,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
@@ -29,6 +32,7 @@ enum class ViewMode {
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class InboxViewModel(private val database: AppDatabase) : ViewModel() {
+    internal val bulkDelete = BulkSmsDeletion(database)
     private val _filter = MutableStateFlow(FilterType.ALL)
     val filter: StateFlow<FilterType> = _filter.asStateFlow()
 
@@ -44,7 +48,6 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     private val _viewMode = MutableStateFlow(ViewMode.MESSAGES)
     val viewMode: StateFlow<ViewMode> = _viewMode.asStateFlow()
 
-    private var lastAutoMessageId: Long? = null
     private var conversationsLoadJob: Job? = null
     private var countsLoadJob: Job? = null
 
@@ -63,6 +66,12 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
                 }
             ).flow
         }.cachedIn(viewModelScope)
+
+    val flaggedMessages: Flow<PagingData<MessageEntity>> =
+        Pager(
+            config = PagingConfig(pageSize = 20, enablePlaceholders = false),
+            pagingSourceFactory = { database.messageDao().getPhishingPaged() }
+        ).flow.cachedIn(viewModelScope)
 
     val totalCount = database.messageDao().getTotalCount()
     val classifiedMessageCount = database.messageDao().getClassifiedCount()
@@ -88,18 +97,11 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     val generalCount: StateFlow<Int> = _generalCount.asStateFlow()
 
     init {
-        refreshCounts()
-
         viewModelScope.launch {
-            database.messageDao().getLatestMessage().collect { latest ->
-                latest?.let { message ->
-                    if (message.id != lastAutoMessageId) {
-                        lastAutoMessageId = message.id
-                        refreshCounts()
-                        if (_viewMode.value == ViewMode.THREADS) {
-                            loadConversations()
-                        }
-                    }
+            totalCount.distinctUntilChanged().collect {
+                refreshCounts()
+                if (_viewMode.value == ViewMode.THREADS) {
+                    loadConversations()
                 }
             }
         }
@@ -119,7 +121,7 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     }
 
     fun loadConversations() {
-        if (conversationsLoadJob?.isActive == true) return
+        conversationsLoadJob?.cancel()
         conversationsLoadJob = viewModelScope.launch {
             _isLoading.value = true
             try {
@@ -182,6 +184,8 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
                 }
                 
                 _conversations.value = filtered
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 // Handle error
             } finally {
@@ -208,7 +212,7 @@ class InboxViewModel(private val database: AppDatabase) : ViewModel() {
     }
 
     private fun refreshCounts() {
-        if (countsLoadJob?.isActive == true) return
+        countsLoadJob?.cancel()
         countsLoadJob = viewModelScope.launch {
             updateCounts()
         }

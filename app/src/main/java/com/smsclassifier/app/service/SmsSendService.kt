@@ -32,7 +32,8 @@ class SmsSendService : Service() {
             if (!address.isNullOrBlank() && !message.isNullOrBlank()) {
                 val smsManager = SmsManager.getDefault()
                 val timestamp = System.currentTimeMillis()
-                val threadId = ThreadUtils.calculateThreadId(address)
+                val threadId = intent?.getLongExtra(EXTRA_LOCAL_THREAD_ID, -1L)
+                    ?.takeIf { it >= 0L } ?: ThreadUtils.calculateThreadId(address)
                 
                 // Create sent message entity
                 val sentMessage = MessageEntity(
@@ -92,18 +93,13 @@ class SmsSendService : Service() {
                 AppLog.d(TAG, "Sent SMS to $address")
 
                 // Persist to system Telephony provider so other apps see the conversation
-                writeSentToSystemSmsProvider(applicationContext, address, message, timestamp)
+                val providerId = writeSentToSystemSmsProvider(applicationContext, address, message, timestamp)
 
                 if (messageId > 0) {
                     scope.launch {
                         try {
                             val database = AppDatabase.getDatabase(applicationContext)
-                            val updatedMessage = sentMessage.copy(
-                                id = messageId,
-                                type = 2, // 2 = sent
-                                status = 0 // 0 = complete
-                            )
-                            database.messageDao().update(updatedMessage)
+                            database.messageDao().markSent(messageId, providerId)
                         } catch (e: Exception) {
                             AppLog.e(TAG, "Failed to update sent message status", e)
                         }
@@ -127,8 +123,8 @@ class SmsSendService : Service() {
         address: String,
         body: String,
         timestamp: Long
-    ) {
-        try {
+    ): Long? {
+        return try {
             val subId = runCatching {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
                     android.telephony.SubscriptionManager.getDefaultSmsSubscriptionId()
@@ -151,8 +147,10 @@ class SmsSendService : Service() {
             // derived columns the same way AOSP Messaging does.
             val uri = context.contentResolver.insert(Telephony.Sms.CONTENT_URI, values)
             AppLog.d(TAG, "Wrote sent SMS to system provider at $uri (subId=$subId)")
+            uri?.lastPathSegment?.toLongOrNull()
         } catch (t: Throwable) {
             AppLog.e(TAG, "Failed to write sent SMS to system provider", t)
+            null
         }
     }
 
@@ -163,6 +161,7 @@ class SmsSendService : Service() {
         const val ACTION_SMS_SENT = "com.smsclassifier.app.SMS_SENT"
         const val ACTION_SMS_DELIVERED = "com.smsclassifier.app.SMS_DELIVERED"
         const val EXTRA_MESSAGE_ID = "message_id"
+        const val EXTRA_LOCAL_THREAD_ID = "local_thread_id"
         const val EXTRA_ADDRESS = "address"
     }
 }
@@ -182,13 +181,7 @@ class SmsSentReceiver : BroadcastReceiver() {
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
                             val database = AppDatabase.getDatabase(context)
-                            val message = database.messageDao().getById(messageId)
-                            message?.let {
-                                database.messageDao().update(it.copy(
-                                    type = 5, // 5 = failed
-                                    status = resultCode
-                                ))
-                            }
+                            database.messageDao().markSendFailed(messageId, resultCode)
                         } catch (e: Exception) {
                             AppLog.e(TAG, "Failed to update message status", e)
                         }

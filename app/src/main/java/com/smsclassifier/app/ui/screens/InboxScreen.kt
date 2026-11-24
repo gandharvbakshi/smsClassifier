@@ -67,11 +67,15 @@ import androidx.paging.compose.itemKey
 import com.smsclassifier.app.AppContainer
 import com.smsclassifier.app.R
 import com.smsclassifier.app.entitlement.TrialNudgeMilestone
+import com.smsclassifier.app.ui.components.BulkDeleteControls
+import com.smsclassifier.app.ui.components.BulkDeleteMessageRow
+import com.smsclassifier.app.ui.components.BulkDeleteRow
 import com.smsclassifier.app.ui.components.ConversationItem
 import com.smsclassifier.app.ui.components.FilterChips
 import com.smsclassifier.app.ui.components.MessageItem
 import com.smsclassifier.app.ui.components.OtpListCard
 import com.smsclassifier.app.ui.components.PrimaryButton
+import com.smsclassifier.app.ui.components.rememberBulkDeleteSelection
 import com.smsclassifier.app.ui.viewmodel.FilterType
 import com.smsclassifier.app.ui.viewmodel.InboxViewModel
 import com.smsclassifier.app.ui.viewmodel.ViewMode
@@ -113,6 +117,7 @@ fun InboxScreen(
     val viewMode by viewModel.viewMode.collectAsState()
     val clipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
+    val selection = rememberBulkDeleteSelection(Triple(viewMode, filter, searchQuery))
 
     val totalCount by viewModel.totalCount.collectAsState(initial = 0)
     val classifiedMessageCount by viewModel.classifiedMessageCount.collectAsState(initial = 0)
@@ -150,7 +155,7 @@ fun InboxScreen(
         modifier = modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         floatingActionButton = {
-            ExtendedFloatingActionButton(
+            if (!selection.active) ExtendedFloatingActionButton(
                 onClick = onNewMessageClick,
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
@@ -165,48 +170,54 @@ fun InboxScreen(
                 .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            InboxHeader(
-                searchQuery = searchQuery,
-                onSearchChange = viewModel::setSearchQuery,
-                viewMode = viewMode,
-                onViewModeChange = viewModel::setViewMode,
-                modifier = Modifier
-                    .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp)
-            )
+            if (!selection.active) {
+                InboxHeader(
+                    searchQuery = searchQuery,
+                    onSearchChange = viewModel::setSearchQuery,
+                    viewMode = viewMode,
+                    onViewModeChange = viewModel::setViewMode,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 8.dp)
+                )
 
-            FilterChips(
-                selectedFilter = filter,
-                onFilterSelected = viewModel::setFilter,
-                counts = if (viewMode == ViewMode.MESSAGES) {
-                    mapOf(
-                        FilterType.OTP to otpMessageCount,
-                        FilterType.PHISHING to phishingMessageCount,
-                        FilterType.NEEDS_REVIEW to needsReviewMessageCount,
-                        FilterType.GENERAL to generalMessageCount,
-                        FilterType.ALL to totalCount
-                    )
-                } else {
-                    mapOf(
-                        FilterType.OTP to otpCount,
-                        FilterType.PHISHING to phishingCount,
-                        FilterType.NEEDS_REVIEW to needsReviewCount,
-                        FilterType.GENERAL to generalCount,
-                        FilterType.ALL to totalThreadCount
-                    )
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
+                FilterChips(
+                    selectedFilter = filter,
+                    onFilterSelected = viewModel::setFilter,
+                    counts = if (viewMode == ViewMode.MESSAGES) {
+                        mapOf(
+                            FilterType.OTP to otpMessageCount,
+                            FilterType.PHISHING to phishingMessageCount,
+                            FilterType.NEEDS_REVIEW to needsReviewMessageCount,
+                            FilterType.GENERAL to generalMessageCount,
+                            FilterType.ALL to totalCount
+                        )
+                    } else {
+                        mapOf(
+                            FilterType.OTP to otpCount,
+                            FilterType.PHISHING to phishingCount,
+                            FilterType.NEEDS_REVIEW to needsReviewCount,
+                            FilterType.GENERAL to generalCount,
+                            FilterType.ALL to totalThreadCount
+                        )
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-            InboxEntitlementBanners(
-                ui = entitlementUi,
-                classifiedMessageCount = classifiedMessageCount,
-                otpMessageCount = otpMessageCount,
-                phishingMessageCount = phishingMessageCount
-            )
+                InboxEntitlementBanners(
+                    ui = entitlementUi,
+                    classifiedMessageCount = classifiedMessageCount,
+                    otpMessageCount = otpMessageCount,
+                    phishingMessageCount = phishingMessageCount
+                )
+            }
 
             when (viewMode) {
                 ViewMode.THREADS -> {
+                    BulkDeleteControls(
+                        selection, viewModel.bulkDelete, conversations = true,
+                        canSelect = filteredConversations.isNotEmpty() && !isLoading
+                    )
                     when {
                         isLoading && filteredConversations.isEmpty() -> {
                             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -240,7 +251,12 @@ fun InboxScreen(
                                         items = filteredConversations,
                                         key = { _, c -> c.threadId }
                                     ) { index, conversation ->
-                                        ConversationItem(
+                                        if (selection.active) {
+                                            BulkDeleteRow(
+                                                selection, conversation.threadId, conversation.address,
+                                                conversation.snippet, conversation.lastMessageTime
+                                            )
+                                        } else ConversationItem(
                                             thread = conversation,
                                             onClick = { onThreadClick(conversation.threadId) },
                                             onLongClick = conversation.latestMessage?.let { message ->
@@ -264,6 +280,7 @@ fun InboxScreen(
 
                 ViewMode.MESSAGES -> {
                     val pagingItems = viewModel.messages.collectAsLazyPagingItems()
+                    BulkDeleteControls(selection, viewModel.bulkDelete, canSelect = pagingItems.itemCount > 0)
                     val refreshState = pagingItems.loadState.refresh
                     when {
                         refreshState is LoadState.Error && pagingItems.itemCount == 0 -> {
@@ -323,7 +340,9 @@ fun InboxScreen(
                                         } else {
                                             null
                                         }
-                                        if (otpCode != null) {
+                                        if (selection.active) {
+                                            BulkDeleteMessageRow(selection, msg)
+                                        } else if (otpCode != null) {
                                             OtpListCard(
                                                 message = msg,
                                                 code = otpCode,

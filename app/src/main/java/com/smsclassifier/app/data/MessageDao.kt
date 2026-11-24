@@ -33,6 +33,9 @@ interface MessageDao {
     @Query("SELECT * FROM messages WHERE id = :id")
     suspend fun getById(id: Long): MessageEntity?
 
+    @Query("SELECT * FROM messages WHERE id = :id")
+    fun observeById(id: Long): Flow<MessageEntity?>
+
     @Query("SELECT COUNT(*) FROM messages")
     fun getTotalCount(): Flow<Int>
 
@@ -109,6 +112,40 @@ interface MessageDao {
 
     @Query("DELETE FROM messages WHERE id = :id")
     suspend fun delete(id: Long)
+
+    @Query("SELECT * FROM messages WHERE id IN (:ids)")
+    suspend fun getByIds(ids: List<Long>): List<MessageEntity>
+
+    @Query("SELECT * FROM messages WHERE threadId IN (:threadIds)")
+    suspend fun getByThreadIds(threadIds: List<Long>): List<MessageEntity>
+
+    @Query("""
+        SELECT id FROM messages
+        WHERE sourceProviderId = :providerId
+           OR (sourceProviderId IS NULL AND sender = :sender AND body = :body AND ts = :ts
+               AND (type = :type OR (type IN (2, 4, 5) AND :type IN (2, 4, 5))))
+    """)
+    suspend fun getProviderAliasIds(providerId: Long, sender: String, body: String, ts: Long, type: Int): List<Long>
+
+    @Query("""
+        UPDATE messages SET sourceProviderId = :providerId,
+          type = CASE WHEN type = 4 THEN 2 ELSE type END,
+          status = CASE WHEN type = 4 THEN 0 ELSE status END
+        WHERE id = :id
+    """)
+    suspend fun markSent(id: Long, providerId: Long?)
+
+    @Query("UPDATE messages SET type = 5, status = :status WHERE id = :id")
+    suspend fun markSendFailed(id: Long, status: Int)
+
+    @Query("""
+        DELETE FROM messages WHERE id = :id AND threadId = :threadId AND sender = :sender
+          AND body = :body AND ts = :ts AND type = :type AND sourceProviderId IS :providerId
+    """)
+    suspend fun deleteExact(id: Long, threadId: Long, sender: String, body: String, ts: Long, type: Int, providerId: Long?): Int
+
+    @Query("SELECT * FROM messages WHERE threadId = :threadId ORDER BY ts ASC, id ASC")
+    fun observeThread(threadId: Long): Flow<List<MessageEntity>>
     
     // Thread/Conversation queries
     @Query("SELECT * FROM messages WHERE threadId = :threadId ORDER BY ts ASC")

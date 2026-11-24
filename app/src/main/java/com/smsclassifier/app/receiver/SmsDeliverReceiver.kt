@@ -53,7 +53,7 @@ class SmsDeliverReceiver : BroadcastReceiver() {
                 "subId=$subscriptionId, protocol=$protocol, sc=$serviceCenter"
         )
 
-        writeToSystemSmsProvider(
+        val providerId = writeToSystemSmsProvider(
             context = context.applicationContext,
             sender = sender,
             body = body,
@@ -80,6 +80,7 @@ class SmsDeliverReceiver : BroadcastReceiver() {
                     status = null,
                     serviceCenter = serviceCenter,
                     dateSent = null,
+                    sourceProviderId = providerId,
                     language = null,
                     featuresJson = null,
                     isOtp = null,
@@ -160,8 +161,8 @@ class SmsDeliverReceiver : BroadcastReceiver() {
         serviceCenter: String?,
         protocol: Int?,
         subscriptionId: Int
-    ) {
-        try {
+    ): Long? {
+        return try {
             val values = ContentValues().apply {
                 put(Telephony.Sms.ADDRESS, sender)
                 put(Telephony.Sms.BODY, body)
@@ -186,8 +187,10 @@ class SmsDeliverReceiver : BroadcastReceiver() {
                     "System SMS provider returned null URI — are we really the default SMS handler? OTP autofill will not work."
                 )
             }
+            uri?.lastPathSegment?.toLongOrNull()
         } catch (t: Throwable) {
             AppLog.e(TAG, "Failed to write SMS to system provider", t)
+            null
         }
     }
 

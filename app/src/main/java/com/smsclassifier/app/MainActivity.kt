@@ -11,8 +11,10 @@ import android.os.Bundle
 import android.provider.Telephony
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -38,6 +40,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -48,15 +51,18 @@ import com.smsclassifier.app.AppContainer
 import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.smsclassifier.app.data.AppDatabase
+import com.smsclassifier.app.data.MessageEntity
 import com.smsclassifier.app.data.SettingsRepository
 import com.smsclassifier.app.remote.AppRemoteConfigClient
 import com.smsclassifier.app.remote.RemoteSafetyState
@@ -94,6 +100,8 @@ import com.smsclassifier.app.ui.viewmodel.ThreadViewModel
 import com.smsclassifier.app.ui.viewmodel.ComposeViewModel
 import com.smsclassifier.app.ui.viewmodel.OtpInboxViewModel
 import com.smsclassifier.app.util.NotificationHelper
+import com.smsclassifier.app.util.ReplyPolicy
+import com.smsclassifier.app.util.ThreadUtils
 import com.smsclassifier.app.util.CrashlyticsBootstrap
 import com.smsclassifier.app.work.SmsImportWorker
 import kotlinx.coroutines.launch
@@ -102,6 +110,8 @@ import kotlinx.coroutines.withTimeoutOrNull
 class MainActivity : ComponentActivity() {
     private lateinit var database: AppDatabase
     private val defaultSmsAppState = mutableStateOf(false)
+    private var navigationIntent by mutableStateOf<Intent?>(null)
+    private val replyDrafts by viewModels<ReplyDraftsViewModel>()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -109,6 +119,7 @@ class MainActivity : ComponentActivity() {
         
         database = AppDatabase.getDatabase(this)
         handleIntent(intent)
+        navigationIntent = intent
         defaultSmsAppState.value = isDefaultSmsAppNow()
 
         // Ensure notification channel is created
@@ -252,12 +263,37 @@ class MainActivity : ComponentActivity() {
                     }
 
                     // Handle intent extras for navigation
-                    val composePhone = intent?.getStringExtra("compose_phone")
-                    val composeMessage = intent?.getStringExtra("compose_message")
-                    val openThreadId = intent?.getLongExtra("threadId", -1L)
-                    val shouldOpenThread = intent?.getBooleanExtra("openThread", false) == true
-                    val openMessageId = intent?.getLongExtra("messageId", -1L)
-                    val shouldOpenDetail = intent?.getBooleanExtra("openDetail", false) == true
+                    val incomingIntent = navigationIntent
+                    val composePhone = incomingIntent?.getStringExtra("compose_phone")
+                    val composeMessage = incomingIntent?.getStringExtra("compose_message")
+                    val openThreadId = incomingIntent?.getLongExtra("threadId", -1L)
+                    val shouldOpenThread = incomingIntent?.getBooleanExtra("openThread", false) == true
+                    val openMessageId = incomingIntent?.getLongExtra("messageId", -1L)
+                    val shouldOpenDetail = incomingIntent?.getBooleanExtra("openDetail", false) == true
+
+                    LaunchedEffect(incomingIntent, needsConsent) {
+                        if (needsConsent || incomingIntent?.action != NotificationHelper.ACTION_REPLY) {
+                            return@LaunchedEffect
+                        }
+                        val id = incomingIntent.getLongExtra(NotificationHelper.EXTRA_REPLY_MESSAGE_ID, -1L)
+                        if (id <= 0L) return@LaunchedEffect
+                        val message = database.messageDao().getById(id)
+                        incomingIntent.removeExtra(NotificationHelper.EXTRA_REPLY_MESSAGE_ID)
+                        if (message == null) return@LaunchedEffect
+
+                        when (val route = ReplyPolicy.route(message)) {
+                            ReplyPolicy.Route.COMPOSER -> navController.openReplyThread(message)
+                            ReplyPolicy.Route.CONFIRM, null -> {
+                                val current = navController.currentBackStackEntry
+                                if (current?.destination?.route != DETAIL_ROUTE || current.arguments?.getLong("messageId") != id) {
+                                    navController.navigate("detail/$id")
+                                }
+                                if (route == ReplyPolicy.Route.CONFIRM) {
+                                    navController.currentBackStackEntry?.savedStateHandle?.set(REPLY_WARNING, true)
+                                }
+                            }
+                        }
+                    }
 
                     LaunchedEffect(composePhone, composeMessage) {
                         if (composePhone != null || composeMessage != null) {
@@ -290,7 +326,7 @@ class MainActivity : ComponentActivity() {
                         NavHost(
                             navController = navController,
                             startDestination = if (needsConsent) "consent_onboarding" else "inbox",
-                            modifier = Modifier.padding(innerPadding)
+                            modifier = Modifier.padding(innerPadding).consumeWindowInsets(innerPadding)
                         ) {
                         composable("consent_onboarding") {
                             ConsentOnboardingScreen(
@@ -334,7 +370,7 @@ class MainActivity : ComponentActivity() {
                         
                         // Thread/Conversation view
                         composable(
-                            route = "thread/{threadId}",
+                            route = THREAD_ROUTE,
                             arguments = listOf(
                                 navArgument("threadId") {
                                     type = NavType.LongType
@@ -345,9 +381,16 @@ class MainActivity : ComponentActivity() {
                             val viewModel: ThreadViewModel = viewModel(
                                 factory = ThreadViewModelFactory(database)
                             )
+                            val savedState = backStackEntry.savedStateHandle
+                            val replyRecipient by savedState.getStateFlow<String?>(REPLY_RECIPIENT, null).collectAsState()
+                            val focusReply by savedState.getStateFlow(FOCUS_REPLY, false).collectAsState()
                             ThreadScreen(
                                 threadId = threadId,
                                 viewModel = viewModel,
+                                replyRecipient = replyRecipient,
+                                focusReply = focusReply,
+                                onReplyFocused = { savedState[FOCUS_REPLY] = false },
+                                drafts = replyDrafts,
                                 onBack = { navController.popBackStack() },
                                 onMessageClick = { messageId ->
                                     AppContainer.telemetry.logMessageOpen("thread")
@@ -429,7 +472,7 @@ class MainActivity : ComponentActivity() {
                         }
                         
                         composable(
-                            route = "detail/{messageId}",
+                            route = DETAIL_ROUTE,
                             arguments = listOf(
                                 navArgument("messageId") {
                                     type = NavType.LongType
@@ -440,10 +483,15 @@ class MainActivity : ComponentActivity() {
                             val viewModel: DetailViewModel = viewModel(
                                 factory = DetailViewModelFactory(database, this@MainActivity)
                             )
+                            val savedState = backStackEntry.savedStateHandle
+                            val replyWarning by savedState.getStateFlow(REPLY_WARNING, false).collectAsState()
                             DetailScreen(
                                 messageId = messageId,
                                 viewModel = viewModel,
                                 onBack = { navController.popBackStack() },
+                                onReply = { message -> navController.openReplyThread(message) },
+                                showReplyWarningOnOpen = replyWarning,
+                                onReplyWarningShown = { savedState[REPLY_WARNING] = false },
                                 onOpenPaywall = {
                                     navController.navigate("paywall/feature_locked")
                                 }
@@ -611,7 +659,32 @@ class MainActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        intent?.let { handleIntent(it) }
+        if (intent != null) {
+            setIntent(intent)
+            handleIntent(intent)
+            navigationIntent = intent
+        }
+    }
+
+    private fun NavController.openReplyThread(message: MessageEntity) {
+        val recipient = ReplyPolicy.recipient(message.sender) ?: return
+        val threadId = message.threadId.takeIf { it != 0L } ?: ThreadUtils.calculateThreadId(recipient)
+        val current = currentBackStackEntry
+        val previous = previousBackStackEntry
+        if (current?.destination?.route == DETAIL_ROUTE &&
+            previous?.destination?.route == THREAD_ROUTE &&
+            previous.arguments?.getLong("threadId") == threadId
+        ) {
+            popBackStack()
+        } else if (current?.destination?.route != THREAD_ROUTE ||
+            current.arguments?.getLong("threadId") != threadId
+        ) {
+            navigate("thread/$threadId")
+        }
+        currentBackStackEntry?.savedStateHandle?.apply {
+            set(REPLY_RECIPIENT, recipient)
+            set(FOCUS_REPLY, true)
+        }
     }
     
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -851,10 +924,25 @@ class MainActivity : ComponentActivity() {
     }
 
     companion object {
+        private const val DETAIL_ROUTE = "detail/{messageId}"
+        private const val THREAD_ROUTE = "thread/{threadId}"
+        private const val REPLY_WARNING = "replyWarning"
+        private const val REPLY_RECIPIENT = "replyRecipient"
+        private const val FOCUS_REPLY = "focusReply"
         private const val REQUEST_DEFAULT_SMS = 1001
         private const val REQUEST_NOTIFICATION_PERMISSION = 1002
         private const val REQUEST_SMS_PERMISSIONS = 1003
         private const val CONSENT_GATE_TIMEOUT_MS = 2_000L
+    }
+}
+
+class ReplyDraftsViewModel : ViewModel() {
+    private val drafts = mutableStateMapOf<String, String>()
+
+    fun get(recipient: String): String = drafts[recipient].orEmpty()
+
+    fun update(recipient: String, text: String) {
+        if (text.isEmpty()) drafts.remove(recipient) else drafts[recipient] = text
     }
 }
 

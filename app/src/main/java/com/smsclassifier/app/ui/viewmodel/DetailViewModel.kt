@@ -14,6 +14,7 @@ import com.smsclassifier.app.util.AppLog
 import com.smsclassifier.app.util.ClassificationUtils
 import com.smsclassifier.app.work.ClassificationWorker
 import com.smsclassifier.app.work.FeedbackUploadWorker
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,10 +29,12 @@ class DetailViewModel(
     
     private val _isRetrying = MutableStateFlow(false)
     val isRetrying: StateFlow<Boolean> = _isRetrying.asStateFlow()
+    private var messageObservation: Job? = null
 
     fun loadMessage(id: Long) {
-        viewModelScope.launch {
-            _message.value = database.messageDao().getById(id)
+        messageObservation?.cancel()
+        messageObservation = viewModelScope.launch {
+            database.messageDao().observeById(id).collect { _message.value = it }
         }
     }
 
